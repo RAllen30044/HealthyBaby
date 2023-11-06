@@ -1,0 +1,89 @@
+{
+  "user": [
+    {
+      "id": 0,
+      "username": "Robert",
+      "password": "Comets"
+    }
+  ],
+  "historyDB":[
+    {
+      "profileId":0,
+      "napHistoryId":0,
+      "bottleHistoryId":0,
+      "breastFeedingHistoryId":0,
+      "diapersHistoryId":null,
+      "illnessId":0
+    },
+    {
+      "profileId":0,
+      "napHistoryId":0,
+      "bottleHistoryId":0,
+      "breastFeedingHistoryId":null,
+      "diapersHistoryId":0,
+      "illnessId":0
+    }
+  ],
+  "profile": [
+    {
+      "id": 0,
+      "userId": 0,
+      "name": "Naya Allen",
+      "age": "8",
+      "height": "25",
+      "weight": "30",
+      "pic": "c://some file in directory"
+    }
+  ],
+  "napHistory": [
+    {
+      "id": 0,
+      "date": "10/3/2023",
+      "time": "2:00 PM"
+    }
+  ],
+  "bottleHistory": [
+    {
+      "id": 0,
+      "date": "10/3/2023",
+      "time": "1:00 PM",
+      "oz": "8",
+      "ozLeft": "2"
+    }
+  ],
+  "breastFeedingHistory": [
+    {
+      "id": 0,
+      "date": "10/3/2023",
+      "time": "12:00 PM",
+      "feedingTimeLength": "20"
+    }
+  ],
+  "diapersHistory": [
+    {
+      "id": 0,
+      "date": "10/3/2023",
+      "time": "1:30 PM",
+      "type": "poop",
+      "constistancy": "hard"
+    },
+    {
+      "id": 1,
+      "date": "10/3/2023",
+      "time": "10:00 AM",
+      "type": "wet",
+      "constistancy": "normal"
+    }
+  ],
+  "illness": [
+    {
+      "id": 0,
+      "date": "10/4/2023",
+      "type": "fever",
+      "symptoms": "runny nose, cough",
+      "medicine": "tylonol",
+      "oz": ".5",
+      "timeMedicineTaken": "11:00 AM"
+    }
+  ]
+}
