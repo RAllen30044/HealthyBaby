@@ -3,7 +3,10 @@
     {
       "id": 0,
       "username": "Robert",
-      "password": "Comets"
+      "password": "Comets",
+      "caretaker":"Donna",
+      "userEmail": "email@yahoo.com",
+      "caretakerEmail":"DLovely16@aol.com"
     }
   ],
   "historyDB":[
@@ -24,7 +27,7 @@
       "illnessId":0
     }
   ],
-  "profile": [
+  "child": [
     {
       "id": 0,
       "userId": 0,
