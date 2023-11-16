@@ -1,0 +1,48 @@
+.profilePage {
+  min-height: 100vh;
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 28vw;
+  min-height: 73vh;
+  place-items: center;
+}
+
+.profileForm {
+  width: 100%;
+}
+.inputContainer {
+  margin: 10px 0;
+display: flex;
+
+}
+.profileLable {
+  width: 50%;
+}
+.profileInput {
+  border: 1px solid transparent;
+  background-color: transparent;
+  width: 50%;
+}
+
+.buttonContainer {
+  text-align: center;
+
+}
+#saveButton{
+      width: 87px;
+      height: 45px;
+      border: 1px solid transparent;
+      border-radius: 25px;
+      background-color: gainsboro;
+      font-size: 16px;
+}
+#saveButton:hover{
+      cursor: pointer;
+      background-color: darkgrey;
+      color: azure;
+      border: 1px solid black;
+}

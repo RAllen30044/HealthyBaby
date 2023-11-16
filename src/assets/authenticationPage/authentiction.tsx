@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Request } from "../../api";
 import { User } from "../../Types";
 import toast from "react-hot-toast";
+import "./authenticationPage.css";
+
 export const AuthenticationPage=()=>{
 
 const [user, setUser] = useState<User | null>(null);
@@ -46,6 +48,7 @@ const [user, setUser] = useState<User | null>(null);
 
   return (
 <>
+<div className="authentication">
 <h1>Hello {user?.username}</h1>
       <div className="card">
         <h1>Create User</h1>
@@ -126,7 +129,7 @@ const [user, setUser] = useState<User | null>(null);
           <button type="submit">Login</button>
         </form>
         </div>
-
+</div>
 </>
   );
 }
