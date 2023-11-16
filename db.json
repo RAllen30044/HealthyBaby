@@ -1,5 +1,5 @@
 {
-  "user": [
+  "profile": [
     {
       "id": 0,
       "username": "Robert",
@@ -30,7 +30,7 @@
   "child": [
     {
       "id": 0,
-      "userId": 0,
+      "profileId": 0,
       "name": "Naya Allen",
       "age": "8",
       "height": "25",
