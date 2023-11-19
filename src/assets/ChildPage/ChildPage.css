@@ -1,0 +1,46 @@
+.childPage {
+  min-height: 100vh;
+}
+.childPageInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.childPictureContainer {
+  border: 1px solid rgb(74, 74, 74);
+  width: 195px;
+  height: 240px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
+  background-color: lightgrey;
+}
+.childPictureContainer:hover {
+  background-color: darkgrey;
+  cursor: pointer;
+}
+.childInfo {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+  gap: 10px;
+}
+.childInfoContainer {
+  margin-bottom: 10px;
+  width: 11vw;
+  display: flex;
+}
+.childInfoLabel {
+  width: 50%;
+}
+.childInfoInput {
+  width: 50%;
+  border: 1px solid transparent;
+}
+
+.headSizeInfo {
+  margin-bottom: 40px;
+}

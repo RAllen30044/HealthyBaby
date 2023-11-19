@@ -1,3 +1,4 @@
+
 :root {
   font-family: 'Dosis', sans-serif;
   line-height: 1.5;
@@ -5,7 +6,7 @@
 
  
   color: rgba(2, 2, 2, 0.87);
-  background-color: #f1f1f1;
+ 
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,3 +15,20 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html{
+  background-color: white;
+}
+.saveButton{
+  width: 87px;
+  height: 45px;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  background-color: gainsboro;
+  font-size: 16px;
+}
+.saveButton:hover{
+  cursor: pointer;
+  background-color: darkgrey;
+  color: azure;
+  border: 1px solid black;
+}

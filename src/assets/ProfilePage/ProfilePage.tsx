@@ -92,7 +92,7 @@ export const ProfilePage = () => {
               />
             </div>
             <div className="buttonContainer">
-              <button id="saveButton">Save</button>
+              <button className="saveButton">Save</button>
             </div>
           </form>
         </div>

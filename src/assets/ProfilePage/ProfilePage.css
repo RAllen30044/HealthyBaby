@@ -32,17 +32,3 @@ display: flex;
   text-align: center;
 
 }
-#saveButton{
-      width: 87px;
-      height: 45px;
-      border: 1px solid transparent;
-      border-radius: 25px;
-      background-color: gainsboro;
-      font-size: 16px;
-}
-#saveButton:hover{
-      cursor: pointer;
-      background-color: darkgrey;
-      color: azure;
-      border: 1px solid black;
-}
