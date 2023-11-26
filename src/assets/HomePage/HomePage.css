@@ -1,0 +1,36 @@
+.banner{
+      display: flex;
+    background-color: blanchedalmond;
+    padding: 50px;
+}
+
+.childInfoContainerHP{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 50%;
+}
+
+.childImage{
+      border: 1px solid rgb(74, 74, 74);
+      width: 195px;
+      height: 240px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 80px;
+      background-color: lightgrey;
+}
+
+.category{
+      width: 50%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+}
+.categoryName h1{
+      font-family: 'Caveat', cursive;
+      font-size: 90px;
+}

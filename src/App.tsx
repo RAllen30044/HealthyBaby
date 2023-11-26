@@ -5,7 +5,7 @@
 import { AuthenticationPage } from "./assets/authenticationPage/authentiction";
 import { ProfilePage } from "./assets/ProfilePage/ProfilePage";
 import { ChildPage } from "./assets/ChildPage/ChildPage";
-import { HomePage } from "./assets/HomePage/HomaPage";
+import { HomePage } from "./assets/HomePage/HomePage";
 
 function App() {
   return (
