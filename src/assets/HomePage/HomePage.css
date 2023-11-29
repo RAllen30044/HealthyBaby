@@ -3,7 +3,9 @@
     background-color: blanchedalmond;
     padding: 50px;
 }
-
+button:hover{
+      cursor: pointer;
+}
 .childInfoContainerHP{
       display: flex;
       align-items: center;
@@ -33,4 +35,54 @@
 .categoryName h1{
       font-family: 'Caveat', cursive;
       font-size: 90px;
+}
+
+.notActive{
+      display: none;
+}
+.dataInputForm{
+      width: 89vw;
+   display: flex;
+   justify-content: center;
+   margin-top: 50px;
+
+}
+
+form div{
+      margin-bottom: 20px;
+}
+input{
+      border: solid 1px transparent;
+}
+.saveContainer{
+      width: 100%;
+      display: flex;
+      justify-content: end;
+}
+.save{
+      height: 50px;
+      width: 100px;
+      border: 1px solid transparent;
+      border-radius: 25px;
+      font-size: 16px;
+     background-color: blanchedalmond;
+}
+.save:hover{
+      background-color: rgba(247, 224, 190, 0.975);
+      box-shadow: 1px 1px 2px 2px inset;
+      
+}
+.historyHeaderContainer{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+}
+.historyHeader {
+
+width: 50vw;
+text-align: center;
+}
+.historyHeader h1{
+      margin: 25px 0;
+
 }
