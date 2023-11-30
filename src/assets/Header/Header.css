@@ -1,0 +1,48 @@
+
+
+nav{
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 20px;
+}
+.logo{
+      position: relative;
+}
+.logo:hover{
+      cursor: pointer;
+}
+.childList{
+      position: absolute;
+      width: 86px;
+      border: 1px solid black;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      left: 8px;
+      top: 32px;
+      background-color: white;
+}
+
+.links{
+      display: flex;
+      gap: 30px;
+      align-items: center;
+}
+.pagesDropDown{
+position: relative;
+}
+.subPagesLinks{
+      position: absolute;
+      border: 1px solid black;
+      padding: 20px;
+      right: 6px;
+      background-color: white;
+      top: 12px;
+}
+.hidden{
+      display: none;
+}
+.links div:hover{
+      cursor: pointer;
+}

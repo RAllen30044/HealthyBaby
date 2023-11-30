@@ -1,6 +1,8 @@
 import "./FeedingPage.css";
 
+
 export const FeedingPage = () => {
+  
   return (
     <>
       <div className="banner">
