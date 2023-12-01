@@ -1,88 +1,85 @@
-.banner{
-      display: flex;
-    background-color: blanchedalmond;
-    padding: 50px;
+.banner {
+  display: flex;
+
+  padding: 50px;
 }
-button:hover{
-      cursor: pointer;
+button:hover {
+  cursor: pointer;
 }
-.childInfoContainerHP{
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      width: 50%;
+.childInfoContainerHP {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 50%;
 }
 
-.childImage{
-      border: 1px solid rgb(74, 74, 74);
-      width: 195px;
-      height: 240px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 80px;
-      background-color: lightgrey;
+.childImage {
+  border: 1px solid rgb(74, 74, 74);
+  width: 195px;
+  height: 240px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
+  background-color: lightgrey;
 }
 
-.category{
-      width: 50%;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+.category {
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.categoryName h1{
-      font-family: 'Caveat', cursive;
-      font-size: 90px;
-}
-
-.notActive{
-      display: none;
-}
-.dataInputForm{
-      width: 89vw;
-   display: flex;
-   justify-content: center;
-   margin-top: 50px;
-
+.categoryName h1 {
+  font-family: "Caveat", cursive;
+  font-size: 90px;
 }
 
-form div{
-      margin-bottom: 20px;
+.notActive {
+  display: none;
 }
-input{
-      border: solid 1px transparent;
+.dataInputForm {
+  width: 89vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
-.saveContainer{
-      width: 100%;
-      display: flex;
-      justify-content: end;
+
+form div {
+  margin-bottom: 20px;
 }
-.save{
-      height: 50px;
-      width: 100px;
-      border: 1px solid transparent;
-      border-radius: 25px;
-      font-size: 16px;
-     background-color: blanchedalmond;
+input {
+  border: solid 1px transparent;
+  background-color: transparent;
 }
-.save:hover{
-      background-color: rgba(247, 224, 190, 0.975);
-      box-shadow: 1px 1px 2px 2px inset;
-      
+.saveContainer {
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }
-.historyHeaderContainer{
-      width: 100%;
-      display: flex;
-      justify-content: center;
+.save {
+  height: 50px;
+  width: 100px;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  font-size: 16px;
+  background-color: #fadd9f;
+}
+.save:hover {
+  background-color: #fadd9fb2;
+  /* box-shadow: 1px 1px 2px 2px inset; */
+}
+.historyHeaderContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .historyHeader {
-
-width: 50vw;
-text-align: center;
+  width: 50vw;
+  text-align: center;
 }
-.historyHeader h1{
-      margin: 25px 0;
-
+.historyHeader h1 {
+  margin: 25px 0;
 }

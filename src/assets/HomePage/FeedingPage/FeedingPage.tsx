@@ -1,25 +1,11 @@
+import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./FeedingPage.css";
 
-
 export const FeedingPage = () => {
-  
   return (
     <>
-      <div className="banner">
-        <div className="childInfoContainerHP">
-          <div className="childPictureContainer">
-            <i className="fa fa-plus fa-5x" aria-hidden="false"></i>
-          </div>
-          <div className="info">
-            <div className="name">Name: Name</div>
-
-            <div className="age">Age: Age</div>
-
-            <div className="height">Height: Height</div>
-
-            <div className="weight">Weight: Weight</div>
-          </div>
-        </div>
+      <div className="banner feedingBanner">
+        <ChildInfo />
         <div className="category">
           <div className="categoryName">
             <h1>Feeding</h1>
@@ -48,12 +34,15 @@ export const FeedingPage = () => {
             <label htmlFor="">Oz. discarded:</label>
             <input type="text" id="ozDiscarded" />
           </div>
-          <div className="feedingTime notActive">
+          <div className="feedingTime hidden">
             <label htmlFor="">How much time was feeding:</label>
             <input type="text" id="feedingTime" />
           </div>
           <div className="saveContainer">
-          <button type="submit" className="save">Save</button></div>
+            <button type="submit" className="save">
+              Save
+            </button>
+          </div>
         </form>
       </div>
       <div className="historyHeaderContainer">

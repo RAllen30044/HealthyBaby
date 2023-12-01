@@ -1,48 +1,57 @@
-
-
-nav{
-      display: flex;
-      justify-content: space-between;
-      margin: 5px 20px;
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 20px;
 }
-.logo{
-      position: relative;
-}
-.logo:hover{
-      cursor: pointer;
-}
-.childList{
-      position: absolute;
-      width: 86px;
-      border: 1px solid black;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      left: 8px;
-      top: 32px;
-      background-color: white;
+.logo {
+  position: relative;
 }
 
-.links{
-      display: flex;
-      gap: 30px;
-      align-items: center;
+.logo h5:hover {
+  cursor: pointer;
+  color: gray;
 }
-.pagesDropDown{
-position: relative;
+.logo .child:hover {
+  cursor: pointer;
 }
-.subPagesLinks{
-      position: absolute;
-      border: 1px solid black;
-      padding: 20px;
-      right: 6px;
-      background-color: white;
-      top: 12px;
+
+.childList {
+  position: absolute;
+  width: 86px;
+  border: 1px solid black;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 8px;
+  top: 32px;
+  background-color: white;
 }
-.hidden{
-      display: none;
+
+.pages {
+  display: flex;
+  gap: 30px;
+  align-items: center;
 }
-.links div:hover{
-      cursor: pointer;
+.page:hover {
+  cursor: pointer;
+}
+.pagesDropDown {
+  position: relative;
+}
+.hamburgerIcon:hover {
+  cursor: pointer;
+  color: gray;
+}
+.subPagesLinks {
+  position: absolute;
+  border: 1px solid black;
+  padding: 20px;
+  right: 6px;
+  background-color: white;
+  top: 12px;
+}
+
+.link:hover {
+  cursor: pointer;
 }
