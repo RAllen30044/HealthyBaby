@@ -1,6 +1,6 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./FeedingPage.css";
-
+import { TimeInfo } from "../TimeInfo/TimeInfo";
 export const FeedingPage = () => {
   return (
     <>
@@ -18,14 +18,7 @@ export const FeedingPage = () => {
       </div>
       <div className="dataInputForm">
         <form action="POST">
-          <div className="time">
-            <label htmlFor="time">Time:</label>
-            <input type="text" id="time" />
-          </div>
-          <div className="date">
-            <label htmlFor="date">Date:</label>
-            <input type="text" id="date" />
-          </div>
+          <TimeInfo />
           <div className="oz">
             <label htmlFor="oz">Bottle oz:</label>
             <input type="text" id="time" />
