@@ -11,19 +11,25 @@ export const DaiperPage = () => {
           <div className="categoryName">
             <h1>Diapers</h1>
           </div>
-          
         </div>
       </div>
       <div className="dataInputForm">
-        <form action="POST">
+        <form
+          action="POST"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <TimeInfo />
           <div className="diaperType ">
-            <label htmlFor="diaperType">Diaper Type?</label><br />
+            <label htmlFor="diaperType">Diaper Type?</label>
+            <br />
             <button className="wet">Wet</button>
             <button className="poop">Poop</button>
           </div>
           <div className="consistancy hidden">
-            <label htmlFor="consistancy">Consistancy?</label><br />
+            <label htmlFor="consistancy">Consistancy?</label>
+            <br />
             <button className="soft">soft</button>
             <button className="hard">hard</button>
             <button className="hard">pellets</button>

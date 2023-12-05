@@ -10,11 +10,15 @@ export const IllnessPage = () => {
           <div className="categoryName">
             <h1>Illness</h1>
           </div>
-          
         </div>
       </div>
       <div className="dataInputForm">
-        <form action="POST">
+        <form
+          action="POST"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <TimeInfo />
           <div className="sickness">
             <label htmlFor="sickness">Sickness: </label>

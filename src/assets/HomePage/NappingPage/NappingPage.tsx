@@ -11,17 +11,21 @@ export const NappingPage = () => {
           <div className="categoryName">
             <h1>Napping</h1>
           </div>
-          
         </div>
       </div>
       <div className="dataInputForm">
-        <form action="POST">
+        <form
+          action="POST"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <TimeInfo />
           <div className="napLength ">
             <label htmlFor="napLength">Nap Length:</label>
-           <input type="text" name="napLength" id="napLength" />
+            <input type="text" name="napLength" id="napLength" />
           </div>
-  
+
           <div className="saveContainer">
             <button type="submit" className="save nappingSave">
               Save

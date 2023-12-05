@@ -38,20 +38,27 @@ nav {
 }
 .pagesDropDown {
   position: relative;
+
 }
 .hamburgerIcon:hover {
   cursor: pointer;
   color: gray;
 }
+
 .subPagesLinks {
   position: absolute;
   border: 1px solid black;
-  padding: 20px;
+  width: 60px;
   right: 6px;
   background-color: white;
   top: 12px;
 }
 
+.selected {
+  background-color: black;
+  color: white;
+  width: 100%;
+}
 .link:hover {
   cursor: pointer;
 }

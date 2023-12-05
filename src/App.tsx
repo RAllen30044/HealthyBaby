@@ -4,7 +4,7 @@ import "./App.css";
 
 import { AuthenticationPage } from "./assets/authenticationPage/authentiction";
 import { ProfilePage } from "./assets/ProfilePage/ProfilePage";
-import { ChildPage } from "./assets/ChildPage/ChildPage";
+import { ChildPage } from "./assets/HomePage/ChildPage/ChildPage";
 import { HomePage } from "./assets/HomePage/HomePage";
 import { Header } from "./assets/Header/Header";
 

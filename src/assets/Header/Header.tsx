@@ -1,9 +1,11 @@
+import { useActiveComponent } from "./ActiveComponent";
 import "./Header.css";
 import { useState } from "react";
 
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
+  const { activeComponent, setActiveComponent } = useActiveComponent();
   return (
     <>
       <header>
@@ -32,24 +34,61 @@ export const Header = () => {
             <div className="profile page">Profile</div>
             <div className="logOut page">Log Out</div>
             <div className="pagesDropDown ">
-              <div
-                className="hamburgerIcon"
-                onClick={() => {
-                  setHiddenPagesLinks(!hiddenPagesLinks);
-                }}
-              >
-                &#9776;
-              </div>
-              <div
-                className={`subPagesLinks ${
-                  hiddenPagesLinks == true ? "" : "hidden"
-                }`}
-              >
-                <div className="feedingLink link">Feeding</div>
-                <div className="diaperLink link">Diaper</div>
-                <div className="NappingLink link">Napping</div>
-                <div className="IllnessLink link">Illness</div>
-                <div className="AddChildLink link">Feeding</div>
+              <div className="linksContainer">
+                <div
+                  className="hamburgerIcon"
+                  onClick={() => {
+                    setHiddenPagesLinks(!hiddenPagesLinks);
+                  }}
+                >
+                  &#9776;
+                </div>
+                <div
+                  className={`subPagesLinks ${
+                    hiddenPagesLinks == true ? "" : "hidden"
+                  }`}
+                >
+                  <div
+                    className={`feedingLink link ${
+                      activeComponent === "feeding" ? "selected" : ""
+                    }`}
+                    onClick={() => setActiveComponent("feeding")}
+                  >
+                    Feeding
+                  </div>
+                  <div
+                    className={`diaperLink link ${
+                      activeComponent === "diaper" ? "selected" : ""
+                    }`}
+                    onClick={() => setActiveComponent("diaper")}
+                  >
+                    Diaper
+                  </div>
+                  <div
+                    className={`NappingLink link ${
+                      activeComponent === "napping" ? "selected" : ""
+                    }`}
+                    onClick={() => setActiveComponent("napping")}
+                  >
+                    Napping
+                  </div>
+                  <div
+                    className={`IllnessLink link ${
+                      activeComponent === "illness" ? "selected" : ""
+                    }`}
+                    onClick={() => setActiveComponent("illness")}
+                  >
+                    Illness
+                  </div>
+                  <div
+                    className={`AddChildLink link ${
+                      activeComponent === "addChild" ? "selected" : ""
+                    }`}
+                    onClick={() => setActiveComponent("addChild")}
+                  >
+                    Add Child
+                  </div>
+                </div>
               </div>
             </div>
           </div>
