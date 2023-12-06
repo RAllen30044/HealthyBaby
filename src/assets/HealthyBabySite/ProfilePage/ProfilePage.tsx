@@ -6,7 +6,10 @@ export const ProfilePage = () => {
       <div className="profilePage">
         <h1>Profile</h1>
         <div className="profile">
-          <form action="POST" className="profileForm">
+          <form action="POST" className="profileForm" 
+          onSubmit={(e)=>{
+            e.preventDefault();
+          }}>
             <div className="inputContainer">
               <label htmlFor="name" className="profileLable">
                 NAME:

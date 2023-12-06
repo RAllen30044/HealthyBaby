@@ -1,6 +1,7 @@
 import { useActiveComponent } from "./ActiveComponent";
 import "./Header.css";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
@@ -29,9 +30,15 @@ export const Header = () => {
           </div>
 
           <div className="pages">
-            <div className="home page">Home</div>
-            <div className="about page">About</div>
-            <div className="profile page">Profile</div>
+            <NavLink to="/home" className=" page">
+              Home
+            </NavLink>
+            <NavLink to="/about" className=" page">
+              About
+            </NavLink>
+            <NavLink to="/profile" className="page">
+              Profile
+            </NavLink>
             <div className="logOut page">Log Out</div>
             <div className="pagesDropDown ">
               <div className="linksContainer">

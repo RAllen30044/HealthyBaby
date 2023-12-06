@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Request } from "../../api";
-import { User } from "../../Types";
+import { Request } from "../../../api";
+import { User } from "../../../Types";
 import toast from "react-hot-toast";
 import "./authenticationPage.css";
 
