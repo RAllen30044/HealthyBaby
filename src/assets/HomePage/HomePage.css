@@ -80,3 +80,14 @@ input {
 .historyHeader h1 {
   margin: 25px 0;
 }
+.historyTimelineContainer{
+  display: flex;
+  flex-wrap:wrap;
+  margin: 30px;
+  gap: 30px;
+}
+
+.historyTimelineContainer h2{
+  font-family: "Caveat", cursive;
+  font-size: 40px;
+}

@@ -52,3 +52,12 @@ body{
 .hidden{
   display: none;
 }
+.button:hover {
+  border-color: transparent;
+  background-color: lightgray;
+}
+.pressedButton {
+  box-shadow: 1px 1px 1px 1px inset;
+  border-color: transparent;
+  background-color: lightgray;
+}

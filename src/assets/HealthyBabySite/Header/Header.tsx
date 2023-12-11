@@ -1,12 +1,15 @@
-import { useActiveComponent } from "./ActiveComponent";
+import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+
+type LogInfo = "logIn" | "logOut";
 
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
+  const [log, setLog] = useState<LogInfo>("logOut");
   return (
     <>
       <header>
@@ -30,17 +33,43 @@ export const Header = () => {
           </div>
 
           <div className="pages">
-            <NavLink to="/home" className=" page">
+            <NavLink to="/home" className={` pageLink ${log === "logIn" ? "hidden" : ""}`} >
               Home
             </NavLink>
-            <NavLink to="/about" className=" page">
+            <NavLink to="/about" className={` pageLink ${log === "logIn" ? "hidden" : ""}`}>
               About
             </NavLink>
-            <NavLink to="/profile" className="page">
+            <NavLink to="/profile" className={` pageLink ${log === "logIn" ? "hidden" : ""}`}>
               Profile
             </NavLink>
-            <div className="logOut page">Log Out</div>
-            <div className="pagesDropDown ">
+            <NavLink
+              to="/auth"
+              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+              onClick={() => {
+                setLog("logIn");
+              }}
+            >
+              Log Out
+            </NavLink>
+            <NavLink
+              to="/home"
+              className={` pageLink ${log === "logOut" ? "hidden" : ""}`}
+              onClick={() => {
+                setLog("logOut");
+              }}
+            >
+              Log In
+            </NavLink>
+            <NavLink
+              to="/profile"
+              className={` pageLink ${log === "logOut" ? "hidden" : ""}`}
+              onClick={() => {
+                setLog("logOut");
+              }}
+            >
+              Sign Up
+            </NavLink>
+            <div className={`pagesDropDown ${log === "logIn" ? "hidden" : ""}`}>
               <div className="linksContainer">
                 <div
                   className="hamburgerIcon"
@@ -50,10 +79,13 @@ export const Header = () => {
                 >
                   &#9776;
                 </div>
-                <div
+                <NavLink to="/home"
                   className={`subPagesLinks ${
                     hiddenPagesLinks == true ? "" : "hidden"
-                  }`}
+                  }`} 
+                  onClick={()=>{
+                    setHiddenPagesLinks(!hiddenPagesLinks)
+                  }}
                 >
                   <div
                     className={`feedingLink link ${
@@ -95,7 +127,7 @@ export const Header = () => {
                   >
                     Add Child
                   </div>
-                </div>
+                </NavLink>
               </div>
             </div>
           </div>

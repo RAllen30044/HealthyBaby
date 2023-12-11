@@ -1,18 +1,13 @@
-.breastFeed:focus{
-     
-      box-shadow: 1px 1px 1px 1px inset;
+
+.feedingBanner {
+  background-color: #fadd9f;
 }
-.bottleFeed:focus{
-      box-shadow: 1px 1px 1px 1px inset;
-}
-.feedingBanner{
-      background-color: #FADD9F;
-}
-.feedingSave{
-      background-color: #fadd9f;
+.feedingSave {
+  background-color: #fadd9f;
 }
 
 .feedingSave:hover {
-      background-color: #fadd9fb2;
-      /* box-shadow: 1px 1px 2px 2px inset; */
-    }
+  background-color: #fadd9fb2;
+  /* box-shadow: 1px 1px 2px 2px inset; */
+}
+

@@ -4,9 +4,8 @@ import { User } from "../../../Types";
 import toast from "react-hot-toast";
 import "./authenticationPage.css";
 
-export const AuthenticationPage=()=>{
-
-const [user, setUser] = useState<User | null>(null);
+export const AuthenticationPage = () => {
+  const [user, setUser] = useState<User | null>(null);
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -47,89 +46,50 @@ const [user, setUser] = useState<User | null>(null);
   };
 
   return (
-<>
-<div className="authentication">
-<h1>Hello {user?.username}</h1>
-      <div className="card">
-        <h1>Create User</h1>
-        <form
-          action="POST"
-          onSubmit={(e) => {
-            e.preventDefault();
-            AddUser({
-              username: userName,
-              password: password,
-            })
-              .then(() => {
-                toast.success("Registered");
+    <>
+      <div className="authentication">
+        <div className="card">
+          <form
+            action="POST"
+            onSubmit={(e) => {
+              e.preventDefault();
+              isUserValid(userNameInput, passwordInput).then(() => {
+                setUser({ username: userNameInput, password: passwordInput });
 
-                setUserName("");
-                setPassword("");
-              })
-              .catch(() => {
-                toast.error("My POST is broken");
+                localStorage.setItem("user", JSON.stringify(user));
+                toast.success("Success");
+                setUserNameInput("");
+                setPasswordInput("");
               });
-          }}
-        >
-          <label htmlFor="userName">User Name: </label>
-          <input
-            onChange={(e) => {
-              setUserName(e.target.value);
             }}
-            value={userName}
-            type="text"
-          />
-          <br />
-          <br />
-          <label htmlFor="password">Password: </label>
-          <input
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
-            type="text"
-          />
-          <br />
-          <br />
-          <button type="submit" disabled={isLoading}>
-            Register
-          </button>
-        </form>
-        <form
-          action="POST"
-          onSubmit={(e) => {
-            e.preventDefault();
-            isUserValid(userNameInput, passwordInput).then(() => {
-              setUser({ username: userNameInput, password: passwordInput });
-
-              localStorage.setItem("user", JSON.stringify(user));
-              toast.success("Success");
-              setUserNameInput("");
-              setPasswordInput("");
-            });
-          }}
-        >
-          <h3>Login</h3>
-          <label htmlFor="user">User Name: </label>
-          <input
-            type="text"
-            value={userNameInput}
-            onChange={(e) => {
-              setUserNameInput(e.target.value);
-            }}
-          />
-          <label htmlFor="user">Password: </label>
-          <input
-            type="text"
-            value={passwordInput}
-            onChange={(e) => {
-              setPasswordInput(e.target.value);
-            }}
-          />
-          <button type="submit">Login</button>
-        </form>
+          >
+            <h3>Login</h3>
+            <div className="username">
+              <label htmlFor="user">Username: </label>
+              <input
+                type="text"
+                value={userNameInput}
+                onChange={(e) => {
+                  setUserNameInput(e.target.value);
+                }}
+              />
+            </div>
+            <div className="password">
+              <label htmlFor="user">Password: </label>
+              <input
+                type="text"
+                value={passwordInput}
+                onChange={(e) => {
+                  setPasswordInput(e.target.value);
+                }}
+              />
+            </div>
+            <button type="submit" className="logInButton">
+              Login
+            </button>
+          </form>
         </div>
-</div>
-</>
+      </div>
+    </>
   );
-}
+};

@@ -7,3 +7,4 @@ export type Request = {
   getUser: () => Promise<User[]>;
   postUser: (user: Omit<User, "id">) => void;
 };
+ export const baseUrl="http://localhost:3000";

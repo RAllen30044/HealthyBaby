@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import { TimeInfo } from "../TimeInfo/TimeInfo";
 import "./Diaper.css";
 
+type DaiperType = "Wet" | "Poop";
+type ConsistancyTypeT = "Pellets" | "Solid" | "Soft" | "Wet";
+
 export const DaiperPage = () => {
+  const [diaperType, setDiaperType] = useState<DaiperType>("Wet");
+  const [consistancy, setConsistancy] = useState<ConsistancyTypeT>("Wet");
+
   return (
     <>
       <div className="banner diaperBanner">
@@ -24,15 +31,62 @@ export const DaiperPage = () => {
           <div className="diaperType ">
             <label htmlFor="diaperType">Diaper Type?</label>
             <br />
-            <button className="wet">Wet</button>
-            <button className="poop">Poop</button>
+            <button
+              className={`wet button ${
+                diaperType === "Wet" ? "pressedButton" : ""
+              }`}
+              onClick={() => {
+                setDiaperType("Wet");
+              }}
+            >
+              Wet
+            </button>
+            <button
+              className={`poop button ${
+                diaperType === "Poop" ? "pressedButton" : ""
+              }`}
+              onClick={() => {
+                setDiaperType("Poop");
+              }}
+            >
+              Poop
+            </button>
           </div>
-          <div className="consistancy hidden">
+          <div
+            className={`consistancy ${diaperType === "Wet" ? "hidden" : ""}`}
+          >
             <label htmlFor="consistancy">Consistancy?</label>
             <br />
-            <button className="soft">soft</button>
-            <button className="hard">hard</button>
-            <button className="hard">pellets</button>
+            <button
+              className={`soft button ${
+                consistancy === "Soft" ? "pressedButton" : ""
+              }`}
+              onClick={() => {
+                setConsistancy("Soft");
+              }}
+            >
+              Soft
+            </button>
+            <button
+              className={`solid button ${
+                consistancy === "Solid" ? "pressedButton" : ""
+              }`}
+              onClick={() => {
+                setConsistancy("Solid");
+              }}
+            >
+              Solid
+            </button>
+            <button
+              className={`pellets button ${
+                consistancy === "Pellets" ? "pressedButton" : ""
+              }`}
+              onClick={() => {
+                setConsistancy("Pellets");
+              }}
+            >
+              Pellets
+            </button>
           </div>
           <div className="saveContainer">
             <button type="submit" className="save diaperSave">

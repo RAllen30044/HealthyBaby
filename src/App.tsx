@@ -12,6 +12,9 @@ import {
 import { HomePage } from "./assets/HomePage/HomePage";
 import { ProfilePage } from "./assets/HealthyBabySite/ProfilePage/ProfilePage";
 import { AboutPage } from "./assets/HealthyBabySite/AboutPage/AboutPage";
+import { AuthenticationPage } from "./assets/HealthyBabySite/authenticationPage/authentiction";
+
+import { TimeInfoProvider } from "./assets/HomePage/TimeInfo/TimeInfo";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="profile" element={<ProfilePage />} />
       <Route path="home" element={<HomePage />} />
       <Route path="about" element={<AboutPage />} />
+      <Route path="auth" element={<AuthenticationPage />} />
     </Route>
   )
 );
@@ -26,7 +30,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <TimeInfoProvider>
+        <RouterProvider router={router} />
+      </TimeInfoProvider>
     </>
   );
 }

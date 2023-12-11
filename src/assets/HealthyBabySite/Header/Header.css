@@ -53,6 +53,8 @@ nav {
   right: 6px;
   background-color: white;
   top: 12px;
+  color: initial;
+  text-decoration: none;
 }
 
 .selected {
@@ -63,7 +65,13 @@ nav {
 .link:hover {
   cursor: pointer;
 }
-a{
+.pageLink{
   color: initial;
   text-decoration: none;
+ 
+}
+.pageLink:hover{
+  color: initial;
+  font-weight: 800;
+ font-size: 20px;
 }
