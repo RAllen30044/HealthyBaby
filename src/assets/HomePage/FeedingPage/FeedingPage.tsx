@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import {
   bottleFeedingInfoType,
   breastFeedingInfoType,
+  deleteBreastFeedingHistory,
   getBottleFeedingHistoryInfo,
   getBreastFeedingHistoryInfo,
   postBottleFeedingInfo,
@@ -44,6 +45,31 @@ export const FeedingPage = () => {
     fetchBottleFeedingData().catch((err) => console.log(err));
     fetchBreastFeedingData().catch((err) => console.log(err));
   }, []);
+
+  const removeBreastFeedingHistory = (id: number) => {
+    const updateData = breastFeedHistory.filter((history) => history.id !== id);
+
+    setBreastFeedHistory(updateData);
+
+    deleteBreastFeedingHistory(id).then((res) => {
+      if (!res.ok) {
+        setBreastFeedHistory(breastFeedHistory);
+      } else return;
+    });
+  };
+  const removeBottleFeedingHistory = (id: number) => {
+    const updateData = bottleFeedHistory.filter((history) => history.id !== id);
+
+    setBottleFeedHistory(updateData);
+
+    deleteBreastFeedingHistory(id).then((res) => {
+      if (!res.ok) {
+        setBreastFeedHistory(breastFeedHistory);
+      } else return;
+    });
+  };
+
+
 
   return (
     <>
@@ -174,9 +200,9 @@ export const FeedingPage = () => {
       </div>
       <div className="historyTimelineContainer">
         {feed === "breastFeed" ? (
-          <BreastFeedingHistory breastFeedHistory={breastFeedHistory} />
+          <BreastFeedingHistory breastFeedHistory={breastFeedHistory} removeBreastFeedingHistory={removeBreastFeedingHistory}/>
         ) : (
-          <BottleFeedingHistory bottleFeedHistory={bottleFeedHistory} />
+          <BottleFeedingHistory bottleFeedHistory={bottleFeedHistory} removeBottleFeedingHistory={removeBottleFeedingHistory} />
         )}
       </div>
     </>

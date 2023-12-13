@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChildInfo } from "../ChildInfo/ChildInfo";
-import { TimeInfo } from "../TimeInfo/TimeInfo";
+import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./Diaper.css";
+import {
+  DaipersHistoryInfoTypes,
+  deleteDiaperHistory,
+  getDaipersHistory,
+  postDiaperHistory,
+} from "./DaiperApi";
 
 type DaiperType = "Wet" | "Poop";
 type ConsistancyTypeT = "Pellets" | "Solid" | "Soft" | "Wet";
@@ -9,6 +15,30 @@ type ConsistancyTypeT = "Pellets" | "Solid" | "Soft" | "Wet";
 export const DaiperPage = () => {
   const [diaperType, setDiaperType] = useState<DaiperType>("Wet");
   const [consistancy, setConsistancy] = useState<ConsistancyTypeT>("Wet");
+  const [diapersHistory, setDiapersHistory] = useState<
+    DaipersHistoryInfoTypes[]
+  >([]);
+  const { time, setTime, date, setDate, loading, setLoading } = useTimeInfo();
+
+  const fetchDaiperHistory = () => {
+    return getDaipersHistory().then(setDiapersHistory);
+  };
+
+  useEffect(() => {
+    fetchDaiperHistory().catch(console.log);
+  }, []);
+
+  const removeDiaperHistory = (id: number) => {
+    const updateData = diapersHistory.filter((history) => history.id !== id);
+
+    setDiapersHistory(updateData);
+
+    deleteDiaperHistory(id).then((res) => {
+      if (!res.ok) {
+        setDiapersHistory(diapersHistory);
+      } else return;
+    });
+  };
 
   return (
     <>
@@ -25,6 +55,23 @@ export const DaiperPage = () => {
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
+            setLoading(true);
+            return postDiaperHistory({
+              time: time,
+              date: date,
+              type: diaperType,
+              consistancy: consistancy,
+            })
+              .then(fetchDaiperHistory)
+              .then(() => {
+                setTime("");
+                setDate("");
+                setDiaperType("Wet");
+                setConsistancy("Wet");
+              })
+              .then(() => {
+                setLoading(false);
+              });
           }}
         >
           <TimeInfo />
@@ -32,16 +79,19 @@ export const DaiperPage = () => {
             <label htmlFor="diaperType">Diaper Type?</label>
             <br />
             <button
+              type="button"
               className={`wet button ${
                 diaperType === "Wet" ? "pressedButton" : ""
               }`}
               onClick={() => {
                 setDiaperType("Wet");
+                setConsistancy("Wet");
               }}
             >
               Wet
             </button>
             <button
+              type="button"
               className={`poop button ${
                 diaperType === "Poop" ? "pressedButton" : ""
               }`}
@@ -58,6 +108,7 @@ export const DaiperPage = () => {
             <label htmlFor="consistancy">Consistancy?</label>
             <br />
             <button
+              type="button"
               className={`soft button ${
                 consistancy === "Soft" ? "pressedButton" : ""
               }`}
@@ -68,6 +119,7 @@ export const DaiperPage = () => {
               Soft
             </button>
             <button
+              type="button"
               className={`solid button ${
                 consistancy === "Solid" ? "pressedButton" : ""
               }`}
@@ -78,6 +130,7 @@ export const DaiperPage = () => {
               Solid
             </button>
             <button
+              type="button"
               className={`pellets button ${
                 consistancy === "Pellets" ? "pressedButton" : ""
               }`}
@@ -89,7 +142,7 @@ export const DaiperPage = () => {
             </button>
           </div>
           <div className="saveContainer">
-            <button type="submit" className="save diaperSave">
+            <button type="submit" className="save diaperSave" disabled={loading}>
               Save
             </button>
           </div>
@@ -99,6 +152,29 @@ export const DaiperPage = () => {
         <div className="categoryName historyHeader">
           <h1>Diapers History</h1>
         </div>
+      </div>
+      <div className="historyTimelineContainer">
+        {diapersHistory.map((history) => {
+          return (
+            <div className="historyContainer" key={history.id}>
+              <div className="diapersHistory" >
+                <h2>Diaper Number {diapersHistory.indexOf(history)+1}</h2>
+                <h3>Time: {history.time}</h3>
+                <h3>Date: {history.date}</h3>
+                <h3>Type of Diaper: {history.type}</h3>
+                <h3>Consistancy: {history.consistancy}</h3>
+              </div>
+              <button
+                className="Delete button"
+                onClick={() => {
+                  removeDiaperHistory(history.id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          );
+        })}
       </div>
     </>
   );

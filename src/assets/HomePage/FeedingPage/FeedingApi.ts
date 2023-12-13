@@ -30,7 +30,17 @@ export const getBreastFeedingHistoryInfo = (): Promise<
 > =>
   fetch(breastFeedingHistoryUrl)
     .then((res) => res.json())
-    .then((data:breastFeedingInfoType[]) => data)
+    .then((data: breastFeedingInfoType[]) => data);
+
+export const deleteBreastFeedingHistory = (id: number) =>
+  fetch(`${breastFeedingHistoryUrl}/${id}`, {
+    method: "DELETE",
+  });
+export const deleteBottleFeedingHistory = (id: number) =>
+  fetch(`${bottleFeedingHistoryUrl}/${id}`, {
+    method: "DELETE",
+  });
+
 export const postBottleFeedingInfo = (
   breastfeedingInfo: Omit<bottleFeedingInfoType, "id">
 ) =>
