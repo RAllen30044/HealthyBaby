@@ -115,13 +115,22 @@
   ],
   "illness": [
     {
-      "id": 0,
-      "date": "10/4/2023",
-      "type": "fever",
-      "symptoms": "runny nose, cough",
-      "medicineGiven": "tylonol",
-      "oz": ".5",
-      "time": "11:00 AM"
+      "time": "22:56",
+      "date": "2023-12-12",
+      "sicknessType": "Fever",
+      "symptoms": "Runny nose, Cough ",
+      "medicineGiven": "Tylenol",
+      "oz": "1.5",
+      "id": 1
+    },
+    {
+      "time": "11:24",
+      "date": "2023-12-08",
+      "sicknessType": "Fever",
+      "symptoms": "Runny nose, Cough ",
+      "medicineGiven": "Ibprof",
+      "oz": "1.5",
+      "id": 3
     }
   ]
 }
