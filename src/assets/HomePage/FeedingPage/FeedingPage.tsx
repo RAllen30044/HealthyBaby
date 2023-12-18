@@ -6,19 +6,21 @@ import {
   bottleFeedingInfoType,
   breastFeedingInfoType,
   deleteBreastFeedingHistory,
+  deleteBottleFeedingHistory,
   getBottleFeedingHistoryInfo,
   getBreastFeedingHistoryInfo,
-  postBottleFeedingInfo,
-  postBreastFeedingInfo,
+  // postBottleFeedingInfo,
+  // postBreastFeedingInfo,
+  postFeedingInfo,
 } from "./FeedingApi";
 import { BreastFeedingHistory } from "./BreastFeedingHistory";
 import { BottleFeedingHistory } from "./BottleFeedingHistory";
+import { baseUrl } from "../../../Types";
 
-
+const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
+const bottleFeedingHistoryUrl = `${baseUrl}/bottleFeedingHistory`;
 
 type FeedingType = "breastFeed" | "bottleFeed";
-
-
 
 export const FeedingPage = () => {
   const [feed, setFeed] = useState<FeedingType>("bottleFeed");
@@ -62,14 +64,12 @@ export const FeedingPage = () => {
 
     setBottleFeedHistory(updateData);
 
-    deleteBreastFeedingHistory(id).then((res) => {
+    deleteBottleFeedingHistory(id).then((res) => {
       if (!res.ok) {
         setBreastFeedHistory(breastFeedHistory);
       } else return;
     });
   };
-
-
 
   return (
     <>
@@ -104,36 +104,44 @@ export const FeedingPage = () => {
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
-            setLoading(true)
+            setLoading(true);
             if (feed === "bottleFeed") {
-              return postBottleFeedingInfo({
-                time: time,
-                date: date,
-                oz: oz,
-                ozLeft: ozLeft,
-              })
+              return postFeedingInfo(
+                {
+                  time: time,
+                  date: date,
+                  oz: oz,
+                  ozLeft: ozLeft,
+                },
+                bottleFeedingHistoryUrl
+              )
                 .then(fetchBottleFeedingData)
                 .then(() => {
                   setTime("");
                   setOz("");
                   setOzLeft("");
                   setDate("");
-                }).then(()=>{
-                  setLoading(false)
+                })
+                .then(() => {
+                  setLoading(false);
                 });
             }
-            return postBreastFeedingInfo({
-              time: time,
-              date: date,
-              feedingTimeLength: feedingTimeLength,
-            })
+            return postFeedingInfo(
+              {
+                time: time,
+                date: date,
+                feedingTimeLength: feedingTimeLength,
+              },
+              breastFeedingHistoryUrl
+            )
               .then(fetchBreastFeedingData)
               .then(() => {
                 setDate("");
                 setTime("");
                 setfeedingTimeLength("");
-              }).then(()=>{
-                setLoading(false)
+              })
+              .then(() => {
+                setLoading(false);
               });
           }}
         >
@@ -187,7 +195,11 @@ export const FeedingPage = () => {
             </div>
           </div>
           <div className="saveContainer">
-            <button type="submit" className="save feedingSave" disabled={loading}>
+            <button
+              type="submit"
+              className="save feedingSave"
+              disabled={loading}
+            >
               Save
             </button>
           </div>
@@ -200,9 +212,15 @@ export const FeedingPage = () => {
       </div>
       <div className="historyTimelineContainer">
         {feed === "breastFeed" ? (
-          <BreastFeedingHistory breastFeedHistory={breastFeedHistory} removeBreastFeedingHistory={removeBreastFeedingHistory}/>
+          <BreastFeedingHistory
+            breastFeedHistory={breastFeedHistory}
+            removeBreastFeedingHistory={removeBreastFeedingHistory}
+          />
         ) : (
-          <BottleFeedingHistory bottleFeedHistory={bottleFeedHistory} removeBottleFeedingHistory={removeBottleFeedingHistory} />
+          <BottleFeedingHistory
+            bottleFeedHistory={bottleFeedHistory}
+            removeBottleFeedingHistory={removeBottleFeedingHistory}
+          />
         )}
       </div>
     </>

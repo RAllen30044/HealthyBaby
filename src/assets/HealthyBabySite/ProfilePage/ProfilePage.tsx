@@ -1,15 +1,25 @@
+import { useState } from "react";
 import "./ProfilePage.css";
 
 export const ProfilePage = () => {
+  const [profileName, setProfileName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [childCaregiver, setChildCaregiver] = useState<string>("");
+  const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   return (
     <>
       <div className="profilePage">
         <h1>Profile</h1>
         <div className="profile">
-          <form action="POST" className="profileForm" 
-          onSubmit={(e)=>{
-            e.preventDefault();
-          }}>
+          <form
+            action="POST"
+            className="profileForm"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <div className="inputContainer">
               <label htmlFor="name" className="profileLable">
                 NAME:
@@ -20,6 +30,11 @@ export const ProfilePage = () => {
                 name="name"
                 id="name"
                 className="profileInput"
+                value={profileName}
+                onChange={(e)=>{
+                  setProfileName(e.target.value)
+                }}
+                
               />
             </div>
 
@@ -32,6 +47,11 @@ export const ProfilePage = () => {
                 name="email"
                 id="email"
                 className="profileInput"
+                value={email}
+                onChange={(e)=>{
+                  setEmail(e.target.value)
+                }}
+                
               />
             </div>
 
@@ -44,6 +64,11 @@ export const ProfilePage = () => {
                 name="caregiver"
                 id="caregiver"
                 className="profileInput"
+                value={childCaregiver}
+                onChange={(e)=>{
+                  setChildCaregiver(e.target.value)
+                }}
+                
               />
             </div>
 
@@ -56,6 +81,11 @@ export const ProfilePage = () => {
                 name="caregiverEmail"
                 id="caregiverEmail"
                 className="profileInput"
+                value={childCaregiverEmail}
+                onChange={(e)=>{
+                  setChildCaregiverEmail(e.target.value)
+                }}
+                
               />
             </div>
 
@@ -68,6 +98,11 @@ export const ProfilePage = () => {
                 name="password"
                 id="password"
                 className="profileInput"
+                value={password}
+                onChange={(e)=>{
+                  setPassword(e.target.value)
+                }}
+                
               />
             </div>
 

@@ -13,13 +13,16 @@ export type bottleFeedingInfoType = {
   oz: string;
   ozLeft: string;
 };
+
+export type InfoTypeT = Omit<bottleFeedingInfoType,"id"> | Omit<breastFeedingInfoType,"id">
+
 const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
 const bottleFeedingHistoryUrl = `${baseUrl}/bottleFeedingHistory`;
 
-export const postBreastFeedingInfo = (
-  breastfeedingInfo: Omit<breastFeedingInfoType, "id">
+export const postFeedingInfo = (
+  breastfeedingInfo: InfoTypeT, url:string
 ) =>
-  fetch(breastFeedingHistoryUrl, {
+  fetch(url, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(breastfeedingInfo),
@@ -30,7 +33,7 @@ export const getBreastFeedingHistoryInfo = (): Promise<
 > =>
   fetch(breastFeedingHistoryUrl)
     .then((res) => res.json())
-    .then((data: breastFeedingInfoType[]) => data);
+    .then((data) => data);
 
 export const deleteBreastFeedingHistory = (id: number) =>
   fetch(`${breastFeedingHistoryUrl}/${id}`, {
@@ -42,9 +45,9 @@ export const deleteBottleFeedingHistory = (id: number) =>
   });
 
 export const postBottleFeedingInfo = (
-  breastfeedingInfo: Omit<bottleFeedingInfoType, "id">
+  breastfeedingInfo: InfoTypeT,url:string
 ) =>
-  fetch(bottleFeedingHistoryUrl, {
+  fetch(url, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(breastfeedingInfo),

@@ -8,7 +8,7 @@ export type nappingType = {
   lengthOfTime: string;
 };
 
-export const getNappingHistory = (): Promise<nappingType[]> =>
+export const getNappingHistory = ()=>
   fetch(nappingUrl)
     .then((res) => res.json())
     .then((data) => data);

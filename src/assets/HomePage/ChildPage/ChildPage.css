@@ -13,11 +13,14 @@
   padding-left: 15px;
   gap: 10px;
   margin-top: 80px;
+  
 }
+
 .childInfoContainer {
   margin-bottom: 10px;
   width: 11vw;
   display: flex;
+ 
 }
 .childInfoLabel {
   width: 50%;
