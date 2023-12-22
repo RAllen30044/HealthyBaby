@@ -1,36 +1,32 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
-import {
-  deleteNappingHistory,
-  getNappingHistory,
-  nappingType,
-  postNappingHistory,
-} from "./NappingApi";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import "./NappingPage.css";
 
+import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../api";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+
 export const NappingPage = () => {
-  const [nappingHistory, setNappingHistory] = useState<nappingType[]>([]);
   const [LengthOfTime, setLengthOfTime] = useState("");
   const { time, setTime, date, setDate, loading, setLoading } = useTimeInfo();
 
-  const fetchNappingHistory = () => getNappingHistory().then(setNappingHistory);
-
-  useEffect(() => {
-    fetchNappingHistory().catch((err) => console.log(err));
-  }, []);
+  const { nappingHistory, setNappingHistory, fetchNappingHistory } =
+    useHistoryIDComponent();
 
   const removeIllnessHistory = (id: number) => {
     const updateData = nappingHistory.filter((history) => history.id !== id);
     setNappingHistory(updateData);
 
-    deleteNappingHistory(id).then((res) => {
+    deleteHistoryInfo(nappingUrl, id).then((res) => {
       if (!res.ok) {
         setNappingHistory(nappingHistory);
       } else return;
     });
   };
 
+  console.log();
   return (
     <>
       <div className="banner nappingBanner">
@@ -47,11 +43,14 @@ export const NappingPage = () => {
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
-            postNappingHistory({
-              time: time,
-              date: date,
-              lengthOfTime: LengthOfTime,
-            })
+            postInfo(
+              {
+                time: convertToStandardTime(time),
+                date: formatDate(date),
+                lengthOfTime: LengthOfTime,
+              },
+              nappingUrl
+            )
               .then(fetchNappingHistory)
               .then(() => {
                 setTime("");

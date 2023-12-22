@@ -1,32 +1,27 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./IllnessPage.css";
 import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
-import { useEffect, useState } from "react";
-import {
-  IllnessType,
-  deleteIllnessHistory,
-  getIllnessHistory,
-  postIllnessHistory,
-} from "./Illness";
+import { useState } from "react";
+
+import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../api";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+
 export const IllnessPage = () => {
-  const [illnessHistory, setIllnessHistory] = useState<IllnessType[]>([]);
   const [sicknessType, setSicknessType] = useState("");
   const [symptoms, setSymptoms] = useState("");
   const [medicineGiven, setMedicineGiven] = useState("");
   const [oz, setOz] = useState("");
   const { time, setTime, date, setDate, loading, setLoading } = useTimeInfo();
 
-  const fetchIllnessHistory = () => getIllnessHistory().then(setIllnessHistory);
-
-  useEffect(() => {
-    fetchIllnessHistory().catch((err) => console.log(err));
-  }, []);
+  const { illnessHistory, setIllnessHistory, fetchIllnessHistory } =
+    useHistoryIDComponent();
 
   const removeIllnessHistory = (id: number) => {
     const updateData = illnessHistory.filter((history) => history.id !== id);
     setIllnessHistory(updateData);
 
-    deleteIllnessHistory(id).then((res) => {
+    deleteHistoryInfo(illnessUrl, id).then((res) => {
       if (!res.ok) {
         setIllnessHistory(illnessHistory);
       } else return;
@@ -49,14 +44,17 @@ export const IllnessPage = () => {
             e.preventDefault();
             setLoading(true);
 
-            postIllnessHistory({
-              time: time,
-              date: date,
-              sicknessType: sicknessType,
-              symptoms: symptoms,
-              medicineGiven: medicineGiven,
-              oz: oz,
-            })
+            postInfo(
+              {
+                time: convertToStandardTime(time),
+                date: formatDate(date),
+                sicknessType: sicknessType,
+                symptoms: symptoms,
+                medicineGiven: medicineGiven,
+                oz: oz,
+              },
+              illnessUrl
+            )
               .then(fetchIllnessHistory)
               .then(() => {
                 setDate("");
@@ -137,7 +135,9 @@ export const IllnessPage = () => {
           return (
             <div className="historyContainer" key={history.id}>
               <div className="diapersHistory">
-                <h2>Illness Record Number {illnessHistory.indexOf(history) + 1}</h2>
+                <h2>
+                  Illness Record Number {illnessHistory.indexOf(history) + 1}
+                </h2>
                 <h3>Time: {history.time}</h3>
                 <h3>Date: {history.date}</h3>
                 <h3>Type of Sickness: {history.sicknessType}</h3>

@@ -1,10 +1,8 @@
-import { json } from "react-router-dom";
-import { postChildInfo, updateChildPicture } from "../ChildInfo/ChildInfoApi";
+import { childUrl, postInfo } from "../../../api";
+
 import { useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./ChildPage.css";
 import { useState } from "react";
-
-localStorage.clear()
 
 export const ChildPage = () => {
   const [name, setName] = useState("");
@@ -13,28 +11,24 @@ export const ChildPage = () => {
   const [height, setHeight] = useState("");
   const [headSize, setHeadSize] = useState("");
   const { loading, setLoading } = useTimeInfo();
-  const [babyPic, setBabyPic] = useState<string>("");
+  // const [babyPic, setBabyPic] = useState<string>("");
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    // Do something with the selected file, e.g., display it or upload it
-    if (selectedFile) {
- 
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const selectedFile = e.target.files?.[0];
+  //   // Do something with the selected file, e.g., display it or upload it
+  //   if (selectedFile) {
+  //     const reader = new FileReader();
 
-      const reader = new FileReader();
+  //     reader.onload = () => {
+  //       // Set the selected image to the base64 data URL of the selected file.
+  //       const dataUrl = reader.result as string;
+  //       setBabyPic(dataUrl);
+  //       localStorage.setItem("selectedPicture", dataUrl);
+  //     };
 
-      reader.onload = () => {
-        // Set the selected image to the base64 data URL of the selected file.
-        const dataUrl = reader.result as string;
-        setBabyPic(dataUrl);
-        localStorage.setItem("selectedPicture", dataUrl )
-      };
-
-      reader.readAsDataURL(selectedFile);
-    }
-
-
-  };
+  //     reader.readAsDataURL(selectedFile);
+  //   }
+  // };
 
   return (
     <>
@@ -42,7 +36,7 @@ export const ChildPage = () => {
         <h1>Child Page</h1>
         <div className="childPageInfo">
           <h2>{name}</h2>
-          <div
+          {/* <div
             className="childPictureContainer"
             onClick={() => {
               document.getElementById("fileInput")?.click();
@@ -61,7 +55,7 @@ export const ChildPage = () => {
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
-          </div>
+          </div> */}
 
           <form
             action="POST"
@@ -69,14 +63,17 @@ export const ChildPage = () => {
             onSubmit={(e) => {
               e.preventDefault();
               setLoading(true);
-              postChildInfo({
-                name: name,
-                age: age,
-                weight: weight,
-                headSize: headSize,
-                height: height,
-                url: babyPic ? babyPic : "",
-              }).then(() => {
+              postInfo(
+                {
+                  name: name,
+                  age: age,
+                  weight: weight,
+                  headSize: headSize,
+                  height: height,
+                  // url: babyPic ? babyPic : "",
+                },
+                childUrl
+              ).then(() => {
                 setLoading(false);
               });
             }}

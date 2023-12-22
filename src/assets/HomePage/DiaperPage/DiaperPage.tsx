@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./Diaper.css";
-import {
-  DaipersHistoryInfoTypes,
-  deleteDiaperHistory,
-  getDaipersHistory,
-  postDiaperHistory,
-} from "./DaiperApi";
+
+import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../api";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
 
 type DaiperType = "Wet" | "Poop";
 type ConsistancyTypeT = "Pellets" | "Solid" | "Soft" | "Wet";
@@ -15,25 +13,17 @@ type ConsistancyTypeT = "Pellets" | "Solid" | "Soft" | "Wet";
 export const DaiperPage = () => {
   const [diaperType, setDiaperType] = useState<DaiperType>("Wet");
   const [consistancy, setConsistancy] = useState<ConsistancyTypeT>("Wet");
-  const [diapersHistory, setDiapersHistory] = useState<
-    DaipersHistoryInfoTypes[]
-  >([]);
+
   const { time, setTime, date, setDate, loading, setLoading } = useTimeInfo();
-
-  const fetchDaiperHistory = () => {
-    return getDaipersHistory().then(setDiapersHistory);
-  };
-
-  useEffect(() => {
-    fetchDaiperHistory().catch(console.log);
-  }, []);
+  const { diapersHistory, setDiapersHistory, fetchDaiperHistory } =
+    useHistoryIDComponent();
 
   const removeDiaperHistory = (id: number) => {
     const updateData = diapersHistory.filter((history) => history.id !== id);
 
     setDiapersHistory(updateData);
 
-    deleteDiaperHistory(id).then((res) => {
+    deleteHistoryInfo(diaperUrl, id).then((res) => {
       if (!res.ok) {
         setDiapersHistory(diapersHistory);
       } else return;
@@ -56,12 +46,15 @@ export const DaiperPage = () => {
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
-            return postDiaperHistory({
-              time: time,
-              date: date,
-              type: diaperType,
-              consistancy: consistancy,
-            })
+            return postInfo(
+              {
+                time: convertToStandardTime(time),
+                date: formatDate(date),
+                type: diaperType,
+                consistancy: consistancy,
+              },
+              diaperUrl
+            )
               .then(fetchDaiperHistory)
               .then(() => {
                 setTime("");
@@ -142,7 +135,11 @@ export const DaiperPage = () => {
             </button>
           </div>
           <div className="saveContainer">
-            <button type="submit" className="save diaperSave" disabled={loading}>
+            <button
+              type="submit"
+              className="save diaperSave"
+              disabled={loading}
+            >
               Save
             </button>
           </div>
@@ -157,8 +154,8 @@ export const DaiperPage = () => {
         {diapersHistory.map((history) => {
           return (
             <div className="historyContainer" key={history.id}>
-              <div className="diapersHistory" >
-                <h2>Diaper Number {diapersHistory.indexOf(history)+1}</h2>
+              <div className="diapersHistory">
+                <h2>Diaper Number {diapersHistory.indexOf(history) + 1}</h2>
                 <h3>Time: {history.time}</h3>
                 <h3>Date: {history.date}</h3>
                 <h3>Type of Diaper: {history.type}</h3>

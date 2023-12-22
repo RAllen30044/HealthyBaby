@@ -1,9 +1,8 @@
-import { bottleFeedingInfoType } from "./FeedingApi";
+import { bottlefeedingHistoryT } from "../../../Types";
 
-type bottlefeedingHistoryT = {
-  bottleFeedHistory: bottleFeedingInfoType[];
-  removeBottleFeedingHistory: (id:number)=> void;
-};
+
+
+
 export const BottleFeedingHistory = ({
   bottleFeedHistory, removeBottleFeedingHistory
 }: bottlefeedingHistoryT) => {

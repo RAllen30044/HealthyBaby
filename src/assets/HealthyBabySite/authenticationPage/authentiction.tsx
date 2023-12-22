@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
-import { Request } from "../../../api";
+import { getProfileData } from "../../../api";
 import { User } from "../../../Types";
 import toast from "react-hot-toast";
 import "./authenticationPage.css";
+import { useAuthProviderContext } from "./authProvider";
+import { useNavigate } from "react-router-dom";
 
 export const AuthenticationPage = () => {
   const [user, setUser] = useState<User | null>(null);
 
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const fetchData = () => {
-    return Request.getUser();
-  };
-
+  const { setLog } = useAuthProviderContext();
+  const navigate= useNavigate();  
   const isUserValid = (username: string, password: string) => {
-    return fetchData().then((users) => {
+    return getProfileData().then((users) => {
       const userExist = users.some(
         (user) => user.username === username && user.password === password
       );
+      console.log(userExist);
+
       if (userExist) {
+        toast.success("Success");
+        setLog("logOut");
+        navigate("/home")
         return true;
       } else {
+        toast.error("Try Again");
         return false;
       }
     });
@@ -34,33 +36,25 @@ export const AuthenticationPage = () => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
-  const AddUser = (user: Omit<User, "id">) => {
-    return Request.postUser(user).then(() => {
-      setIsLoading(true);
-      fetchData()
-        .catch((err) => console.log(err))
-        .then(() => {
-          setIsLoading(false);
-        });
-    });
-  };
-
   return (
     <>
       <div className="authentication">
         <div className="card">
           <form
-            action="POST"
+            method="post"
+            
             onSubmit={(e) => {
               e.preventDefault();
-              isUserValid(userNameInput, passwordInput).then(() => {
-                setUser({ username: userNameInput, password: passwordInput });
+              isUserValid(userNameInput, passwordInput)
+                .then(() => {
+                  setUser({ username: userNameInput, password: passwordInput });
 
-                localStorage.setItem("user", JSON.stringify(user));
-                toast.success("Success");
-                setUserNameInput("");
-                setPasswordInput("");
-              });
+                  localStorage.setItem("user", JSON.stringify(user));
+                })
+                .then(() => {
+                  setUserNameInput("");
+                  setPasswordInput("");
+                });
             }}
           >
             <h3>Login</h3>

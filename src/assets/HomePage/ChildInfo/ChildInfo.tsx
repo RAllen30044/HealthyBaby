@@ -1,27 +1,20 @@
-import { useEffect, useState } from "react";
-import { ChildInfoT, getChildInfo } from "./ChildInfoApi";
+
+import { useHistoryIDComponent } from "../../../HistoryProvider";
+
 
 export const ChildInfo = () => {
-  const [childInfo, setChildInfo] = useState<ChildInfoT[]>([]);
-  const fetchChildInfo = () => {
-    return getChildInfo().then(setChildInfo);
-  };
-  useEffect(() => {
-    fetchChildInfo().catch((err) => {
-      console.log(err);
-    });
-  }, []);
+const {childInfo} =useHistoryIDComponent();
 
   return (
     <>
       <div className="childInfoContainerHP">
-        <div className="childPictureContainer">
+        {/* <div className="childPictureContainer">
           {childInfo.length > 0 ? (
             <img src={`${childInfo[0].url}`} alt="picture" />
           ) : (
             <i className="fa fa-plus fa-5x" aria-hidden="false"></i>
           )}
-        </div>
+        </div> */}
         <div>
           {childInfo.length > 0 ? (
             <div className="info">

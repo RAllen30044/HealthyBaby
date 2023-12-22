@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./ProfilePage.css";
+import { postInfo, profileUrl } from "../../../api";
+import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
 
 export const ProfilePage = () => {
   const [profileName, setProfileName] = useState<string>("");
@@ -7,7 +9,7 @@ export const ProfilePage = () => {
   const [childCaregiver, setChildCaregiver] = useState<string>("");
   const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const { loading, setLoading } = useTimeInfo();
   return (
     <>
       <div className="profilePage">
@@ -18,6 +20,19 @@ export const ProfilePage = () => {
             className="profileForm"
             onSubmit={(e) => {
               e.preventDefault();
+              setLoading(true);
+              return postInfo(
+                {
+                  username: profileName,
+                  password: password,
+                  caregiver: childCaregiver,
+                  userEmail: email,
+                  cargiverEmail: childCaregiverEmail,
+                },
+                profileUrl
+              ).then(() => {
+                setLoading(false);
+              });
             }}
           >
             <div className="inputContainer">
@@ -31,10 +46,9 @@ export const ProfilePage = () => {
                 id="name"
                 className="profileInput"
                 value={profileName}
-                onChange={(e)=>{
-                  setProfileName(e.target.value)
+                onChange={(e) => {
+                  setProfileName(e.target.value);
                 }}
-                
               />
             </div>
 
@@ -48,10 +62,9 @@ export const ProfilePage = () => {
                 id="email"
                 className="profileInput"
                 value={email}
-                onChange={(e)=>{
-                  setEmail(e.target.value)
+                onChange={(e) => {
+                  setEmail(e.target.value);
                 }}
-                
               />
             </div>
 
@@ -65,10 +78,9 @@ export const ProfilePage = () => {
                 id="caregiver"
                 className="profileInput"
                 value={childCaregiver}
-                onChange={(e)=>{
-                  setChildCaregiver(e.target.value)
+                onChange={(e) => {
+                  setChildCaregiver(e.target.value);
                 }}
-                
               />
             </div>
 
@@ -82,10 +94,9 @@ export const ProfilePage = () => {
                 id="caregiverEmail"
                 className="profileInput"
                 value={childCaregiverEmail}
-                onChange={(e)=>{
-                  setChildCaregiverEmail(e.target.value)
+                onChange={(e) => {
+                  setChildCaregiverEmail(e.target.value);
                 }}
-                
               />
             </div>
 
@@ -99,10 +110,9 @@ export const ProfilePage = () => {
                 id="password"
                 className="profileInput"
                 value={password}
-                onChange={(e)=>{
-                  setPassword(e.target.value)
+                onChange={(e) => {
+                  setPassword(e.target.value);
                 }}
-                
               />
             </div>
 
@@ -130,7 +140,9 @@ export const ProfilePage = () => {
               />
             </div>
             <div className="buttonContainer">
-              <button className="saveButton">Save</button>
+              <button className="saveButton" disabled={loading}>
+                Save
+              </button>
             </div>
           </form>
         </div>

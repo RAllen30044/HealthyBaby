@@ -1,15 +1,14 @@
+import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-type LogInfo = "logIn" | "logOut";
-
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
-  const [log, setLog] = useState<LogInfo>("logOut");
+  const { log, setLog } = useAuthProviderContext();
   return (
     <>
       <header>
@@ -33,13 +32,22 @@ export const Header = () => {
           </div>
 
           <div className="pages">
-            <NavLink to="/home" className={` pageLink ${log === "logIn" ? "hidden" : ""}`} >
+            <NavLink
+              to="/home"
+              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+            >
               Home
             </NavLink>
-            <NavLink to="/about" className={` pageLink ${log === "logIn" ? "hidden" : ""}`}>
+            <NavLink
+              to="/about"
+              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+            >
               About
             </NavLink>
-            <NavLink to="/profile" className={` pageLink ${log === "logIn" ? "hidden" : ""}`}>
+            <NavLink
+              to="/profile"
+              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+            >
               Profile
             </NavLink>
             <NavLink
@@ -52,20 +60,14 @@ export const Header = () => {
               Log Out
             </NavLink>
             <NavLink
-              to="/home"
+              to="/auth"
               className={` pageLink ${log === "logOut" ? "hidden" : ""}`}
-              onClick={() => {
-                setLog("logOut");
-              }}
             >
               Log In
             </NavLink>
             <NavLink
               to="/profile"
               className={` pageLink ${log === "logOut" ? "hidden" : ""}`}
-              onClick={() => {
-                setLog("logOut");
-              }}
             >
               Sign Up
             </NavLink>
@@ -79,12 +81,13 @@ export const Header = () => {
                 >
                   &#9776;
                 </div>
-                <NavLink to="/home"
+                <NavLink
+                  to="/home"
                   className={`subPagesLinks ${
                     hiddenPagesLinks == true ? "" : "hidden"
-                  }`} 
-                  onClick={()=>{
-                    setHiddenPagesLinks(!hiddenPagesLinks)
+                  }`}
+                  onClick={() => {
+                    setHiddenPagesLinks(!hiddenPagesLinks);
                   }}
                 >
                   <div

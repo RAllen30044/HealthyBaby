@@ -15,6 +15,7 @@ import { AboutPage } from "./assets/HealthyBabySite/AboutPage/AboutPage";
 import { AuthenticationPage } from "./assets/HealthyBabySite/authenticationPage/authentiction";
 
 import { TimeInfoProvider } from "./assets/HomePage/TimeInfo/TimeInfo";
+import { AuthComponentProvider } from "./assets/HealthyBabySite/authenticationPage/authProvider";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,9 +31,11 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      <TimeInfoProvider>
-        <RouterProvider router={router} />
-      </TimeInfoProvider>
+      <AuthComponentProvider>
+        <TimeInfoProvider>
+          <RouterProvider router={router} />
+        </TimeInfoProvider>
+      </AuthComponentProvider>
     </>
   );
 }

@@ -1,59 +1,45 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./FeedingPage.css";
 import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
-import { useEffect, useState } from "react";
-import {
-  bottleFeedingInfoType,
-  breastFeedingInfoType,
-  deleteBreastFeedingHistory,
-  deleteBottleFeedingHistory,
-  getBottleFeedingHistoryInfo,
-  getBreastFeedingHistoryInfo,
-  // postBottleFeedingInfo,
-  // postBreastFeedingInfo,
-  postFeedingInfo,
-} from "./FeedingApi";
+import {  useState } from "react";
+
 import { BreastFeedingHistory } from "./BreastFeedingHistory";
 import { BottleFeedingHistory } from "./BottleFeedingHistory";
-import { baseUrl } from "../../../Types";
 
-const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
-const bottleFeedingHistoryUrl = `${baseUrl}/bottleFeedingHistory`;
+import {
+  bottleFeedingHistoryUrl,
+  breastFeedingHistoryUrl,
+  deleteHistoryInfo,
+  postInfo,
+} from "../../../api";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
 
 type FeedingType = "breastFeed" | "bottleFeed";
 
 export const FeedingPage = () => {
   const [feed, setFeed] = useState<FeedingType>("bottleFeed");
-  const [bottleFeedHistory, setBottleFeedHistory] = useState<
-    bottleFeedingInfoType[]
-  >([]);
-  const [breastFeedHistory, setBreastFeedHistory] = useState<
-    breastFeedingInfoType[]
-  >([]);
+
   const [oz, setOz] = useState("");
   const [ozLeft, setOzLeft] = useState("");
   const [feedingTimeLength, setfeedingTimeLength] = useState("");
 
   const { time, date, setDate, setTime, loading, setLoading } = useTimeInfo();
-
-  const fetchBottleFeedingData = () => {
-    return getBottleFeedingHistoryInfo().then(setBottleFeedHistory);
-  };
-  const fetchBreastFeedingData = () => {
-    return getBreastFeedingHistoryInfo().then(setBreastFeedHistory);
-  };
-
-  useEffect(() => {
-    fetchBottleFeedingData().catch((err) => console.log(err));
-    fetchBreastFeedingData().catch((err) => console.log(err));
-  }, []);
+  const {
+    bottleFeedHistory,
+    breastFeedHistory,
+    setBreastFeedHistory,
+    setBottleFeedHistory,
+    fetchBottleFeedingData,
+    fetchBreastFeedingData,
+  } = useHistoryIDComponent();
 
   const removeBreastFeedingHistory = (id: number) => {
     const updateData = breastFeedHistory.filter((history) => history.id !== id);
 
     setBreastFeedHistory(updateData);
 
-    deleteBreastFeedingHistory(id).then((res) => {
+    deleteHistoryInfo(breastFeedingHistoryUrl, id).then((res) => {
       if (!res.ok) {
         setBreastFeedHistory(breastFeedHistory);
       } else return;
@@ -64,7 +50,7 @@ export const FeedingPage = () => {
 
     setBottleFeedHistory(updateData);
 
-    deleteBottleFeedingHistory(id).then((res) => {
+    deleteHistoryInfo(bottleFeedingHistoryUrl, id).then((res) => {
       if (!res.ok) {
         setBreastFeedHistory(breastFeedHistory);
       } else return;
@@ -106,9 +92,9 @@ export const FeedingPage = () => {
             e.preventDefault();
             setLoading(true);
             if (feed === "bottleFeed") {
-              return postFeedingInfo(
+              return postInfo(
                 {
-                  time: time,
+                  time: convertToStandardTime(time),
                   date: date,
                   oz: oz,
                   ozLeft: ozLeft,
@@ -126,10 +112,10 @@ export const FeedingPage = () => {
                   setLoading(false);
                 });
             }
-            return postFeedingInfo(
+            return postInfo(
               {
-                time: time,
-                date: date,
+                time: convertToStandardTime(time),
+                date: formatDate(date),
                 feedingTimeLength: feedingTimeLength,
               },
               breastFeedingHistoryUrl
