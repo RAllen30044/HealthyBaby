@@ -1,7 +1,3 @@
-
-
-
-
 export type User = {
   username: string;
   password: string;
@@ -20,24 +16,30 @@ export type HistoryInfoTypes =
   | Omit<IllnessType, "id">
   | Omit<DaipersHistoryInfoTypes, "id">
   | Omit<ChildInfoT, "id">
-  | Omit<ProfileInfoTypes, "id">;
+  | Omit<ProfileInfoTypes, "id">
+  | Omit<infantFeedingInfoType, "id">;
 
-
-
-  export type ProfileInfoTypes = {
-    username: string;
-    password: string;
-    caregiver: string;
-    userEmail: string;
-    cargiverEmail: string;
-    id: number;
-  };
+export type ProfileInfoTypes = {
+  username: string;
+  password: string;
+  caregiver: string;
+  userEmail: string;
+  cargiverEmail: string;
+  id: number;
+};
 
 export type breastFeedingInfoType = {
   time: string;
   date: string;
   id: number;
   feedingTimeLength: string;
+};
+export type infantFeedingInfoType = {
+  time: string;
+  date: string;
+  id: number;
+  drinkType: string;
+  foodType: string;
 };
 export type bottleFeedingInfoType = {
   time: string;
@@ -66,13 +68,13 @@ export type IllnessType = {
   oz: string;
 };
 
-export type DaipersHistoryInfoTypes={
-  time:string;
+export type DaipersHistoryInfoTypes = {
+  time: string;
   date: string;
   consistancy: string;
   type: string;
   id: number;
-}
+};
 
 export type nappingType = {
   id: number;
@@ -88,4 +90,8 @@ export type bottlefeedingHistoryT = {
 export type breastfeedingHistoryT = {
   breastFeedHistory: breastFeedingInfoType[];
   removeBreastFeedingHistory: (id: number) => void;
+};
+export type infantfeedingHistoryT = {
+  infantFeedHistory: infantFeedingInfoType[];
+  removeInfantFeedingHistory: (id: number) => void;
 };

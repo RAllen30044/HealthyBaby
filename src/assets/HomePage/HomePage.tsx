@@ -5,6 +5,8 @@ import { NappingPage } from "./NappingPage/NappingPage";
 import { IllnessPage } from "./IllnessPage/IllnessPage";
 import { useActiveComponent } from "../HealthyBabySite/Header/ActiveComponentProvider";
 import { ChildPage } from "./ChildPage/ChildPage";
+
+
 export const HomePage = () => {
   const { activeComponent } = useActiveComponent();
   return (

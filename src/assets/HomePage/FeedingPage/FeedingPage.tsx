@@ -1,7 +1,7 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./FeedingPage.css";
 import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
-import {  useState } from "react";
+import { useState } from "react";
 
 import { BreastFeedingHistory } from "./BreastFeedingHistory";
 import { BottleFeedingHistory } from "./BottleFeedingHistory";
@@ -10,28 +10,36 @@ import {
   bottleFeedingHistoryUrl,
   breastFeedingHistoryUrl,
   deleteHistoryInfo,
+  infantFeedingHistoryUrl,
   postInfo,
 } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import { InfantFeedingHistory } from "./InfantFeedingHistory";
 
-type FeedingType = "breastFeed" | "bottleFeed";
+type FeedingType = "breastFeed" | "bottleFeed" | "infantModeOff";
+type InfantModeType = "on" | "off";
 
 export const FeedingPage = () => {
   const [feed, setFeed] = useState<FeedingType>("bottleFeed");
-
+  const [infantMode, setInfantMode] = useState<InfantModeType>("on");
   const [oz, setOz] = useState("");
   const [ozLeft, setOzLeft] = useState("");
   const [feedingTimeLength, setfeedingTimeLength] = useState("");
+  const [drinkType, setDrinkType] = useState("");
+  const [foodType, setFoodType] = useState("");
 
   const { time, date, setDate, setTime, loading, setLoading } = useTimeInfo();
   const {
     bottleFeedHistory,
     breastFeedHistory,
+    infantFeedHistory,
+    setInfantFeedHistory,
     setBreastFeedHistory,
     setBottleFeedHistory,
     fetchBottleFeedingData,
     fetchBreastFeedingData,
+    fetchInfantFeedingData,
   } = useHistoryIDComponent();
 
   const removeBreastFeedingHistory = (id: number) => {
@@ -56,6 +64,17 @@ export const FeedingPage = () => {
       } else return;
     });
   };
+  const removeInfantFeedingHistory = (id: number) => {
+    const updateData = infantFeedHistory.filter((history) => history.id !== id);
+
+    setInfantFeedHistory(updateData);
+
+    deleteHistoryInfo(infantFeedingHistoryUrl, id).then((res) => {
+      if (!res.ok) {
+        setInfantFeedHistory(infantFeedHistory);
+      } else return;
+    });
+  };
 
   return (
     <>
@@ -65,7 +84,28 @@ export const FeedingPage = () => {
           <div className="categoryName">
             <h1>Feeding</h1>
           </div>
-          <div className="subCategories ">
+          <div className={`feedingOffSwitch `}>
+            <button
+              className={`infantModeOffSwitch button ${
+                feed === "infantModeOff" ? "pressedButton" : ""
+              }`}
+              onClick={() => {
+                if (infantMode === "on") {
+                  setInfantMode("off");
+                  setFeed("infantModeOff");
+                }
+                if (infantMode === "off") {
+                  setInfantMode("on");
+                  setFeed("bottleFeed");
+                }
+              }}
+            >
+              Infant Mode {infantMode === "off" ? `Off` : `On`}
+            </button>
+          </div>
+          <div
+            className={`subCategories ${infantMode === "on" ? "" : "hidden"} `}
+          >
             <button
               className={`breastFeed  button ${
                 feed === "breastFeed" ? "pressedButton" : ""
@@ -95,7 +135,7 @@ export const FeedingPage = () => {
               return postInfo(
                 {
                   time: convertToStandardTime(time),
-                  date: date,
+                  date: formatDate(date),
                   oz: oz,
                   ozLeft: ozLeft,
                 },
@@ -112,23 +152,46 @@ export const FeedingPage = () => {
                   setLoading(false);
                 });
             }
-            return postInfo(
-              {
-                time: convertToStandardTime(time),
-                date: formatDate(date),
-                feedingTimeLength: feedingTimeLength,
-              },
-              breastFeedingHistoryUrl
-            )
-              .then(fetchBreastFeedingData)
-              .then(() => {
-                setDate("");
-                setTime("");
-                setfeedingTimeLength("");
-              })
-              .then(() => {
-                setLoading(false);
-              });
+            if (feed === "breastFeed") {
+              return postInfo(
+                {
+                  time: convertToStandardTime(time),
+                  date: formatDate(date),
+                  feedingTimeLength: feedingTimeLength,
+                },
+                breastFeedingHistoryUrl
+              )
+                .then(fetchBreastFeedingData)
+                .then(() => {
+                  setDate("");
+                  setTime("");
+                  setfeedingTimeLength("");
+                })
+                .then(() => {
+                  setLoading(false);
+                });
+            }
+            if (feed === "infantModeOff") {
+              return postInfo(
+                {
+                  time: convertToStandardTime(time),
+                  date: formatDate(date),
+                  drinkType: drinkType,
+                  foodType: foodType,
+                },
+                infantFeedingHistoryUrl
+              )
+                .then(fetchInfantFeedingData)
+                .then(() => {
+                  setDate("");
+                  setTime("");
+                  setDrinkType("");
+                  setFoodType("");
+                })
+                .then(() => {
+                  setLoading(false);
+                });
+            }
           }}
         >
           <TimeInfo />
@@ -163,7 +226,7 @@ export const FeedingPage = () => {
             </div>
           </div>
           <div
-            className={`breatFeedingInput ${
+            className={`breastFeedingInput ${
               feed === "breastFeed" ? "" : "hidden"
             }`}
           >
@@ -176,6 +239,36 @@ export const FeedingPage = () => {
                 onChange={(e) => {
                   e.preventDefault();
                   setfeedingTimeLength(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div
+            className={`breastFeedingInput ${
+              feed === "infantModeOff" ? "" : "hidden"
+            }`}
+          >
+            <div className="drinkType">
+              <label htmlFor="">Drink:</label>
+              <input
+                type="text"
+                id="DrinkType"
+                value={drinkType}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setDrinkType(e.target.value);
+                }}
+              />
+            </div>
+            <div className="foodType ">
+              <label htmlFor="">Food: </label>
+              <input
+                type="text"
+                id="foodType"
+                value={foodType}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setFoodType(e.target.value);
                 }}
               />
             </div>
@@ -196,17 +289,30 @@ export const FeedingPage = () => {
           <h1>Feeding History</h1>
         </div>
       </div>
-      <div className="historyTimelineContainer">
+      <div className="historyTimelineContainer ">
         {feed === "breastFeed" ? (
           <BreastFeedingHistory
             breastFeedHistory={breastFeedHistory}
             removeBreastFeedingHistory={removeBreastFeedingHistory}
           />
         ) : (
+          ""
+        )}
+        {feed === "bottleFeed" ? (
           <BottleFeedingHistory
             bottleFeedHistory={bottleFeedHistory}
             removeBottleFeedingHistory={removeBottleFeedingHistory}
           />
+        ) : (
+          ""
+        )}
+        {feed === "infantModeOff" ? (
+          <InfantFeedingHistory
+            infantFeedHistory={infantFeedHistory}
+            removeInfantFeedingHistory={removeInfantFeedingHistory}
+          />
+        ) : (
+          ""
         )}
       </div>
     </>

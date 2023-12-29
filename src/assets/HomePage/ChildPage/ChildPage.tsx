@@ -1,4 +1,5 @@
 import { childUrl, postInfo } from "../../../api";
+import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./ChildPage.css";
@@ -11,6 +12,8 @@ export const ChildPage = () => {
   const [height, setHeight] = useState("");
   const [headSize, setHeadSize] = useState("");
   const { loading, setLoading } = useTimeInfo();
+  const { setActiveComponent } = useActiveComponent();
+
   // const [babyPic, setBabyPic] = useState<string>("");
 
   // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +38,6 @@ export const ChildPage = () => {
       <div className="childPage">
         <h1>Child Page</h1>
         <div className="childPageInfo">
-          <h2>{name}</h2>
           {/* <div
             className="childPictureContainer"
             onClick={() => {
@@ -73,9 +75,13 @@ export const ChildPage = () => {
                   // url: babyPic ? babyPic : "",
                 },
                 childUrl
-              ).then(() => {
-                setLoading(false);
-              });
+              )
+                .then(() => {
+                  setActiveComponent("feeding");
+                })
+                .then(() => {
+                  setLoading(false);
+                });
             }}
           >
             <div className="nameInfo childInfoContainer">
@@ -123,9 +129,7 @@ export const ChildPage = () => {
               />
             </div>
             <div className="headSizeInfo childInfoContainer">
-              <label className="headSize childInfoLabel">
-                Head Size: {headSize}
-              </label>
+              <label className="headSize childInfoLabel">Head Size:</label>
               <input
                 type="text"
                 className="headSizeNumber  childInfoInput"

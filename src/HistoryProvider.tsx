@@ -12,6 +12,7 @@ import {
   ProfileInfoTypes,
   bottleFeedingInfoType,
   breastFeedingInfoType,
+  infantFeedingInfoType,
   nappingType,
 } from "./Types";
 import {
@@ -20,6 +21,7 @@ import {
   getChildInfo,
   getDaipersHistory,
   getIllnessHistory,
+  getInfantFeedingHistoryInfo,
   getNappingHistory,
   getProfileData,
 } from "./api";
@@ -32,6 +34,10 @@ export type HistoryIDComponentProvider = {
   breastFeedHistory: breastFeedingInfoType[];
   setBreastFeedHistory: React.Dispatch<
     React.SetStateAction<breastFeedingInfoType[]>
+  >;
+  infantFeedHistory: infantFeedingInfoType[];
+  setInfantFeedHistory: React.Dispatch<
+    React.SetStateAction<infantFeedingInfoType[]>
   >;
   diapersHistory: DaipersHistoryInfoTypes[];
   setDiapersHistory: React.Dispatch<
@@ -52,6 +58,7 @@ export type HistoryIDComponentProvider = {
   fetchProfileInfo: () => Promise<void>;
   fetchBottleFeedingData: () => Promise<void>;
   fetchBreastFeedingData: () => Promise<void>;
+  fetchInfantFeedingData: () => Promise<void>;
   fetchChildInfo: () => Promise<void>;
   fetchDaiperHistory: () => Promise<void>;
   fetchIllnessHistory: () => Promise<void>;
@@ -73,6 +80,9 @@ export const HistoryIDComponentProvider = ({
   const [breastFeedHistory, setBreastFeedHistory] = useState<
     breastFeedingInfoType[]
   >([]);
+  const [infantFeedHistory, setInfantFeedHistory] = useState<
+    infantFeedingInfoType[]
+  >([]);
   const [childInfo, setChildInfo] = useState<ChildInfoT[]>([]);
   const [diapersHistory, setDiapersHistory] = useState<
     DaipersHistoryInfoTypes[]
@@ -92,6 +102,8 @@ export const HistoryIDComponentProvider = ({
 
   const fetchBottleFeedingData = () =>
     getBottleFeedingHistoryInfo().then(setBottleFeedHistory);
+  const fetchInfantFeedingData = () =>
+    getInfantFeedingHistoryInfo().then(setInfantFeedHistory);
 
   const fetchBreastFeedingData = () =>
     getBreastFeedingHistoryInfo().then(setBreastFeedHistory);
@@ -102,6 +114,7 @@ export const HistoryIDComponentProvider = ({
     fetchProfileInfo().catch((err) => console.log(err));
     fetchBottleFeedingData().catch((err) => console.log(err));
     fetchBreastFeedingData().catch((err) => console.log(err));
+    fetchInfantFeedingData().catch((err) => console.log(err));
     fetchDaiperHistory().catch((err) => console.log(err));
     fetchIllnessHistory().catch((err) => console.log(err));
     fetchChildInfo().catch((err) => {
@@ -110,10 +123,6 @@ export const HistoryIDComponentProvider = ({
     fetchNappingHistory().catch((err) => console.log(err));
   }, []);
 
-
-  console.log(profile.filter((username)=>username.username ==="Robert Allen" && username.password==="Inhumane#1"));
-  
-  
   return (
     <HistoryIDComponentContext.Provider
       value={{
@@ -138,6 +147,9 @@ export const HistoryIDComponentProvider = ({
         profile,
         setProfile,
         fetchProfileInfo,
+        infantFeedHistory,
+        setInfantFeedHistory,
+        fetchInfantFeedingData,
       }}
     >
       {children}

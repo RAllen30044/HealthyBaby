@@ -8,6 +8,7 @@ import {
   baseUrl,
   bottleFeedingInfoType,
   breastFeedingInfoType,
+  infantFeedingInfoType,
   nappingType,
 } from "./Types";
 
@@ -16,6 +17,7 @@ const url = "http://localhost:3000/user";
 export const childUrl = `${baseUrl}/child`;
 export const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
 export const bottleFeedingHistoryUrl = `${baseUrl}/bottleFeedingHistory`;
+export const infantFeedingHistoryUrl = `${baseUrl}/infantFeedingHistory`;
 export const diaperUrl = `${baseUrl}/diapersHistory`;
 export const illnessUrl = `${baseUrl}/illness`;
 export const nappingUrl = `${baseUrl}/napHistory`;
@@ -59,6 +61,12 @@ export const getBreastFeedingHistoryInfo = (): Promise<
   breastFeedingInfoType[]
 > =>
   fetch(breastFeedingHistoryUrl)
+    .then((res) => res.json())
+    .then((data) => data);
+export const getInfantFeedingHistoryInfo = (): Promise<
+  infantFeedingInfoType[]
+> =>
+  fetch(infantFeedingHistoryUrl)
     .then((res) => res.json())
     .then((data) => data);
 
