@@ -7,10 +7,21 @@ import "./NappingPage.css";
 import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import { ErrorMessage } from "../../../ErrorMessage";
 
 export const NappingPage = () => {
   const [LengthOfTime, setLengthOfTime] = useState("");
-  const { time, setTime, date, setDate, loading, setLoading } = useTimeInfo();
+  const {
+    time,
+    setTime,
+    date,
+    setDate,
+    loading,
+    setLoading,
+    setIsSubmitted,
+    shouldShowDateTimeEntryError,
+  } = useTimeInfo();
 
   const { nappingHistory, setNappingHistory, fetchNappingHistory } =
     useHistoryIDComponent();
@@ -42,6 +53,11 @@ export const NappingPage = () => {
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
+            if (timeInvaild(date, time)) {
+              setIsSubmitted(true);
+              return;
+            }
+            setIsSubmitted(false);
             setLoading(true);
             postInfo(
               {
@@ -62,6 +78,10 @@ export const NappingPage = () => {
               });
           }}
         >
+          {shouldShowDateTimeEntryError && (
+            <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+
           <TimeInfo />
           <div className="napLength ">
             <label htmlFor="napLength">Nap Length:</label>

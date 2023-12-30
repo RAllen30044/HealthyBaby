@@ -16,6 +16,8 @@ import {
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
 import { InfantFeedingHistory } from "./InfantFeedingHistory";
+import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import { ErrorMessage } from "../../../ErrorMessage";
 
 type FeedingType = "breastFeed" | "bottleFeed" | "infantModeOff";
 type InfantModeType = "on" | "off";
@@ -29,7 +31,16 @@ export const FeedingPage = () => {
   const [drinkType, setDrinkType] = useState("");
   const [foodType, setFoodType] = useState("");
 
-  const { time, date, setDate, setTime, loading, setLoading } = useTimeInfo();
+  const {
+    time,
+    setTime,
+    date,
+    setDate,
+    loading,
+    setLoading,
+    setIsSubmitted,
+    shouldShowDateTimeEntryError,
+  } = useTimeInfo();
   const {
     bottleFeedHistory,
     breastFeedHistory,
@@ -130,6 +141,12 @@ export const FeedingPage = () => {
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
+            if (timeInvaild(date, time)) {
+              setIsSubmitted(true);
+              return;
+            }
+            setIsSubmitted(false);
+
             setLoading(true);
             if (feed === "bottleFeed") {
               return postInfo(
@@ -194,6 +211,10 @@ export const FeedingPage = () => {
             }
           }}
         >
+          {shouldShowDateTimeEntryError && (
+            <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+
           <TimeInfo />
           <div
             className={`bottleFeedInput ${

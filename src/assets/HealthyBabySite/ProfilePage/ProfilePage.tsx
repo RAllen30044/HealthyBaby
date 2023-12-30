@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ProfilePage.css";
 import { postInfo, profileUrl } from "../../../api";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
+import { preventKeyingNumbers } from "../../../ErrorHandling";
 
 export const ProfilePage = () => {
   const [profileName, setProfileName] = useState<string>("");
@@ -47,7 +48,7 @@ export const ProfilePage = () => {
                 className="profileInput"
                 value={profileName}
                 onChange={(e) => {
-                  setProfileName(e.target.value);
+                  setProfileName(preventKeyingNumbers(e.target.value));
                 }}
               />
             </div>
@@ -79,7 +80,7 @@ export const ProfilePage = () => {
                 className="profileInput"
                 value={childCaregiver}
                 onChange={(e) => {
-                  setChildCaregiver(e.target.value);
+                  setChildCaregiver(preventKeyingNumbers(e.target.value));
                 }}
               />
             </div>

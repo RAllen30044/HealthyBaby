@@ -6,6 +6,8 @@ import "./Diaper.css";
 import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import { ErrorMessage } from "../../../ErrorMessage";
 
 type DaiperType = "Wet" | "Poop";
 type ConsistancyTypeT = "Pellets" | "Solid" | "Soft" | "Wet";
@@ -14,7 +16,16 @@ export const DaiperPage = () => {
   const [diaperType, setDiaperType] = useState<DaiperType>("Wet");
   const [consistancy, setConsistancy] = useState<ConsistancyTypeT>("Wet");
 
-  const { time, setTime, date, setDate, loading, setLoading } = useTimeInfo();
+  const {
+    time,
+    setTime,
+    date,
+    setDate,
+    loading,
+    setLoading,
+    setIsSubmitted,
+    shouldShowDateTimeEntryError,
+  } = useTimeInfo();
   const { diapersHistory, setDiapersHistory, fetchDaiperHistory } =
     useHistoryIDComponent();
 
@@ -45,6 +56,11 @@ export const DaiperPage = () => {
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
+            if (timeInvaild(date, time)) {
+              setIsSubmitted(true);
+              return;
+            }
+            setIsSubmitted(false);
             setLoading(true);
             return postInfo(
               {
@@ -67,6 +83,10 @@ export const DaiperPage = () => {
               });
           }}
         >
+          {shouldShowDateTimeEntryError && (
+            <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+
           <TimeInfo />
           <div className="diaperType ">
             <label htmlFor="diaperType">Diaper Type?</label>

@@ -17,7 +17,6 @@ export function convertToStandardTime(time24hr: string) {
   return standardTime;
 }
 
-
 export const formatDate = (inputDate: string): string => {
   const date = new Date(inputDate);
   const options: Intl.DateTimeFormatOptions = {
@@ -27,3 +26,36 @@ export const formatDate = (inputDate: string): string => {
   };
   return date.toLocaleDateString("en-us", options);
 };
+export function calculateAge(DOB: string) {
+  const currentDate = new Date();
+  const birthdate = new Date(DOB);
+
+  let age = currentDate.getFullYear() - birthdate.getFullYear();
+
+  // Check if the birthday has occurred this year
+  if (
+    currentDate.getMonth() < birthdate.getMonth() ||
+    (currentDate.getMonth() === birthdate.getMonth() &&
+      currentDate.getDate() < birthdate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+}
+export function calculateAgeInMonths(DOB: string) {
+  const currentDate = new Date();
+  const birthdate = new Date(DOB);
+
+  let months = (currentDate.getFullYear() - birthdate.getFullYear()) * 12;
+  months += currentDate.getMonth() - birthdate.getMonth();
+
+  // Check if the birthday has occurred this month
+  if (currentDate.getDate() < birthdate.getDate()) {
+    months--;
+  }
+
+  return months;
+}
+
+console.log(calculateAgeInMonths("2023-02-27"));

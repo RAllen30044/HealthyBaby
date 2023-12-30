@@ -61,11 +61,28 @@
   ],
   "child": [
     {
+      "id": 0,
       "name": "Naya",
       "age": "8 months",
       "weight": "22lbs",
       "headSize": "7in",
       "height": "25in"
+    },
+    {
+      "name": "Arielle",
+      "age": "21 months",
+      "weight": "34 lbs.",
+      "headSize": "17 in.",
+      "height": "24 in.",
+      "id": 1
+    },
+    {
+      "name": "booby",
+      "age": "4 yrs.",
+      "weight": "67 lbs.",
+      "headSize": "10 in.",
+      "height": "34 in.",
+      "id": 2
     }
   ],
   "napHistory": [
@@ -74,6 +91,18 @@
       "date": "2023-12-12",
       "lengthOfTime": "20min",
       "id": 2
+    },
+    {
+      "time": "9:50 PM",
+      "date": "December 28, 2023",
+      "lengthOfTime": "90min",
+      "id": 4
+    },
+    {
+      "time": "1:54 PM",
+      "date": "December 28, 2023",
+      "lengthOfTime": "20",
+      "id": 5
     }
   ],
   "bottleFeedingHistory": [
@@ -90,6 +119,13 @@
       "oz": "8",
       "ozLeft": "4",
       "id": 6
+    },
+    {
+      "time": "5:25 PM",
+      "date": "December 20, 2023",
+      "oz": "8",
+      "ozLeft": "4",
+      "id": 7
     }
   ],
   "breastFeedingHistory": [
@@ -114,18 +150,18 @@
   ],
   "infantFeedingHistory": [
     {
-      "time": "10:12 AM",
-      "date": "December 25, 2023",
-      "drinkType": "Milk",
-      "foodType": "Mac and cheese, chicken",
-      "id": 1
-    },
-    {
       "time": "2:13 PM",
       "date": "December 26, 2023",
       "drinkType": "Milk ",
       "foodType": "PB and J",
       "id": 3
+    },
+    {
+      "time": "5:25 PM",
+      "date": "December 11, 2023",
+      "drinkType": "Soda",
+      "foodType": "ginger",
+      "id": 4
     }
   ],
   "diapersHistory": [

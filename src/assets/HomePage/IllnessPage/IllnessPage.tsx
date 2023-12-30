@@ -6,13 +6,24 @@ import { useState } from "react";
 import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import { ErrorMessage } from "../../../ErrorMessage";
 
 export const IllnessPage = () => {
   const [sicknessType, setSicknessType] = useState("");
   const [symptoms, setSymptoms] = useState("");
   const [medicineGiven, setMedicineGiven] = useState("");
   const [oz, setOz] = useState("");
-  const { time, setTime, date, setDate, loading, setLoading } = useTimeInfo();
+  const {
+    time,
+    setTime,
+    date,
+    setDate,
+    loading,
+    setLoading,
+    setIsSubmitted,
+    shouldShowDateTimeEntryError,
+  } = useTimeInfo();
 
   const { illnessHistory, setIllnessHistory, fetchIllnessHistory } =
     useHistoryIDComponent();
@@ -42,6 +53,13 @@ export const IllnessPage = () => {
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
+
+            if (timeInvaild(date, time)) {
+              setIsSubmitted(true);
+              return;
+            }
+            setIsSubmitted(false);
+
             setLoading(true);
 
             postInfo(
@@ -69,6 +87,10 @@ export const IllnessPage = () => {
               });
           }}
         >
+           {shouldShowDateTimeEntryError && (
+            <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+
           <TimeInfo />
           <div className="sickness">
             <label htmlFor="sickness">Sickness: </label>

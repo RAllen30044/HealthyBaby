@@ -10,9 +10,7 @@ export const InfantFeedingHistory = ({
         return (
           <div className="historyContainer" key={history.id}>
             <div className="breasfeedingHistory">
-              <h2>
-                Breast Feeding number {infantFeedHistory.indexOf(history) + 1}
-              </h2>
+              <h2>Child Fed number {infantFeedHistory.indexOf(history) + 1}</h2>
               <h4>Date: {history.date}</h4>
               <h4>Time: {history.time}</h4>
               <h4>

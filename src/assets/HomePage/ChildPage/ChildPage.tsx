@@ -1,5 +1,7 @@
+import {  preventKeyingNumbers } from "../../../ErrorHandling";
 import { childUrl, postInfo } from "../../../api";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
+import { calculateAge, calculateAgeInMonths } from "../TimeInfo/TimeConversion";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./ChildPage.css";
@@ -7,11 +9,11 @@ import { useState } from "react";
 
 export const ChildPage = () => {
   const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [headSize, setHeadSize] = useState("");
-  const { loading, setLoading } = useTimeInfo();
+  const { loading, setLoading, date, setDate } = useTimeInfo();
   const { setActiveComponent } = useActiveComponent();
 
   // const [babyPic, setBabyPic] = useState<string>("");
@@ -68,10 +70,13 @@ export const ChildPage = () => {
               postInfo(
                 {
                   name: name,
-                  age: age,
-                  weight: weight,
-                  headSize: headSize,
-                  height: height,
+                  age:
+                    calculateAge(date) < 2
+                      ? `${calculateAgeInMonths(date)} months`
+                      : `${calculateAge(date)} yrs.`,
+                  weight: `${weight} lbs.`,
+                  headSize: `${headSize} in.`,
+                  height: `${height} in.`,
                   // url: babyPic ? babyPic : "",
                 },
                 childUrl
@@ -91,18 +96,18 @@ export const ChildPage = () => {
                 className="name childInfoInput"
                 value={name}
                 onChange={(e) => {
-                  setName(e.target.value);
+                  setName(preventKeyingNumbers(e.target.value));
                 }}
               />
             </div>
             <div className="ageInfo childInfoContainer">
               <label className="age childInfoLabel">Age:</label>
               <input
-                type="text"
+                type="date"
                 className="ageNumber childInfoInput"
-                value={age}
+                value={date}
                 onChange={(e) => {
-                  setAge(e.target.value);
+                  setDate(e.target.value);
                 }}
               />
             </div>
@@ -116,6 +121,7 @@ export const ChildPage = () => {
                   setWeight(e.target.value);
                 }}
               />
+              <span> in.</span>
             </div>
             <div className="heightInfo childInfoContainer">
               <label className="height childInfoLabel">Height: </label>
@@ -127,7 +133,9 @@ export const ChildPage = () => {
                   setHeight(e.target.value);
                 }}
               />
+              <span> lbs.</span>
             </div>
+
             <div className="headSizeInfo childInfoContainer">
               <label className="headSize childInfoLabel">Head Size:</label>
               <input
@@ -138,6 +146,7 @@ export const ChildPage = () => {
                   setHeadSize(e.target.value);
                 }}
               />
+              <span>in.</span>
             </div>
             <div className="buttonContainer ">
               <button className="saveButton feedingSave" disabled={loading}>
