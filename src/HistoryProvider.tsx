@@ -63,6 +63,9 @@ export type HistoryIDComponentProvider = {
   fetchDaiperHistory: () => Promise<void>;
   fetchIllnessHistory: () => Promise<void>;
   fetchNappingHistory: () => Promise<void>;
+
+  childId: number;
+  setChildId: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const HistoryIDComponentContext = createContext<HistoryIDComponentProvider>(
@@ -123,6 +126,8 @@ export const HistoryIDComponentProvider = ({
     fetchNappingHistory().catch((err) => console.log(err));
   }, []);
 
+  const [childId, setChildId] = useState(0);
+
   return (
     <HistoryIDComponentContext.Provider
       value={{
@@ -150,6 +155,8 @@ export const HistoryIDComponentProvider = ({
         infantFeedHistory,
         setInfantFeedHistory,
         fetchInfantFeedingData,
+        childId,
+        setChildId,
       }}
     >
       {children}

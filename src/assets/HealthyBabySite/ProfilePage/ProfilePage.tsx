@@ -3,6 +3,10 @@ import "./ProfilePage.css";
 import { postInfo, profileUrl } from "../../../api";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
 import { preventKeyingNumbers } from "../../../ErrorHandling";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useAuthProviderContext } from "../authenticationPage/authProvider";
+import { useActiveComponent } from "../Header/ActiveComponentProvider";
 
 export const ProfilePage = () => {
   const [profileName, setProfileName] = useState<string>("");
@@ -11,6 +15,9 @@ export const ProfilePage = () => {
   const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { loading, setLoading } = useTimeInfo();
+  const navigate = useNavigate();
+  const { setLog } = useAuthProviderContext();
+  const { setActiveComponent } = useActiveComponent();
   return (
     <>
       <div className="profilePage">
@@ -31,9 +38,21 @@ export const ProfilePage = () => {
                   cargiverEmail: childCaregiverEmail,
                 },
                 profileUrl
-              ).then(() => {
-                setLoading(false);
-              });
+              )
+                .then(() => {
+                  toast.success("Profile Saved");
+                })
+                .then(() => {
+                  navigate("/home");
+                  setLog("logOut");
+                  setActiveComponent("addChild");
+                })
+                .then(() => {
+                  setLoading(false);
+                })
+                .catch((e) => {
+                  toast.error(e);
+                });
             }}
           >
             <div className="inputContainer">
@@ -114,6 +133,7 @@ export const ProfilePage = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                autoComplete="password"
               />
             </div>
 

@@ -2,7 +2,7 @@ export const preventKeyingNumbers = (value: string) => {
   return value.replace(/[^A-Za-z\s]/, "");
 };
 export const onlyKeyNumbers = (value: string) => {
-  return value.replace(/[0-9]/, "");
+  return value.replace(/[^0-9]/, "");
 };
 
 export function isEmailValid(emailAddress: string) {
@@ -27,3 +27,5 @@ export function timeInvaild(date: string, time: string) {
 
 export const futureTimeNotAllowed =
   "Cannot chose a future time, Please select a different time and/or date";
+export const futureDOBNotAllowed =
+  "Cannot chose a future time, Please select a different date";

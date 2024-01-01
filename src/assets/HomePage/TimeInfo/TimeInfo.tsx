@@ -22,7 +22,7 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const shouldShowDOBentryError = isSubmitted && !DOBnotVaild(date);
+  const shouldShowDOBentryError = isSubmitted && DOBnotVaild(date);
   const shouldShowDateTimeEntryError = isSubmitted && timeInvaild(date, time);
 
   return (

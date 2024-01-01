@@ -7,7 +7,11 @@ import "./NappingPage.css";
 import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
-import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import {
+  futureTimeNotAllowed,
+  onlyKeyNumbers,
+  timeInvaild,
+} from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 
 export const NappingPage = () => {
@@ -91,9 +95,10 @@ export const NappingPage = () => {
               id="napLength"
               value={LengthOfTime}
               onChange={(e) => {
-                setLengthOfTime(e.target.value);
+                setLengthOfTime(onlyKeyNumbers(e.target.value));
               }}
             />
+            <span> min</span>
           </div>
 
           <div className="saveContainer">
@@ -122,7 +127,7 @@ export const NappingPage = () => {
                 </h2>
                 <h3>Time: {history.time}</h3>
                 <h3>Date: {history.date}</h3>
-                <h3>Length of Time: {history.lengthOfTime}</h3>
+                <h3>Length of Time: {history.lengthOfTime} min</h3>
               </div>
               <button
                 className="Delete button"

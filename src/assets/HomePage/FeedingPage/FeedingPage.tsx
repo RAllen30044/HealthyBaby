@@ -16,7 +16,12 @@ import {
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
 import { InfantFeedingHistory } from "./InfantFeedingHistory";
-import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import {
+  futureTimeNotAllowed,
+  onlyKeyNumbers,
+  preventKeyingNumbers,
+  timeInvaild,
+} from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 
 type FeedingType = "breastFeed" | "bottleFeed" | "infantModeOff";
@@ -229,7 +234,7 @@ export const FeedingPage = () => {
                 value={oz}
                 onChange={(e) => {
                   e.preventDefault();
-                  setOz(e.target.value);
+                  setOz(onlyKeyNumbers(e.target.value));
                 }}
               />
             </div>
@@ -241,7 +246,7 @@ export const FeedingPage = () => {
                 value={ozLeft}
                 onChange={(e) => {
                   e.preventDefault();
-                  setOzLeft(e.target.value);
+                  setOzLeft(onlyKeyNumbers(e.target.value));
                 }}
               />
             </div>
@@ -259,9 +264,10 @@ export const FeedingPage = () => {
                 value={feedingTimeLength}
                 onChange={(e) => {
                   e.preventDefault();
-                  setfeedingTimeLength(e.target.value);
+                  setfeedingTimeLength(onlyKeyNumbers(e.target.value));
                 }}
               />
+              <span> min.</span>
             </div>
           </div>
           <div
@@ -277,7 +283,7 @@ export const FeedingPage = () => {
                 value={drinkType}
                 onChange={(e) => {
                   e.preventDefault();
-                  setDrinkType(e.target.value);
+                  setDrinkType(preventKeyingNumbers(e.target.value));
                 }}
               />
             </div>
@@ -289,7 +295,7 @@ export const FeedingPage = () => {
                 value={foodType}
                 onChange={(e) => {
                   e.preventDefault();
-                  setFoodType(e.target.value);
+                  setFoodType(preventKeyingNumbers(e.target.value));
                 }}
               />
             </div>

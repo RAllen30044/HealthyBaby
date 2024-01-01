@@ -1,3 +1,5 @@
+import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { ChildInfo } from "../../HomePage/ChildInfo/ChildInfo";
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
@@ -8,6 +10,7 @@ export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
+  const { childInfo, setChildId, childId } = useHistoryIDComponent();
   const { log, setLog } = useAuthProviderContext();
   return (
     <>
@@ -26,8 +29,25 @@ export const Header = () => {
                 hiddenChildLinks === true ? "" : "hidden"
               }`}
             >
-              <div className="child">Child 1</div>
-              <div className="child">Child 2</div>
+              {/* <div className="child">Child 1</div>
+              <div className="child">Child 2</div> */}
+
+              {childInfo.map((child) => {
+                return (
+                  <div
+                    className={`child ${
+                      childId === childInfo.indexOf(child) ? "selected" : ""
+                    }`}
+                    key={child.id}
+                    onClick={() => {
+                      setChildId(childInfo.indexOf(child));
+                      setHiddenChildLinks(!hiddenChildLinks);
+                    }}
+                  >
+                    {child.name}
+                  </div>
+                );
+              })}
             </div>
           </div>
 

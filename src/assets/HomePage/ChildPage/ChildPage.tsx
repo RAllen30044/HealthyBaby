@@ -1,4 +1,11 @@
-import {  preventKeyingNumbers } from "../../../ErrorHandling";
+import {
+  DOBnotVaild,
+  futureDOBNotAllowed,
+  onlyKeyNumbers,
+  preventKeyingNumbers,
+} from "../../../ErrorHandling";
+import { ErrorMessage } from "../../../ErrorMessage";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { childUrl, postInfo } from "../../../api";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 import { calculateAge, calculateAgeInMonths } from "../TimeInfo/TimeConversion";
@@ -15,7 +22,8 @@ export const ChildPage = () => {
   const [headSize, setHeadSize] = useState("");
   const { loading, setLoading, date, setDate } = useTimeInfo();
   const { setActiveComponent } = useActiveComponent();
-
+  const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
+  const { fetchChildInfo } = useHistoryIDComponent();
   // const [babyPic, setBabyPic] = useState<string>("");
 
   // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +74,12 @@ export const ChildPage = () => {
             className="childInfo"
             onSubmit={(e) => {
               e.preventDefault();
+
+              if (DOBnotVaild(date)) {
+                setIsSubmitted(true);
+                return;
+              }
+              setIsSubmitted(false);
               setLoading(true);
               postInfo(
                 {
@@ -81,6 +95,11 @@ export const ChildPage = () => {
                 },
                 childUrl
               )
+                .then(fetchChildInfo)
+
+                .then(() => {
+                  setDate("");
+                })
                 .then(() => {
                   setActiveComponent("feeding");
                 })
@@ -100,8 +119,11 @@ export const ChildPage = () => {
                 }}
               />
             </div>
+            {shouldShowDOBentryError && (
+              <ErrorMessage message={futureDOBNotAllowed} show={true} />
+            )}
             <div className="ageInfo childInfoContainer">
-              <label className="age childInfoLabel">Age:</label>
+              <label className="age childInfoLabel">Date of Birth:</label>
               <input
                 type="date"
                 className="ageNumber childInfoInput"
@@ -118,10 +140,10 @@ export const ChildPage = () => {
                 className="weightNumber  childInfoInput"
                 value={weight}
                 onChange={(e) => {
-                  setWeight(e.target.value);
+                  setWeight(onlyKeyNumbers(e.target.value));
                 }}
               />
-              <span> in.</span>
+              <span> lbs.</span>
             </div>
             <div className="heightInfo childInfoContainer">
               <label className="height childInfoLabel">Height: </label>
@@ -130,10 +152,10 @@ export const ChildPage = () => {
                 className="heightNumber  childInfoInput"
                 value={height}
                 onChange={(e) => {
-                  setHeight(e.target.value);
+                  setHeight(onlyKeyNumbers(e.target.value));
                 }}
               />
-              <span> lbs.</span>
+              <span> in.</span>
             </div>
 
             <div className="headSizeInfo childInfoContainer">
@@ -143,7 +165,7 @@ export const ChildPage = () => {
                 className="headSizeNumber  childInfoInput"
                 value={headSize}
                 onChange={(e) => {
-                  setHeadSize(e.target.value);
+                  setHeadSize(onlyKeyNumbers(e.target.value));
                 }}
               />
               <span>in.</span>

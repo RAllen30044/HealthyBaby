@@ -13,11 +13,10 @@
 }
 
 html {
-
   width: 100%;
   background-color: #fdfdfd;
 }
-body{
+body {
   margin: 0;
 }
 .saveButton {
@@ -49,7 +48,7 @@ body{
   background-color: darkgrey;
   cursor: pointer;
 }
-.hidden{
+.hidden {
   display: none;
 }
 .button:hover {
@@ -60,4 +59,7 @@ body{
   box-shadow: 1px 1px 1px 1px inset;
   border-color: transparent;
   background-color: lightgray;
+}
+.error-message {
+  color: red;
 }

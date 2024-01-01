@@ -6,7 +6,12 @@ import { useState } from "react";
 import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
-import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import {
+  futureTimeNotAllowed,
+  onlyKeyNumbers,
+  preventKeyingNumbers,
+  timeInvaild,
+} from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 
 export const IllnessPage = () => {
@@ -87,7 +92,7 @@ export const IllnessPage = () => {
               });
           }}
         >
-           {shouldShowDateTimeEntryError && (
+          {shouldShowDateTimeEntryError && (
             <ErrorMessage message={futureTimeNotAllowed} show={true} />
           )}
 
@@ -121,7 +126,7 @@ export const IllnessPage = () => {
               id="medicineGiven"
               value={medicineGiven}
               onChange={(e) => {
-                setMedicineGiven(e.target.value);
+                setMedicineGiven(preventKeyingNumbers(e.target.value));
               }}
             />
           </div>
@@ -132,7 +137,7 @@ export const IllnessPage = () => {
               id="oz"
               value={oz}
               onChange={(e) => {
-                setOz(e.target.value);
+                setOz(onlyKeyNumbers(e.target.value));
               }}
             />
           </div>

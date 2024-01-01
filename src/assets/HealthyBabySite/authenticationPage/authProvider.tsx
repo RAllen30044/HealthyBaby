@@ -9,7 +9,7 @@ const AuthProviderContext = createContext<AuthComponentProviderT>(
   {} as AuthComponentProviderT
 );
 
-export const AuthComponentProvider = ({
+export const AuthProvider = ({
   children,
 }: {
   children: ReactNode;
