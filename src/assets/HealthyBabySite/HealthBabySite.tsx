@@ -8,7 +8,7 @@ export const HealthyBabySite = () => {
 
   useEffect(() => {
     navigate("/auth");
-  }, [navigate]);
+  }, []);
   return (
     <>
       <Header />

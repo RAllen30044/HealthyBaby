@@ -11,7 +11,7 @@ export const Header = () => {
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
   const { childInfo, setChildId, childId } = useHistoryIDComponent();
-  const { log, setLog } = useAuthProviderContext();
+  const { log, setLog, setUser } = useAuthProviderContext();
   return (
     <>
       <header>
@@ -75,6 +75,8 @@ export const Header = () => {
               className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
               onClick={() => {
                 setLog("logIn");
+                localStorage.removeItem("user");
+                setUser(null);
               }}
             >
               Log Out
