@@ -5,66 +5,62 @@ import {
   useEffect,
   useState,
 } from "react";
-import toast from "react-hot-toast";
 
 import { User } from "../../../Types";
-import { getProfileData } from "../../../api";
-import { json } from "react-router-dom";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
 
-type LogInfo = "logIn" | "logOut";
+// type LogInfo = "logIn" | "logOut";
 export type AuthComponentProviderT = {
-  log: LogInfo;
-  setLog: React.Dispatch<React.SetStateAction<LogInfo>>;
-  isUserValid: (email: string, password: string) => Promise<void>;
+  log: string | null;
+  setLog: React.Dispatch<React.SetStateAction<string | null>>;
+  maybeUser: string | null;
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  loggedIn: (email: string, password: string) => void;
 };
+
 const AuthProviderContext = createContext<AuthComponentProviderT>(
   {} as AuthComponentProviderT
 );
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [log, setLog] = useState<LogInfo>("logIn");
+  const [log, setLog] = useState<string | null>("logIn");
   const [user, setUser] = useState<User | null>(null);
+  const { profile } = useHistoryIDComponent();
+  const maybeUser = localStorage.getItem("user");
 
-  const isUserValid = (email: string, password: string) => {
-    return getProfileData().then((users) => {
-      const userExist = users.some(
-        (user) =>
-          user.userEmail.toLowerCase() === email.toLowerCase() &&
-          user.password === password
+  const loggedIn = (email: string, password: string) => {
+    setLog("logOut");
+    const userID = profile.find(
+      (profile) => profile.userEmail === email && profile.password === password
+    );
+    console.log(userID);
+    if (userID) {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          username: userID.userEmail,
+          password: userID.password,
+          id: userID.id,
+        })
       );
-
-      if (userExist) {
-        toast.success("Success");
-        setLog("logOut");
-        setUser({ username: email, password: password });
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ username: email, password: password })
-        );
-        console.log(JSON.stringify(user));
-
-        return;
-      } else {
-        toast.error("Try Again");
-        return;
-      }
-    });
+      localStorage.setItem("log", "logOut");
+    }
   };
 
   useEffect(() => {
-    const maybeUser = localStorage.getItem("user");
     if (maybeUser) {
       setUser(JSON.parse(maybeUser));
-      console.log(JSON.parse(maybeUser));
+      setLog(localStorage.getItem("log" || "logIn"));
     }
-  }, []);
+  }, [maybeUser]);
+
+  console.log(user);
 
   return (
     <>
       <AuthProviderContext.Provider
-        value={{ log, setLog, isUserValid, user, setUser }}
+        value={{ log, setLog, user, setUser, loggedIn, maybeUser }}
       >
         {children}
       </AuthProviderContext.Provider>

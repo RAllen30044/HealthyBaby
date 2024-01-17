@@ -16,16 +16,25 @@ export function convertToStandardTime(time24hr: string) {
 
   return standardTime;
 }
-
+export const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+export const createShortHandDate =(date:string)=>{
+  
+const dateParts = date.split('-'); // Split the input date string
+return `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`
+}
 export const formatDate = (inputDate: string): string => {
   const date = new Date(inputDate);
+
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
   };
-  return date.toLocaleDateString("en-us", options);
+  return date.toLocaleDateString(undefined, options);
 };
+
+console.log(formatDate("01/10/2024"));
+
 export function calculateAge(DOB: string) {
   const currentDate = new Date();
   const birthdate = new Date(DOB);
@@ -57,5 +66,3 @@ export function calculateAgeInMonths(DOB: string) {
 
   return months;
 }
-
-console.log(calculateAgeInMonths("2023-02-27"));

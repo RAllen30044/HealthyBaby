@@ -66,6 +66,9 @@ export type HistoryIDComponentProvider = {
 
   childId: number;
   setChildId: React.Dispatch<React.SetStateAction<number>>;
+
+  profileId: number | null;
+  setProfileId: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 const HistoryIDComponentContext = createContext<HistoryIDComponentProvider>(
@@ -94,7 +97,8 @@ export const HistoryIDComponentProvider = ({
   const [nappingHistory, setNappingHistory] = useState<nappingType[]>([]);
   const [illnessHistory, setIllnessHistory] = useState<IllnessType[]>([]);
   const [profile, setProfile] = useState<ProfileInfoTypes[]>([]);
-
+  const [childId, setChildId] = useState<number>(0);
+  const [profileId, setProfileId] = useState<null | number>(null);
   const fetchProfileInfo = () => getProfileData().then(setProfile);
 
   const fetchNappingHistory = () => getNappingHistory().then(setNappingHistory);
@@ -113,6 +117,8 @@ export const HistoryIDComponentProvider = ({
 
   const fetchChildInfo = () => getChildInfo().then(setChildInfo);
 
+
+
   useEffect(() => {
     fetchProfileInfo().catch((err) => console.log(err));
     fetchBottleFeedingData().catch((err) => console.log(err));
@@ -126,7 +132,8 @@ export const HistoryIDComponentProvider = ({
     fetchNappingHistory().catch((err) => console.log(err));
   }, []);
 
-  const [childId, setChildId] = useState(0);
+
+  console.log(profile);
 
   return (
     <HistoryIDComponentContext.Provider
@@ -157,6 +164,8 @@ export const HistoryIDComponentProvider = ({
         fetchInfantFeedingData,
         childId,
         setChildId,
+        profileId,
+        setProfileId,
       }}
     >
       {children}

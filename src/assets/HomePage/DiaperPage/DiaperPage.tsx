@@ -5,7 +5,12 @@ import "./Diaper.css";
 
 import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import {
+  convertToStandardTime,
+  createShortHandDate,
+  formatDate,
+
+} from "../TimeInfo/TimeConversion";
 import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 
@@ -26,7 +31,7 @@ export const DaiperPage = () => {
     setIsSubmitted,
     shouldShowDateTimeEntryError,
   } = useTimeInfo();
-  const { diapersHistory, setDiapersHistory, fetchDaiperHistory } =
+  const { diapersHistory, setDiapersHistory, fetchDaiperHistory, childId } =
     useHistoryIDComponent();
 
   const removeDiaperHistory = (id: number) => {
@@ -65,9 +70,10 @@ export const DaiperPage = () => {
             return postInfo(
               {
                 time: convertToStandardTime(time),
-                date: formatDate(date),
+                date: formatDate(createShortHandDate(date)),
                 type: diaperType,
                 consistancy: consistancy,
+                childId: childId,
               },
               diaperUrl
             )
@@ -171,27 +177,39 @@ export const DaiperPage = () => {
         </div>
       </div>
       <div className="historyTimelineContainer">
-        {diapersHistory.map((history) => {
-          return (
-            <div className="historyContainer" key={history.id}>
-              <div className="diapersHistory">
-                <h2>Diaper Number {diapersHistory.indexOf(history) + 1}</h2>
-                <h3>Time: {history.time}</h3>
-                <h3>Date: {history.date}</h3>
-                <h3>Type of Diaper: {history.type}</h3>
-                <h3>Consistancy: {history.consistancy}</h3>
+        {diapersHistory
+          .filter((history) => history.childId === childId)
+          .sort((a, b) => {
+            if (a.date < b.date) {
+              return -1;
+            }
+            if (a.date > b.date) {
+              return 1;
+            }
+
+            return 0;
+          })
+          .map((history) => {
+            return (
+              <div className="historyContainer" key={history.id}>
+                <div className="diapersHistory">
+                  <h2>Diaper Number {diapersHistory.indexOf(history) + 1}</h2>
+                  <h3>Time: {history.time}</h3>
+                  <h3>Date: {history.date}</h3>
+                  <h3>Type of Diaper: {history.type}</h3>
+                  <h3>Consistancy: {history.consistancy}</h3>
+                </div>
+                <button
+                  className="Delete button"
+                  onClick={() => {
+                    removeDiaperHistory(history.id);
+                  }}
+                >
+                  Delete
+                </button>
               </div>
-              <button
-                className="Delete button"
-                onClick={() => {
-                  removeDiaperHistory(history.id);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </>
   );

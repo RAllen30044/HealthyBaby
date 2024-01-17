@@ -14,7 +14,12 @@ import {
   postInfo,
 } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import {
+  convertToStandardTime,
+  createShortHandDate,
+  formatDate,
+ 
+} from "../TimeInfo/TimeConversion";
 import { InfantFeedingHistory } from "./InfantFeedingHistory";
 import {
   futureTimeNotAllowed,
@@ -56,6 +61,7 @@ export const FeedingPage = () => {
     fetchBottleFeedingData,
     fetchBreastFeedingData,
     fetchInfantFeedingData,
+    childId,
   } = useHistoryIDComponent();
 
   const removeBreastFeedingHistory = (id: number) => {
@@ -157,9 +163,10 @@ export const FeedingPage = () => {
               return postInfo(
                 {
                   time: convertToStandardTime(time),
-                  date: formatDate(date),
+                  date: formatDate(createShortHandDate(date)),
                   oz: oz,
                   ozLeft: ozLeft,
+                  childId: childId,
                 },
                 bottleFeedingHistoryUrl
               )
@@ -178,8 +185,9 @@ export const FeedingPage = () => {
               return postInfo(
                 {
                   time: convertToStandardTime(time),
-                  date: formatDate(date),
+                  date: formatDate(createShortHandDate(date)),
                   feedingTimeLength: feedingTimeLength,
+                  childId: childId,
                 },
                 breastFeedingHistoryUrl
               )
@@ -197,9 +205,10 @@ export const FeedingPage = () => {
               return postInfo(
                 {
                   time: convertToStandardTime(time),
-                  date: formatDate(date),
+                  date: formatDate(createShortHandDate(date)),
                   drinkType: drinkType,
                   foodType: foodType,
+                  childId: childId,
                 },
                 infantFeedingHistoryUrl
               )

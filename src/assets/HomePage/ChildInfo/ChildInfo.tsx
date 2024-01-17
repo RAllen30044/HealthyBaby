@@ -1,7 +1,9 @@
 import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { useChildrenProviderContext } from "../../HealthyBabySite/ProfilePage/profileChildrenProvider";
 
 export const ChildInfo = () => {
   const { childInfo, childId } = useHistoryIDComponent();
+  const {hasChildren}=useChildrenProviderContext();
 
   return (
     <>
@@ -14,7 +16,7 @@ export const ChildInfo = () => {
           )}
         </div> */}
         <div>
-          {childInfo.length > 0 ? (
+          {hasChildren===true ? (
             <div className="info">
               <div className="name">Name: {childInfo[childId].name}</div>
 

@@ -1,12 +1,24 @@
+import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { breastfeedingHistoryT } from "../../../Types";
 
 export const BreastFeedingHistory = ({
   breastFeedHistory,
   removeBreastFeedingHistory,
 }: breastfeedingHistoryT) => {
+  const {childId}= useHistoryIDComponent();
   return (
     <>
-      {breastFeedHistory.map((history) => {
+      {breastFeedHistory.filter((history) => history.childId === childId)
+          .sort((a, b) => {
+            if (a.date < b.date) {
+              return -1;
+            }
+            if (a.date > b.date) {
+              return 1;
+            }
+
+            return 0;
+          }).map((history) => {
         return (
           <div className="historyContainer" key={history.id}>
             <div className="breasfeedingHistory">

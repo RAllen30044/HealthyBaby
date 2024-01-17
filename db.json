@@ -1,14 +1,6 @@
 {
   "profile": [
     {
-      "id": 0,
-      "username": "Robert",
-      "password": "Comets",
-      "caregiver": "Donna",
-      "userEmail": "email@yahoo.com",
-      "caregiverEmail": "DLovely16@aol.com"
-    },
-    {
       "username": "Robert Allen",
       "password": "CometsWRNumber#29",
       "caregiver": "Yalana",
@@ -25,230 +17,60 @@
       "id": 2
     },
     {
-      "username": "Yalana Allen",
-      "password": "CometsWRNumber#29",
-      "caregiver": "Robert Allen",
-      "userEmail": "yalanarashton@yahoo.com",
-      "cargiverEmail": "Robharmony@hotmail.com",
+      "username": "Mike Brown",
+      "password": "MBrownPW1",
+      "caregiver": "Andrew",
+      "userEmail": "MBrown@yahoo.com",
+      "cargiverEmail": "Abrown@outlook.com",
       "id": 3
     },
     {
-      "username": "Yalana Allen",
-      "password": "CometsWRNumber#29",
-      "caregiver": "Robert Allen",
-      "userEmail": "yalanarashton@yahoo.com",
-      "cargiverEmail": "Robharmony@hotmail.com",
+      "username": "Mike Brown",
+      "password": "MBrownPW1",
+      "caregiver": "Andrew",
+      "userEmail": "MBrown@yahoo.com",
+      "cargiverEmail": "Abrown@outlook.com",
       "id": 4
     },
     {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
+      "username": "Mike Brown",
+      "password": "MBrownPW1",
+      "caregiver": "Andrew",
+      "userEmail": "MBrown@yahoo.com",
+      "cargiverEmail": "Abrown@outlook.com",
       "id": 5
     },
     {
       "username": "Robert Allen",
-      "password": "Inhumane#1",
+      "password": "Comets29",
       "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
+      "userEmail": "MBrown@yahoo.com",
+      "cargiverEmail": "Robharmony@hotmail.com",
       "id": 6
     },
     {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
+      "username": "",
+      "password": "comets",
+      "caregiver": "",
+      "userEmail": "MBrown@yahoo.com",
+      "cargiverEmail": "",
       "id": 7
     },
     {
       "username": "Robert Allen",
-      "password": "Inhumane#1",
+      "password": "Inhumane",
       "caregiver": "debbie",
       "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
+      "cargiverEmail": "Robharmony@hotmail.com",
       "id": 8
     },
     {
       "username": "Robert Allen",
-      "password": "Inhumane#1",
+      "password": "Comets@9",
       "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
+      "userEmail": "MBrown@yahoo.com",
+      "cargiverEmail": "Robharmony@hotmail.com",
       "id": 9
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 10
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 11
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 12
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 13
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 14
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 15
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 16
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 17
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 18
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 19
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 20
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 21
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 22
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 23
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 24
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 25
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 26
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 27
-    },
-    {
-      "username": "Robert Allen",
-      "password": "Inhumane#1",
-      "caregiver": "debbie",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "yalanarashton@yahoo.com",
-      "id": 28
-    }
-  ],
-  "historyDB": [
-    {
-      "profileId": 0,
-      "napHistoryId": 0,
-      "bottleHistoryId": 0,
-      "breastFeedingHistoryId": 0,
-      "diapersHistoryId": null,
-      "illnessId": 0
-    },
-    {
-      "profileId": 0,
-      "napHistoryId": 0,
-      "bottleHistoryId": 0,
-      "breastFeedingHistoryId": null,
-      "diapersHistoryId": 0,
-      "illnessId": 0
     }
   ],
   "child": [
@@ -258,6 +80,7 @@
       "weight": "35 lbs.",
       "headSize": "19 in.",
       "height": "26 in.",
+      "profileId": 1,
       "id": 1
     },
     {
@@ -266,33 +89,146 @@
       "weight": "23 lbs.",
       "headSize": "20 in.",
       "height": "23 in.",
+      "profileId": 2,
       "id": 2
+    },
+    {
+      "name": "robbie",
+      "age": "8 yrs.",
+      "weight": "23 lbs.",
+      "headSize": "20 in.",
+      "height": "23 in.",
+      "profileId": 1,
+      "id": 6
+    },
+    {
+      "name": "Deanna",
+      "age": "2 yrs.",
+      "weight": "56 lbs.",
+      "headSize": "21 in.",
+      "height": "36 in.",
+      "profileId": 3,
+      "id": 9
+    },
+    {
+      "name": "Deanna",
+      "age": "1 months",
+      "weight": "56 lbs.",
+      "headSize": "21 in.",
+      "height": "36 in.",
+      "profileId": 3,
+      "id": 10
+    },
+    {
+      "name": "Deanna",
+      "age": "3 months",
+      "weight": "56 lbs.",
+      "headSize": "21 in.",
+      "height": "36 in.",
+      "profileId": 3,
+      "id": 11
+    },
+    {
+      "name": "Deanna",
+      "age": "0 months",
+      "weight": "56 lbs.",
+      "headSize": "21 in.",
+      "height": "36 in.",
+      "profileId": 3,
+      "id": 12
     }
   ],
   "napHistory": [
     {
-      "time": "05:40",
-      "date": "2023-12-12",
-      "lengthOfTime": "20min",
+      "time": "1:04 PM",
+      "date": "January 4, 2024",
+      "lengthOfTime": "30",
+      "childId": 1,
       "id": 2
     },
     {
-      "time": "9:50 PM",
-      "date": "December 28, 2023",
-      "lengthOfTime": "90min",
+      "time": "2:04 AM",
+      "date": "January 9, 2024",
+      "lengthOfTime": "",
+      "childId": 1,
+      "id": 3
+    },
+    {
+      "time": "12:07 AM",
+      "date": "December 31, 2023",
+      "lengthOfTime": "90in",
+      "childId": 1,
       "id": 4
     },
     {
-      "time": "1:54 PM",
-      "date": "December 28, 2023",
+      "time": "12:06 AM",
+      "date": "January 8, 2024",
       "lengthOfTime": "20",
+      "childId": 1,
       "id": 5
     },
     {
-      "time": "4:30 PM",
-      "date": "December 30, 2023",
+      "time": "12:25 AM",
+      "date": "January 9, 2024",
+      "lengthOfTime": "90in",
+      "childId": 2,
+      "id": 7
+    },
+    {
+      "time": "12:28 AM",
+      "date": "January 1, 2024",
+      "lengthOfTime": "90n",
+      "childId": 2,
+      "id": 8
+    },
+    {
+      "time": "12:39 AM",
+      "date": "January 9, 2024",
+      "lengthOfTime": "90n",
+      "childId": 2,
+      "id": 9
+    },
+    {
+      "time": "12:39 AM",
+      "date": "January 9, 2024",
+      "lengthOfTime": "20",
+      "childId": 2,
+      "id": 10
+    },
+    {
+      "time": "12:41 AM",
+      "date": "January 9, 2024",
+      "lengthOfTime": "20",
+      "childId": 2,
+      "id": 11
+    },
+    {
+      "time": "11:28 PM",
+      "date": "January 10, 2024",
+      "lengthOfTime": "90n",
+      "childId": 0,
+      "id": 12
+    },
+    {
+      "time": "11:31 PM",
+      "date": "January 1, 2024",
       "lengthOfTime": "90",
-      "id": 6
+      "childId": 0,
+      "id": 13
+    },
+    {
+      "time": "11:31 PM",
+      "date": "January 9, 2024",
+      "lengthOfTime": "90in",
+      "childId": 0,
+      "id": 14
+    },
+    {
+      "time": "11:33 PM",
+      "date": "January 8, 2024",
+      "lengthOfTime": "20in",
+      "childId": 0,
+      "id": 15
     }
   ],
   "bottleFeedingHistory": [
@@ -323,6 +259,14 @@
       "oz": "2312",
       "ozLeft": "2312",
       "id": 8
+    },
+    {
+      "time": "10:32 AM",
+      "date": "January 7, 2024",
+      "oz": "8",
+      "ozLeft": "2",
+      "childId": 5,
+      "id": 9
     }
   ],
   "breastFeedingHistory": [
@@ -343,6 +287,20 @@
       "date": "2023-11-29",
       "feedingTimeLength": "20 min",
       "id": 5
+    },
+    {
+      "time": "12:38 PM",
+      "date": "January 14, 2024",
+      "feedingTimeLength": "20min",
+      "childId": 2,
+      "id": 6
+    },
+    {
+      "time": "12:37 PM",
+      "date": "January 12, 2024",
+      "feedingTimeLength": "1231",
+      "childId": 0,
+      "id": 7
     }
   ],
   "infantFeedingHistory": [
@@ -359,29 +317,56 @@
       "drinkType": "Soda",
       "foodType": "ginger",
       "id": 4
+    },
+    {
+      "time": "10:32 PM",
+      "date": "January 10, 2024",
+      "drinkType": "Milk",
+      "foodType": "ceral",
+      "childId": 0,
+      "id": 5
+    },
+    {
+      "time": "10:33 PM",
+      "date": "January 8, 2024",
+      "drinkType": "Water",
+      "foodType": "Salad",
+      "childId": 0,
+      "id": 6
     }
   ],
   "diapersHistory": [
     {
-      "time": "05:43",
-      "date": "2023-12-13",
-      "type": "Poop",
-      "consistancy": "Pellets",
-      "id": 4
-    },
-    {
-      "time": "4:33 PM",
-      "date": "November 7, 2023",
-      "type": "Poop",
-      "consistancy": "Soft",
-      "id": 5
-    },
-    {
-      "time": "1:41 PM",
-      "date": "December 30, 2023",
+      "time": "10:22 PM",
+      "date": "January 2, 2024",
       "type": "Wet",
       "consistancy": "Wet",
-      "id": 6
+      "childId": 0,
+      "id": 1
+    },
+    {
+      "time": "10:23 PM",
+      "date": "January 9, 2024",
+      "type": "Poop",
+      "consistancy": "Solid",
+      "childId": 0,
+      "id": 2
+    },
+    {
+      "time": "10:23 PM",
+      "date": "January 8, 2024",
+      "type": "Poop",
+      "consistancy": "Solid",
+      "childId": 1,
+      "id": 3
+    },
+    {
+      "time": "10:23 PM",
+      "date": "January 2, 2024",
+      "type": "Poop",
+      "consistancy": "Solid",
+      "childId": 2,
+      "id": 4
     }
   ],
   "illness": [

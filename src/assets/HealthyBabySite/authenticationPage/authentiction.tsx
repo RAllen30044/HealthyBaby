@@ -3,16 +3,48 @@ import { useState } from "react";
 import "./authenticationPage.css";
 import { useAuthProviderContext } from "./authProvider";
 import { useNavigate } from "react-router-dom";
+import { getProfileData } from "../../../api";
+import toast from "react-hot-toast";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
 
 export const AuthenticationPage = () => {
-  // const [user, setUser] = useState<User | null>(null);
+
 
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { isUserValid, setUser, user } = useAuthProviderContext();
+  const { loggedIn, user } = useAuthProviderContext();
+  const { setProfileId } = useHistoryIDComponent();
   const navigate = useNavigate();
   console.log(user);
 
+  const  isUserValid =  (email: string, password: string) => {
+    return getProfileData().then((users) => {
+      const userExist = users.some(
+        (user) =>
+          user.userEmail.toLowerCase() === email.toLowerCase() &&
+          user.password === password
+      );
+     
+      if (userExist) {
+        toast.success("Success");
+
+
+        loggedIn(email, password);
+        navigate("/home");
+        console.log(JSON.stringify(user));
+
+        return;
+      } else {
+        toast.error("Username and/or Password Not found");
+        return;
+      }
+    }).then(()=>{
+      const userID = localStorage.getItem("user");
+      if(userID){
+        setProfileId(JSON.parse(userID).id)
+      }
+    });
+  };
   return (
     <>
       <div className="authentication">
@@ -21,10 +53,9 @@ export const AuthenticationPage = () => {
             method="post"
             onSubmit={(e) => {
               e.preventDefault();
-              isUserValid(userNameInput, passwordInput).finally(()=>{
-                navigate("/home")
-              })
-             
+              isUserValid(userNameInput, passwordInput);
+              setPasswordInput("")
+              setUserNameInput("")
             }}
           >
             <h3>Login</h3>
@@ -45,6 +76,7 @@ export const AuthenticationPage = () => {
                 value={passwordInput}
                 onChange={(e) => {
                   setPasswordInput(e.target.value);
+                  
                 }}
               />
             </div>

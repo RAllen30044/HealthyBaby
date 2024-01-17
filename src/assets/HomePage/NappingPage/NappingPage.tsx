@@ -6,7 +6,11 @@ import "./NappingPage.css";
 
 import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import {
+  convertToStandardTime,
+  createShortHandDate,
+  formatDate,
+} from "../TimeInfo/TimeConversion";
 import {
   futureTimeNotAllowed,
   onlyKeyNumbers,
@@ -27,10 +31,15 @@ export const NappingPage = () => {
     shouldShowDateTimeEntryError,
   } = useTimeInfo();
 
-  const { nappingHistory, setNappingHistory, fetchNappingHistory } =
-    useHistoryIDComponent();
+  const {
+    nappingHistory,
+    setNappingHistory,
+    fetchNappingHistory,
+    childId,
+    childInfo,
+  } = useHistoryIDComponent();
 
-  const removeIllnessHistory = (id: number) => {
+  const removeNappingHistory = (id: number) => {
     const updateData = nappingHistory.filter((history) => history.id !== id);
     setNappingHistory(updateData);
 
@@ -66,8 +75,9 @@ export const NappingPage = () => {
             postInfo(
               {
                 time: convertToStandardTime(time),
-                date: formatDate(date),
+                date: formatDate(createShortHandDate(date)),
                 lengthOfTime: LengthOfTime,
+                childId: childId,
               },
               nappingUrl
             )
@@ -114,32 +124,42 @@ export const NappingPage = () => {
       </div>
       <div className="historyHeaderContainer">
         <div className="categoryName historyHeader">
-          <h1>Napping History</h1>
+          <h1>{childInfo[childId].name}'s Napping History</h1>
         </div>
       </div>
       <div className="historyTimelineContainer">
-        {nappingHistory.map((history) => {
-          return (
-            <div className="historyContainer" key={history.id}>
-              <div className="diapersHistory">
-                <h2>
-                  Illness Record Number {nappingHistory.indexOf(history) + 1}
-                </h2>
-                <h3>Time: {history.time}</h3>
-                <h3>Date: {history.date}</h3>
-                <h3>Length of Time: {history.lengthOfTime} min</h3>
+        {nappingHistory
+          .filter((history) => history.childId === childId)
+          .sort((a, b) => {
+            if (a.date < b.date) {
+              return -1;
+            }
+            if (a.date > b.date) {
+              return 1;
+            }
+
+            return 0;
+          })
+          .map((history) => {
+            return (
+              <div className="historyContainer" key={history.id}>
+                <div className="diapersHistory">
+                  <h2>Naptime {history.date}</h2>
+                  <h3>Time: {history.time}</h3>
+                  <h3>Date: {history.date}</h3>
+                  <h3>Length of Time: {history.lengthOfTime} min</h3>
+                </div>
+                <button
+                  className="Delete button"
+                  onClick={() => {
+                    removeNappingHistory(history.id);
+                  }}
+                >
+                  Delete
+                </button>
               </div>
-              <button
-                className="Delete button"
-                onClick={() => {
-                  removeIllnessHistory(history.id);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </>
   );

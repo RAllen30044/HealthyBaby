@@ -7,6 +7,7 @@ export type TimeInfoProviderT = {
   loading: boolean;
   shouldShowDOBentryError: boolean;
   shouldShowDateTimeEntryError: boolean;
+isSubmitted:boolean;
   setTime: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<string>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,6 +38,7 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
         shouldShowDOBentryError,
         setIsSubmitted,
         shouldShowDateTimeEntryError,
+        isSubmitted
       }}
     >
       {children}

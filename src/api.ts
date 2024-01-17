@@ -8,6 +8,7 @@ import {
   baseUrl,
   bottleFeedingInfoType,
   breastFeedingInfoType,
+  childNapDBType,
   infantFeedingInfoType,
   nappingType,
 } from "./Types";
@@ -22,6 +23,7 @@ export const diaperUrl = `${baseUrl}/diapersHistory`;
 export const illnessUrl = `${baseUrl}/illness`;
 export const nappingUrl = `${baseUrl}/napHistory`;
 export const profileUrl = `${baseUrl}/profile`;
+export const childNapDBUrl = `${baseUrl}/childNapDB`;
 
 const getUser = (): Promise<User[]> =>
   fetch(url)
@@ -96,3 +98,11 @@ export const getProfileData = (): Promise<ProfileInfoTypes[]> =>
   fetch(profileUrl)
     .then((res) => res.json())
     .then((data) => data);
+
+export const getChildNapHistory = (): Promise<childNapDBType[]> =>
+  fetch(childNapDBUrl).then((res) => {
+    if (!res.ok) {
+      throw new Error("Failed to get napping history");
+    }
+    return res.json();
+  });

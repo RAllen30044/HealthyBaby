@@ -1,17 +1,25 @@
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { ChildInfo } from "../../HomePage/ChildInfo/ChildInfo";
+
+import { useChildrenProviderContext } from "../ProfilePage/profileChildrenProvider";
+
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
-import { useState } from "react";
+import {  useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
-  const { childInfo, setChildId, childId } = useHistoryIDComponent();
-  const { log, setLog, setUser } = useAuthProviderContext();
+  
+  const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
+  const { setLog, setUser, maybeUser } = useAuthProviderContext();
+  console.log(childInfo);
+  const getUser = localStorage.getItem("user");
+const{hasChildren}=useChildrenProviderContext();
+
+
   return (
     <>
       <header>
@@ -19,60 +27,74 @@ export const Header = () => {
           <div className="logo">
             <h5
               onClick={() => {
-                setHiddenChildLinks(!hiddenChildLinks);
+                if (getUser) {
+                  setHiddenChildLinks(!hiddenChildLinks);
+                } else {
+                  return;
+                }
               }}
             >
               HB
             </h5>
             <div
               className={`childList ${
-                hiddenChildLinks === true ? "" : "hidden"
+                hiddenChildLinks === true && hasChildren? "" : "hidden"
               }`}
             >
-              {/* <div className="child">Child 1</div>
-              <div className="child">Child 2</div> */}
+              {childInfo
+                .filter((info) => info.profileId === profileId)
+                .sort((a, b) => {
+                  if (a.name < b.name) {
+                    return -1;
+                  }
+                  if (a.name > b.name) {
+                    return 1;
+                  }
 
-              {childInfo.map((child) => {
-                return (
-                  <div
-                    className={`child ${
-                      childId === childInfo.indexOf(child) ? "selected" : ""
-                    }`}
-                    key={child.id}
-                    onClick={() => {
-                      setChildId(childInfo.indexOf(child));
-                      setHiddenChildLinks(!hiddenChildLinks);
-                    }}
-                  >
-                    {child.name}
-                  </div>
-                );
-              })}
+                  return 0;
+                })
+                .map((child) => {
+                  
+                  return (
+                    <div
+                      className={`child ${
+                        childId === childInfo.indexOf(child) ? "selected" : ""
+                      }`}
+                      key={child.id}
+                      onClick={() => {
+                        setChildId(childInfo.indexOf(child));
+                        setHiddenChildLinks(!hiddenChildLinks);
+                      }}
+                    >
+                      {child.name}
+                    </div>
+                  );
+                })}
             </div>
           </div>
 
           <div className="pages">
             <NavLink
               to="/home"
-              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+              className={` pageLink ${maybeUser ? "" : "hidden"}`}
             >
               Home
             </NavLink>
             <NavLink
               to="/about"
-              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+              className={` pageLink ${maybeUser ? "" : "hidden"}`}
             >
               About
             </NavLink>
             <NavLink
               to="/profile"
-              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+              className={` pageLink ${maybeUser ? "" : "hidden"}`}
             >
               Profile
             </NavLink>
             <NavLink
               to="/auth"
-              className={` pageLink ${log === "logIn" ? "hidden" : ""}`}
+              className={` pageLink ${maybeUser ? "" : "hidden"}`}
               onClick={() => {
                 setLog("logIn");
                 localStorage.removeItem("user");
@@ -83,17 +105,17 @@ export const Header = () => {
             </NavLink>
             <NavLink
               to="/auth"
-              className={` pageLink ${log === "logOut" ? "hidden" : ""}`}
+              className={` pageLink ${maybeUser ? "hidden" : ""}`}
             >
               Log In
             </NavLink>
             <NavLink
               to="/profile"
-              className={` pageLink ${log === "logOut" ? "hidden" : ""}`}
+              className={` pageLink ${maybeUser ? "hidden" : ""}`}
             >
               Sign Up
             </NavLink>
-            <div className={`pagesDropDown ${log === "logIn" ? "hidden" : ""}`}>
+            <div className={`pagesDropDown ${maybeUser ? "" : "hidden"}`}>
               <div className="linksContainer">
                 <div
                   className="hamburgerIcon"

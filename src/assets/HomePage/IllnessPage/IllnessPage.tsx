@@ -5,7 +5,11 @@ import { useState } from "react";
 
 import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { convertToStandardTime, formatDate } from "../TimeInfo/TimeConversion";
+import {
+  convertToStandardTime,
+  createShortHandDate,
+  formatDate,
+} from "../TimeInfo/TimeConversion";
 import {
   futureTimeNotAllowed,
   onlyKeyNumbers,
@@ -30,7 +34,7 @@ export const IllnessPage = () => {
     shouldShowDateTimeEntryError,
   } = useTimeInfo();
 
-  const { illnessHistory, setIllnessHistory, fetchIllnessHistory } =
+  const { illnessHistory, setIllnessHistory, fetchIllnessHistory, childId } =
     useHistoryIDComponent();
 
   const removeIllnessHistory = (id: number) => {
@@ -70,11 +74,12 @@ export const IllnessPage = () => {
             postInfo(
               {
                 time: convertToStandardTime(time),
-                date: formatDate(date),
+                date: formatDate(createShortHandDate(date)),
                 sicknessType: sicknessType,
                 symptoms: symptoms,
                 medicineGiven: medicineGiven,
                 oz: oz,
+                childId: childId,
               },
               illnessUrl
             )
@@ -158,31 +163,43 @@ export const IllnessPage = () => {
         </div>
       </div>
       <div className="historyTimelineContainer">
-        {illnessHistory.map((history) => {
-          return (
-            <div className="historyContainer" key={history.id}>
-              <div className="diapersHistory">
-                <h2>
-                  Illness Record Number {illnessHistory.indexOf(history) + 1}
-                </h2>
-                <h3>Time: {history.time}</h3>
-                <h3>Date: {history.date}</h3>
-                <h3>Type of Sickness: {history.sicknessType}</h3>
-                <h3>Symptoms: {history.symptoms}</h3>
-                <h3>Medicine Given: {history.medicineGiven}</h3>
-                <h3>Oz. of Medicine Given: {history.oz}</h3>
+        {illnessHistory
+          .filter((history) => history.childId === childId)
+          .sort((a, b) => {
+            if (a.date < b.date) {
+              return -1;
+            }
+            if (a.date > b.date) {
+              return 1;
+            }
+
+            return 0;
+          })
+          .map((history) => {
+            return (
+              <div className="historyContainer" key={history.id}>
+                <div className="diapersHistory">
+                  <h2>
+                    Illness Record Number {illnessHistory.indexOf(history) + 1}
+                  </h2>
+                  <h3>Time: {history.time}</h3>
+                  <h3>Date: {history.date}</h3>
+                  <h3>Type of Sickness: {history.sicknessType}</h3>
+                  <h3>Symptoms: {history.symptoms}</h3>
+                  <h3>Medicine Given: {history.medicineGiven}</h3>
+                  <h3>Oz. of Medicine Given: {history.oz}</h3>
+                </div>
+                <button
+                  className="Delete button"
+                  onClick={() => {
+                    removeIllnessHistory(history.id);
+                  }}
+                >
+                  Delete
+                </button>
               </div>
-              <button
-                className="Delete button"
-                onClick={() => {
-                  removeIllnessHistory(history.id);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </>
   );

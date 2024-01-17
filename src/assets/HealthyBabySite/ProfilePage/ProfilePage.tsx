@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
+import { ErrorMessage } from "../../../ErrorMessage";
 
 export const ProfilePage = () => {
   const [profileName, setProfileName] = useState<string>("");
@@ -14,10 +15,18 @@ export const ProfilePage = () => {
   const [childCaregiver, setChildCaregiver] = useState<string>("");
   const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { loading, setLoading } = useTimeInfo();
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
   const navigate = useNavigate();
-  const { setLog } = useAuthProviderContext();
+  const { loggedIn, maybeUser } = useAuthProviderContext();
   const { setActiveComponent } = useActiveComponent();
+  const passwordDonotMatch = (password: string, confirmPassword: string) => {
+    return password === confirmPassword;
+  };
+
+  const passwordErrorMessage = "Passwords do not match";
+  const shouldShowPasswordError = isSubmitted && passwordDonotMatch;
+
   return (
     <>
       <div className="profilePage">
@@ -28,6 +37,11 @@ export const ProfilePage = () => {
             className="profileForm"
             onSubmit={(e) => {
               e.preventDefault();
+              if (!passwordDonotMatch(password, confirmPassword)) {
+                setIsSubmitted(true);
+                return;
+              }
+              setIsSubmitted(false);
               setLoading(true);
               return postInfo(
                 {
@@ -44,7 +58,7 @@ export const ProfilePage = () => {
                 })
                 .then(() => {
                   navigate("/home");
-                  setLog("logOut");
+
                   setActiveComponent("addChild");
                 })
                 .then(() => {
@@ -52,6 +66,9 @@ export const ProfilePage = () => {
                 })
                 .catch((e) => {
                   toast.error(e);
+                })
+                .then(() => {
+                  loggedIn(email, password);
                 });
             }}
           >
@@ -71,7 +88,6 @@ export const ProfilePage = () => {
                 }}
               />
             </div>
-
             <div className="inputContainer">
               <label htmlFor="email" className="profileLable">
                 EMAIL:
@@ -87,7 +103,6 @@ export const ProfilePage = () => {
                 }}
               />
             </div>
-
             <div className="inputContainer">
               <label htmlFor="caregiver" className="profileLable">
                 Child(ren) Caregiver:{" "}
@@ -103,7 +118,6 @@ export const ProfilePage = () => {
                 }}
               />
             </div>
-
             <div className="inputContainer">
               <label htmlFor="caretaker" className="profileLable">
                 Child(ren) Caregiver Email:{" "}
@@ -119,8 +133,7 @@ export const ProfilePage = () => {
                 }}
               />
             </div>
-
-            <div className="inputContainer">
+            <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLable">
                 Password:
               </label>
@@ -133,23 +146,9 @@ export const ProfilePage = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                autoComplete="password"
               />
             </div>
-
-            <div className="inputContainer">
-              <label htmlFor="password" className="profileLable">
-                New Password:
-              </label>
-              <input
-                type="password"
-                name="newPassword"
-                id="newPassword"
-                className="profileInput"
-              />
-            </div>
-
-            <div className="inputContainer">
+            <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLable">
                 Confirm New Password:
               </label>
@@ -158,7 +157,45 @@ export const ProfilePage = () => {
                 name="confirmNewPassword"
                 id="confirmNewPassword"
                 className="profileInput"
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
               />
+              {shouldShowPasswordError && (
+                <ErrorMessage message={passwordErrorMessage} show={true} />
+              )}
+            </div>
+
+            <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
+              <label htmlFor="password" className="profileLable">
+                New Password:
+              </label>
+              <input
+                type="password"
+                name="newPassword"
+                id="newPassword"
+                className="profileInput"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
+              <label htmlFor="password" className="profileLable">
+                Confirm New Password:
+              </label>
+              <input
+                type="password"
+                name="confirmNewPassword"
+                id="confirmNewPassword"
+                className="profileInput"
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+              />
+              {shouldShowPasswordError && (
+                <ErrorMessage message={passwordErrorMessage} show={true} />
+              )}
             </div>
             <div className="buttonContainer">
               <button className="saveButton" disabled={loading}>

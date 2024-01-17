@@ -1,6 +1,7 @@
 export type User = {
   username: string;
   password: string;
+  id: number;
 };
 export type UserIsValid = (username: string, password: string) => boolean;
 export type Request = {
@@ -33,6 +34,7 @@ export type breastFeedingInfoType = {
   date: string;
   id: number;
   feedingTimeLength: string;
+  childId: number;
 };
 export type infantFeedingInfoType = {
   time: string;
@@ -40,6 +42,7 @@ export type infantFeedingInfoType = {
   id: number;
   drinkType: string;
   foodType: string;
+  childId: number;
 };
 export type bottleFeedingInfoType = {
   time: string;
@@ -47,6 +50,7 @@ export type bottleFeedingInfoType = {
   id: number;
   oz: string;
   ozLeft: string;
+  childId: number;
 };
 export type ChildInfoT = {
   name: string;
@@ -54,7 +58,8 @@ export type ChildInfoT = {
   weight: string;
   height: string;
   headSize: string;
-  // url: string;
+
+  profileId: number | null;
   id: number;
 };
 
@@ -66,6 +71,7 @@ export type IllnessType = {
   symptoms: string;
   medicineGiven: string;
   oz: string;
+  childId: number;
 };
 
 export type DaipersHistoryInfoTypes = {
@@ -74,6 +80,7 @@ export type DaipersHistoryInfoTypes = {
   consistancy: string;
   type: string;
   id: number;
+  childId: number;
 };
 
 export type nappingType = {
@@ -81,6 +88,12 @@ export type nappingType = {
   date: string;
   time: string;
   lengthOfTime: string;
+  childId: number;
+};
+export type childNapDBType = {
+  id: number;
+  childId: number;
+  nappingId: number;
 };
 
 export type bottlefeedingHistoryT = {
