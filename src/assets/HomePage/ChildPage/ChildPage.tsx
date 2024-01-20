@@ -9,6 +9,7 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { childUrl, postInfo } from "../../../api";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 import { useChildrenProviderContext } from "../../HealthyBabySite/ProfilePage/profileChildrenProvider";
+
 import { calculateAge, calculateAgeInMonths } from "../TimeInfo/TimeConversion";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfo";
@@ -24,8 +25,9 @@ export const ChildPage = () => {
   const { loading, setLoading, date, setDate } = useTimeInfo();
   const { setActiveComponent } = useActiveComponent();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
-  const { fetchChildInfo,profileId } = useHistoryIDComponent();
-  const {sethasChildren}=useChildrenProviderContext();
+  const { fetchChildInfo, profileId, setChildId } = useHistoryIDComponent();
+
+  const { setHasChildren, hasChildren } = useChildrenProviderContext();
   // const [babyPic, setBabyPic] = useState<string>("");
 
   // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,17 +96,18 @@ export const ChildPage = () => {
                   headSize: `${headSize} in.`,
                   height: `${height} in.`,
                   // url: babyPic ? babyPic : "",
-                  profileId:profileId
+                  profileId: profileId,
                 },
                 childUrl
               )
-                .then(fetchChildInfo)
-
                 .then(() => {
                   setDate("");
-                  sethasChildren(true)
-                
+                  if (hasChildren === false) {
+                    setChildId(0);
+                  }
+                  setHasChildren(true);
                 })
+                .then(fetchChildInfo)
                 .then(() => {
                   setActiveComponent("feeding");
                 })

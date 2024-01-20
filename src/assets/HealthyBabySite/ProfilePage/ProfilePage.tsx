@@ -8,18 +8,23 @@ import { useNavigate } from "react-router-dom";
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
+import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { ProfileInfoTypes } from "../../../Types";
 
 export const ProfilePage = () => {
   const [profileName, setProfileName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  // const [email, setEmail] = useState<string>("");
   const [childCaregiver, setChildCaregiver] = useState<string>("");
   const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
   const navigate = useNavigate();
-  const { loggedIn, maybeUser } = useAuthProviderContext();
+  const { loggedIn, maybeUser, setEmail, email, setPassword, password } =
+    useAuthProviderContext();
   const { setActiveComponent } = useActiveComponent();
+  const { setProfileId } = useHistoryIDComponent();
   const passwordDonotMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
   };
@@ -53,22 +58,40 @@ export const ProfilePage = () => {
                 },
                 profileUrl
               )
-                .then(() => {
+                .then((data) => {
                   toast.success("Profile Saved");
+                  return data.json();
                 })
-                .then(() => {
+                .then((data) => {
                   navigate("/home");
-
                   setActiveComponent("addChild");
+                  if (!maybeUser) {
+                    const userEmail = JSON.parse(
+                      JSON.stringify(data)
+                    ).userEmail;
+
+                    const userPassword = JSON.parse(
+                      JSON.stringify(data)
+                    ).password;
+                    const userId = JSON.parse(JSON.stringify(data)).id;
+                    setProfileId(userId);
+                    localStorage.setItem(
+                      "user",
+                      JSON.stringify({
+                        username: userEmail,
+                        password: userPassword,
+                        id: userId,
+                      })
+                    );
+                  }
                 })
+
                 .then(() => {
+                  loggedIn(email, password);
                   setLoading(false);
                 })
                 .catch((e) => {
                   toast.error(e);
-                })
-                .then(() => {
-                  loggedIn(email, password);
                 });
             }}
           >

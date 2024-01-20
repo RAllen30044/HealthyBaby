@@ -15,8 +15,13 @@ export type AuthComponentProviderT = {
   setLog: React.Dispatch<React.SetStateAction<string | null>>;
   maybeUser: string | null;
   user: User | null;
+  email: string;
+  password:string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loggedIn: (email: string, password: string) => void;
+
 };
 
 const AuthProviderContext = createContext<AuthComponentProviderT>(
@@ -28,6 +33,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const { profile } = useHistoryIDComponent();
   const maybeUser = localStorage.getItem("user");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
 
   const loggedIn = (email: string, password: string) => {
     setLog("logOut");
@@ -60,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <AuthProviderContext.Provider
-        value={{ log, setLog, user, setUser, loggedIn, maybeUser }}
+        value={{ log, setLog, user, setUser, loggedIn, maybeUser,email,setEmail, password, setPassword }}
       >
         {children}
       </AuthProviderContext.Provider>

@@ -10,16 +10,16 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 
 export type ChildrenProviderType = {
   hasChildren: boolean;
-  sethasChildren: React.Dispatch<React.SetStateAction<boolean>>;
+  setHasChildren: React.Dispatch<React.SetStateAction<boolean>>;
   myChildren: ChildInfoT[];
-  setMyChildren:React.Dispatch<React.SetStateAction<ChildInfoT[]>>
+  setMyChildren: React.Dispatch<React.SetStateAction<ChildInfoT[]>>;
 };
 
 const ChildrenProviderContext = createContext<ChildrenProviderType>(
   {} as ChildrenProviderType
 );
 export const ChilderenProvider = ({ children }: { children: ReactNode }) => {
-  const [hasChildren, sethasChildren] = useState<boolean>(false);
+  const [hasChildren, setHasChildren] = useState<boolean>(false);
 
   const [myChildren, setMyChildren] = useState<ChildInfoT[]>([]);
   const { childInfo, profileId } = useHistoryIDComponent();
@@ -27,28 +27,27 @@ export const ChilderenProvider = ({ children }: { children: ReactNode }) => {
   console.log(myChildren);
 
   useEffect(() => {
-    const userHasAddedChildren = (childInfo: ChildInfoT[]): boolean => {
-      return (
-        childInfo
-          .filter((info) => info.profileId === profileId)
-          .map((child) => child).length > 0
-      );
-    };
     setMyChildren(
       childInfo
         .filter((info) => info.profileId === profileId)
         .map((child) => child)
     );
-    if (userHasAddedChildren(childInfo)) {
-      sethasChildren(true);
+
+
+    if (myChildren.length > 0) {
+      setHasChildren(true);
     } else {
-      sethasChildren(false);
+      setHasChildren(false);
     }
-  }, [sethasChildren, childInfo, profileId]);
+  }, [setMyChildren, profileId, myChildren.length, childInfo]);
+
+
 
   return (
     <>
-      <ChildrenProviderContext.Provider value={{ hasChildren, sethasChildren,myChildren,setMyChildren }}>
+      <ChildrenProviderContext.Provider
+        value={{ hasChildren, setHasChildren, myChildren, setMyChildren }}
+      >
         {children}
       </ChildrenProviderContext.Provider>
     </>

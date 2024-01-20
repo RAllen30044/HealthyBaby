@@ -5,20 +5,21 @@ import { useChildrenProviderContext } from "../ProfilePage/profileChildrenProvid
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
-import {  useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
-  
-  const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
-  const { setLog, setUser, maybeUser } = useAuthProviderContext();
+
+  const { childInfo, setChildId, childId } = useHistoryIDComponent();
+  const {  setUser, maybeUser } = useAuthProviderContext();
   console.log(childInfo);
   const getUser = localStorage.getItem("user");
-const{hasChildren}=useChildrenProviderContext();
+  const {  myChildren } = useChildrenProviderContext();
 
+  console.log(myChildren);
 
   return (
     <>
@@ -38,38 +39,38 @@ const{hasChildren}=useChildrenProviderContext();
             </h5>
             <div
               className={`childList ${
-                hiddenChildLinks === true && hasChildren? "" : "hidden"
+                hiddenChildLinks === true ? "" : "hidden"
               }`}
             >
-              {childInfo
-                .filter((info) => info.profileId === profileId)
-                .sort((a, b) => {
-                  if (a.name < b.name) {
-                    return -1;
-                  }
-                  if (a.name > b.name) {
-                    return 1;
-                  }
-
-                  return 0;
-                })
-                .map((child) => {
-                  
-                  return (
-                    <div
-                      className={`child ${
-                        childId === childInfo.indexOf(child) ? "selected" : ""
-                      }`}
-                      key={child.id}
-                      onClick={() => {
-                        setChildId(childInfo.indexOf(child));
-                        setHiddenChildLinks(!hiddenChildLinks);
-                      }}
-                    >
-                      {child.name}
-                    </div>
-                  );
-                })}
+              {" "}
+              {
+                // .filter(child=> child.id === childId)
+                //   .sort((a, b) => {
+                //     if (a.name < b.name) {
+                //       return -1;
+                //     }
+                //     if (a.name > b.name) {
+                //       return 1;
+                //     }
+                //     return 0;
+                //   })
+              }
+              {myChildren.map((child) => {
+                return (
+                  <div
+                    className={`child ${
+                      childId === myChildren.indexOf(child) ? "selected" : ""
+                    }`}
+                    key={child.id}
+                    onClick={() => {
+                      setChildId(myChildren.indexOf(child));
+                      setHiddenChildLinks(!hiddenChildLinks);
+                    }}
+                  >
+                    {child.name}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -96,7 +97,6 @@ const{hasChildren}=useChildrenProviderContext();
               to="/auth"
               className={` pageLink ${maybeUser ? "" : "hidden"}`}
               onClick={() => {
-                setLog("logIn");
                 localStorage.removeItem("user");
                 setUser(null);
               }}

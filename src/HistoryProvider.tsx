@@ -99,7 +99,7 @@ export const HistoryIDComponentProvider = ({
   const [profile, setProfile] = useState<ProfileInfoTypes[]>([]);
   const [childId, setChildId] = useState<number>(0);
   const [profileId, setProfileId] = useState<null | number>(null);
-  const fetchProfileInfo = () => getProfileData().then(setProfile);
+  const fetchProfileInfo = ()=> getProfileData().then(setProfile);
 
   const fetchNappingHistory = () => getNappingHistory().then(setNappingHistory);
 

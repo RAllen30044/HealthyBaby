@@ -3,7 +3,9 @@ import { useChildrenProviderContext } from "../../HealthyBabySite/ProfilePage/pr
 
 export const ChildInfo = () => {
   const { childInfo, childId } = useHistoryIDComponent();
-  const {hasChildren}=useChildrenProviderContext();
+  const { hasChildren, myChildren } = useChildrenProviderContext();
+console.log(myChildren);
+console.log(childId);
 
   return (
     <>
@@ -16,17 +18,33 @@ export const ChildInfo = () => {
           )}
         </div> */}
         <div>
-          {hasChildren===true ? (
+          {hasChildren === true ? (
             <div className="info">
-              <div className="name">Name: {childInfo[childId].name}</div>
+              <div className="name">
+                Name:{" "}
+                {childInfo[childId].name}
+              </div>
 
-              <div className="age">Age: {childInfo[childId].age} </div>
+              <div className="age">
+                Age:{" "}
+                {childInfo[childId].age}{" "}
+              </div>
 
-              <div className="height">Height: {childInfo[childId].height} </div>
+              <div className="height">
+                Height:{" "}
+                {childInfo[childId].height}{" "}
+              </div>
 
-              <div className="weight">Weight: {childInfo[childId].weight}</div>
+              <div className="weight">
+                Weight:{" "}
+                {childInfo[childId].weight}
+              </div>
               <div className="headSize">
-                Head Size: {childInfo[childId].headSize}
+                Head Size:{" "}
+                {
+                  childInfo[childId]
+                    .headSize
+                }
               </div>
             </div>
           ) : (
