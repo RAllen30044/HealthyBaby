@@ -2,26 +2,26 @@ import { useState } from "react";
 import "./ProfilePage.css";
 import { postInfo, profileUrl } from "../../../api";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
-import { preventKeyingNumbers } from "../../../ErrorHandling";
+import { preventKeyingNumbers, preventKeyingSpaces } from "../../../ErrorHandling";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { ProfileInfoTypes } from "../../../Types";
+// import { ProfileInfoTypes } from "../../../Types";
 
 export const ProfilePage = () => {
-  const [profileName, setProfileName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   // const [email, setEmail] = useState<string>("");
   const [childCaregiver, setChildCaregiver] = useState<string>("");
-  const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
+  // const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
   // const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
   const navigate = useNavigate();
-  const { loggedIn, maybeUser, setEmail, email, setPassword, password } =
+  const { loggedIn, maybeUser, email, setPassword, password } =
     useAuthProviderContext();
   const { setActiveComponent } = useActiveComponent();
   const { setProfileId } = useHistoryIDComponent();
@@ -50,11 +50,11 @@ export const ProfilePage = () => {
               setLoading(true);
               return postInfo(
                 {
-                  username: profileName,
+                  username: username,
                   password: password,
                   caregiver: childCaregiver,
-                  userEmail: email,
-                  cargiverEmail: childCaregiverEmail,
+                  // userEmail: email,
+                  // cargiverEmail: childCaregiverEmail,
                 },
                 profileUrl
               )
@@ -105,13 +105,13 @@ export const ProfilePage = () => {
                 name="name"
                 id="name"
                 className="profileInput"
-                value={profileName}
+                value={username}
                 onChange={(e) => {
-                  setProfileName(preventKeyingNumbers(e.target.value));
+                  setUsername(preventKeyingSpaces(e.target.value));
                 }}
               />
             </div>
-            <div className="inputContainer">
+            {/* <div className="inputContainer">
               <label htmlFor="email" className="profileLable">
                 EMAIL:
               </label>
@@ -125,7 +125,7 @@ export const ProfilePage = () => {
                   setEmail(e.target.value);
                 }}
               />
-            </div>
+            </div> */}
             <div className="inputContainer">
               <label htmlFor="caregiver" className="profileLable">
                 Child(ren) Caregiver:{" "}
@@ -141,7 +141,7 @@ export const ProfilePage = () => {
                 }}
               />
             </div>
-            <div className="inputContainer">
+            {/* <div className="inputContainer">
               <label htmlFor="caretaker" className="profileLable">
                 Child(ren) Caregiver Email:{" "}
               </label>
@@ -155,7 +155,7 @@ export const ProfilePage = () => {
                   setChildCaregiverEmail(e.target.value);
                 }}
               />
-            </div>
+            </div> */}
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLable">
                 Password:

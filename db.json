@@ -1,21 +1,19 @@
 {
   "profile": [
     {
-      "username": "Robert Allen",
+      "username": "Robharmony29",
       "password": "Inhumane#1",
-      "caregiver": "Andrew",
-      "userEmail": "Robharmony@hotmail.com",
-      "cargiverEmail": "Robharmony@hotmail.com",
+      "caregiver": "debbie",
       "id": 1
     }
   ],
   "child": [
     {
-      "name": "Erica",
-      "age": "0 months",
-      "weight": "12 lbs.",
-      "headSize": "21 in.",
-      "height": "12 in.",
+      "name": "Zee",
+      "age": "22 months",
+      "weight": "34 lbs.",
+      "headSize": "20 in.",
+      "height": "26 in.",
       "profileId": 1,
       "id": 1
     }

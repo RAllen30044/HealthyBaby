@@ -1,6 +1,9 @@
 export const preventKeyingNumbers = (value: string) => {
   return value.replace(/[^A-Za-z\s]/, "");
 };
+export const preventKeyingSpaces = (value: string) => {
+  return value.replace(/[\s]/, "");
+};
 export const onlyKeyNumbers = (value: string) => {
   return value.replace(/[^0-9]/, "");
 };

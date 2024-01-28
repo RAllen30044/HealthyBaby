@@ -21,7 +21,7 @@ export const AuthenticationPage = () => {
     return getProfileData().then((users) => {
       const userExist = users.some(
         (user) =>
-          user.userEmail.toLowerCase() === email.toLowerCase() &&
+          user.username.toLowerCase() === email.toLowerCase() &&
           user.password === password
       );
      

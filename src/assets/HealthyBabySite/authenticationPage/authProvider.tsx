@@ -40,14 +40,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loggedIn = (email: string, password: string) => {
     setLog("logOut");
     const userID = profile.find(
-      (profile) => profile.userEmail === email && profile.password === password
+      (profile) => profile.username === email && profile.password === password
     );
     console.log(userID);
     if (userID) {
       localStorage.setItem(
         "user",
         JSON.stringify({
-          username: userID.userEmail,
+          username: userID.username,
           password: userID.password,
           id: userID.id,
         })

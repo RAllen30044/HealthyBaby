@@ -24,8 +24,8 @@ export type ProfileInfoTypes = {
   username: string;
   password: string;
   caregiver: string;
-  userEmail: string;
-  cargiverEmail: string;
+  // userEmail: string;
+  // cargiverEmail: string;
   id: number;
 };
 
