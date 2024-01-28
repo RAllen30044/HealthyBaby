@@ -110,7 +110,9 @@ export const IllnessPage = () => {
               value={sicknessType}
               onChange={(e) => {
                 setSicknessType(e.target.value);
+                
               }}
+              required
             />
           </div>
           <div className="symptoms">
@@ -122,6 +124,7 @@ export const IllnessPage = () => {
               onChange={(e) => {
                 setSymptoms(e.target.value);
               }}
+              required
             />
           </div>
           <div className="medicineGiven">
@@ -133,6 +136,7 @@ export const IllnessPage = () => {
               onChange={(e) => {
                 setMedicineGiven(preventKeyingNumbers(e.target.value));
               }}
+              required
             />
           </div>
           <div className="oz">
@@ -144,6 +148,7 @@ export const IllnessPage = () => {
               onChange={(e) => {
                 setOz(onlyKeyNumbers(e.target.value));
               }}
+              required
             />
           </div>
           <div className="saveContainer">

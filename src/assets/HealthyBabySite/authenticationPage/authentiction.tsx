@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 
 export const AuthenticationPage = () => {
-
-
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
   const { loggedIn, user } = useAuthProviderContext();
@@ -17,33 +15,35 @@ export const AuthenticationPage = () => {
   const navigate = useNavigate();
   console.log(user);
 
-  const  isUserValid =  (email: string, password: string) => {
-    return getProfileData().then((users) => {
-      const userExist = users.some(
-        (user) =>
-          user.username.toLowerCase() === email.toLowerCase() &&
-          user.password === password
-      );
-     
-      if (userExist) {
-        toast.success("Success");
+  const isUserValid = (username: string, password: string) => {
+    return getProfileData()
+      .then((users) => {
+        const userExist = users.some(
+          (user) =>
+            user.username.toLowerCase() === username.toLowerCase() &&
+            user.password === password
+        );
 
+        if (userExist) {
+          toast.success("Success");
+          console.log(userExist);
 
-        loggedIn(email, password);
-        navigate("/home");
-        console.log(JSON.stringify(user));
+          loggedIn(username, password);
+          navigate("/home");
+          console.log(JSON.stringify(user));
 
-        return;
-      } else {
-        toast.error("Username and/or Password Not found");
-        return;
-      }
-    }).then(()=>{
-      const userID = localStorage.getItem("user");
-      if(userID){
-        setProfileId(JSON.parse(userID).id)
-      }
-    });
+          return;
+        } else {
+          toast.error("Username and/or Password Not found");
+          return;
+        }
+      })
+      .then(() => {
+        const userID = localStorage.getItem("user");
+        if (userID) {
+          setProfileId(JSON.parse(userID).id);
+        }
+      });
   };
   return (
     <>
@@ -54,8 +54,8 @@ export const AuthenticationPage = () => {
             onSubmit={(e) => {
               e.preventDefault();
               isUserValid(userNameInput, passwordInput);
-              setPasswordInput("")
-              setUserNameInput("")
+              setPasswordInput("");
+              setUserNameInput("");
             }}
           >
             <h3>Login</h3>
@@ -76,7 +76,6 @@ export const AuthenticationPage = () => {
                 value={passwordInput}
                 onChange={(e) => {
                   setPasswordInput(e.target.value);
-                  
                 }}
               />
             </div>

@@ -61,6 +61,7 @@ export const TimeInfo = () => {
           id="time"
           value={time}
           onChange={(e) => setTime(`${e.target.value}`)}
+          required
         />
       </div>
       <div className="date">
@@ -72,6 +73,7 @@ export const TimeInfo = () => {
           onChange={(e) => {
             setDate(e.target.value);
           }}
+          required
         />
       </div>
     </>

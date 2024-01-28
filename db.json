@@ -1,21 +1,64 @@
 {
   "profile": [
     {
-      "username": "Robharmony29",
+      "username": "robharmony29",
       "password": "Inhumane#1",
       "caregiver": "debbie",
       "id": 1
+    },
+    {
+      "username": "Yalana1987",
+      "password": "Saints1",
+      "caregiver": "debbie",
+      "id": 2
+    },
+    {
+      "username": "LB6",
+      "password": "Cavs",
+      "caregiver": "Lebron",
+      "id": 3
     }
   ],
   "child": [
     {
       "name": "Zee",
       "age": "22 months",
+      "gender": "Female",
       "weight": "34 lbs.",
       "headSize": "20 in.",
       "height": "26 in.",
       "profileId": 1,
       "id": 1
+    },
+    {
+      "name": "Naya",
+      "age": "11 months",
+      "gender": "Female",
+      "weight": "22 lbs.",
+      "headSize": "21 in.",
+      "height": "22 in.",
+      "profileId": 2,
+      "id": 2
+    },
+    {
+      "name": "Bronny",
+      "age": "0 months",
+      "gender": "Male",
+      "weight": "34 lbs.",
+      "headSize": "20 in.",
+      "height": "43 in.",
+      "profileId": 3,
+      "id": 3
+    },
+    {
+      "name": "bryc",
+      "age": "5 yrs.",
+      "gender": "Male",
+      "weight": "23 lbs.",
+      "headSize": "23 in.",
+      "height": "23 in.",
+      "profileId": 3,
+      "id": 4
     }
   ],
   "napHistory": [],

@@ -2,11 +2,13 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { useChildrenProviderContext } from "../../HealthyBabySite/ProfilePage/profileChildrenProvider";
 
 export const ChildInfo = () => {
-  const { childInfo, childId } = useHistoryIDComponent();
+  const { childInfo, childId, profileId } = useHistoryIDComponent();
   const { hasChildren, myChildren } = useChildrenProviderContext();
-console.log(myChildren);
-console.log(childId);
-
+  console.log(myChildren);
+  console.log(childId);
+  const firstAvailableChild = childInfo.find(
+    (child) => child.profileId === profileId
+  );
   return (
     <>
       <div className="childInfoContainerHP">
@@ -20,31 +22,30 @@ console.log(childId);
         <div>
           {hasChildren === true ? (
             <div className="info">
-              <div className="name">
-                Name:{" "}
-                {childInfo[childId].name}
+              <div className="childname">
+                Name: {firstAvailableChild?.name || childInfo[childId].name}
               </div>
 
-              <div className="age">
-                Age:{" "}
-                {childInfo[childId].age}{" "}
+              <div className="childAge">
+                Age: {firstAvailableChild?.age || childInfo[childId].age}{" "}
               </div>
 
-              <div className="height">
+              <div className="childGender">
                 Height:{" "}
-                {childInfo[childId].height}{" "}
+                {firstAvailableChild?.gender || childInfo[childId].gender}{" "}
+              </div>
+              <div className="childHeight">
+                Height:{" "}
+                {firstAvailableChild?.height || childInfo[childId].height}{" "}
               </div>
 
-              <div className="weight">
+              <div className="childWeight">
                 Weight:{" "}
-                {childInfo[childId].weight}
+                {firstAvailableChild?.weight || childInfo[childId].weight}
               </div>
-              <div className="headSize">
+              <div className="childHeadSize">
                 Head Size:{" "}
-                {
-                  childInfo[childId]
-                    .headSize
-                }
+                {firstAvailableChild?.headSize || childInfo[childId].headSize}
               </div>
             </div>
           ) : (

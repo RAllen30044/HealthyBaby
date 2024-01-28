@@ -54,6 +54,8 @@ export type HistoryIDComponentProvider = {
 
   profile: ProfileInfoTypes[];
   setProfile: React.Dispatch<React.SetStateAction<ProfileInfoTypes[]>>;
+  child: object ;
+  setChild: React.Dispatch<React.SetStateAction<object>>;
 
   fetchProfileInfo: () => Promise<void>;
   fetchBottleFeedingData: () => Promise<void>;
@@ -99,6 +101,9 @@ export const HistoryIDComponentProvider = ({
   const [profile, setProfile] = useState<ProfileInfoTypes[]>([]);
   const [childId, setChildId] = useState<number>(0);
   const [profileId, setProfileId] = useState<null | number>(null);
+  const[child, setChild] =useState({});
+
+
   const fetchProfileInfo = ()=> getProfileData().then(setProfile);
 
   const fetchNappingHistory = () => getNappingHistory().then(setNappingHistory);
@@ -166,6 +171,8 @@ export const HistoryIDComponentProvider = ({
         setChildId,
         profileId,
         setProfileId,
+        child,
+        setChild
       }}
     >
       {children}

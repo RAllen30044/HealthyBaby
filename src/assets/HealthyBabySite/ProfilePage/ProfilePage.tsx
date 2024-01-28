@@ -2,7 +2,10 @@ import { useState } from "react";
 import "./ProfilePage.css";
 import { postInfo, profileUrl } from "../../../api";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
-import { preventKeyingNumbers, preventKeyingSpaces } from "../../../ErrorHandling";
+import {
+  preventKeyingNumbers,
+  preventKeyingSpaces,
+} from "../../../ErrorHandling";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
@@ -24,13 +27,27 @@ export const ProfilePage = () => {
   const { loggedIn, maybeUser, email, setPassword, password } =
     useAuthProviderContext();
   const { setActiveComponent } = useActiveComponent();
-  const { setProfileId } = useHistoryIDComponent();
-  const passwordDonotMatch = (password: string, confirmPassword: string) => {
+  const { setProfileId, profile } = useHistoryIDComponent();
+
+  const passwordsDoMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
+  };
+  const doesUsernameExist = (username: string) => {
+    console.log(
+      profile.some(
+        (user) => user.username.toLowerCase() === username.toLowerCase()
+      )
+    );
+
+    return profile.some(
+      (user) => user.username.toLowerCase() === username.toLowerCase()
+    );
   };
 
   const passwordErrorMessage = "Passwords do not match";
-  const shouldShowPasswordError = isSubmitted && passwordDonotMatch;
+  const shouldShowPasswordErrorMessage = isSubmitted && passwordsDoMatch;
+  const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist;
+  const usernameErrorMessage = "Username already Exist";
 
   return (
     <>
@@ -42,8 +59,14 @@ export const ProfilePage = () => {
             className="profileForm"
             onSubmit={(e) => {
               e.preventDefault();
-              if (!passwordDonotMatch(password, confirmPassword)) {
+              if (
+                !passwordsDoMatch(password, confirmPassword) ||
+                doesUsernameExist(username)
+              ) {
                 setIsSubmitted(true);
+                console.log(doesUsernameExist(username));
+                console.log(passwordsDoMatch(password, confirmPassword));
+
                 return;
               }
               setIsSubmitted(false);
@@ -97,7 +120,7 @@ export const ProfilePage = () => {
           >
             <div className="inputContainer">
               <label htmlFor="name" className="profileLable">
-                NAME:
+                Username:
               </label>
 
               <input
@@ -110,6 +133,9 @@ export const ProfilePage = () => {
                   setUsername(preventKeyingSpaces(e.target.value));
                 }}
               />
+              {shouldShowUsernameErrorMessage && (
+                <ErrorMessage message={usernameErrorMessage} show={true} />
+              )}
             </div>
             {/* <div className="inputContainer">
               <label htmlFor="email" className="profileLable">
@@ -184,7 +210,7 @@ export const ProfilePage = () => {
                   setConfirmPassword(e.target.value);
                 }}
               />
-              {shouldShowPasswordError && (
+              {shouldShowPasswordErrorMessage && (
                 <ErrorMessage message={passwordErrorMessage} show={true} />
               )}
             </div>
@@ -216,7 +242,7 @@ export const ProfilePage = () => {
                   setConfirmPassword(e.target.value);
                 }}
               />
-              {shouldShowPasswordError && (
+              {shouldShowPasswordErrorMessage && (
                 <ErrorMessage message={passwordErrorMessage} show={true} />
               )}
             </div>

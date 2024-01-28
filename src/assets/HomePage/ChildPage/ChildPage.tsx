@@ -16,9 +16,11 @@ import { useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./ChildPage.css";
 import { useState } from "react";
 
+type Gender = "Male" | "Female";
+
 export const ChildPage = () => {
   const [name, setName] = useState("");
-
+  const [gender, setGender] = useState<Gender>("Female");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [headSize, setHeadSize] = useState("");
@@ -92,6 +94,7 @@ export const ChildPage = () => {
                     calculateAge(date) < 2
                       ? `${calculateAgeInMonths(date)} months`
                       : `${calculateAge(date)} yrs.`,
+                      gender:gender,
                   weight: `${weight} lbs.`,
                   headSize: `${headSize} in.`,
                   height: `${height} in.`,
@@ -141,6 +144,31 @@ export const ChildPage = () => {
                 }}
               />
             </div>
+            <div className="genderInfo childInfoContainer">
+              <label className="gender childInfoLabel">Date of Birth:</label>
+              <button
+                type="button"
+                className={`male button ${
+                  gender === "Male" ? "pressedButton" : ""
+                }`}
+                onClick={() => {
+                  setGender("Male");
+                }}
+              >
+                Male
+              </button>
+              <button
+                type="button"
+                className={`female button ${
+                  gender === "Female" ? "pressedButton" : ""
+                }`}
+                onClick={() => {
+                  setGender("Female");
+                }}
+              >
+                Female
+              </button>
+            </div>
             <div className="weightInfo childInfoContainer">
               <label className="weight childInfoLabel">Weight: </label>
               <input
@@ -179,7 +207,11 @@ export const ChildPage = () => {
               <span>in.</span>
             </div>
             <div className="buttonContainer ">
-              <button className="saveButton feedingSave" disabled={loading}>
+              <button
+                type="submit"
+                className="saveButton feedingSave"
+                disabled={loading}
+              >
                 Save
               </button>
             </div>

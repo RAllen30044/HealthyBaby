@@ -16,12 +16,11 @@ export type AuthComponentProviderT = {
   maybeUser: string | null;
   user: User | null;
   email: string;
-  password:string;
+  password: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loggedIn: (email: string, password: string) => void;
-
 };
 
 const AuthProviderContext = createContext<AuthComponentProviderT>(
@@ -33,15 +32,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const { profile } = useHistoryIDComponent();
   const maybeUser = localStorage.getItem("user");
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-
-  const loggedIn = (email: string, password: string) => {
+  const loggedIn = (username: string, password: string) => {
     setLog("logOut");
     const userID = profile.find(
-      (profile) => profile.username === email && profile.password === password
+      (profile) =>
+        profile.username.toLowerCase() === username.toLowerCase() &&
+        profile.password === password
     );
+
+    console.log(username);
+    console.log(password);
+
     console.log(userID);
     if (userID) {
       localStorage.setItem(
@@ -52,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           id: userID.id,
         })
       );
-      localStorage.setItem("log", "logOut");
+      localStorage.setItem("log", "logIn");
     }
   };
 
@@ -68,7 +73,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <AuthProviderContext.Provider
-        value={{ log, setLog, user, setUser, loggedIn, maybeUser,email,setEmail, password, setPassword }}
+        value={{
+          log,
+          setLog,
+          user,
+          setUser,
+          loggedIn,
+          maybeUser,
+          email,
+          setEmail,
+          password,
+          setPassword,
+        }}
       >
         {children}
       </AuthProviderContext.Provider>
