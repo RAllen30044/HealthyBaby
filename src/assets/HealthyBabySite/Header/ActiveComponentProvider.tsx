@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 
- type TActiveComponent =
+type TActiveComponent =
   | "illness"
   | "feeding"
   | "napping"
@@ -21,8 +21,12 @@ export const ActiveComponentProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [activeComponent, setActiveComponent] =
-    useState<TActiveComponent>("addChild");
+  const getActiveComponent = localStorage.getItem("activeComponent");
+  const [activeComponent, setActiveComponent] = useState<TActiveComponent>(
+    getActiveComponent
+      ? JSON.parse(getActiveComponent).activeComponent
+      : "addChild"
+  );
 
   return (
     <ActiveComponentContext.Provider

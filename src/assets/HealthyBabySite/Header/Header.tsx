@@ -1,6 +1,5 @@
+import { setActiveComponentInLocalStorage } from "../../../ErrorHandling";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-
-import { useChildrenProviderContext } from "../ProfilePage/profileChildrenProvider";
 
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
@@ -13,20 +12,20 @@ export const Header = () => {
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
 
-  const { childInfo, setChildId, childId } = useHistoryIDComponent();
-  const {  setUser, maybeUser } = useAuthProviderContext();
+  const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
+  const { setUser, maybeUser } = useAuthProviderContext();
   console.log(childInfo);
   const getUser = localStorage.getItem("user");
-  const {  myChildren } = useChildrenProviderContext();
 
-  console.log(myChildren);
+  console.log(getUser);
 
   return (
     <>
       <header>
         <nav>
           <div className="logo">
-            <h5
+            <i
+              className="fa-solid fa-baby"
               onClick={() => {
                 if (getUser) {
                   setHiddenChildLinks(!hiddenChildLinks);
@@ -34,9 +33,8 @@ export const Header = () => {
                   return;
                 }
               }}
-            >
-              HB
-            </h5>
+            ></i>
+
             <div
               className={`childList ${
                 hiddenChildLinks === true ? "" : "hidden"
@@ -55,22 +53,32 @@ export const Header = () => {
                 //     return 0;
                 //   })
               }
-              {myChildren.map((child) => {
-                return (
-                  <div
-                    className={`child ${
-                      childId === myChildren.indexOf(child) ? "selected" : ""
-                    }`}
-                    key={child.id}
-                    onClick={() => {
-                      setChildId(myChildren.indexOf(child));
-                      setHiddenChildLinks(!hiddenChildLinks);
-                    }}
-                  >
-                    {child.name}
-                  </div>
-                );
-              })}
+              {childInfo
+                .filter((childProfile) => childProfile.profileId === profileId)
+                .map((childProfile) => {
+                  return (
+                    <div
+                      className={`child ${
+                        childId === childProfile.id ? "selected" : ""
+                      }`}
+                      key={childProfile.id}
+                      onClick={() => {
+                        setChildId(childProfile.id);
+                        setHiddenChildLinks(!hiddenChildLinks);
+                        localStorage.setItem(
+                          "child",
+                          JSON.stringify({
+                            name: childProfile.name,
+                            gender: childProfile.gender,
+                            id: childProfile.id,
+                          })
+                        );
+                      }}
+                    >
+                      {childProfile.name}
+                    </div>
+                  );
+                })}
             </div>
           </div>
 
@@ -97,8 +105,10 @@ export const Header = () => {
               to="/auth"
               className={` pageLink ${maybeUser ? "" : "hidden"}`}
               onClick={() => {
-                localStorage.removeItem("user");
+                localStorage.clear();
                 setUser(null);
+                setHiddenChildLinks(false);
+                setHiddenPagesLinks(false);
               }}
             >
               Log Out
@@ -122,6 +132,9 @@ export const Header = () => {
                   onClick={() => {
                     setHiddenPagesLinks(!hiddenPagesLinks);
                   }}
+                  style={
+                    hiddenPagesLinks === true ? { fontSize: "larger" } : {}
+                  }
                 >
                   &#9776;
                 </div>
@@ -138,7 +151,10 @@ export const Header = () => {
                     className={`feedingLink link ${
                       activeComponent === "feeding" ? "selected" : ""
                     }`}
-                    onClick={() => setActiveComponent("feeding")}
+                    onClick={() => {
+                      setActiveComponent("feeding");
+                      setActiveComponentInLocalStorage("feeding");
+                    }}
                   >
                     Feeding
                   </div>
@@ -146,31 +162,43 @@ export const Header = () => {
                     className={`diaperLink link ${
                       activeComponent === "diaper" ? "selected" : ""
                     }`}
-                    onClick={() => setActiveComponent("diaper")}
+                    onClick={() => {
+                      setActiveComponent("diaper");
+                      setActiveComponentInLocalStorage("diaper");
+                    }}
                   >
                     Diaper
                   </div>
                   <div
-                    className={`NappingLink link ${
+                    className={`nappingLink link ${
                       activeComponent === "napping" ? "selected" : ""
                     }`}
-                    onClick={() => setActiveComponent("napping")}
+                    onClick={() => {
+                      setActiveComponent("napping");
+                      setActiveComponentInLocalStorage("napping");
+                    }}
                   >
                     Napping
                   </div>
                   <div
-                    className={`IllnessLink link ${
+                    className={`illnessLink link ${
                       activeComponent === "illness" ? "selected" : ""
                     }`}
-                    onClick={() => setActiveComponent("illness")}
+                    onClick={() => {
+                      setActiveComponent("illness");
+                      setActiveComponentInLocalStorage("illness");
+                    }}
                   >
                     Illness
                   </div>
                   <div
-                    className={`AddChildLink link ${
+                    className={`addChildLink link ${
                       activeComponent === "addChild" ? "selected" : ""
                     }`}
-                    onClick={() => setActiveComponent("addChild")}
+                    onClick={() => {
+                      setActiveComponent("addChild");
+                      setActiveComponentInLocalStorage("addChild");
+                    }}
                   >
                     Add Child
                   </div>

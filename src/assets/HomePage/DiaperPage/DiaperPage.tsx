@@ -2,20 +2,30 @@ import { useState } from "react";
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./Diaper.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPoo,
+  faHillRockslide,
+  faSquare,
+  faDroplet,
+  faCloud,
+} from "@fortawesome/free-solid-svg-icons";
 import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../api";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   convertToStandardTime,
   createShortHandDate,
   formatDate,
-
 } from "../TimeInfo/TimeConversion";
-import { futureTimeNotAllowed, timeInvaild } from "../../../ErrorHandling";
+import {
+  babyNameForHistory,
+  futureTimeNotAllowed,
+  timeInvaild,
+} from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 
 type DaiperType = "Wet" | "Poop";
-type ConsistancyTypeT = "Pellets" | "Solid" | "Soft" | "Wet";
+type ConsistancyTypeT = "Pebbles" | "Solid" | "Soft" | "Wet";
 
 export const DaiperPage = () => {
   const [diaperType, setDiaperType] = useState<DaiperType>("Wet");
@@ -57,7 +67,7 @@ export const DaiperPage = () => {
         </div>
       </div>
       <div className="dataInputForm">
-        <form
+        <form className="diaperForm"
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
@@ -107,7 +117,8 @@ export const DaiperPage = () => {
                 setConsistancy("Wet");
               }}
             >
-              Wet
+              <FontAwesomeIcon icon={faDroplet} />
+              <p>Wet</p>
             </button>
             <button
               type="button"
@@ -118,7 +129,8 @@ export const DaiperPage = () => {
                 setDiaperType("Poop");
               }}
             >
-              Poop
+              <FontAwesomeIcon icon={faPoo} />
+              <p>Poop</p>
             </button>
           </div>
           <div
@@ -135,7 +147,8 @@ export const DaiperPage = () => {
                 setConsistancy("Soft");
               }}
             >
-              Soft
+              <FontAwesomeIcon icon={faCloud} />
+              <p>Soft</p>
             </button>
             <button
               type="button"
@@ -146,18 +159,20 @@ export const DaiperPage = () => {
                 setConsistancy("Solid");
               }}
             >
-              Solid
+              <FontAwesomeIcon icon={faSquare} />
+              <p>Solid</p>
             </button>
             <button
               type="button"
               className={`pellets button ${
-                consistancy === "Pellets" ? "pressedButton" : ""
+                consistancy === "Pebbles" ? "pressedButton" : ""
               }`}
               onClick={() => {
-                setConsistancy("Pellets");
+                setConsistancy("Pebbles");
               }}
             >
-              Pellets
+              <FontAwesomeIcon icon={faHillRockslide} />
+              <p>Pebbles</p>
             </button>
           </div>
           <div className="saveContainer">
@@ -173,7 +188,7 @@ export const DaiperPage = () => {
       </div>
       <div className="historyHeaderContainer">
         <div className="categoryName historyHeader">
-          <h1>Diapers History</h1>
+          <h1>{babyNameForHistory()}'s Diapers History</h1>
         </div>
       </div>
       <div className="historyTimelineContainer">

@@ -6,14 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { getProfileData } from "../../../api";
 import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { firstAvailableChild } from "../../../ErrorHandling";
+
 
 export const AuthenticationPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, user } = useAuthProviderContext();
-  const { setProfileId } = useHistoryIDComponent();
+  const { loggedIn, user, setUsername, setPassword, setLog } =
+    useAuthProviderContext();
+  const { setProfileId, childInfo } = useHistoryIDComponent();
   const navigate = useNavigate();
-  console.log(user);
 
   const isUserValid = (username: string, password: string) => {
     return getProfileData()
@@ -23,12 +25,42 @@ export const AuthenticationPage = () => {
             user.username.toLowerCase() === username.toLowerCase() &&
             user.password === password
         );
+        const user = users.find(
+          (user) =>
+            user.username.toLowerCase() === username.toLowerCase() &&
+            user.password === password
+        );
+        console.log(userExist);
 
         if (userExist) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              username: user?.username,
+              password: user?.password,
+              id: user?.id,
+            })
+          );
+
+          firstAvailableChild(childInfo, user);
+          if (firstAvailableChild(childInfo, user)) {
+            localStorage.setItem(
+              "child",
+              JSON.stringify({
+                name: firstAvailableChild(childInfo,user)?.name,
+                gender:firstAvailableChild(childInfo,user)?.gender,
+                id: firstAvailableChild(childInfo, user)?.id
+              })
+            );
+          }
           toast.success("Success");
           console.log(userExist);
+          loggedIn(userNameInput, passwordInput);
+          setLog("logOut");
+          const userID = localStorage.getItem("user");
 
-          loggedIn(username, password);
+          console.log(userID);
+
           navigate("/home");
           console.log(JSON.stringify(user));
 

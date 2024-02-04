@@ -24,7 +24,7 @@ export const ProfilePage = () => {
 
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
   const navigate = useNavigate();
-  const { loggedIn, maybeUser, email, setPassword, password } =
+  const { loggedIn, maybeUser,  setPassword, password } =
     useAuthProviderContext();
   const { setActiveComponent } = useActiveComponent();
   const { setProfileId, profile } = useHistoryIDComponent();
@@ -89,9 +89,9 @@ export const ProfilePage = () => {
                   navigate("/home");
                   setActiveComponent("addChild");
                   if (!maybeUser) {
-                    const userEmail = JSON.parse(
+                    const username = JSON.parse(
                       JSON.stringify(data)
-                    ).userEmail;
+                    ).username;
 
                     const userPassword = JSON.parse(
                       JSON.stringify(data)
@@ -101,7 +101,7 @@ export const ProfilePage = () => {
                     localStorage.setItem(
                       "user",
                       JSON.stringify({
-                        username: userEmail,
+                        username: username,
                         password: userPassword,
                         id: userId,
                       })
@@ -110,7 +110,7 @@ export const ProfilePage = () => {
                 })
 
                 .then(() => {
-                  loggedIn(email, password);
+                  loggedIn(username, password);
                   setLoading(false);
                 })
                 .catch((e) => {

@@ -5,3 +5,11 @@
 .diaperSave{
       background-color:#12D7E6;
 }
+
+button  p {
+      margin: 1px;
+      font-size: 8px;
+}
+.diaperForm button{
+      margin-right: 25px;
+}

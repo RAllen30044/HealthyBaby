@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import {
   DOBnotVaild,
   futureDOBNotAllowed,
@@ -8,7 +9,6 @@ import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { childUrl, postInfo } from "../../../api";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
-import { useChildrenProviderContext } from "../../HealthyBabySite/ProfilePage/profileChildrenProvider";
 
 import { calculateAge, calculateAgeInMonths } from "../TimeInfo/TimeConversion";
 
@@ -29,7 +29,6 @@ export const ChildPage = () => {
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
   const { fetchChildInfo, profileId, setChildId } = useHistoryIDComponent();
 
-  const { setHasChildren, hasChildren } = useChildrenProviderContext();
   // const [babyPic, setBabyPic] = useState<string>("");
 
   // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +93,7 @@ export const ChildPage = () => {
                     calculateAge(date) < 2
                       ? `${calculateAgeInMonths(date)} months`
                       : `${calculateAge(date)} yrs.`,
-                      gender:gender,
+                  gender: gender,
                   weight: `${weight} lbs.`,
                   headSize: `${headSize} in.`,
                   height: `${height} in.`,
@@ -103,12 +102,24 @@ export const ChildPage = () => {
                 },
                 childUrl
               )
-                .then(() => {
-                  setDate("");
-                  if (hasChildren === false) {
-                    setChildId(0);
+                .then((res) => {
+                  if (!res.ok) {
+                    toast("error");
                   }
-                  setHasChildren(true);
+                  setDate("");
+                  return res.json();
+                })
+                .then((data) => {
+                  localStorage.setItem(
+                    "child",
+                    JSON.stringify({
+                      name: data.name,
+                      gender: data.gender,
+                      id: data.id,
+                    })
+                  );
+
+                  setChildId(JSON.parse(data.id));
                 })
                 .then(fetchChildInfo)
                 .then(() => {
@@ -145,7 +156,7 @@ export const ChildPage = () => {
               />
             </div>
             <div className="genderInfo childInfoContainer">
-              <label className="gender childInfoLabel">Date of Birth:</label>
+              <label className="gender childInfoLabel">Gender :</label>
               <button
                 type="button"
                 className={`male button ${
@@ -155,7 +166,7 @@ export const ChildPage = () => {
                   setGender("Male");
                 }}
               >
-                Male
+                <i className="fa fa-male" aria-hidden="true"></i>
               </button>
               <button
                 type="button"
@@ -166,7 +177,7 @@ export const ChildPage = () => {
                   setGender("Female");
                 }}
               >
-                Female
+                <i className="fa fa-female" aria-hidden="true"></i>
               </button>
             </div>
             <div className="weightInfo childInfoContainer">

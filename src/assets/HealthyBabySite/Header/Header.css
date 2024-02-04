@@ -2,18 +2,26 @@ nav {
   /* max-height: 6vh; */
   display: flex;
   justify-content: space-between;
-  margin: 5px 20px;
+  margin: 15px 20px;
 }
 .logo {
   position: relative;
 }
 
-.logo h5:hover {
+.logo .fa-baby{
+  font-size: 28px;
+}
+
+.logo .fa-baby:hover {
   cursor: pointer;
   color: gray;
 }
 .logo .child:hover {
   cursor: pointer;
+  font-weight: 700;
+  background-color: grey;
+  width: 100%;
+  text-align: center;
 }
 
 .childList {
@@ -21,11 +29,12 @@ nav {
   width: 86px;
   border: 1px solid black;
 
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  left: 8px;
-  top: 32px;
+  left: 11px;
+  top: 10px;
   background-color: white;
 }
 
@@ -39,18 +48,24 @@ nav {
 }
 .pagesDropDown {
   position: relative;
-
 }
 .hamburgerIcon:hover {
   cursor: pointer;
   color: gray;
+  font-size: large;
 }
-
+.link {
+  width: 100%;
+}
 .subPagesLinks {
   position: absolute;
   border: 1px solid black;
-  width: 60px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 90px;
   right: 6px;
+  text-align: center;
   background-color: white;
   top: 12px;
   color: initial;
@@ -60,18 +75,56 @@ nav {
 .selected {
   background-color: black;
   color: white;
+  text-align: center;
   width: 100%;
 }
+.selected.feedingLink {
+  background-color: #fadd9f;
+  color: black;
+}
+.feedingLink:hover {
+  color: #fadd9f;
+  background-color: grey;
+}
+.selected.diaperLink {
+  background-color: #12d7e6;
+  color: black;
+}
+
+.diaperLink:hover {
+  color: #12d7e6;
+  background-color: grey;
+}
+.selected.nappingLink {
+  background-color: #b935f9;
+  color: black;
+}
+.nappingLink:hover {
+  color: #b935f9;
+  background-color: grey;
+}
+.selected.illnessLink {
+  background-color: #96cbb6;
+  color: black;
+}
+.illnessLink:hover {
+  color: #96cbb6;
+  background-color: grey;
+}
+.addChildLink:hover {
+  background-color: grey;
+}
+
 .link:hover {
   cursor: pointer;
+  font-weight: 700;
 }
-.pageLink{
+.pageLink {
   color: initial;
   text-decoration: none;
- 
 }
-.pageLink:hover{
+.pageLink:hover {
   color: initial;
   font-weight: 800;
- font-size: 20px;
+  font-size: 20px;
 }

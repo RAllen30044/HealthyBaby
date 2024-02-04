@@ -12,6 +12,7 @@ import {
   formatDate,
 } from "../TimeInfo/TimeConversion";
 import {
+  babyNameForHistory,
   futureTimeNotAllowed,
   onlyKeyNumbers,
   timeInvaild,
@@ -124,7 +125,7 @@ export const NappingPage = () => {
       </div>
       <div className="historyHeaderContainer">
         <div className="categoryName historyHeader">
-          <h1>{childInfo[childId].name}'s Napping History</h1>
+          <h1>{babyNameForHistory()}'s Napping History</h1>
         </div>
       </div>
       <div className="historyTimelineContainer">

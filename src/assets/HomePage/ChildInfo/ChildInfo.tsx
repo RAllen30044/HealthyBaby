@@ -2,13 +2,21 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { useChildrenProviderContext } from "../../HealthyBabySite/ProfilePage/profileChildrenProvider";
 
 export const ChildInfo = () => {
-  const { childInfo, childId, profileId } = useHistoryIDComponent();
-  const { hasChildren, myChildren } = useChildrenProviderContext();
+  const { childInfo, childId, profileId,  } = useHistoryIDComponent();
+  const {  myChildren } = useChildrenProviderContext();
+
   console.log(myChildren);
   console.log(childId);
+
+ 
   const firstAvailableChild = childInfo.find(
     (child) => child.profileId === profileId
   );
+  console.log(firstAvailableChild);
+console.log(childInfo);
+
+
+  
   return (
     <>
       <div className="childInfoContainerHP">
@@ -20,37 +28,25 @@ export const ChildInfo = () => {
           )}
         </div> */}
         <div>
-          {hasChildren === true ? (
-            <div className="info">
-              <div className="childname">
-                Name: {firstAvailableChild?.name || childInfo[childId].name}
-              </div>
+          {childInfo
+            .filter((child) => child.id === childId)
+            .map((child) => {
+              return (
+                <div className="info" key={child.id}>
+                  <div className="childname">Name: {child.name}</div>
 
-              <div className="childAge">
-                Age: {firstAvailableChild?.age || childInfo[childId].age}{" "}
-              </div>
+                  <div className="childAge">Age: {child.age} </div>
 
-              <div className="childGender">
-                Height:{" "}
-                {firstAvailableChild?.gender || childInfo[childId].gender}{" "}
-              </div>
-              <div className="childHeight">
-                Height:{" "}
-                {firstAvailableChild?.height || childInfo[childId].height}{" "}
-              </div>
+                  <div className="childGender">gender: {child.gender} </div>
+                  <div className="childHeight">Height: {child.height} </div>
 
-              <div className="childWeight">
-                Weight:{" "}
-                {firstAvailableChild?.weight || childInfo[childId].weight}
-              </div>
-              <div className="childHeadSize">
-                Head Size:{" "}
-                {firstAvailableChild?.headSize || childInfo[childId].headSize}
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
+                  <div className="childWeight">Weight: {child.weight}</div>
+                  <div className="childHeadSize">
+                    Head Size: {child.headSize}
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </div>
     </>

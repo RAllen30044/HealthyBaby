@@ -18,7 +18,7 @@
 
 .childInfoContainer {
   margin-bottom: 10px;
-  width: 11vw;
+  width: 100%;
   display: flex;
  
 }
@@ -32,4 +32,17 @@
 
 .headSizeInfo {
   margin-bottom: 40px;
+}
+.fa-female{
+color: #F7FBF0
+}
+.fa-male{
+color: #F7FBF0
+}
+.male.button{
+  background-color: blue;
+  margin-right: 20px;
+}
+.female.button{
+  background-color: pink;
 }

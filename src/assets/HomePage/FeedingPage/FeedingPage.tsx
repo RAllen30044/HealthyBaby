@@ -1,5 +1,6 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./FeedingPage.css";
+
 import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
 import { useState } from "react";
 
@@ -18,12 +19,13 @@ import {
   convertToStandardTime,
   createShortHandDate,
   formatDate,
- 
 } from "../TimeInfo/TimeConversion";
 import { InfantFeedingHistory } from "./InfantFeedingHistory";
 import {
+  babyNameForHistory,
   futureTimeNotAllowed,
   onlyKeyNumbers,
+  onlyNumbersWithDecimal,
   preventKeyingNumbers,
   timeInvaild,
 } from "../../../ErrorHandling";
@@ -98,6 +100,9 @@ export const FeedingPage = () => {
     });
   };
 
+  const getChild = localStorage.getItem("child");
+  const getGender = getChild ? JSON.parse(getChild)?.gender : "";
+
   return (
     <>
       <div className="banner feedingBanner">
@@ -122,7 +127,16 @@ export const FeedingPage = () => {
                 }
               }}
             >
-              Infant Mode {infantMode === "off" ? `Off` : `On`}
+              {infantMode === "off" ? "Toddler" : "Baby"} Feeding{" "}
+              {infantMode === "off" ? (
+                <i
+                  className={`fa-solid fa-child-${
+                    getGender === "Female" ? `dress` : `reaching`
+                  }`}
+                ></i>
+              ) : (
+                <i className="fa-solid fa-baby"></i>
+              )}
             </button>
           </div>
           <div
@@ -134,7 +148,8 @@ export const FeedingPage = () => {
               }`}
               onClick={() => setFeed("breastFeed")}
             >
-              breast feed
+              {/* <i className="fa-solid fa-person-breastfeeding"></i> */}
+              <h2>🤱 </h2>
             </button>
             <button
               className={`bottleFeed button ${
@@ -142,7 +157,7 @@ export const FeedingPage = () => {
               }  `}
               onClick={() => setFeed("bottleFeed")}
             >
-              bottle feed
+              <h2>🍼 </h2>
             </button>
           </div>
         </div>
@@ -243,7 +258,7 @@ export const FeedingPage = () => {
                 value={oz}
                 onChange={(e) => {
                   e.preventDefault();
-                  setOz(onlyKeyNumbers(e.target.value));
+                  setOz(onlyNumbersWithDecimal(e.target.value));
                 }}
               />
             </div>
@@ -255,7 +270,7 @@ export const FeedingPage = () => {
                 value={ozLeft}
                 onChange={(e) => {
                   e.preventDefault();
-                  setOzLeft(onlyKeyNumbers(e.target.value));
+                  setOzLeft(onlyNumbersWithDecimal(e.target.value));
                 }}
               />
             </div>
@@ -322,7 +337,7 @@ export const FeedingPage = () => {
       </div>
       <div className="historyHeaderContainer">
         <div className="categoryName historyHeader">
-          <h1>Feeding History</h1>
+          <h1>{babyNameForHistory()}'s Feeding History</h1>
         </div>
       </div>
       <div className="historyTimelineContainer ">

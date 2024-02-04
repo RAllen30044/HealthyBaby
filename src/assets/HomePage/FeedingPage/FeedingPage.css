@@ -14,3 +14,16 @@
 .categoryName h1{
   margin-bottom: 20px;
 }
+button h2{
+  margin: auto;
+
+}
+button.bottleFeed{
+  padding: 10px;
+}
+button.breastFeed{
+  padding: 10px;
+}
+.subCategories button{
+  margin: 0 10px;
+}

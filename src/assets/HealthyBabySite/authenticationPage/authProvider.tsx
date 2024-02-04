@@ -8,6 +8,7 @@ import {
 
 import { User } from "../../../Types";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { useActiveComponent } from "../Header/ActiveComponentProvider";
 
 // type LogInfo = "logIn" | "logOut";
 export type AuthComponentProviderT = {
@@ -15,9 +16,9 @@ export type AuthComponentProviderT = {
   setLog: React.Dispatch<React.SetStateAction<string | null>>;
   maybeUser: string | null;
   user: User | null;
-  email: string;
+  username: string;
   password: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loggedIn: (email: string, password: string) => void;
@@ -30,11 +31,13 @@ const AuthProviderContext = createContext<AuthComponentProviderT>(
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [log, setLog] = useState<string | null>("logIn");
   const [user, setUser] = useState<User | null>(null);
-  const { profile } = useHistoryIDComponent();
+  const { profile, childInfo, setChildId } = useHistoryIDComponent();
   const maybeUser = localStorage.getItem("user");
-
-  const [email, setEmail] = useState<string>("");
+  
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const getChild = localStorage.getItem("child");
+
 
   const loggedIn = (username: string, password: string) => {
     setLog("logOut");
@@ -43,11 +46,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         profile.username.toLowerCase() === username.toLowerCase() &&
         profile.password === password
     );
+    const userIdExist = profile.some(
+      (profile) =>
+        profile.username.toLowerCase() === username.toLowerCase() &&
+        profile.password === password
+    );
 
     console.log(username);
     console.log(password);
 
-    console.log(userID);
+    console.log(userIdExist);
     if (userID) {
       localStorage.setItem(
         "user",
@@ -58,15 +66,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         })
       );
       localStorage.setItem("log", "logIn");
+      const firstAvailableChild = childInfo.find(
+        (child) => child.profileId === userID.id
+      )?.id;
+      if (firstAvailableChild) {
+        setChildId(firstAvailableChild);
+      }
     }
   };
 
   useEffect(() => {
     if (maybeUser) {
       setUser(JSON.parse(maybeUser));
+      if (getChild) {
+        setChildId(Number.parseInt(JSON.parse(getChild).id));
+      }
+
       setLog(localStorage.getItem("log" || "logIn"));
     }
-  }, [maybeUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maybeUser, getChild]);
 
   console.log(user);
 
@@ -80,8 +99,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setUser,
           loggedIn,
           maybeUser,
-          email,
-          setEmail,
+          username,
+          setUsername,
           password,
           setPassword,
         }}

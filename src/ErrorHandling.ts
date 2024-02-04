@@ -1,3 +1,5 @@
+import { ChildInfoT, ProfileInfoTypes } from "./Types";
+
 export const preventKeyingNumbers = (value: string) => {
   return value.replace(/[^A-Za-z\s]/, "");
 };
@@ -6,6 +8,9 @@ export const preventKeyingSpaces = (value: string) => {
 };
 export const onlyKeyNumbers = (value: string) => {
   return value.replace(/[^0-9]/, "");
+};
+export const onlyNumbersWithDecimal = (value: string) => {
+  return value.replace(/[^0-9.]/g, "");
 };
 
 export function isEmailValid(emailAddress: string) {
@@ -32,3 +37,24 @@ export const futureTimeNotAllowed =
   "Cannot chose a future time, Please select a different time and/or date";
 export const futureDOBNotAllowed =
   "Cannot chose a future time, Please select a different date";
+
+export const firstAvailableChild = (
+  child: ChildInfoT[],
+  user: ProfileInfoTypes | undefined
+) => {
+  return child.find((child) => child.profileId === user?.id);
+};
+
+export const setActiveComponentInLocalStorage = (component: string) => {
+  return localStorage.setItem(
+    "activeComponent",
+    JSON.stringify({
+      activeComponent: component,
+    })
+  );
+};
+
+export const babyNameForHistory = () => {
+  const child = localStorage.getItem("child");
+  return child ? JSON.parse(child)?.name : "";
+};

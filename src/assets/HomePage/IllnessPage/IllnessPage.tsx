@@ -11,8 +11,10 @@ import {
   formatDate,
 } from "../TimeInfo/TimeConversion";
 import {
+  babyNameForHistory,
   futureTimeNotAllowed,
   onlyKeyNumbers,
+  onlyNumbersWithDecimal,
   preventKeyingNumbers,
   timeInvaild,
 } from "../../../ErrorHandling";
@@ -110,7 +112,6 @@ export const IllnessPage = () => {
               value={sicknessType}
               onChange={(e) => {
                 setSicknessType(e.target.value);
-                
               }}
               required
             />
@@ -146,7 +147,7 @@ export const IllnessPage = () => {
               id="oz"
               value={oz}
               onChange={(e) => {
-                setOz(onlyKeyNumbers(e.target.value));
+                setOz(onlyNumbersWithDecimal(e.target.value));
               }}
               required
             />
@@ -164,7 +165,7 @@ export const IllnessPage = () => {
       </div>
       <div className="historyHeaderContainer">
         <div className="categoryName historyHeader">
-          <h1>Illness History</h1>
+          <h1>{babyNameForHistory()}'s Illness History</h1>
         </div>
       </div>
       <div className="historyTimelineContainer">
