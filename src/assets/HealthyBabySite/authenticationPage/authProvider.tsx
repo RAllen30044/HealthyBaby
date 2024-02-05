@@ -8,7 +8,7 @@ import {
 
 import { User } from "../../../Types";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { useActiveComponent } from "../Header/ActiveComponentProvider";
+
 
 // type LogInfo = "logIn" | "logOut";
 export type AuthComponentProviderT = {

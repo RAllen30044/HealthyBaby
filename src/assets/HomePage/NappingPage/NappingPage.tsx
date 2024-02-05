@@ -32,13 +32,8 @@ export const NappingPage = () => {
     shouldShowDateTimeEntryError,
   } = useTimeInfo();
 
-  const {
-    nappingHistory,
-    setNappingHistory,
-    fetchNappingHistory,
-    childId,
-    childInfo,
-  } = useHistoryIDComponent();
+  const { nappingHistory, setNappingHistory, fetchNappingHistory, childId } =
+    useHistoryIDComponent();
 
   const removeNappingHistory = (id: number) => {
     const updateData = nappingHistory.filter((history) => history.id !== id);
@@ -144,8 +139,7 @@ export const NappingPage = () => {
           .map((history) => {
             return (
               <div className="historyContainer" key={history.id}>
-                <div className="diapersHistory">
-                  <h2>Naptime {history.date}</h2>
+                <div className="nappingHistory">
                   <h3>Time: {history.time}</h3>
                   <h3>Date: {history.date}</h3>
                   <h3>Length of Time: {history.lengthOfTime} min</h3>

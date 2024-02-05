@@ -1,0 +1,145 @@
+.tabs {
+  display: none;
+}
+.linksDropDown {
+  display: none;
+}
+.landingPageHeader{
+  display: none;
+}
+@media screen and (max-width: 500px) {
+  .linksDropDown {
+    display: block;
+  }
+  .pageLink {
+    display: none;
+  }
+  .landingPageHeader{
+    display: block;
+  }
+  .mobileDropdownContainer {
+    position: relative;
+  }
+  .mobileLinksContainer {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+   right: 10px;
+   top: 10px;
+   width: 60px;
+  
+
+  }
+a{
+      text-decoration: none;
+}
+.linkContainer{
+  width: 100%;
+  text-align: center;
+}
+.LandingPageLink {
+
+      margin: 0 20px;
+      }
+
+  .tabs {
+    display: flex;
+  }
+  .tabs p {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 5px;
+  }
+  .tabContainer {
+    max-width: 100px;
+    background-color: transparent;
+  }
+div.category{
+  width: 100%;
+}
+  .childPage h1 {
+    text-align: center;
+  }
+  .feedingTab {
+    border: 1px solid black;
+    background-color: #fadd9f;
+    padding: 0 10px;
+    border-left: #fadd9f;
+    height: 100%;
+   
+   
+  }
+  .feedingTab.active {
+    border-bottom: #fadd9f;
+  }
+
+  .diaperTab {
+  
+    border: 1px solid black;
+    background-color: #12d7e6;
+    padding: 0 10px;
+    height: 100%;
+  }
+  .diaperTab.active {
+    border-bottom: #12d7e6;
+  }
+
+  .nappingTab {
+    border: 1px solid black;
+    background-color: #b935f9;
+    padding: 0 10px;
+    height: 100%;
+  }
+  .nappingTab.active {
+    border-bottom: #b935f9;
+  }
+
+  .illnessTab {
+    border: 1px solid black;
+    background-color: #96cbb6;
+    padding: 0 10px;
+    height: 100%;
+  }
+  .illnessTab.active {
+    border-bottom: #96cbb6;
+  }
+
+  .link {
+    display: none;
+  }
+  .pagesDropDown {
+    display: none;
+  }
+  .banner{
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 30px;
+  }
+  .category{
+    width: 100%;
+    gap: 10px;
+  }
+  div.categoryName h1 {
+    margin-bottom: 0px;
+}
+  form .saveContainer{
+    justify-content: center;
+  }
+  div.historyHeaderContainer{
+      justify-content: initial;
+      
+  }
+  div.historyHeaderContainer .historyHeader h1{
+    margin: 25px 67px;
+  }
+  .historyTimelineContainer{
+    justify-content: center;
+  }
+  .profilePage h1{
+text-align: center;
+  }
+}

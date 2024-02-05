@@ -144,9 +144,25 @@
       "ozLeft": "4",
       "childId": 5,
       "id": 1
+    },
+    {
+      "time": "1:17 PM",
+      "date": "February 3, 2024",
+      "oz": "8",
+      "ozLeft": "4",
+      "childId": 1,
+      "id": 2
     }
   ],
-  "breastFeedingHistory": [],
+  "breastFeedingHistory": [
+    {
+      "time": "12:19 PM",
+      "date": "February 1, 2024",
+      "feedingTimeLength": "20min",
+      "childId": 1,
+      "id": 1
+    }
+  ],
   "infantFeedingHistory": [
     {
       "time": "12:53 AM",
@@ -163,6 +179,30 @@
       "foodType": "PBJ",
       "childId": 1,
       "id": 2
+    },
+    {
+      "time": "12:21 PM",
+      "date": "February 4, 2024",
+      "drinkType": "Water",
+      "foodType": "Salad",
+      "childId": 3,
+      "id": 3
+    },
+    {
+      "time": "12:33 PM",
+      "date": "January 1, 2024",
+      "drinkType": "Water",
+      "foodType": "Salad",
+      "childId": 1,
+      "id": 4
+    },
+    {
+      "time": "12:36 PM",
+      "date": "January 30, 2024",
+      "drinkType": "Milk",
+      "foodType": "Mac and cheese chicken",
+      "childId": 1,
+      "id": 5
     }
   ],
   "diapersHistory": [
@@ -173,6 +213,14 @@
       "consistancy": "Soft",
       "childId": 5,
       "id": 1
+    },
+    {
+      "time": "9:44 AM",
+      "date": "February 4, 2024",
+      "type": "Poop",
+      "consistancy": "Pebbles",
+      "childId": 1,
+      "id": 2
     }
   ],
   "illness": [
@@ -185,6 +233,16 @@
       "oz": "15",
       "childId": 4,
       "id": 1
+    },
+    {
+      "time": "12:37 PM",
+      "date": "January 10, 2024",
+      "sicknessType": "Fever",
+      "symptoms": "Runny nose, Cough ",
+      "medicineGiven": "Tylenol",
+      "oz": "1.5",
+      "childId": 1,
+      "id": 2
     }
   ]
 }

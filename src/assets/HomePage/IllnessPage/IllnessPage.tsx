@@ -13,7 +13,7 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
-  onlyKeyNumbers,
+
   onlyNumbersWithDecimal,
   preventKeyingNumbers,
   timeInvaild,
@@ -184,12 +184,10 @@ export const IllnessPage = () => {
           .map((history) => {
             return (
               <div className="historyContainer" key={history.id}>
-                <div className="diapersHistory">
-                  <h2>
-                    Illness Record Number {illnessHistory.indexOf(history) + 1}
-                  </h2>
-                  <h3>Time: {history.time}</h3>
+                <div className="illnessHistory">
+
                   <h3>Date: {history.date}</h3>
+                  <h3>Time: {history.time}</h3>
                   <h3>Type of Sickness: {history.sicknessType}</h3>
                   <h3>Symptoms: {history.symptoms}</h3>
                   <h3>Medicine Given: {history.medicineGiven}</h3>

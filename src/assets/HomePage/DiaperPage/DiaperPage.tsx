@@ -67,7 +67,8 @@ export const DaiperPage = () => {
         </div>
       </div>
       <div className="dataInputForm">
-        <form className="diaperForm"
+        <form
+          className="diaperForm"
           action="POST"
           onSubmit={(e) => {
             e.preventDefault();
@@ -208,9 +209,8 @@ export const DaiperPage = () => {
             return (
               <div className="historyContainer" key={history.id}>
                 <div className="diapersHistory">
-                  <h2>Diaper Number {diapersHistory.indexOf(history) + 1}</h2>
-                  <h3>Time: {history.time}</h3>
                   <h3>Date: {history.date}</h3>
+                  <h3>Time: {history.time}</h3>
                   <h3>Type of Diaper: {history.type}</h3>
                   <h3>Consistancy: {history.consistancy}</h3>
                 </div>

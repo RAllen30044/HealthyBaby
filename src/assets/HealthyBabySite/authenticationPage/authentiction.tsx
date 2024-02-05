@@ -6,15 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { getProfileData } from "../../../api";
 import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { firstAvailableChild } from "../../../ErrorHandling";
-
+import {
+  firstAvailableChild,
+  setActiveComponentInLocalStorage,
+} from "../../../ErrorHandling";
+import { useActiveComponent } from "../Header/ActiveComponentProvider";
 
 export const AuthenticationPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, user, setUsername, setPassword, setLog } =
+  const { loggedIn, setLog } =
     useAuthProviderContext();
   const { setProfileId, childInfo } = useHistoryIDComponent();
+  const { setActiveComponent } = useActiveComponent();
   const navigate = useNavigate();
 
   const isUserValid = (username: string, password: string) => {
@@ -47,9 +51,9 @@ export const AuthenticationPage = () => {
             localStorage.setItem(
               "child",
               JSON.stringify({
-                name: firstAvailableChild(childInfo,user)?.name,
-                gender:firstAvailableChild(childInfo,user)?.gender,
-                id: firstAvailableChild(childInfo, user)?.id
+                name: firstAvailableChild(childInfo, user)?.name,
+                gender: firstAvailableChild(childInfo, user)?.gender,
+                id: firstAvailableChild(childInfo, user)?.id,
               })
             );
           }
@@ -60,7 +64,8 @@ export const AuthenticationPage = () => {
           const userID = localStorage.getItem("user");
 
           console.log(userID);
-
+          setActiveComponent("feeding");
+          setActiveComponentInLocalStorage("feeding");
           navigate("/home");
           console.log(JSON.stringify(user));
 

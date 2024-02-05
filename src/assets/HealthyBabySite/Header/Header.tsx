@@ -7,8 +7,10 @@ import "./Header.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+type ActiveLink = "home" | "about" | "profile" | "add child";
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
+  const [activeLink, setActiveLink] = useState<ActiveLink>("home");
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent } = useActiveComponent();
 
@@ -125,6 +127,118 @@ export const Header = () => {
             >
               Sign Up
             </NavLink>
+
+            <section className="mobileDropSection">
+              <div className={`linksDropDown  ${maybeUser ? "" : "hidden"}`}>
+                <div className="mobileDropdownContainer">
+                  <div
+                    className="hamburgerIcon"
+                    onClick={() => {
+                      setHiddenPagesLinks(!hiddenPagesLinks);
+                    }}
+                    style={
+                      hiddenPagesLinks === true ? { fontSize: "larger" } : {}
+                    }
+                  >
+                    &#9776;
+                  </div>
+                  <div
+                    className={`mobileLinksContainer ${
+                      hiddenPagesLinks === true ? "" : "hidden"
+                    }`}
+                  >
+                    <NavLink
+                      to="/home"
+                      className={` mobileLink ${maybeUser ? "" : "hidden"} ${
+                        activeLink === "home" ? "selected" : ""
+                      } `}
+                      onClick={() => {
+                        setActiveLink("home");
+                        setActiveComponent("feeding");
+                        setHiddenPagesLinks(!hiddenPagesLinks);
+                      }}
+                    >
+                      <div className="linkContainer">
+                        <div className="homeContainer"> Home</div>
+                      </div>
+                    </NavLink>
+                    <NavLink
+                      to="/about"
+                      className={` mobileLink ${maybeUser ? "" : "hidden"} ${
+                        activeLink === "about" ? "selected" : ""
+                      }`}
+                      onClick={() => {
+                        setActiveLink("about");
+                        setHiddenPagesLinks(!hiddenPagesLinks);
+                      }}
+                    >
+                      <div className="linkContainer">
+                        <div className="aboutContainer"> About</div>
+                      </div>
+                    </NavLink>
+                    <NavLink
+                      to="/profile"
+                      className={` mobileLink ${maybeUser ? "" : "hidden"} ${
+                        activeLink === "profile" ? "selected" : ""
+                      }`}
+                      onClick={() => {
+                        setActiveLink("profile");
+                        setHiddenPagesLinks(!hiddenPagesLinks);
+                      }}
+                    >
+                      <div className="linkContainer">
+                        <div className="profileContainer"> Profile</div>
+                      </div>
+                    </NavLink>
+                    <NavLink
+                      to="/home"
+                      className={` mobileLink ${maybeUser ? "" : "hidden"}  ${
+                        activeLink === "add child" ? "selected" : ""
+                      }`}
+                      onClick={() => {
+                        setActiveLink("add child");
+                        setActiveComponent("addChild")
+                        setActiveComponentInLocalStorage("addChild");
+                        setHiddenPagesLinks(!hiddenPagesLinks);
+                      }}
+                    >
+                      <div className="linkContainer"><div className="addChildContainer"> Add Child</div></div>
+                    </NavLink>
+                    <NavLink
+                      to="/auth"
+                      className={` mobileLink ${maybeUser ? "" : "hidden"}`}
+                      onClick={() => {
+                        localStorage.clear();
+                        setUser(null);
+
+                        setHiddenPagesLinks(false);
+                      }}
+                    >
+                      <div className="linkContainer"><div className="logOutContainer"> Log Out</div></div>
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section
+              className={`landingPageHeader  ${maybeUser ? "hidden" : ""}`}
+            >
+              <NavLink
+                to="/auth"
+                className={` LandingPageLink ${maybeUser ? "hidden" : ""} `}
+              >
+                Log In
+              </NavLink>
+
+              <NavLink
+                to="/profile"
+                className={` LandingPageLink ${maybeUser ? "hidden" : ""}`}
+              >
+                Sign Up
+              </NavLink>
+            </section>
+
             <div className={`pagesDropDown ${maybeUser ? "" : "hidden"}`}>
               <div className="linksContainer">
                 <div
@@ -140,7 +254,7 @@ export const Header = () => {
                 </div>
                 <NavLink
                   to="/home"
-                  className={`subPagesLinks ${
+                  className={`subPagesLinks  ${
                     hiddenPagesLinks == true ? "" : "hidden"
                   }`}
                   onClick={() => {
