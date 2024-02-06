@@ -11,6 +11,9 @@
   .linksDropDown {
     display: block;
   }
+  div.profile{
+    width: 85vw;
+  }
   .pageLink {
     display: none;
   }
@@ -141,5 +144,8 @@ div.category{
   }
   .profilePage h1{
 text-align: center;
+  }
+  .napLength input{
+    width: 40%;
   }
 }
