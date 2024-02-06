@@ -113,7 +113,7 @@ export const FeedingPage = () => {
           </div>
           <div className={`feedingOffSwitch `}>
             <button
-              className={`infantModeOffSwitch button ${
+              className={`infantModeSwitch button ${
                 feed === "infantModeOff" ? "pressedButton" : ""
               }`}
               onClick={() => {
@@ -133,6 +133,7 @@ export const FeedingPage = () => {
                   className={`fa-solid fa-child-${
                     getGender === "Female" ? `dress` : `reaching`
                   }`}
+                  
                 ></i>
               ) : (
                 <i className="fa-solid fa-baby"></i>
@@ -150,6 +151,9 @@ export const FeedingPage = () => {
             >
               {/* <i className="fa-solid fa-person-breastfeeding"></i> */}
               <h2>🤱 </h2>
+              <p>
+                <strong> Breast</strong>
+              </p>
             </button>
             <button
               className={`bottleFeed button ${
@@ -158,6 +162,9 @@ export const FeedingPage = () => {
               onClick={() => setFeed("bottleFeed")}
             >
               <h2>🍼 </h2>
+              <p>
+                <strong>Bottle</strong>
+              </p>
             </button>
           </div>
         </div>

@@ -165,7 +165,7 @@ export const DaiperPage = () => {
             </button>
             <button
               type="button"
-              className={`pellets button ${
+              className={`pebbles button ${
                 consistancy === "Pebbles" ? "pressedButton" : ""
               }`}
               onClick={() => {

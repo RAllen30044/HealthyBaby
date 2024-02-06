@@ -12,18 +12,44 @@
 }
 
 .categoryName h1{
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 button h2{
   margin: auto;
 
 }
+button.infantModeSwitch{
+  background-color: #BAB4A6;
+}
+button.infantModeSwitch.pressedButton{
+  background-color: #9D988C;
+}
+.infantModeSwitch .fa-baby{
+  color: #fadd9f;
+}
+.fa-child-dress{
+  color: #FAC093;
+}
+.fa-child-reaching{
+  color: #425BF5;
+}
+
 button.bottleFeed{
   padding: 10px;
+  background-color: #BAB4A6;
+}
+button.bottleFeed.pressedButton{
+  
+  background-color: #9D988C;
 }
 button.breastFeed{
   padding: 10px;
+  background-color: #BAB4A6;
+}
+button.breastFeed.pressedButton{
+  
+  background-color: #9D988C;
 }
 .subCategories button{
-  margin: 0 10px;
+  margin: 0 13px;
 }

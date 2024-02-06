@@ -1,15 +1,49 @@
-.diaperBanner{
-      background-color: #12D7E6;
-    
+.diaperBanner {
+  background-color: #12d7e6;
 }
-.diaperSave{
-      background-color:#12D7E6;
+.diaperSave {
+  background-color: #12d7e6;
 }
 
-button  p {
-      margin: 1px;
-      font-size: 8px;
+button p {
+  margin: 1px;
+  font-size: 8px;
 }
-.diaperForm button{
-      margin-right: 25px;
+.diaperForm button {
+  margin-right: 25px;
+}
+.wet.button {
+  color: royalblue;
+  background-color: #bab4a6;
+}
+.wet.button.pressedButton {
+  background-color: #9d988c;
+}
+.poop.button {
+  color: brown;
+  background-color: #bab4a6;
+}
+.poop.button.pressedButton {
+  background-color: #9d988c;
+}
+.soft.button {
+  color: whitesmoke;
+  background-color: #bab4a6;
+}
+.soft.button.pressedButton {
+  background-color: #9d988c;
+}
+.solid.button {
+  color: chocolate;
+  background-color: #bab4a6;
+}
+.solid.button.pressedButton {
+  background-color: #9d988c;
+}
+.pebbles.button {
+  color: crimson;
+  background-color: #bab4a6;
+}
+.pebbles.button.pressedButton {
+  background-color: #9d988c;
 }
