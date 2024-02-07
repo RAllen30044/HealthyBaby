@@ -15,8 +15,7 @@ import { useActiveComponent } from "../Header/ActiveComponentProvider";
 export const AuthenticationPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, setLog } =
-    useAuthProviderContext();
+  const { loggedIn, setLog } = useAuthProviderContext();
   const { setProfileId, childInfo } = useHistoryIDComponent();
   const { setActiveComponent } = useActiveComponent();
   const navigate = useNavigate();
@@ -52,7 +51,12 @@ export const AuthenticationPage = () => {
               "child",
               JSON.stringify({
                 name: firstAvailableChild(childInfo, user)?.name,
+                age: firstAvailableChild(childInfo, user)?.age,
                 gender: firstAvailableChild(childInfo, user)?.gender,
+                weight: firstAvailableChild(childInfo, user)?.weight,
+                height: firstAvailableChild(childInfo, user)?.height,
+                headSize: firstAvailableChild(childInfo, user)?.headSize,
+                profileId: firstAvailableChild(childInfo, user)?.profileId,
                 id: firstAvailableChild(childInfo, user)?.id,
               })
             );

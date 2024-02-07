@@ -4,8 +4,9 @@ import { DaiperPage } from "./DiaperPage/DiaperPage";
 import { NappingPage } from "./NappingPage/NappingPage";
 import { IllnessPage } from "./IllnessPage/IllnessPage";
 import { useActiveComponent } from "../HealthyBabySite/Header/ActiveComponentProvider";
-import { ChildPage } from "./ChildPage/ChildPage";
+import { AddChildPage } from "./ChildPage/AddChildPage";
 import { setActiveComponentInLocalStorage } from "../../ErrorHandling";
+import { EditChildPage } from "./ChildPage/EditChildPage";
 
 export const HomePage = () => {
   const { activeComponent, setActiveComponent } = useActiveComponent();
@@ -69,7 +70,8 @@ export const HomePage = () => {
       {activeComponent === "diaper" ? <DaiperPage /> : ""}
       {activeComponent === "napping" ? <NappingPage /> : ""}
       {activeComponent === "illness" ? <IllnessPage /> : ""}
-      {activeComponent === "addChild" ? <ChildPage /> : ""}
+      {activeComponent === "addChild" ? <AddChildPage /> : ""}
+      {activeComponent === "editChild" ? <EditChildPage/> : ""}
     </>
   );
 };

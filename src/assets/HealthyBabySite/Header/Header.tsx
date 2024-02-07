@@ -12,7 +12,7 @@ export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [activeLink, setActiveLink] = useState<ActiveLink>("home");
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
-  const { activeComponent, setActiveComponent } = useActiveComponent();
+  const { activeComponent, setActiveComponent, setEditor } = useActiveComponent();
 
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
   const { setUser, maybeUser } = useAuthProviderContext();
@@ -258,6 +258,7 @@ export const Header = () => {
                     hiddenPagesLinks == true ? "" : "hidden"
                   }`}
                   onClick={() => {
+                    setEditor("not present")
                     setHiddenPagesLinks(!hiddenPagesLinks);
                   }}
                 >

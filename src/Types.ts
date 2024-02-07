@@ -54,7 +54,9 @@ export type bottleFeedingInfoType = {
 };
 export type ChildInfoT = {
   name: string;
+
   age: string;
+  DOB:string;
   gender:string;
   weight: string;
   height: string;

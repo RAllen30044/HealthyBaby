@@ -1,40 +1,4 @@
-export function convertToStandardTime(time24hr: string) {
-  // Split the input time string into hours and minutes
-  const [hours, minutes] = time24hr.split(":");
-
-  // Convert hours to a number
-  const hoursNum = parseInt(hours, 10);
-
-  // Determine whether it's AM or PM
-  const period = hoursNum >= 12 ? "PM" : "AM";
-
-  // Convert hours to 12-hour format
-  const hours12hr = hoursNum % 12 || 12;
-
-  // Create the formatted time string
-  const standardTime = `${hours12hr}:${minutes} ${period}`;
-
-  return standardTime;
-}
-export const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-export const createShortHandDate = (date: string) => {
-  const dateParts = date.split("-"); // Split the input date string
-  return `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`;
-};
-export const formatDate = (inputDate: string): string => {
-  const date = new Date(inputDate);
-
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  return date.toLocaleDateString(undefined, options);
-};
-
-console.log(formatDate("01/10/2024"));
-
-export const calculateAge = (DOB: string): number => {
+const calculateAge = (DOB) => {
   const currentDate = new Date();
   const birthdate = new Date(DOB);
 
@@ -51,7 +15,13 @@ export const calculateAge = (DOB: string): number => {
 
   return age;
 };
-export const calculateAgeInMonths = (DOB: string): number => {
+
+const createShortHandDate = (date) => {
+  const dateParts = date.split("-"); // Split the input date string
+  return `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`;
+};
+
+const calculateAgeInMonths = (DOB) => {
   const currentDate = new Date();
   const birthdate = new Date(DOB);
 
@@ -66,7 +36,7 @@ export const calculateAgeInMonths = (DOB: string): number => {
   return months;
 };
 
-export const calculateAgeInDays = (DOBString: string): number => {
+const calculateAgeInDays = (DOBString) => {
   const dob = new Date(DOBString);
 
   const currentDate = new Date();
@@ -78,7 +48,7 @@ export const calculateAgeInDays = (DOBString: string): number => {
   return diffInDays;
 };
 
-export const convertAgeToAppropriateAgeType = (DOB: string): string => {
+const convertAgeToAppropriateAgeType = (DOB) => {
   const shortHandDate = createShortHandDate(DOB);
 
   console.log(shortHandDate);
@@ -101,3 +71,5 @@ export const convertAgeToAppropriateAgeType = (DOB: string): string => {
     return `${calculateAgeInDays(shortHandDate)} days`;
   }
 };
+
+console.log(convertAgeToAppropriateAgeType("2024-02-05"));

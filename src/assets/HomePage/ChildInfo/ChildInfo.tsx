@@ -1,22 +1,11 @@
+import { setActiveComponentInLocalStorage } from "../../../ErrorHandling";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { useChildrenProviderContext } from "../../HealthyBabySite/ProfilePage/profileChildrenProvider";
+import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
 export const ChildInfo = () => {
-  const { childInfo, childId, profileId,  } = useHistoryIDComponent();
-  const {  myChildren } = useChildrenProviderContext();
+  const { childInfo, childId } = useHistoryIDComponent();
+  const { editor, setEditor, setActiveComponent } = useActiveComponent();
 
-  console.log(myChildren);
-  console.log(childId);
-
- 
-  const firstAvailableChild = childInfo.find(
-    (child) => child.profileId === profileId
-  );
-  console.log(firstAvailableChild);
-console.log(childInfo);
-
-
-  
   return (
     <>
       <div className="childInfoContainerHP">
@@ -44,6 +33,21 @@ console.log(childInfo);
                   <div className="childHeadSize">
                     Head Size: {child.headSize}
                   </div>
+                  {editor === "not present" ? (
+                    <button
+                      className="button"
+                      type="button"
+                      onClick={() => {
+                        setEditor("present");
+                        setActiveComponent("editChild");
+                        setActiveComponentInLocalStorage("editChild");
+                      }}
+                    >
+                      Edit
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               );
             })}

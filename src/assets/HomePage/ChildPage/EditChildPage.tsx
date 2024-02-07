@@ -18,7 +18,7 @@ import { useState } from "react";
 
 type Gender = "Male" | "Female";
 
-export const ChildPage = () => {
+export const EditChildPage = () => {
   const [name, setName] = useState("");
   const [gender, setGender] = useState<Gender>("Female");
   const [weight, setWeight] = useState("");
@@ -51,7 +51,7 @@ export const ChildPage = () => {
   return (
     <>
       <div className="childPage">
-        <h1>Child Page</h1>
+        <h1>Edit Child Page</h1>
         <div className="childPageInfo">
           {/* <div
             className="childPictureContainer"
@@ -89,10 +89,12 @@ export const ChildPage = () => {
               postInfo(
                 {
                   name: name,
+                  DOB: date,
                   age:
                     calculateAge(date) < 2
                       ? `${calculateAgeInMonths(date)} months`
                       : `${calculateAge(date)} yrs.`,
+                  
                   gender: gender,
                   weight: `${weight} lbs.`,
                   headSize: `${headSize} in.`,

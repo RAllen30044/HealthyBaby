@@ -5,11 +5,15 @@ type TActiveComponent =
   | "feeding"
   | "napping"
   | "diaper"
-  | "addChild";
+  | "addChild"
+  | "editChild";
 
+type Editor = "present" | "not present";
 export type TActiveComponentProvider = {
   activeComponent: TActiveComponent;
   setActiveComponent: React.Dispatch<React.SetStateAction<TActiveComponent>>;
+  editor: string;
+  setEditor: React.Dispatch<React.SetStateAction<Editor>>;
 };
 
 const ActiveComponentContext = createContext<TActiveComponentProvider>(
@@ -27,10 +31,10 @@ export const ActiveComponentProvider = ({
       ? JSON.parse(getActiveComponent).activeComponent
       : "addChild"
   );
-
+  const [editor, setEditor] = useState<Editor>("not present");
   return (
     <ActiveComponentContext.Provider
-      value={{ activeComponent, setActiveComponent }}
+      value={{ activeComponent, setActiveComponent, editor, setEditor }}
     >
       {children}
     </ActiveComponentContext.Provider>
