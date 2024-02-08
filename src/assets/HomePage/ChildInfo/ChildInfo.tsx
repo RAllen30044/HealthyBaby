@@ -1,6 +1,11 @@
 import { setActiveComponentInLocalStorage } from "../../../ErrorHandling";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
+import {
+  convertAgeToAppropriateAgeType,
+  createShortHandDate,
+  formatDate,
+} from "../TimeInfo/TimeConversion";
 
 export const ChildInfo = () => {
   const { childInfo, childId } = useHistoryIDComponent();
@@ -24,7 +29,12 @@ export const ChildInfo = () => {
                 <div className="info" key={child.id}>
                   <div className="childname">Name: {child.name}</div>
 
-                  <div className="childAge">Age: {child.age} </div>
+                  <div className="childAge">
+                    Age: {convertAgeToAppropriateAgeType(child.DOB)}{" "}
+                  </div>
+                  <div className="DOB">
+                    Date of Birth: {formatDate(createShortHandDate(child.DOB))}{" "}
+                  </div>
 
                   <div className="childGender">gender: {child.gender} </div>
                   <div className="childHeight">Height: {child.height} </div>

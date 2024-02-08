@@ -12,6 +12,7 @@ import {
   infantFeedingInfoType,
   nappingType,
 } from "./Types";
+import { convertAgeToAppropriateAgeType } from "./assets/HomePage/TimeInfo/TimeConversion";
 
 const url = "http://localhost:3000/user";
 
@@ -106,3 +107,31 @@ export const getChildNapHistory = (): Promise<childNapDBType[]> =>
     }
     return res.json();
   });
+
+export const updateChildDateAge = (DOB: string, id: number) => {
+  fetch(`${childUrl}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      age: convertAgeToAppropriateAgeType(DOB),
+    }),
+  });
+};
+// export const updateChildInfo = (DOB: string, id: number) => {
+//   fetch(`${childUrl}/${id}`, {
+//     method: "PATCH",
+//     headers: { "Content-type": "application/json" },
+//     body: JSON.stringify({
+//       age: convertAgeToAppropriateAgeType(DOB),
+//     }),
+//   });
+// };
+// export const updateProfileInfo = (DOB: string, id: number) => {
+//   fetch(`${childUrl}/${id}`, {
+//     method: "PATCH",
+//     headers: { "Content-type": "application/json" },
+//     body: JSON.stringify({
+//       age: convertAgeToAppropriateAgeType(DOB),
+//     }),
+//   });
+// };

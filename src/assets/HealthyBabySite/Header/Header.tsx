@@ -1,5 +1,7 @@
 import { setActiveComponentInLocalStorage } from "../../../ErrorHandling";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { updateChildDateAge } from "../../../api";
+import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
 
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
@@ -12,7 +14,8 @@ export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [activeLink, setActiveLink] = useState<ActiveLink>("home");
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
-  const { activeComponent, setActiveComponent, setEditor } = useActiveComponent();
+  const { activeComponent, setActiveComponent, setEditor } =
+    useActiveComponent();
 
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
   const { setUser, maybeUser } = useAuthProviderContext();
@@ -71,10 +74,19 @@ export const Header = () => {
                           "child",
                           JSON.stringify({
                             name: childProfile.name,
+                            age: convertAgeToAppropriateAgeType(
+                              childProfile.DOB
+                            ),
+                            DOB: childProfile.DOB,
                             gender: childProfile.gender,
+                            height: childProfile.height,
+                            weight: childProfile.weight,
+                            headSize: childProfile.headSize,
+                            profileId: childProfile.profileId,
                             id: childProfile.id,
                           })
                         );
+                        updateChildDateAge(childProfile.DOB, childProfile.id)
                       }}
                     >
                       {childProfile.name}
@@ -197,12 +209,14 @@ export const Header = () => {
                       }`}
                       onClick={() => {
                         setActiveLink("add child");
-                        setActiveComponent("addChild")
+                        setActiveComponent("addChild");
                         setActiveComponentInLocalStorage("addChild");
                         setHiddenPagesLinks(!hiddenPagesLinks);
                       }}
                     >
-                      <div className="linkContainer"><div className="addChildContainer"> Add Child</div></div>
+                      <div className="linkContainer">
+                        <div className="addChildContainer"> Add Child</div>
+                      </div>
                     </NavLink>
                     <NavLink
                       to="/auth"
@@ -214,7 +228,9 @@ export const Header = () => {
                         setHiddenPagesLinks(false);
                       }}
                     >
-                      <div className="linkContainer"><div className="logOutContainer"> Log Out</div></div>
+                      <div className="linkContainer">
+                        <div className="logOutContainer"> Log Out</div>
+                      </div>
                     </NavLink>
                   </div>
                 </div>
@@ -258,7 +274,7 @@ export const Header = () => {
                     hiddenPagesLinks == true ? "" : "hidden"
                   }`}
                   onClick={() => {
-                    setEditor("not present")
+                    setEditor("not present");
                     setHiddenPagesLinks(!hiddenPagesLinks);
                   }}
                 >

@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./authenticationPage.css";
 import { useAuthProviderContext } from "./authProvider";
 import { useNavigate } from "react-router-dom";
-import { getProfileData } from "../../../api";
+import { getProfileData, updateChildDateAge } from "../../../api";
 import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
@@ -11,6 +11,7 @@ import {
   setActiveComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
+import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
 
 export const AuthenticationPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
@@ -51,7 +52,10 @@ export const AuthenticationPage = () => {
               "child",
               JSON.stringify({
                 name: firstAvailableChild(childInfo, user)?.name,
-                age: firstAvailableChild(childInfo, user)?.age,
+                age: convertAgeToAppropriateAgeType(
+                  firstAvailableChild(childInfo, user)?.DOB || "Error"
+                ),
+                DOB: firstAvailableChild(childInfo, user)?.DOB,
                 gender: firstAvailableChild(childInfo, user)?.gender,
                 weight: firstAvailableChild(childInfo, user)?.weight,
                 height: firstAvailableChild(childInfo, user)?.height,
@@ -59,6 +63,12 @@ export const AuthenticationPage = () => {
                 profileId: firstAvailableChild(childInfo, user)?.profileId,
                 id: firstAvailableChild(childInfo, user)?.id,
               })
+            );
+            updateChildDateAge(
+              convertAgeToAppropriateAgeType(
+                firstAvailableChild(childInfo, user)?.DOB || "Error"
+              ),
+              firstAvailableChild(childInfo, user)?.id || 0
             );
           }
           toast.success("Success");

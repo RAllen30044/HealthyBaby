@@ -3,246 +3,38 @@
     {
       "username": "robharmony",
       "password": "Inhumane#1",
-      "caregiver": "debbie",
+      "caregiver": "Debbie",
       "id": 1
-    },
-    {
-      "username": "Yalana1987",
-      "password": "Saint1",
-      "caregiver": "debbie",
-      "id": 2
-    },
-    {
-      "username": "Lebron",
-      "password": "Cavs23",
-      "caregiver": "debbie",
-      "id": 3
-    },
-    {
-      "username": "Brittey",
-      "password": "James",
-      "caregiver": "Jaris",
-      "id": 4
     }
   ],
   "child": [
     {
       "name": "Arielle",
-      "age": "22 months",
+      "DOB": "2022-03-03",
+      "age": "23 months",
       "gender": "Female",
-      "weight": "34 lbs.",
-      "headSize": "20 in.",
-      "height": "26 in.",
+      "weight": "26 lbs.",
+      "headSize": "21 in.",
+      "height": "35 in.",
       "profileId": 1,
       "id": 1
-    },
-    {
-      "name": "Robert Jr",
-      "age": "4 yrs.",
-      "gender": "Male",
-      "weight": "50 lbs.",
-      "headSize": "23 in.",
-      "height": "48 in.",
-      "profileId": 2,
-      "id": 2
-    },
-    {
-      "name": "Naya",
-      "age": "11 months",
-      "gender": "Female",
-      "weight": "25 lbs.",
-      "headSize": "21 in.",
-      "height": "22 in.",
-      "profileId": 1,
-      "id": 3
-    },
-    {
-      "name": "Yalana Jr",
-      "age": "2 yrs.",
-      "gender": "Female",
-      "weight": "56 lbs.",
-      "headSize": "23 in.",
-      "height": "34 in.",
-      "profileId": 2,
-      "id": 4
-    },
-    {
-      "name": "Danny",
-      "age": "0 months",
-      "gender": "Female",
-      "weight": "7 lbs.",
-      "headSize": "21 in.",
-      "height": "20 in.",
-      "profileId": 1,
-      "id": 5
-    },
-    {
-      "name": "Bronny",
-      "age": "2 yrs.",
-      "gender": "Male",
-      "weight": "34 lbs.",
-      "headSize": "21 in.",
-      "height": "26 in.",
-      "profileId": 3,
-      "id": 6
-    },
-    {
-      "name": "Bryce",
-      "age": "2 yrs.",
-      "gender": "Male",
-      "weight": "25 lbs.",
-      "headSize": "22 in.",
-      "height": "25 in.",
-      "profileId": 3,
-      "id": 7
-    },
-    {
-      "name": "Beth",
-      "age": "19 months",
-      "gender": "Female",
-      "weight": "23 lbs.",
-      "headSize": "23 in.",
-      "height": "23 in.",
-      "profileId": null,
-      "id": 8
     },
     {
       "name": "Robby",
-      "age": "3 yrs.",
-      "gender": "Male",
-      "weight": "34 lbs.",
-      "headSize": "22 in.",
-      "height": "33 in.",
-      "profileId": 1,
-      "id": 9
-    },
-    {
-      "name": "James",
-      "age": "0 months",
+      "DOB": "2024-02-07",
+      "age": "1 day",
       "gender": "Male",
       "weight": "7 lbs.",
-      "headSize": "20 in.",
-      "height": "19 in.",
-      "profileId": 4,
-      "id": 10
-    }
-  ],
-  "napHistory": [
-    {
-      "time": "12:17 PM",
-      "date": "January 30, 2024",
-      "lengthOfTime": "20",
-      "childId": 1,
-      "id": 1
-    }
-  ],
-  "bottleFeedingHistory": [
-    {
-      "time": "4:40 PM",
-      "date": "February 1, 2024",
-      "oz": "8",
-      "ozLeft": "4",
-      "childId": 5,
-      "id": 1
-    },
-    {
-      "time": "1:17 PM",
-      "date": "February 3, 2024",
-      "oz": "8",
-      "ozLeft": "4",
-      "childId": 1,
+      "headSize": "19 in.",
+      "height": "18 in.",
+      "profileId": 1,
       "id": 2
     }
   ],
-  "breastFeedingHistory": [
-    {
-      "time": "12:19 PM",
-      "date": "February 1, 2024",
-      "feedingTimeLength": "20min",
-      "childId": 1,
-      "id": 1
-    }
-  ],
-  "infantFeedingHistory": [
-    {
-      "time": "12:53 AM",
-      "date": "January 14, 2024",
-      "drinkType": "Water",
-      "foodType": "Salad",
-      "childId": 1,
-      "id": 1
-    },
-    {
-      "time": "11:56 AM",
-      "date": "January 29, 2024",
-      "drinkType": "Milk",
-      "foodType": "PBJ",
-      "childId": 1,
-      "id": 2
-    },
-    {
-      "time": "12:21 PM",
-      "date": "February 4, 2024",
-      "drinkType": "Water",
-      "foodType": "Salad",
-      "childId": 3,
-      "id": 3
-    },
-    {
-      "time": "12:33 PM",
-      "date": "January 1, 2024",
-      "drinkType": "Water",
-      "foodType": "Salad",
-      "childId": 1,
-      "id": 4
-    },
-    {
-      "time": "12:36 PM",
-      "date": "January 30, 2024",
-      "drinkType": "Milk",
-      "foodType": "Mac and cheese chicken",
-      "childId": 1,
-      "id": 5
-    }
-  ],
-  "diapersHistory": [
-    {
-      "time": "12:41 PM",
-      "date": "February 2, 2024",
-      "type": "Poop",
-      "consistancy": "Soft",
-      "childId": 5,
-      "id": 1
-    },
-    {
-      "time": "9:44 AM",
-      "date": "February 4, 2024",
-      "type": "Poop",
-      "consistancy": "Pebbles",
-      "childId": 1,
-      "id": 2
-    }
-  ],
-  "illness": [
-    {
-      "time": "12:18 PM",
-      "date": "January 31, 2024",
-      "sicknessType": "Fever",
-      "symptoms": "Runny nose, Cough ",
-      "medicineGiven": "Tylenol",
-      "oz": "15",
-      "childId": 4,
-      "id": 1
-    },
-    {
-      "time": "12:37 PM",
-      "date": "January 10, 2024",
-      "sicknessType": "Fever",
-      "symptoms": "Runny nose, Cough ",
-      "medicineGiven": "Tylenol",
-      "oz": "1.5",
-      "childId": 1,
-      "id": 2
-    }
-  ]
+  "napHistory": [],
+  "bottleFeedingHistory": [],
+  "breastFeedingHistory": [],
+  "infantFeedingHistory": [],
+  "diapersHistory": [],
+  "illness": []
 }
