@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ProfilePage.css";
 import { updateProfileInfo } from "../../../api";
-import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
+import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import { preventKeyingNumbers } from "../../../ErrorHandling";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";

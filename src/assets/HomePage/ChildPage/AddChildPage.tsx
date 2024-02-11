@@ -12,7 +12,7 @@ import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponent
 
 import { convertAgeToAppropriateAgeType } from "../TimeInfo/TimeConversion";
 
-import { useTimeInfo } from "../TimeInfo/TimeInfo";
+import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
 import { useState } from "react";
 

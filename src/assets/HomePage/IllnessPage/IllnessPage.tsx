@@ -1,6 +1,6 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./IllnessPage.css";
-import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
+import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import { useState } from "react";
 
 import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../api";

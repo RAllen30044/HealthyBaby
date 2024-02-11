@@ -5,13 +5,19 @@
       "password": "Comets#29",
       "caregiver": "Debbie",
       "id": 1
+    },
+    {
+      "username": "Yalana1987",
+      "password": "Saint",
+      "caregiver": "Debbie",
+      "id": 2
     }
   ],
   "child": [
     {
       "name": "Arielle",
       "DOB": "2022-03-03",
-      "age": "23 months",
+      "age": "NaN days",
       "gender": "Female",
       "weight": "52",
       "headSize": "22",
@@ -29,6 +35,17 @@
       "height": "18",
       "profileId": 1,
       "id": 2
+    },
+    {
+      "name": "Robert Jr",
+      "DOB": "2021-01-12",
+      "age": "3 yrs",
+      "gender": "Male",
+      "weight": "56 ",
+      "headSize": "22",
+      "height": "34",
+      "profileId": 2,
+      "id": 3
     }
   ],
   "napHistory": [],

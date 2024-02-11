@@ -9,7 +9,7 @@ import { CreateProfilePage } from "./assets/HealthyBabySite/ProfilePage/CreatePr
 import { AboutPage } from "./assets/HealthyBabySite/AboutPage/AboutPage";
 import { AuthenticationPage } from "./assets/HealthyBabySite/authenticationPage/authentiction";
 
-import { TimeInfoProvider } from "./assets/HomePage/TimeInfo/TimeInfo";
+import { TimeInfoProvider } from "./assets/HomePage/TimeInfo/TimeInfoProvider";
 import { AuthProvider } from "./assets/HealthyBabySite/authenticationPage/authProvider";
 import { ChildInfoProvider } from "./assets/HomePage/ChildPage/ChildInfoProvider";
 

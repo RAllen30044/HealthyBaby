@@ -1,5 +1,5 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
-import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
+import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 
 import { useState } from "react";
 import "./NappingPage.css";

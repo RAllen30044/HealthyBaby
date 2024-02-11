@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ProfilePage.css";
-import { postInfo, profileUrl,  } from "../../../api";
-import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
+import { postInfo, profileUrl } from "../../../api";
+import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import {
   preventKeyingNumbers,
   preventKeyingSpaces,
@@ -33,16 +33,15 @@ export const CreateProfilePage = () => {
     return password === confirmPassword;
   };
   const doesUsernameExist = (username: string) => {
-
-
     return profile.some(
       (user) => user.username.toLowerCase() === username.toLowerCase()
     );
   };
 
   const passwordErrorMessage = "Passwords do not match";
-  const shouldShowPasswordErrorMessage = isSubmitted && passwordsDoMatch;
-  const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist;
+  const shouldShowPasswordErrorMessage =
+    isSubmitted && !passwordsDoMatch(password, confirmPassword);
+  const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist(username);
   const usernameErrorMessage = "Username already Exist";
 
   return (
@@ -55,19 +54,20 @@ export const CreateProfilePage = () => {
             className="profileForm"
             onSubmit={(e) => {
               e.preventDefault();
-              if (
-                !passwordsDoMatch(password, confirmPassword) ||
-                doesUsernameExist(username)
-              ) {
+              if (!passwordsDoMatch(password, confirmPassword)) {
                 setIsSubmitted(true);
-             
+
+                return;
+              }
+
+              if (doesUsernameExist(username)) {
+                setIsSubmitted(true);
                 return;
               }
               setIsSubmitted(false);
               setLoading(true);
-              if (maybeUser ) {
-          
-              postInfo(
+
+              return postInfo(
                 {
                   username: username,
                   password: password,
@@ -110,8 +110,8 @@ export const CreateProfilePage = () => {
                 })
                 .catch((e) => {
                   toast.error(e);
-                });}
-              }}
+                });
+            }}
           >
             <div className="inputContainer">
               <label htmlFor="name" className="profileLable">

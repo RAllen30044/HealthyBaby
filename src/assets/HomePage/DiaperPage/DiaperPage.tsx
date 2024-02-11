@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChildInfo } from "../ChildInfo/ChildInfo";
-import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfo";
+import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./Diaper.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

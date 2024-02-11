@@ -11,7 +11,7 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { updateChildInfo } from "../../../api";
 // import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
-import { useTimeInfo } from "../TimeInfo/TimeInfo";
+import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
 
 import { useChildInfo } from "./ChildInfoProvider";
