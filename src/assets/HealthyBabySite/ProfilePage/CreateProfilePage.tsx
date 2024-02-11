@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ProfilePage.css";
-import { postInfo, profileUrl } from "../../../api";
+import { postInfo, profileUrl,  } from "../../../api";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfo";
 import {
   preventKeyingNumbers,
@@ -14,7 +14,7 @@ import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 // import { ProfileInfoTypes } from "../../../Types";
 
-export const ProfilePage = () => {
+export const CreateProfilePage = () => {
   const [username, setUsername] = useState<string>("");
   // const [email, setEmail] = useState<string>("");
   const [childCaregiver, setChildCaregiver] = useState<string>("");
@@ -24,7 +24,7 @@ export const ProfilePage = () => {
 
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
   const navigate = useNavigate();
-  const { loggedIn, maybeUser,  setPassword, password } =
+  const { loggedIn, maybeUser, setPassword, password } =
     useAuthProviderContext();
   const { setActiveComponent } = useActiveComponent();
   const { setProfileId, profile } = useHistoryIDComponent();
@@ -33,11 +33,7 @@ export const ProfilePage = () => {
     return password === confirmPassword;
   };
   const doesUsernameExist = (username: string) => {
-    console.log(
-      profile.some(
-        (user) => user.username.toLowerCase() === username.toLowerCase()
-      )
-    );
+
 
     return profile.some(
       (user) => user.username.toLowerCase() === username.toLowerCase()
@@ -64,14 +60,14 @@ export const ProfilePage = () => {
                 doesUsernameExist(username)
               ) {
                 setIsSubmitted(true);
-                console.log(doesUsernameExist(username));
-                console.log(passwordsDoMatch(password, confirmPassword));
-
+             
                 return;
               }
               setIsSubmitted(false);
               setLoading(true);
-              return postInfo(
+              if (maybeUser ) {
+          
+              postInfo(
                 {
                   username: username,
                   password: password,
@@ -89,9 +85,7 @@ export const ProfilePage = () => {
                   navigate("/home");
                   setActiveComponent("addChild");
                   if (!maybeUser) {
-                    const username = JSON.parse(
-                      JSON.stringify(data)
-                    ).username;
+                    const username = JSON.parse(JSON.stringify(data)).username;
 
                     const userPassword = JSON.parse(
                       JSON.stringify(data)
@@ -103,6 +97,7 @@ export const ProfilePage = () => {
                       JSON.stringify({
                         username: username,
                         password: userPassword,
+                        caregiver: childCaregiver,
                         id: userId,
                       })
                     );
@@ -115,8 +110,8 @@ export const ProfilePage = () => {
                 })
                 .catch((e) => {
                   toast.error(e);
-                });
-            }}
+                });}
+              }}
           >
             <div className="inputContainer">
               <label htmlFor="name" className="profileLable">

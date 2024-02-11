@@ -2,7 +2,7 @@
   "profile": [
     {
       "username": "robharmony",
-      "password": "Inhumane#1",
+      "password": "Comets#29",
       "caregiver": "Debbie",
       "id": 1
     }
@@ -13,20 +13,20 @@
       "DOB": "2022-03-03",
       "age": "23 months",
       "gender": "Female",
-      "weight": "26 lbs.",
-      "headSize": "21 in.",
-      "height": "35 in.",
+      "weight": "52",
+      "headSize": "22",
+      "height": "35",
       "profileId": 1,
       "id": 1
     },
     {
       "name": "Robby",
       "DOB": "2024-02-07",
-      "age": "1 day",
+      "age": "3 days",
       "gender": "Male",
-      "weight": "7 lbs.",
-      "headSize": "19 in.",
-      "height": "18 in.",
+      "weight": "7",
+      "headSize": "19",
+      "height": "18",
       "profileId": 1,
       "id": 2
     }
@@ -35,6 +35,23 @@
   "bottleFeedingHistory": [],
   "breastFeedingHistory": [],
   "infantFeedingHistory": [],
-  "diapersHistory": [],
+  "diapersHistory": [
+    {
+      "time": "11:24 PM",
+      "date": "February 6, 2024",
+      "type": "Poop",
+      "consistancy": "Solid",
+      "childId": 2,
+      "id": 1
+    },
+    {
+      "time": "11:26 PM",
+      "date": "February 8, 2024",
+      "type": "Poop",
+      "consistancy": "Soft",
+      "childId": 2,
+      "id": 2
+    }
+  ],
   "illness": []
 }

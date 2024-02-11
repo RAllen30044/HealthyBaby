@@ -48,28 +48,26 @@ const calculateAgeInDays = (DOBString) => {
   return diffInDays;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const convertAgeToAppropriateAgeType = (DOB) => {
   const shortHandDate = createShortHandDate(DOB);
 
-  console.log(shortHandDate);
 
   if (calculateAgeInDays(shortHandDate) === 0) {
     return `Today`;
   } else if (calculateAgeInDays(shortHandDate) === 1) {
     return `${calculateAgeInDays(shortHandDate)} day`;
   } else if (calculateAgeInMonths(shortHandDate) >= 24) {
-    console.log(calculateAge(shortHandDate));
+   
     return `${calculateAge(shortHandDate)} yrs`;
   } else if (
     calculateAgeInMonths(shortHandDate) < 24 &&
     calculateAgeInMonths(shortHandDate) > 1
   ) {
-    console.log(calculateAgeInMonths(shortHandDate));
+ 
     return `${calculateAgeInMonths(shortHandDate)} months`;
   } else {
-    console.log(calculateAgeInDays(shortHandDate));
+  
     return `${calculateAgeInDays(shortHandDate)} days`;
   }
 };
-
-console.log(convertAgeToAppropriateAgeType("2024-02-05"));

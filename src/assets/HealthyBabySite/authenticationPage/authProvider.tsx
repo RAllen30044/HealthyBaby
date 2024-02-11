@@ -9,7 +9,6 @@ import {
 import { User } from "../../../Types";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 
-
 // type LogInfo = "logIn" | "logOut";
 export type AuthComponentProviderT = {
   log: string | null;
@@ -33,11 +32,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const { profile, childInfo, setChildId } = useHistoryIDComponent();
   const maybeUser = localStorage.getItem("user");
-  
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const getChild = localStorage.getItem("child");
-
 
   const loggedIn = (username: string, password: string) => {
     setLog("logOut");
@@ -46,22 +44,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         profile.username.toLowerCase() === username.toLowerCase() &&
         profile.password === password
     );
-    const userIdExist = profile.some(
-      (profile) =>
-        profile.username.toLowerCase() === username.toLowerCase() &&
-        profile.password === password
-    );
+    // const userIdExist = profile.some(
+    //   (profile) =>
+    //     profile.username.toLowerCase() === username.toLowerCase() &&
+    //     profile.password === password
+    // );
 
-    console.log(username);
-    console.log(password);
-
-    console.log(userIdExist);
     if (userID) {
       localStorage.setItem(
         "user",
         JSON.stringify({
           username: userID.username,
           password: userID.password,
+          caregiver: userID.caregiver,
           id: userID.id,
         })
       );
@@ -87,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maybeUser, getChild]);
 
-  console.log(user);
+
 
   return (
     <>

@@ -9,7 +9,7 @@ import "./Header.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-type ActiveLink = "home" | "about" | "profile" | "add child";
+type ActiveLink = "home" | "about" | "profile" | "add child" | "";
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [activeLink, setActiveLink] = useState<ActiveLink>("home");
@@ -19,26 +19,33 @@ export const Header = () => {
 
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
   const { setUser, maybeUser } = useAuthProviderContext();
-  console.log(childInfo);
+
   const getUser = localStorage.getItem("user");
 
-  console.log(getUser);
+
 
   return (
     <>
       <header>
         <nav>
-          <div className="logo">
-            <i
-              className="fa-solid fa-baby"
-              onClick={() => {
-                if (getUser) {
-                  setHiddenChildLinks(!hiddenChildLinks);
-                } else {
-                  return;
-                }
-              }}
-            ></i>
+          <div
+            className="logo"
+            onMouseLeave={() => {
+              if (getUser) {
+                setHiddenChildLinks(false);
+              } else {
+                return;
+              }
+            }}
+            onMouseEnter={() => {
+              if (getUser) {
+                setHiddenChildLinks(true);
+              } else {
+                return;
+              }
+            }}
+          >
+            <i className="fa-solid fa-baby"></i>
 
             <div
               className={`childList ${
@@ -86,7 +93,7 @@ export const Header = () => {
                             id: childProfile.id,
                           })
                         );
-                        updateChildDateAge(childProfile.DOB, childProfile.id)
+                        updateChildDateAge(childProfile.DOB, childProfile.id);
                       }}
                     >
                       {childProfile.name}
@@ -100,6 +107,9 @@ export const Header = () => {
             <NavLink
               to="/home"
               className={` pageLink ${maybeUser ? "" : "hidden"}`}
+              onClick={() => {
+                setActiveComponent("feeding");
+              }}
             >
               Home
             </NavLink>
@@ -110,10 +120,14 @@ export const Header = () => {
               About
             </NavLink>
             <NavLink
-              to="/profile"
+              to="/home"
               className={` pageLink ${maybeUser ? "" : "hidden"}`}
+              onClick={() => {
+                setActiveComponent("editProfile");
+                setActiveComponentInLocalStorage("editProfile");
+              }}
             >
-              Profile
+              Edit Profile
             </NavLink>
             <NavLink
               to="/auth"
@@ -189,17 +203,19 @@ export const Header = () => {
                       </div>
                     </NavLink>
                     <NavLink
-                      to="/profile"
+                      to="/home"
                       className={` mobileLink ${maybeUser ? "" : "hidden"} ${
-                        activeLink === "profile" ? "selected" : ""
+                        activeComponent === "editProfile" ? "selected" : ""
                       }`}
                       onClick={() => {
-                        setActiveLink("profile");
+                        setActiveLink("");
+                        setActiveComponent("editProfile");
+                        setActiveComponentInLocalStorage("editProfile");
                         setHiddenPagesLinks(!hiddenPagesLinks);
                       }}
                     >
                       <div className="linkContainer">
-                        <div className="profileContainer"> Profile</div>
+                        <div className="profileContainer">Edit Profile</div>
                       </div>
                     </NavLink>
                     <NavLink
@@ -208,6 +224,7 @@ export const Header = () => {
                         activeLink === "add child" ? "selected" : ""
                       }`}
                       onClick={() => {
+                        setEditor("not present");
                         setActiveLink("add child");
                         setActiveComponent("addChild");
                         setActiveComponentInLocalStorage("addChild");
@@ -256,12 +273,17 @@ export const Header = () => {
             </section>
 
             <div className={`pagesDropDown ${maybeUser ? "" : "hidden"}`}>
-              <div className="linksContainer">
+              <div
+                className="linksContainer"
+                onMouseLeave={() => {
+                  setHiddenPagesLinks(false);
+                }}
+                onMouseEnter={() => {
+                  setHiddenPagesLinks(true);
+                }}
+              >
                 <div
                   className="hamburgerIcon"
-                  onClick={() => {
-                    setHiddenPagesLinks(!hiddenPagesLinks);
-                  }}
                   style={
                     hiddenPagesLinks === true ? { fontSize: "larger" } : {}
                   }

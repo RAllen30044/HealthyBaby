@@ -9,7 +9,7 @@ export const BreastFeedingHistory = ({
   return (
     <>
       {breastFeedHistory.filter((history) => history.childId === childId)
-          .sort((a, b) => {
+          .sort((b, a) => {
             if (a.date < b.date) {
               return -1;
             }

@@ -7,6 +7,7 @@ import { useActiveComponent } from "../HealthyBabySite/Header/ActiveComponentPro
 import { AddChildPage } from "./ChildPage/AddChildPage";
 import { setActiveComponentInLocalStorage } from "../../ErrorHandling";
 import { EditChildPage } from "./ChildPage/EditChildPage";
+import { EditProfilePage } from "../HealthyBabySite/ProfilePage/EditProfilePage";
 
 export const HomePage = () => {
   const { activeComponent, setActiveComponent } = useActiveComponent();
@@ -71,7 +72,8 @@ export const HomePage = () => {
       {activeComponent === "napping" ? <NappingPage /> : ""}
       {activeComponent === "illness" ? <IllnessPage /> : ""}
       {activeComponent === "addChild" ? <AddChildPage /> : ""}
-      {activeComponent === "editChild" ? <EditChildPage/> : ""}
+      {activeComponent === "editChild" ? <EditChildPage /> : ""}
+      {activeComponent === "editProfile" ? <EditProfilePage /> : ""}
     </>
   );
 };

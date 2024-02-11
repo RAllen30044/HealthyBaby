@@ -46,7 +46,7 @@ export const NappingPage = () => {
     });
   };
 
-  console.log();
+
   return (
     <>
       <div className="banner nappingBanner">
@@ -126,7 +126,7 @@ export const NappingPage = () => {
       <div className="historyTimelineContainer">
         {nappingHistory
           .filter((history) => history.childId === childId)
-          .sort((a, b) => {
+          .sort((b, a) => {
             if (a.date < b.date) {
               return -1;
             }

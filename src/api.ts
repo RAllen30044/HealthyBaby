@@ -109,7 +109,7 @@ export const getChildNapHistory = (): Promise<childNapDBType[]> =>
   });
 
 export const updateChildDateAge = (DOB: string, id: number) => {
-  fetch(`${childUrl}/${id}`, {
+  return fetch(`${childUrl}/${id}`, {
     method: "PATCH",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
@@ -117,21 +117,40 @@ export const updateChildDateAge = (DOB: string, id: number) => {
     }),
   });
 };
-// export const updateChildInfo = (DOB: string, id: number) => {
-//   fetch(`${childUrl}/${id}`, {
-//     method: "PATCH",
-//     headers: { "Content-type": "application/json" },
-//     body: JSON.stringify({
-//       age: convertAgeToAppropriateAgeType(DOB),
-//     }),
-//   });
-// };
-// export const updateProfileInfo = (DOB: string, id: number) => {
-//   fetch(`${childUrl}/${id}`, {
-//     method: "PATCH",
-//     headers: { "Content-type": "application/json" },
-//     body: JSON.stringify({
-//       age: convertAgeToAppropriateAgeType(DOB),
-//     }),
-//   });
-// };
+export const updateChildInfo = (
+  name: string,
+  DOB: string,
+  gender: string,
+  height: string,
+  weight: string,
+  headSize: string,
+  id: number
+) => {
+  return fetch(`${childUrl}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      name: name,
+      age: convertAgeToAppropriateAgeType(DOB),
+      DOB: DOB,
+      gender: gender,
+      height: height,
+      weight: weight,
+      headSize: headSize,
+    }),
+  });
+};
+export const updateProfileInfo = (
+  caregiver: string,
+  password: string,
+  id: number
+) => {
+  return fetch(`${profileUrl}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      caregiver: caregiver,
+      password: password,
+    }),
+  });
+};

@@ -171,7 +171,7 @@ export const IllnessPage = () => {
       <div className="historyTimelineContainer">
         {illnessHistory
           .filter((history) => history.childId === childId)
-          .sort((a, b) => {
+          .sort((b, a) => {
             if (a.date < b.date) {
               return -1;
             }

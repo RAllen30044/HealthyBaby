@@ -4,30 +4,81 @@ import {
   futureDOBNotAllowed,
   onlyKeyNumbers,
   preventKeyingNumbers,
+  setActiveComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { childUrl, postInfo } from "../../../api";
-import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
-
-import { calculateAge, calculateAgeInMonths } from "../TimeInfo/TimeConversion";
+import { updateChildInfo } from "../../../api";
+// import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfo";
 import "./ChildPage.css";
-import { useState } from "react";
 
-type Gender = "Male" | "Female";
+import { useChildInfo } from "./ChildInfoProvider";
+import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
+
+// type Gender = "Male" | "Female";
+// const getCurrentChildInfo = localStorage.getItem("child");
 
 export const EditChildPage = () => {
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState<Gender>("Female");
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [headSize, setHeadSize] = useState("");
-  const { loading, setLoading, date, setDate } = useTimeInfo();
-  const { setActiveComponent } = useActiveComponent();
+  // const [correctedName, setCorrectedName] = useState(
+  //   getCurrentChildInfo
+  //     ? JSON.parse(getCurrentChildInfo).name
+  //     : "Couldn't find name"
+
+  // );
+  // const [correctedGender, setCorrectedGender] = useState(
+  //   getCurrentChildInfo
+  //     ? JSON.parse(getCurrentChildInfo).gender
+  //     : "Couldn't find gender"
+
+  // );
+  // const [correctedWeight, setCorrectedWeight] = useState(
+  //   getCurrentChildInfo
+  //     ? JSON.parse(getCurrentChildInfo).weight
+  //     : "Couldn't find Weight"
+
+  // );
+  // const [correctedHeight, setCorrectedHeight] = useState(
+  //   getCurrentChildInfo
+  //     ? JSON.parse(getCurrentChildInfo).height
+  //     : "Couldn't find height"
+
+  // );
+  // const [correctedHeadSize, setCorrectedHeadSize] = useState(
+  //   getCurrentChildInfo
+  //     ? JSON.parse(getCurrentChildInfo).headSize
+  //     : "Couldn't find head size"
+
+  // );
+  // const [correctedDOB, seCorrectedDOB] = useState(
+  //   getCurrentChildInfo
+  //     ? JSON.parse(getCurrentChildInfo).DOB
+  //     : "Couldn't find DOB"
+
+  // );
+
+  const {
+    childName,
+    setChildName,
+    gender,
+    setGender,
+    DOB,
+    setDOB,
+    headSize,
+    setHeadSize,
+    weight,
+    setHeight,
+    height,
+    setWeight,
+
+    currentChildId,
+  } = useChildInfo();
+
+  const { loading, setLoading } = useTimeInfo();
+  const { setActiveComponent, setEditor } = useActiveComponent();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
-  const { fetchChildInfo, profileId, setChildId } = useHistoryIDComponent();
+  const { fetchChildInfo, setChildId } = useHistoryIDComponent();
 
   // const [babyPic, setBabyPic] = useState<string>("");
 
@@ -80,35 +131,27 @@ export const EditChildPage = () => {
             onSubmit={(e) => {
               e.preventDefault();
 
-              if (DOBnotVaild(date)) {
+              if (DOBnotVaild(DOB)) {
                 setIsSubmitted(true);
                 return;
               }
               setIsSubmitted(false);
               setLoading(true);
-              postInfo(
-                {
-                  name: name,
-                  DOB: date,
-                  age:
-                    calculateAge(date) < 2
-                      ? `${calculateAgeInMonths(date)} months`
-                      : `${calculateAge(date)} yrs.`,
-                  
-                  gender: gender,
-                  weight: `${weight} lbs.`,
-                  headSize: `${headSize} in.`,
-                  height: `${height} in.`,
-                  // url: babyPic ? babyPic : "",
-                  profileId: profileId,
-                },
-                childUrl
+
+              return updateChildInfo(
+                childName,
+                DOB,
+                gender,
+                height,
+                weight,
+                headSize,
+                currentChildId
               )
                 .then((res) => {
                   if (!res.ok) {
                     toast("error");
                   }
-                  setDate("");
+
                   return res.json();
                 })
                 .then((data) => {
@@ -116,7 +159,13 @@ export const EditChildPage = () => {
                     "child",
                     JSON.stringify({
                       name: data.name,
+                      age: data.age,
+                      DOB: data.DOB,
                       gender: data.gender,
+                      weight: data.weight,
+                      height: data.height,
+                      headSize: data.HeadSize,
+                      profileId: data.profileId,
                       id: data.id,
                     })
                   );
@@ -124,39 +173,42 @@ export const EditChildPage = () => {
                   setChildId(JSON.parse(data.id));
                 })
                 .then(fetchChildInfo)
+
                 .then(() => {
                   setActiveComponent("feeding");
-                })
-                .then(() => {
+                  setActiveComponentInLocalStorage("feeding");
+                  setEditor("not present");
                   setLoading(false);
                 });
             }}
           >
             <div className="nameInfo childInfoContainer">
-              <label className="childName childInfoLabel">Name:</label>
+              <label className="editChildName childInfoLabel">Name:</label>
               <input
                 type="text"
                 className="name childInfoInput"
-                value={name}
+                value={childName}
                 onChange={(e) => {
-                  setName(preventKeyingNumbers(e.target.value));
+                  setChildName(preventKeyingNumbers(e.target.value));
                 }}
               />
             </div>
             {shouldShowDOBentryError && (
               <ErrorMessage message={futureDOBNotAllowed} show={true} />
             )}
-            <div className="ageInfo childInfoContainer">
-              <label className="age childInfoLabel">Date of Birth:</label>
+
+            <div className="DOBInfo childInfoContainer">
+              <label className="DOB childInfoLabel">Date of Birth:</label>
               <input
                 type="date"
                 className="ageNumber childInfoInput"
-                value={date}
+                value={DOB}
                 onChange={(e) => {
-                  setDate(e.target.value);
+                  setDOB(e.target.value);
                 }}
               />
             </div>
+
             <div className="genderInfo childInfoContainer">
               <label className="gender childInfoLabel">Gender :</label>
               <button
@@ -182,6 +234,7 @@ export const EditChildPage = () => {
                 <i className="fa fa-female" aria-hidden="true"></i>
               </button>
             </div>
+
             <div className="weightInfo childInfoContainer">
               <label className="weight childInfoLabel">Weight: </label>
               <input
@@ -194,6 +247,7 @@ export const EditChildPage = () => {
               />
               <span> lbs.</span>
             </div>
+
             <div className="heightInfo childInfoContainer">
               <label className="height childInfoLabel">Height: </label>
               <input

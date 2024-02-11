@@ -32,8 +32,6 @@ export const formatDate = (inputDate: string): string => {
   return date.toLocaleDateString(undefined, options);
 };
 
-console.log(formatDate("01/10/2024"));
-
 export const calculateAge = (DOB: string): number => {
   const currentDate = new Date();
   const birthdate = new Date(DOB);
@@ -81,23 +79,18 @@ export const calculateAgeInDays = (DOBString: string): number => {
 export const convertAgeToAppropriateAgeType = (DOB: string): string => {
   const shortHandDate = createShortHandDate(DOB);
 
-  console.log(shortHandDate);
-
   if (calculateAgeInDays(shortHandDate) === 0) {
     return `Today`;
   } else if (calculateAgeInDays(shortHandDate) === 1) {
     return `${calculateAgeInDays(shortHandDate)} day`;
   } else if (calculateAgeInMonths(shortHandDate) >= 24) {
-    console.log(calculateAge(shortHandDate));
     return `${calculateAge(shortHandDate)} yrs`;
   } else if (
     calculateAgeInMonths(shortHandDate) < 24 &&
     calculateAgeInMonths(shortHandDate) > 1
   ) {
-    console.log(calculateAgeInMonths(shortHandDate));
     return `${calculateAgeInMonths(shortHandDate)} months`;
   } else {
-    console.log(calculateAgeInDays(shortHandDate));
     return `${calculateAgeInDays(shortHandDate)} days`;
   }
 };

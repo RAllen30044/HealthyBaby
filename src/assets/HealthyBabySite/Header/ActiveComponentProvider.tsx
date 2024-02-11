@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type TActiveComponent =
   | "illness"
@@ -6,7 +12,8 @@ type TActiveComponent =
   | "napping"
   | "diaper"
   | "addChild"
-  | "editChild";
+  | "editChild"
+  | "editProfile";
 
 type Editor = "present" | "not present";
 export type TActiveComponentProvider = {
@@ -32,6 +39,12 @@ export const ActiveComponentProvider = ({
       : "addChild"
   );
   const [editor, setEditor] = useState<Editor>("not present");
+
+  useEffect(() => {
+    if (activeComponent !== "editProfile") {
+      setEditor("not present");
+    }
+  }, [editor, activeComponent]);
   return (
     <ActiveComponentContext.Provider
       value={{ activeComponent, setActiveComponent, editor, setEditor }}

@@ -34,8 +34,7 @@ export const AuthenticationPage = () => {
             user.username.toLowerCase() === username.toLowerCase() &&
             user.password === password
         );
-        console.log(userExist);
-
+      
         if (userExist) {
           localStorage.setItem(
             "user",
@@ -72,16 +71,16 @@ export const AuthenticationPage = () => {
             );
           }
           toast.success("Success");
-          console.log(userExist);
+          
           loggedIn(userNameInput, passwordInput);
           setLog("logOut");
-          const userID = localStorage.getItem("user");
+          // const userID = localStorage.getItem("user");
 
-          console.log(userID);
+       
           setActiveComponent("feeding");
           setActiveComponentInLocalStorage("feeding");
           navigate("/home");
-          console.log(JSON.stringify(user));
+         
 
           return;
         } else {

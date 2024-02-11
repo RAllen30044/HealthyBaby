@@ -138,7 +138,7 @@ export const HistoryIDComponentProvider = ({
     fetchNappingHistory().catch((err) => console.log(err));
   }, []);
 
-  console.log(profile);
+  
 
   return (
     <HistoryIDComponentContext.Provider

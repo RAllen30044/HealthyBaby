@@ -1,6 +1,7 @@
 import { setActiveComponentInLocalStorage } from "../../../ErrorHandling";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
+import { useChildInfo } from "../ChildPage/ChildInfoProvider";
 import {
   convertAgeToAppropriateAgeType,
   createShortHandDate,
@@ -10,7 +11,15 @@ import {
 export const ChildInfo = () => {
   const { childInfo, childId } = useHistoryIDComponent();
   const { editor, setEditor, setActiveComponent } = useActiveComponent();
-
+  const {
+    setChildName,
+    setDOB,
+    setGender,
+    setHeadSize,
+    setWeight,
+    setHeight,
+    setCurrentChildId,
+  } = useChildInfo();
   return (
     <>
       <div className="childInfoContainerHP">
@@ -37,17 +46,24 @@ export const ChildInfo = () => {
                   </div>
 
                   <div className="childGender">gender: {child.gender} </div>
-                  <div className="childHeight">Height: {child.height} </div>
+                  <div className="childHeight">Height: {child.height} in.</div>
 
-                  <div className="childWeight">Weight: {child.weight}</div>
+                  <div className="childWeight">Weight: {child.weight} lbs.</div>
                   <div className="childHeadSize">
-                    Head Size: {child.headSize}
+                    Head Size: {child.headSize} in.
                   </div>
                   {editor === "not present" ? (
                     <button
                       className="button"
                       type="button"
                       onClick={() => {
+                        setChildName(child.name);
+                        setGender(child.gender);
+                        setHeadSize(child.headSize);
+                        setWeight(child.weight);
+                        setHeight(child.height);
+                        setDOB(child.DOB);
+                        setCurrentChildId(child.id);
                         setEditor("present");
                         setActiveComponent("editChild");
                         setActiveComponentInLocalStorage("editChild");
