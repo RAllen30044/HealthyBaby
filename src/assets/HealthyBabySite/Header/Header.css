@@ -8,7 +8,7 @@ nav {
   position: relative;
 }
 
-.logo .fa-baby{
+.logo .fa-baby {
   font-size: 28px;
 }
 
@@ -43,15 +43,14 @@ nav {
   gap: 30px;
   align-items: center;
 }
-.loggedInHeader{
+.loggedInHeader {
   display: flex;
   gap: 30px;
 }
-.loggedOutHeader{
+.loggedOutHeader {
   display: flex;
   gap: 30px;
 }
-
 
 .page:hover {
   cursor: pointer;
@@ -137,4 +136,18 @@ nav {
   color: initial;
   font-weight: 800;
   font-size: 20px;
+  cursor: pointer;
+}
+
+.filteredChildInfo {
+  width: 100%;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .childList {
+    left: 28px;
+    top: 30px;
+    font-size: 16px;
+  }
 }

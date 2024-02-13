@@ -7,8 +7,8 @@ import {
   preventKeyingSpaces,
 } from "../../../ErrorHandling";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { useAuthProviderContext } from "../authenticationPage/authProvider";
+
+import { useAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
@@ -23,10 +23,11 @@ export const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
-  const navigate = useNavigate();
+
   const { loggedIn, maybeUser, setPassword, password } =
     useAuthProviderContext();
-  const { setActiveComponent } = useActiveComponent();
+  const { setActiveMainComponent, } =
+    useActiveComponent();
   const { setProfileId, profile } = useHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
@@ -41,7 +42,8 @@ export const SignUpPage = () => {
   const passwordErrorMessage = "Passwords do not match";
   const shouldShowPasswordErrorMessage =
     isSubmitted && !passwordsDoMatch(password, confirmPassword);
-  const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist(username);
+  const shouldShowUsernameErrorMessage =
+    isSubmitted && doesUsernameExist(username);
   const usernameErrorMessage = "Username already Exist";
 
   return (
@@ -82,8 +84,7 @@ export const SignUpPage = () => {
                   return data.json();
                 })
                 .then((data) => {
-                  navigate("/home");
-                  setActiveComponent("addChild");
+                  setActiveMainComponent("addChild");
                   if (!maybeUser) {
                     const username = JSON.parse(JSON.stringify(data)).username;
 

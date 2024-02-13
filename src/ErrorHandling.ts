@@ -45,11 +45,19 @@ export const firstAvailableChild = (
   return child.find((child) => child.profileId === user?.id);
 };
 
-export const setActiveComponentInLocalStorage = (component: string) => {
+export const setActiveHomePageComponentInLocalStorage = (component: string) => {
   return localStorage.setItem(
-    "activeComponent",
+    "activeHomePageComponent",
     JSON.stringify({
-      activeComponent: component,
+      activeHomePageComponent: component,
+    })
+  );
+};
+export const setActiveMainComponentInLocalStorage = (component: string) => {
+  return localStorage.setItem(
+    "activeMainComponent",
+    JSON.stringify({
+      activeMainComponent: component,
     })
   );
 };

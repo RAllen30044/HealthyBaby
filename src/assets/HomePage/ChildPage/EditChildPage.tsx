@@ -4,7 +4,8 @@ import {
   futureDOBNotAllowed,
   onlyKeyNumbers,
   preventKeyingNumbers,
-  setActiveComponentInLocalStorage,
+  
+  setActiveHomePageComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
@@ -76,7 +77,7 @@ export const EditChildPage = () => {
   } = useChildInfo();
 
   const { loading, setLoading } = useTimeInfo();
-  const { setActiveComponent, setEditor } = useActiveComponent();
+  const { setActiveHomePageComponent, setEditor } = useActiveComponent();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
   const { fetchChildInfo, setChildId } = useHistoryIDComponent();
 
@@ -175,8 +176,8 @@ export const EditChildPage = () => {
                 .then(fetchChildInfo)
 
                 .then(() => {
-                  setActiveComponent("feeding");
-                  setActiveComponentInLocalStorage("feeding");
+                  setActiveHomePageComponent("feeding");
+                  setActiveHomePageComponentInLocalStorage("feeding");
                   setEditor("not present");
                   setLoading(false);
                 });

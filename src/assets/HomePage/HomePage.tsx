@@ -4,24 +4,23 @@ import { DaiperPage } from "./DiaperPage/DiaperPage";
 import { NappingPage } from "./NappingPage/NappingPage";
 import { IllnessPage } from "./IllnessPage/IllnessPage";
 import { useActiveComponent } from "../HealthyBabySite/Header/ActiveComponentProvider";
-import { AddChildPage } from "./ChildPage/AddChildPage";
-import { setActiveComponentInLocalStorage } from "../../ErrorHandling";
-import { EditChildPage } from "./ChildPage/EditChildPage";
-import { EditProfilePage } from "../HealthyBabySite/ProfilePage/EditProfilePage";
+
+import { setActiveHomePageComponentInLocalStorage } from "../../ErrorHandling";
 
 export const HomePage = () => {
-  const { activeComponent, setActiveComponent } = useActiveComponent();
+  const { activeHomePageComponent, setActiveHomePageComponent } =
+    useActiveComponent();
   return (
     <>
-      <div className={`tabs ${activeComponent === "addChild" ? "hidden" : ""}`}>
+      <div className={`tabs `}>
         <div className="tabContainer">
           <div
             className={`feedingTab ${
-              activeComponent === "feeding" ? "active" : ""
+              activeHomePageComponent === "feeding" ? "active" : ""
             }`}
             onClick={() => {
-              setActiveComponent("feeding");
-              setActiveComponentInLocalStorage("feeding");
+              setActiveHomePageComponent("feeding");
+              setActiveHomePageComponentInLocalStorage("feeding");
             }}
           >
             <p>Feeding</p>
@@ -30,11 +29,11 @@ export const HomePage = () => {
         <div className="tabContainer">
           <div
             className={`diaperTab ${
-              activeComponent === "diaper" ? "active" : ""
+              activeHomePageComponent === "diaper" ? "active" : ""
             }`}
             onClick={() => {
-              setActiveComponent("diaper");
-              setActiveComponentInLocalStorage("diaper");
+              setActiveHomePageComponent("diaper");
+              setActiveHomePageComponentInLocalStorage("diaper");
             }}
           >
             <p>Diaper</p>
@@ -43,11 +42,11 @@ export const HomePage = () => {
         <div className="tabContainer">
           <div
             className={`nappingTab ${
-              activeComponent === "napping" ? "active" : ""
+              activeHomePageComponent === "napping" ? "active" : ""
             }`}
             onClick={() => {
-              setActiveComponent("napping");
-              setActiveComponentInLocalStorage("napping");
+              setActiveHomePageComponent("napping");
+              setActiveHomePageComponentInLocalStorage("napping");
             }}
           >
             <p>Napping</p>
@@ -56,24 +55,21 @@ export const HomePage = () => {
         <div className="tabContainer">
           <div
             className={`illnessTab ${
-              activeComponent === "illness" ? "active" : ""
+              activeHomePageComponent === "illness" ? "active" : ""
             }`}
             onClick={() => {
-              setActiveComponent("illness");
-              setActiveComponentInLocalStorage("illness");
+              setActiveHomePageComponent("illness");
+              setActiveHomePageComponentInLocalStorage("illness");
             }}
           >
             <p>Illness</p>
           </div>
         </div>
       </div>
-      {activeComponent === "feeding" ? <FeedingPage /> : ""}
-      {activeComponent === "diaper" ? <DaiperPage /> : ""}
-      {activeComponent === "napping" ? <NappingPage /> : ""}
-      {activeComponent === "illness" ? <IllnessPage /> : ""}
-      {activeComponent === "addChild" ? <AddChildPage /> : ""}
-      {activeComponent === "editChild" ? <EditChildPage /> : ""}
-      {activeComponent === "editProfile" ? <EditProfilePage /> : ""}
+      {activeHomePageComponent === "feeding" ? <FeedingPage /> : ""}
+      {activeHomePageComponent === "diaper" ? <DaiperPage /> : ""}
+      {activeHomePageComponent === "napping" ? <NappingPage /> : ""}
+      {activeHomePageComponent === "illness" ? <IllnessPage /> : ""}
     </>
   );
 };

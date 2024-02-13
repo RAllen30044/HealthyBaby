@@ -25,7 +25,8 @@ export const AddChildPage = () => {
   const [height, setHeight] = useState("");
   const [headSize, setHeadSize] = useState("");
   const { loading, setLoading, date, setDate } = useTimeInfo();
-  const { setActiveComponent } = useActiveComponent();
+  const { setActiveMainComponent, setActiveHomePageComponent } =
+    useActiveComponent();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
   const { fetchChildInfo, profileId, setChildId } = useHistoryIDComponent();
 
@@ -126,7 +127,8 @@ export const AddChildPage = () => {
                 })
                 .then(fetchChildInfo)
                 .then(() => {
-                  setActiveComponent("feeding");
+                  setActiveMainComponent("home");
+                  setActiveHomePageComponent("feeding");
                 })
                 .then(() => {
                   setLoading(false);

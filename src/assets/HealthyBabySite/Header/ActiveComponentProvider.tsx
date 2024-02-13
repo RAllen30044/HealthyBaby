@@ -6,19 +6,26 @@ import {
   useState,
 } from "react";
 
-type TActiveComponent =
-  | "illness"
-  | "feeding"
-  | "napping"
-  | "diaper"
+type TActiveHomePageComponent = "illness" | "feeding" | "napping" | "diaper";
+type TActiveMainComponent =
   | "addChild"
   | "editChild"
-  | "editProfile";
+  | "editProfile"
+  | "landingPage"
+  | "about"
+  | "home"
+  | "signUp";
 
 type Editor = "present" | "not present";
 export type TActiveComponentProvider = {
-  activeComponent: TActiveComponent;
-  setActiveComponent: React.Dispatch<React.SetStateAction<TActiveComponent>>;
+  activeHomePageComponent: TActiveHomePageComponent;
+  setActiveHomePageComponent: React.Dispatch<
+    React.SetStateAction<TActiveHomePageComponent>
+  >;
+  activeMainComponent: TActiveMainComponent;
+  setActiveMainComponent: React.Dispatch<
+    React.SetStateAction<TActiveMainComponent>
+  >;
   editor: string;
   setEditor: React.Dispatch<React.SetStateAction<Editor>>;
 };
@@ -32,22 +39,39 @@ export const ActiveComponentProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const getActiveComponent = localStorage.getItem("activeComponent");
-  const [activeComponent, setActiveComponent] = useState<TActiveComponent>(
-    getActiveComponent
-      ? JSON.parse(getActiveComponent).activeComponent
-      : "addChild"
+  const getActiveHomePageComponent = localStorage.getItem(
+    "activeHomePageComponent"
   );
+  const getActiveMainComponent = localStorage.getItem("activeMainComponent");
+  const [activeHomePageComponent, setActiveHomePageComponent] =
+    useState<TActiveHomePageComponent>(
+      getActiveHomePageComponent
+        ? JSON.parse(getActiveHomePageComponent).activeHomePageComponent
+        : "feeding"
+    );
+  const [activeMainComponent, setActiveMainComponent] =
+    useState<TActiveMainComponent>(
+      getActiveMainComponent
+        ? JSON.parse(getActiveMainComponent).activeMainComponent
+        : "landingPage"
+    );
   const [editor, setEditor] = useState<Editor>("not present");
 
   useEffect(() => {
-    if (activeComponent !== "editProfile") {
+    if (activeMainComponent !== "editProfile") {
       setEditor("not present");
     }
-  }, [editor, activeComponent]);
+  }, [editor, activeMainComponent]);
   return (
     <ActiveComponentContext.Provider
-      value={{ activeComponent, setActiveComponent, editor, setEditor }}
+      value={{
+        activeHomePageComponent,
+        setActiveHomePageComponent,
+        activeMainComponent,
+        setActiveMainComponent,
+        editor,
+        setEditor,
+      }}
     >
       {children}
     </ActiveComponentContext.Provider>

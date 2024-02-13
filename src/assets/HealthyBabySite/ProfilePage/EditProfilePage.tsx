@@ -4,8 +4,8 @@ import { updateProfileInfo } from "../../../api";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import { preventKeyingNumbers } from "../../../ErrorHandling";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { useAuthProviderContext } from "../authenticationPage/authProvider";
+
+import { useAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
@@ -23,11 +23,12 @@ export const EditProfilePage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
-  const navigate = useNavigate();
+
   // const [profileUserName, setProfileUsername] = useState<string>(
   //   maybeUser ? JSON.parse(maybeUser).username : ""
   // );
-  const { setActiveComponent } = useActiveComponent();
+  const { setActiveHomePageComponent, setActiveMainComponent } =
+    useActiveComponent();
   const { setProfileId } = useHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
@@ -62,8 +63,6 @@ export const EditProfilePage = () => {
               setIsSubmitted(false);
               setLoading(true);
               if (maybeUser) {
-             
-
                 return updateProfileInfo(
                   childCaregiver,
                   password,
@@ -74,15 +73,14 @@ export const EditProfilePage = () => {
                       toast.error("Save Failed");
                       return;
                     }
-                    toast.success("Profile Saved");
+                    toast.success("Profile Updated");
                     return res.json();
                   })
                   .then((data) => {
-                    navigate("/home");
-                    setActiveComponent("feeding");
+                    setActiveHomePageComponent("feeding");
+                    setActiveMainComponent("home");
 
                     const username = JSON.parse(maybeUser).username;
-               
 
                     const userPassword = JSON.parse(
                       JSON.stringify(data)

@@ -17,7 +17,7 @@
     {
       "name": "Arielle",
       "DOB": "2022-03-03",
-      "age": "NaN days",
+      "age": "23 months",
       "gender": "Female",
       "weight": "52",
       "headSize": "22",
@@ -28,7 +28,7 @@
     {
       "name": "Robby",
       "DOB": "2024-02-07",
-      "age": "4 days",
+      "age": "5 days",
       "gender": "Male",
       "weight": "7",
       "headSize": "19",
@@ -39,13 +39,24 @@
     {
       "name": "Robert Jr",
       "DOB": "2021-01-12",
-      "age": "3 yrs",
+      "age": "NaN days",
       "gender": "Male",
       "weight": "56 ",
       "headSize": "22",
       "height": "34",
       "profileId": 2,
       "id": 3
+    },
+    {
+      "name": "Yalana Jr",
+      "DOB": "2024-01-04",
+      "age": "39 days",
+      "gender": "Female",
+      "weight": "10 ",
+      "headSize": "19",
+      "height": "20",
+      "profileId": 2,
+      "id": 4
     }
   ],
   "napHistory": [],

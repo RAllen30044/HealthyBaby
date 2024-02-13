@@ -2,24 +2,24 @@ import { useState } from "react";
 
 import "./authenticationPage.css";
 import { useAuthProviderContext } from "./authProvider";
-import { useNavigate } from "react-router-dom";
+
 import { getProfileData, updateChildDateAge } from "../../../api";
 import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   firstAvailableChild,
-  setActiveComponentInLocalStorage,
+  setActiveMainComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
 
-export const AuthenticationPage = () => {
+export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
   const { loggedIn, setLog, setLandingPage } = useAuthProviderContext();
   const { setProfileId, childInfo } = useHistoryIDComponent();
-  const { setActiveComponent } = useActiveComponent();
-  const navigate = useNavigate();
+  const { setActiveMainComponent, setActiveHomePageComponent } =
+    useActiveComponent();
 
   const isUserValid = (username: string, password: string) => {
     return getProfileData()
@@ -77,9 +77,10 @@ export const AuthenticationPage = () => {
           // const userID = localStorage.getItem("user");
 
           setLandingPage("off");
-          setActiveComponent("feeding");
-          setActiveComponentInLocalStorage("feeding");
-          navigate("/home");
+          setActiveHomePageComponent("feeding");
+          setActiveHomePageComponent("feeding");
+          setActiveMainComponent("home");
+          setActiveMainComponentInLocalStorage("home");
 
           return;
         } else {
@@ -96,6 +97,9 @@ export const AuthenticationPage = () => {
   };
   return (
     <>
+      <div className={`landingPage `}>
+        <h1> Healthy Baby</h1>
+      </div>
       <div className="authentication">
         <div className="card">
           <form
