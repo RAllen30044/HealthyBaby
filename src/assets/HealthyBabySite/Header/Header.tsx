@@ -1,6 +1,7 @@
 import { setActiveComponentInLocalStorage } from "../../../ErrorHandling";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { updateChildDateAge } from "../../../api";
+import { useChildInfo } from "../../HomePage/ChildPage/ChildInfoProvider";
 import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
 
 import { useAuthProviderContext } from "../authenticationPage/authProvider";
@@ -16,152 +17,179 @@ export const Header = () => {
   const [hiddenChildLinks, setHiddenChildLinks] = useState(false);
   const { activeComponent, setActiveComponent, setEditor } =
     useActiveComponent();
-
+  const {
+    setChildName,
+    setDOB,
+    setGender,
+    setHeight,
+    setWeight,
+    setHeadSize,
+    setCurrentChildId,
+  } = useChildInfo();
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
-  const { setUser, maybeUser } = useAuthProviderContext();
-
-  const getUser = localStorage.getItem("user");
-
-
+  const { setUser, maybeUser, maybeChild, setLandingPage } =
+    useAuthProviderContext();
 
   return (
     <>
       <header>
         <nav>
-          <div
-            className="logo"
-            onMouseLeave={() => {
-              if (getUser) {
-                setHiddenChildLinks(false);
-              } else {
-                return;
-              }
-            }}
-            onMouseEnter={() => {
-              if (getUser) {
-                setHiddenChildLinks(true);
-              } else {
-                return;
-              }
-            }}
-          >
-            <i className="fa-solid fa-baby"></i>
-
+          <div className="logo">
             <div
-              className={`childList ${
-                hiddenChildLinks === true ? "" : "hidden"
-              }`}
+              className={`logoActionContainer`}
+              onMouseLeave={() => {
+                if (maybeChild) {
+                  setHiddenChildLinks(false);
+                }
+              }}
+              onMouseEnter={() => {
+                if (maybeChild) {
+                  setHiddenChildLinks(true);
+                }
+              }}
             >
-              {" "}
-              {
-                // .filter(child=> child.id === childId)
-                //   .sort((a, b) => {
-                //     if (a.name < b.name) {
-                //       return -1;
-                //     }
-                //     if (a.name > b.name) {
-                //       return 1;
-                //     }
-                //     return 0;
-                //   })
-              }
-              {childInfo
-                .filter((childProfile) => childProfile.profileId === profileId)
-                .map((childProfile) => {
-                  return (
-                    <div
-                      className={`child ${
-                        childId === childProfile.id ? "selected" : ""
-                      }`}
-                      key={childProfile.id}
-                      onClick={() => {
-                        setChildId(childProfile.id);
-                        setHiddenChildLinks(!hiddenChildLinks);
-                        localStorage.setItem(
-                          "child",
-                          JSON.stringify({
-                            name: childProfile.name,
-                            age: convertAgeToAppropriateAgeType(
-                              childProfile.DOB
-                            ),
-                            DOB: childProfile.DOB,
-                            gender: childProfile.gender,
-                            height: childProfile.height,
-                            weight: childProfile.weight,
-                            headSize: childProfile.headSize,
-                            profileId: childProfile.profileId,
-                            id: childProfile.id,
-                          })
-                        );
-                        updateChildDateAge(childProfile.DOB, childProfile.id);
-                      }}
-                    >
-                      {childProfile.name}
-                    </div>
-                  );
-                })}
+              <i className={`fa-solid fa-baby `}></i>
+
+              <div
+                className={`childList ${
+                  hiddenChildLinks === true ? "" : "hidden"
+                }`}
+              >
+                {" "}
+                {
+                  // .filter(child=> child.id === childId)
+                  //   .sort((a, b) => {
+                  //     if (a.name < b.name) {
+                  //       return -1;
+                  //     }
+                  //     if (a.name > b.name) {
+                  //       return 1;
+                  //     }
+                  //     return 0;
+                  //   })
+                }
+                {childInfo
+                  .filter(
+                    (childProfile) => childProfile.profileId === profileId
+                  )
+                  .map((childProfile) => {
+                    return (
+                      <div
+                        className={`child ${
+                          childId === childProfile.id ? "selected" : ""
+                        }`}
+                        key={childProfile.id}
+                        onClick={() => {
+                          setChildId(childProfile.id);
+                          setHiddenChildLinks(!hiddenChildLinks);
+                          localStorage.setItem(
+                            "child",
+                            JSON.stringify({
+                              name: childProfile.name,
+                              age: convertAgeToAppropriateAgeType(
+                                childProfile.DOB
+                              ),
+                              DOB: childProfile.DOB,
+                              gender: childProfile.gender,
+                              height: childProfile.height,
+                              weight: childProfile.weight,
+                              headSize: childProfile.headSize,
+                              profileId: childProfile.profileId,
+                              id: childProfile.id,
+                            })
+                          );
+
+                          updateChildDateAge(childProfile.DOB, childProfile.id);
+                          setChildName(childProfile.name);
+                          setGender(childProfile.gender);
+                          setDOB(childProfile.DOB);
+                          setHeadSize(childProfile.headSize);
+                          setHeight(childProfile.height);
+                          setWeight(childProfile.weight);
+                          setCurrentChildId(childProfile.id);
+                        }}
+                      >
+                        {childProfile.name}
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           </div>
 
           <div className="pages">
-            <NavLink
-              to="/home"
-              className={` pageLink ${maybeUser ? "" : "hidden"}`}
-              onClick={() => {
-                setActiveComponent("feeding");
-              }}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/about"
-              className={` pageLink ${maybeUser ? "" : "hidden"}`}
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/home"
-              className={` pageLink ${maybeUser ? "" : "hidden"}`}
-              onClick={() => {
-                setActiveComponent("editProfile");
-                setActiveComponentInLocalStorage("editProfile");
-              }}
-            >
-              Edit Profile
-            </NavLink>
-            <NavLink
-              to="/auth"
-              className={` pageLink ${maybeUser ? "" : "hidden"}`}
-              onClick={() => {
-                localStorage.clear();
-                setUser(null);
-                setHiddenChildLinks(false);
-                setHiddenPagesLinks(false);
-              }}
-            >
-              Log Out
-            </NavLink>
-            <NavLink
-              to="/auth"
-              className={` pageLink ${maybeUser ? "hidden" : ""}`}
-            >
-              Log In
-            </NavLink>
-            <NavLink
-              to="/profile"
-              className={` pageLink ${maybeUser ? "hidden" : ""}`}
-            >
-              Sign Up
-            </NavLink>
+            <div className={`loggedInHeader ${maybeChild ? "" : "hidden"}`}>
+              <NavLink
+                to="/home"
+                className={` pageLink `}
+                onClick={() => {
+                  setActiveComponent("feeding");
+                }}
+              >
+                Home
+              </NavLink>
+              <NavLink to="/about" className={` pageLink `}>
+                About
+              </NavLink>
+              <NavLink
+                to="/home"
+                className={` pageLink `}
+                onClick={() => {
+                  setActiveComponent("editProfile");
+                  setActiveComponentInLocalStorage("editProfile");
+                }}
+              >
+                Edit Profile
+              </NavLink>
+              <NavLink
+                to="/auth"
+                className={` pageLink `}
+                onClick={() => {
+                  localStorage.clear();
+                  setUser(null);
+                  setHiddenChildLinks(false);
+                  setHiddenPagesLinks(false);
+                }}
+              >
+                Log Out
+              </NavLink>
+            </div>
+
+            <div className={`loggedOutHeader ${maybeChild ? "hidden" : ""}`}>
+              <NavLink
+                to="/auth"
+                className={` pageLink `}
+                onClick={() => {
+                  setLandingPage("on");
+                }}
+              >
+                Log In
+              </NavLink>
+              <NavLink
+                to="/profile"
+                className={` pageLink `}
+                onClick={() => {
+                  setLandingPage("off");
+                }}
+              >
+                Sign Up
+              </NavLink>
+            </div>
 
             <section className="mobileDropSection">
-              <div className={`linksDropDown  ${maybeUser ? "" : "hidden"}`}>
+              <div className={`linksDropDown  ${maybeChild ? "" : "hidden"}`}>
                 <div className="mobileDropdownContainer">
                   <div
                     className="hamburgerIcon"
-                    onClick={() => {
-                      setHiddenPagesLinks(!hiddenPagesLinks);
+                    onMouseEnter={() => {
+                      setHiddenPagesLinks(true);
                     }}
+                    onMouseLeave={() => {
+                      setHiddenPagesLinks(false);
+                    }}
+                    // onClick={() => {
+                    //   setHiddenPagesLinks(!hiddenPagesLinks);
+                    // }}
                     style={
                       hiddenPagesLinks === true ? { fontSize: "larger" } : {}
                     }
@@ -175,7 +203,7 @@ export const Header = () => {
                   >
                     <NavLink
                       to="/home"
-                      className={` mobileLink ${maybeUser ? "" : "hidden"} ${
+                      className={` mobileLink  ${
                         activeLink === "home" ? "selected" : ""
                       } `}
                       onClick={() => {
@@ -190,7 +218,7 @@ export const Header = () => {
                     </NavLink>
                     <NavLink
                       to="/about"
-                      className={` mobileLink ${maybeUser ? "" : "hidden"} ${
+                      className={` mobileLink  ${
                         activeLink === "about" ? "selected" : ""
                       }`}
                       onClick={() => {
@@ -204,7 +232,7 @@ export const Header = () => {
                     </NavLink>
                     <NavLink
                       to="/home"
-                      className={` mobileLink ${maybeUser ? "" : "hidden"} ${
+                      className={` mobileLink  ${
                         activeComponent === "editProfile" ? "selected" : ""
                       }`}
                       onClick={() => {
@@ -220,7 +248,7 @@ export const Header = () => {
                     </NavLink>
                     <NavLink
                       to="/home"
-                      className={` mobileLink ${maybeUser ? "" : "hidden"}  ${
+                      className={` mobileLink   ${
                         activeLink === "add child" ? "selected" : ""
                       }`}
                       onClick={() => {
@@ -237,7 +265,7 @@ export const Header = () => {
                     </NavLink>
                     <NavLink
                       to="/auth"
-                      className={` mobileLink ${maybeUser ? "" : "hidden"}`}
+                      className={` mobileLink `}
                       onClick={() => {
                         localStorage.clear();
                         setUser(null);

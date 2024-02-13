@@ -43,6 +43,16 @@ nav {
   gap: 30px;
   align-items: center;
 }
+.loggedInHeader{
+  display: flex;
+  gap: 30px;
+}
+.loggedOutHeader{
+  display: flex;
+  gap: 30px;
+}
+
+
 .page:hover {
   cursor: pointer;
 }

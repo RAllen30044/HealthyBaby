@@ -5,7 +5,7 @@ import { HealthyBabySite } from "./assets/HealthyBabySite/HealthBabySite";
 
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { HomePage } from "./assets/HomePage/HomePage";
-import { CreateProfilePage } from "./assets/HealthyBabySite/ProfilePage/CreateProfilePage";
+import { SignUpPage } from "./assets/HealthyBabySite/ProfilePage/SignUpPage";
 import { AboutPage } from "./assets/HealthyBabySite/AboutPage/AboutPage";
 import { AuthenticationPage } from "./assets/HealthyBabySite/authenticationPage/authentiction";
 
@@ -22,7 +22,7 @@ function App() {
             <TimeInfoProvider>
               <Routes>
                 <Route path="/" element={<HealthyBabySite />}>
-                  <Route path="profile" element={<CreateProfilePage />} />
+                  <Route path="profile" element={<SignUpPage />} />
                   <Route path="home" element={<HomePage />} />
                   <Route path="about" element={<AboutPage />} />
                   <Route path="auth" element={<AuthenticationPage />} />

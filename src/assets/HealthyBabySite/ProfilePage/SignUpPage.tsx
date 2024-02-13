@@ -14,7 +14,7 @@ import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 // import { ProfileInfoTypes } from "../../../Types";
 
-export const CreateProfilePage = () => {
+export const SignUpPage = () => {
   const [username, setUsername] = useState<string>("");
   // const [email, setEmail] = useState<string>("");
   const [childCaregiver, setChildCaregiver] = useState<string>("");
@@ -47,7 +47,7 @@ export const CreateProfilePage = () => {
   return (
     <>
       <div className="profilePage">
-        <h1>Profile</h1>
+        <h1>Create Profile</h1>
         <div className="profile">
           <form
             action="POST"

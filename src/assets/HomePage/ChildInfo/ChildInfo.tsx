@@ -45,7 +45,7 @@ export const ChildInfo = () => {
                     Date of Birth: {formatDate(createShortHandDate(child.DOB))}{" "}
                   </div>
 
-                  <div className="childGender">gender: {child.gender} </div>
+                  <div className="childGender">Gender: {child.gender} </div>
                   <div className="childHeight">Height: {child.height} in.</div>
 
                   <div className="childWeight">Weight: {child.weight} lbs.</div>

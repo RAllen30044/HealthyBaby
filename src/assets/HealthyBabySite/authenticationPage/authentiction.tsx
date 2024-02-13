@@ -16,7 +16,7 @@ import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConv
 export const AuthenticationPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, setLog } = useAuthProviderContext();
+  const { loggedIn, setLog, setLandingPage } = useAuthProviderContext();
   const { setProfileId, childInfo } = useHistoryIDComponent();
   const { setActiveComponent } = useActiveComponent();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export const AuthenticationPage = () => {
             user.username.toLowerCase() === username.toLowerCase() &&
             user.password === password
         );
-      
+
         if (userExist) {
           localStorage.setItem(
             "user",
@@ -71,16 +71,15 @@ export const AuthenticationPage = () => {
             );
           }
           toast.success("Success");
-          
+
           loggedIn(userNameInput, passwordInput);
           setLog("logOut");
           // const userID = localStorage.getItem("user");
 
-       
+          setLandingPage("off");
           setActiveComponent("feeding");
           setActiveComponentInLocalStorage("feeding");
           navigate("/home");
-         
 
           return;
         } else {
