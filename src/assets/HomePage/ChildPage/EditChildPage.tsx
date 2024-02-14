@@ -103,7 +103,7 @@ export const EditChildPage = () => {
   return (
     <>
       <div className="childPage">
-        <h1>Edit Child Page</h1>
+        <h1>Edit Child </h1>
         <div className="childPageInfo">
           {/* <div
             className="childPictureContainer"

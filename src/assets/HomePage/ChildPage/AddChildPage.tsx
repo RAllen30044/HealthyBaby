@@ -52,7 +52,7 @@ export const AddChildPage = () => {
   return (
     <>
       <div className="childPage">
-        <h1>Add Child Page</h1>
+        <h1>Add Child </h1>
         <div className="childPageInfo">
           {/* <div
             className="childPictureContainer"

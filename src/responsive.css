@@ -12,12 +12,12 @@
   font-size: 20px;
 }
 @media screen and (max-width: 500px) {
-  .logo {
+  /* .logo {
     display: none;
   }
   .mobileLogo {
     display: block;
-  }
+  } */
 
   .linksDropDown {
     display: block;

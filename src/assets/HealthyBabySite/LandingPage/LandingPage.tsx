@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   firstAvailableChild,
+  setActiveHomePageComponentInLocalStorage,
   setActiveMainComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
@@ -78,7 +79,7 @@ export const LandingPage = () => {
 
           setLandingPage("off");
           setActiveHomePageComponent("feeding");
-          setActiveHomePageComponent("feeding");
+          setActiveHomePageComponentInLocalStorage("feeding");
           setActiveMainComponent("home");
           setActiveMainComponentInLocalStorage("home");
 

@@ -88,45 +88,24 @@ export const Header = () => {
       <header>
         <nav>
           <div className="logos">
-            <div
-              className="logo"
-              onMouseLeave={() => {
-                if (maybeChild) {
-                  setHiddenChildLinks(false);
-                }
-              }}
-              onMouseEnter={() => {
-                if (maybeChild) {
-                  setHiddenChildLinks(true);
-                }
-              }}
-            >
-              <div className={`logoActionContainer`}>
-                <i className={`fa-solid fa-baby `}></i>
-
-                <div
-                  className={`childList ${
-                    hiddenChildLinks === true ? "" : "hidden"
-                  }`}
-                >
-                  {filterChildInfo()}
-                </div>
-              </div>
-            </div>
-            <div
-              className="mobileLogo"
-              onClick={() => {
-                if (maybeChild) {
+            <div className="logo">
+              <div
+                className={`logoActionContainer`}
+                onClick={() => {
                   setHiddenChildLinks(!hiddenChildLinks);
-                }
-              }}
-            >
-              <div className={`logoActionContainer`}>
+                }}
+                onMouseLeave={() => {
+                  setHiddenChildLinks(false);
+                }}
+                onMouseEnter={() => {
+                  setHiddenChildLinks(true);
+                }}
+              >
                 <i className={`fa-solid fa-baby `}></i>
 
                 <div
                   className={`childList ${
-                    hiddenChildLinks === true ? "" : "hidden"
+                    maybeChild && hiddenChildLinks === true ? "" : "hidden"
                   }`}
                 >
                   {filterChildInfo()}
@@ -204,6 +183,9 @@ export const Header = () => {
                 <div className="mobileDropdownContainer">
                   <div
                     className="hamburgerIcon"
+                    onClick={() => {
+                      setHiddenPagesLinks(!hiddenPagesLinks);
+                    }}
                     onMouseEnter={() => {
                       setHiddenPagesLinks(true);
                     }}
@@ -330,6 +312,9 @@ export const Header = () => {
             <div className={`pagesDropDown ${maybeUser ? "" : "hidden"}`}>
               <div
                 className="linksContainer"
+                onClick={() => {
+                  setHiddenPagesLinks(!hiddenPagesLinks);
+                }}
                 onMouseLeave={() => {
                   setHiddenPagesLinks(false);
                 }}
@@ -359,6 +344,8 @@ export const Header = () => {
                       activeHomePageComponent === "feeding" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setActiveMainComponent("home");
+                      setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("feeding");
                       setActiveHomePageComponentInLocalStorage("feeding");
                     }}
@@ -370,6 +357,8 @@ export const Header = () => {
                       activeHomePageComponent === "diaper" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setActiveMainComponent("home");
+                      setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("diaper");
                       setActiveHomePageComponentInLocalStorage("diaper");
                     }}
@@ -381,6 +370,8 @@ export const Header = () => {
                       activeHomePageComponent === "napping" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setActiveMainComponent("home");
+                      setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("napping");
                       setActiveHomePageComponentInLocalStorage("napping");
                     }}
@@ -392,6 +383,8 @@ export const Header = () => {
                       activeHomePageComponent === "illness" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setActiveMainComponent("home");
+                      setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("illness");
                       setActiveHomePageComponentInLocalStorage("illness");
                     }}
@@ -405,6 +398,8 @@ export const Header = () => {
                     onClick={() => {
                       setActiveMainComponent("addChild");
                       setActiveMainComponentInLocalStorage("addChild");
+                      setActiveHomePageComponent("");
+                      setActiveHomePageComponentInLocalStorage("");
                     }}
                   >
                     Add Child

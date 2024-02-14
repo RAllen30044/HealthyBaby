@@ -6,7 +6,12 @@ import {
   useState,
 } from "react";
 
-type TActiveHomePageComponent = "illness" | "feeding" | "napping" | "diaper";
+type TActiveHomePageComponent =
+  | "illness"
+  | "feeding"
+  | "napping"
+  | "diaper"
+  | "";
 type TActiveMainComponent =
   | "addChild"
   | "editChild"

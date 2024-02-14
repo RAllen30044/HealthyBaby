@@ -143,11 +143,3 @@ nav {
   width: 100%;
   text-align: center;
 }
-
-@media screen and (max-width: 500px) {
-  .childList {
-    left: 28px;
-    top: 30px;
-    font-size: 16px;
-  }
-}

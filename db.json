@@ -17,7 +17,7 @@
     {
       "name": "Arielle",
       "DOB": "2022-03-03",
-      "age": "23 months",
+      "age": "NaN days",
       "gender": "Female",
       "weight": "52",
       "headSize": "22",
@@ -39,7 +39,7 @@
     {
       "name": "Robert Jr",
       "DOB": "2021-01-12",
-      "age": "NaN days",
+      "age": "3 yrs",
       "gender": "Male",
       "weight": "56 ",
       "headSize": "22",
@@ -50,7 +50,7 @@
     {
       "name": "Yalana Jr",
       "DOB": "2024-01-04",
-      "age": "39 days",
+      "age": "40 days",
       "gender": "Female",
       "weight": "10 ",
       "headSize": "19",
