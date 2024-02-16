@@ -26,8 +26,7 @@ export const SignUpPage = () => {
 
   const { loggedIn, maybeUser, setPassword, password } =
     useAuthProviderContext();
-  const { setActiveMainComponent, } =
-    useActiveComponent();
+  const { setActiveMainComponent } = useActiveComponent();
   const { setProfileId, profile } = useHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
@@ -74,8 +73,6 @@ export const SignUpPage = () => {
                   username: username,
                   password: password,
                   caregiver: childCaregiver,
-                  // userEmail: email,
-                  // cargiverEmail: childCaregiverEmail,
                 },
                 profileUrl
               )
@@ -129,25 +126,11 @@ export const SignUpPage = () => {
                   setUsername(preventKeyingSpaces(e.target.value));
                 }}
               />
-              {shouldShowUsernameErrorMessage && (
-                <ErrorMessage message={usernameErrorMessage} show={true} />
-              )}
             </div>
-            {/* <div className="inputContainer">
-              <label htmlFor="email" className="profileLable">
-                EMAIL:
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="profileInput"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div> */}
+            {shouldShowUsernameErrorMessage && (
+              <ErrorMessage message={usernameErrorMessage} show={true} />
+            )}
+
             <div className="inputContainer">
               <label htmlFor="caregiver" className="profileLable">
                 Child(ren) Caregiver:{" "}
@@ -163,21 +146,7 @@ export const SignUpPage = () => {
                 }}
               />
             </div>
-            {/* <div className="inputContainer">
-              <label htmlFor="caretaker" className="profileLable">
-                Child(ren) Caregiver Email:{" "}
-              </label>
-              <input
-                type="email"
-                name="caregiverEmail"
-                id="caregiverEmail"
-                className="profileInput"
-                value={childCaregiverEmail}
-                onChange={(e) => {
-                  setChildCaregiverEmail(e.target.value);
-                }}
-              />
-            </div> */}
+
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLable">
                 Password:
@@ -206,11 +175,10 @@ export const SignUpPage = () => {
                   setConfirmPassword(e.target.value);
                 }}
               />
-              {shouldShowPasswordErrorMessage && (
-                <ErrorMessage message={passwordErrorMessage} show={true} />
-              )}
             </div>
-
+            {shouldShowPasswordErrorMessage && (
+              <ErrorMessage message={passwordErrorMessage} show={true} />
+            )}
             <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
               <label htmlFor="password" className="profileLable">
                 New Password:
@@ -238,10 +206,10 @@ export const SignUpPage = () => {
                   setConfirmPassword(e.target.value);
                 }}
               />
-              {shouldShowPasswordErrorMessage && (
-                <ErrorMessage message={passwordErrorMessage} show={true} />
-              )}
             </div>
+            {shouldShowPasswordErrorMessage && (
+              <ErrorMessage message={passwordErrorMessage} show={true} />
+            )}
             <div className="buttonContainer">
               <button className="saveButton" disabled={loading}>
                 Save

@@ -17,6 +17,24 @@
       "password": "Cowboys21",
       "caregiver": "Wife",
       "id": 3
+    },
+    {
+      "username": "lebron",
+      "password": "Cavs23",
+      "caregiver": "James",
+      "id": 4
+    },
+    {
+      "username": "Brittney",
+      "password": "Newborn",
+      "caregiver": "Jarvis",
+      "id": 5
+    },
+    {
+      "username": "Booby",
+      "password": "Spiderman",
+      "caregiver": "Miles",
+      "id": 6
     }
   ],
   "child": [
@@ -107,6 +125,39 @@
       "height": "19",
       "profileId": 3,
       "id": 8
+    },
+    {
+      "name": "Bronny",
+      "DOB": "2024-02-05",
+      "age": "NaN days",
+      "gender": "Male",
+      "weight": "12 ",
+      "headSize": "21",
+      "height": "20",
+      "profileId": 4,
+      "id": 9
+    },
+    {
+      "name": "Joe",
+      "DOB": "2024-02-06",
+      "age": "NaN days",
+      "gender": "Male",
+      "weight": "12 ",
+      "headSize": "21",
+      "height": "20",
+      "profileId": 5,
+      "id": 10
+    },
+    {
+      "name": "Joe",
+      "DOB": "2024-02-13",
+      "age": "2 days",
+      "gender": "Female",
+      "weight": "12 ",
+      "headSize": "21",
+      "height": "20",
+      "profileId": 6,
+      "id": 11
     }
   ],
   "napHistory": [],

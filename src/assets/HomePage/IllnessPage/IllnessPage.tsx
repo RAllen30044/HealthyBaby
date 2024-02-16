@@ -13,7 +13,6 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
-
   onlyNumbersWithDecimal,
   preventKeyingNumbers,
   timeInvaild,
@@ -99,11 +98,10 @@ export const IllnessPage = () => {
               });
           }}
         >
+          <TimeInfo />
           {shouldShowDateTimeEntryError && (
             <ErrorMessage message={futureTimeNotAllowed} show={true} />
           )}
-
-          <TimeInfo />
           <div className="sickness">
             <label htmlFor="sickness">Sickness: </label>
             <input
@@ -185,7 +183,6 @@ export const IllnessPage = () => {
             return (
               <div className="historyContainer" key={history.id}>
                 <div className="illnessHistory">
-
                   <h3>Date: {history.date}</h3>
                   <h3>Time: {history.time}</h3>
                   <h3>Type of Sickness: {history.sicknessType}</h3>

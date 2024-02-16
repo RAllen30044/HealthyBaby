@@ -133,7 +133,6 @@ export const FeedingPage = () => {
                   className={`fa-solid fa-child-${
                     getGender === "Female" ? `dress` : `reaching`
                   }`}
-                  
                 ></i>
               ) : (
                 <i className="fa-solid fa-baby"></i>
@@ -149,7 +148,6 @@ export const FeedingPage = () => {
               }`}
               onClick={() => setFeed("breastFeed")}
             >
-              {/* <i className="fa-solid fa-person-breastfeeding"></i> */}
               <h2>🤱 </h2>
               <p>
                 <strong> Breast</strong>
@@ -247,11 +245,10 @@ export const FeedingPage = () => {
             }
           }}
         >
+          <TimeInfo />{" "}
           {shouldShowDateTimeEntryError && (
             <ErrorMessage message={futureTimeNotAllowed} show={true} />
           )}
-
-          <TimeInfo />
           <div
             className={`bottleFeedInput ${
               feed === "bottleFeed" ? "" : "hidden"

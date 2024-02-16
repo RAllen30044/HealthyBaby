@@ -19,6 +19,8 @@ export type AuthComponentProviderT = {
   username: string;
   password: string;
   landingPage: string;
+  showAddChildError: boolean;
+  setShowAddChildError: React.Dispatch<React.SetStateAction<boolean>>;
   setLandingPage: React.Dispatch<React.SetStateAction<LandingPageT>>;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
@@ -40,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [landingPage, setLandingPage] = useState<LandingPageT>("on");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const [showAddChildError, setShowAddChildError] = useState<boolean>(false);
 
   const loggedIn = (username: string, password: string) => {
     setLog("logOut");
@@ -99,6 +101,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           maybeChild,
           landingPage,
           setLandingPage,
+          setShowAddChildError,
+          showAddChildError,
         }}
       >
         {children}

@@ -35,7 +35,7 @@ export const Header = () => {
     setCurrentChildId,
   } = useChildInfo();
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
-  const { setUser, maybeUser, maybeChild } = useAuthProviderContext();
+  const { setUser,  maybeChild } = useAuthProviderContext();
   const [iconColor, setIconColor] = useState<Color>("#A0C0FA");
   const filterChildInfo = () => {
     return (
@@ -183,6 +183,15 @@ export const Header = () => {
               <div
                 className={` pageLink `}
                 onClick={() => {
+                  setActiveMainComponent("about");
+                  setActiveMainComponentInLocalStorage("about");
+                }}
+              >
+                About
+              </div>
+              <div
+                className={` pageLink `}
+                onClick={() => {
                   setActiveMainComponent("signUp");
                 }}
               >
@@ -298,10 +307,10 @@ export const Header = () => {
             </section>
 
             <section
-              className={`landingPageHeader  ${maybeUser ? "hidden" : ""}`}
+              className={`landingPageHeader  ${maybeChild ? "hidden" : ""}`}
             >
               <div
-                className={` LandingPageLink ${maybeUser ? "hidden" : ""} `}
+                className={` LandingPageLink `}
                 onClick={() => {
                   setActiveMainComponent("landingPage");
                   setActiveMainComponentInLocalStorage("landingPage");
@@ -309,9 +318,17 @@ export const Header = () => {
               >
                 Log In
               </div>
-
               <div
-                className={` LandingPageLink ${maybeUser ? "hidden" : ""}`}
+                className={` LandingPageLink `}
+                onClick={() => {
+                  setActiveMainComponent("about");
+                  setActiveMainComponentInLocalStorage("about");
+                }}
+              >
+                About
+              </div>
+              <div
+                className={` LandingPageLink `}
                 onClick={() => {
                   setActiveMainComponent("signUp");
                   setActiveMainComponentInLocalStorage("signUp");
@@ -321,7 +338,7 @@ export const Header = () => {
               </div>
             </section>
 
-            <div className={`pagesDropDown ${maybeUser ? "" : "hidden"}`}>
+            <div className={`pagesDropDown ${maybeChild ? "" : "hidden"}`}>
               <div
                 className="linksContainer"
                 onClick={() => {

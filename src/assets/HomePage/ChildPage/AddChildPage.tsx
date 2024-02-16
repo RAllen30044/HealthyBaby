@@ -17,6 +17,7 @@ import { convertAgeToAppropriateAgeType } from "../TimeInfo/TimeConversion";
 import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
 import { useState } from "react";
+import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 type Gender = "Male" | "Female";
 
@@ -29,6 +30,7 @@ export const AddChildPage = () => {
   const { loading, setLoading, date, setDate } = useTimeInfo();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
+  const { setShowAddChildError, showAddChildError } = useAuthProviderContext();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
   const { fetchChildInfo, profileId, setChildId } = useHistoryIDComponent();
 
@@ -51,32 +53,13 @@ export const AddChildPage = () => {
   //   }
   // };
 
+  const addChildErrorMessage =
+    "This profile has not added a child. In order to continue you must add a child to your profile.";
   return (
     <>
       <div className="childPage">
         <h1>Add Child </h1>
         <div className="childPageInfo">
-          {/* <div
-            className="childPictureContainer"
-            onClick={() => {
-              document.getElementById("fileInput")?.click();
-            }}
-          >
-            {babyPic ? (
-              <img src={`${babyPic}`} alt="" />
-            ) : (
-              <i className="fa fa-plus fa-5x" aria-hidden="false"></i>
-            )}
-
-            <input
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-          </div> */}
-
           <form
             action="POST"
             className="childInfo"
@@ -98,7 +81,7 @@ export const AddChildPage = () => {
                   weight: `${weight} `,
                   headSize: `${headSize}`,
                   height: `${height}`,
-                  // url: babyPic ? babyPic : "",
+
                   profileId: profileId,
                 },
                 childUrl
@@ -136,10 +119,15 @@ export const AddChildPage = () => {
                   setActiveHomePageComponentInLocalStorage("feeding");
                 })
                 .then(() => {
+                  setShowAddChildError(false);
                   setLoading(false);
                 });
             }}
           >
+            {" "}
+            {showAddChildError && (
+              <ErrorMessage message={addChildErrorMessage} show={true} />
+            )}
             <div className="nameInfo childInfoContainer">
               <label className="childName childInfoLabel">Name:</label>
               <input
@@ -214,7 +202,6 @@ export const AddChildPage = () => {
               />
               <span> in.</span>
             </div>
-
             <div className="headSizeInfo childInfoContainer">
               <label className="headSize childInfoLabel">Head Size:</label>
               <input

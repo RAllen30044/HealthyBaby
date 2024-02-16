@@ -43,7 +43,8 @@ const icons = [
 export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, setLog, setLandingPage } = useAuthProviderContext();
+  const { loggedIn, setLog, maybeChild, setShowAddChildError } =
+    useAuthProviderContext();
   const { setProfileId, childInfo } = useHistoryIDComponent();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
@@ -72,7 +73,6 @@ export const LandingPage = () => {
       if (containerRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
         if (scrollTop + clientHeight >= scrollHeight - 20) {
-          // Trigger before hitting the bottom
           loadIcons();
         }
       }
@@ -140,8 +140,13 @@ export const LandingPage = () => {
           loggedIn(userNameInput, passwordInput);
           setLog("logOut");
           // const userID = localStorage.getItem("user");
+          if (!firstAvailableChild(childInfo, user)) {
+            setActiveMainComponent("addChild");
+            setActiveMainComponentInLocalStorage("addChild");
+            setShowAddChildError(true);
+            return;
+          }
 
-          setLandingPage("off");
           setActiveHomePageComponent("feeding");
           setActiveHomePageComponentInLocalStorage("feeding");
           setActiveMainComponent("home");

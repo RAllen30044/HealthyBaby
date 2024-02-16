@@ -101,7 +101,7 @@ button:focus-visible {
 .disease {
   color: greenyellow;
 }
-.child {
+li.healthyBabyIcons.child {
   color: blue;
 }
 .bowl-food {

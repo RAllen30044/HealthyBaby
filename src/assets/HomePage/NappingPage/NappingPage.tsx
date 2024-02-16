@@ -46,7 +46,6 @@ export const NappingPage = () => {
     });
   };
 
-
   return (
     <>
       <div className="banner nappingBanner">
@@ -88,11 +87,10 @@ export const NappingPage = () => {
               });
           }}
         >
+          <TimeInfo />
           {shouldShowDateTimeEntryError && (
             <ErrorMessage message={futureTimeNotAllowed} show={true} />
           )}
-
-          <TimeInfo />
           <div className="napLength ">
             <label htmlFor="napLength">Nap Length:</label>
             <input
@@ -106,7 +104,6 @@ export const NappingPage = () => {
             />
             <span> min</span>
           </div>
-
           <div className="saveContainer">
             <button
               type="submit"

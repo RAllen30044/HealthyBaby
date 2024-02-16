@@ -64,7 +64,14 @@ body {
   background-color: lightgray;
 }
 .error-message {
-  color: red;
+  color: white;
+  margin: 5px 0;
+  background-color: rgb(238, 70, 70);
+  text-align: center;
+  border: solid 1px transparent;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px inset silver;
+  
 }
 
 .fa-baby {

@@ -100,11 +100,13 @@ export const DaiperPage = () => {
               });
           }}
         >
-          {shouldShowDateTimeEntryError && (
-            <ErrorMessage message={futureTimeNotAllowed} show={true} />
-          )}
-
           <TimeInfo />
+       
+          
+            {shouldShowDateTimeEntryError && (
+              <ErrorMessage message={futureTimeNotAllowed} show={true} />
+            )}
+         
           <div className="diaperType ">
             <label htmlFor="diaperType">Diaper Type?</label>
             <br />
