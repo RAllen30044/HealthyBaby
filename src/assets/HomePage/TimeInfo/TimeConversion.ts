@@ -90,6 +90,8 @@ export const convertAgeToAppropriateAgeType = (DOB: string): string => {
     calculateAgeInMonths(shortHandDate) > 1
   ) {
     return `${calculateAgeInMonths(shortHandDate)} months`;
+  } else if (calculateAgeInMonths(shortHandDate) === 1) {
+    return `${calculateAgeInMonths(shortHandDate)} month`;
   } else {
     return `${calculateAgeInDays(shortHandDate)} days`;
   }

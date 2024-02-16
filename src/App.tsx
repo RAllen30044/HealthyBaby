@@ -1,7 +1,7 @@
 // import { useEffect, useState } from "react";
 
 import "./responsive.css";
-import { HealthyBabySite } from "./assets/HealthyBabySite/HealthBabySite";
+import { HealthyBabySite } from "./assets/HealthyBabySite/HealthyBabySite";
 
 
 

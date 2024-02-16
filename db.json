@@ -11,6 +11,12 @@
       "password": "Saint",
       "caregiver": "Debbie",
       "id": 2
+    },
+    {
+      "username": "Prime",
+      "password": "Cowboys21",
+      "caregiver": "Wife",
+      "id": 3
     }
   ],
   "child": [
@@ -28,7 +34,7 @@
     {
       "name": "Robby",
       "DOB": "2024-02-07",
-      "age": "5 days",
+      "age": "8 days",
       "gender": "Male",
       "weight": "7",
       "headSize": "19",
@@ -57,12 +63,82 @@
       "height": "20",
       "profileId": 2,
       "id": 4
+    },
+    {
+      "name": "Brett",
+      "DOB": "2024-01-05",
+      "age": "39 days",
+      "gender": "Male",
+      "weight": "13 ",
+      "headSize": "20",
+      "height": "21",
+      "profileId": 2,
+      "id": 5
+    },
+    {
+      "name": "Johnny",
+      "DOB": "2023-11-14",
+      "age": "2 months",
+      "gender": "Male",
+      "weight": "23 ",
+      "headSize": "20",
+      "height": "21",
+      "profileId": 2,
+      "id": 6
+    },
+    {
+      "name": "Bianca",
+      "DOB": "2023-12-20",
+      "age": "1 month",
+      "gender": "Female",
+      "weight": "20 ",
+      "headSize": "21",
+      "height": "22",
+      "profileId": 2,
+      "id": 7
+    },
+    {
+      "name": "Shilo",
+      "DOB": "2024-01-15",
+      "age": "1 month",
+      "gender": "Male",
+      "weight": "7 ",
+      "headSize": "20",
+      "height": "19",
+      "profileId": 3,
+      "id": 8
     }
   ],
   "napHistory": [],
-  "bottleFeedingHistory": [],
-  "breastFeedingHistory": [],
-  "infantFeedingHistory": [],
+  "bottleFeedingHistory": [
+    {
+      "time": "12:50 AM",
+      "date": "February 14, 2024",
+      "oz": "3",
+      "ozLeft": "1",
+      "childId": 8,
+      "id": 1
+    }
+  ],
+  "breastFeedingHistory": [
+    {
+      "time": "11:50 AM",
+      "date": "January 2, 2024",
+      "feedingTimeLength": "20min",
+      "childId": 8,
+      "id": 1
+    }
+  ],
+  "infantFeedingHistory": [
+    {
+      "time": "12:19 PM",
+      "date": "February 12, 2024",
+      "drinkType": "Milk",
+      "foodType": "Green eggs and ham",
+      "childId": 1,
+      "id": 1
+    }
+  ],
   "diapersHistory": [
     {
       "time": "11:24 PM",
@@ -79,6 +155,22 @@
       "consistancy": "Soft",
       "childId": 2,
       "id": 2
+    },
+    {
+      "time": "6:57 AM",
+      "date": "February 5, 2024",
+      "type": "Poop",
+      "consistancy": "Pebbles",
+      "childId": 8,
+      "id": 3
+    },
+    {
+      "time": "10:59 AM",
+      "date": "February 13, 2024",
+      "type": "Wet",
+      "consistancy": "Wet",
+      "childId": 8,
+      "id": 4
     }
   ],
   "illness": []

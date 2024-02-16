@@ -10,6 +10,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+
 }
 
 html {
@@ -65,6 +67,6 @@ body {
   color: red;
 }
 
-.fa-baby{
-  color: #A0C0FA;
+.fa-baby {
+  color: #a0c0fa;
 }

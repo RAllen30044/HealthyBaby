@@ -12,6 +12,8 @@ import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
 import { useState } from "react";
 
+type Color = "#A0C0FA" | "gray";
+
 export const Header = () => {
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
 
@@ -34,7 +36,7 @@ export const Header = () => {
   } = useChildInfo();
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
   const { setUser, maybeUser, maybeChild } = useAuthProviderContext();
-
+  const [iconColor, setIconColor] = useState<Color>("#A0C0FA");
   const filterChildInfo = () => {
     return (
       <div className="filteredChildInfo">
@@ -93,15 +95,25 @@ export const Header = () => {
                 className={`logoActionContainer`}
                 onClick={() => {
                   setHiddenChildLinks(!hiddenChildLinks);
+                  if (iconColor === "gray") {
+                    setIconColor("#A0C0FA");
+                  } else {
+                    setIconColor("gray");
+                  }
                 }}
                 onMouseLeave={() => {
                   setHiddenChildLinks(false);
+                  setIconColor("#A0C0FA");
                 }}
                 onMouseEnter={() => {
                   setHiddenChildLinks(true);
+                  setIconColor("gray");
                 }}
               >
-                <i className={`fa-solid fa-baby `}></i>
+                <i
+                  className={`fa-solid fa-baby `}
+                  style={{ color: iconColor }}
+                ></i>
 
                 <div
                   className={`childList ${

@@ -26,7 +26,7 @@ export const BreastFeedingHistory = ({
               <h4>Date: {history.date}</h4>
               <h4>Time: {history.time}</h4>
               <h4>
-                Feeding Time in minutes and seconds:
+                Feeding Time in minutes and seconds: 
                 {history.feedingTimeLength}
               </h4>
             </div>

@@ -1,0 +1,160 @@
+:root {
+  --healthyBabyIcons-width: 60vw;
+  --healthyBabyIcons-height: 15vh;
+  --healthyBabyIcons-elms-displayed: 5;
+  --healthyBabyIcons-elms: 10;
+  --healthyBabyIcons-elm-width: calc(
+    var(--healthyBabyIcons-width) / var(--healthyBabyIcons-elms-displayed)
+  );
+  --healthyBabyIcons-duration-animation: calc(
+    var(--healthyBabyIcons-elms) * 3s
+  );
+}
+
+.authentication {
+  text-align: center;
+  display: flex;
+
+  height: 30vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+form h3 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.logInButton:hover {
+  background-color: lightgray;
+}
+/* button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+} */
+.healthyBabyIconsContainer {
+  width: var(--healthyBabyIcons-width);
+  height: var(--healthyBabyIcons-height);
+  overflow: hidden;
+  margin: 2rem auto;
+  position: relative;
+}
+.healthyBabyIcons {
+  list-style: none;
+  display: flex;
+  height: 100%;
+  animation: scrolling var(--healthyBabyIcons-duration-animation) linear
+    infinite;
+}
+.healthyBabyIcons li {
+  width: var(--healthyBabyIcons-elm-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 100%;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: calc(var(--healthyBabyIcons-height) * 3 / 4);
+}
+.healthyBabyIconsContainer:before,
+.healthyBabyIconsContainer:after {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  content: "";
+  z-index: 1;
+  width: 10rem;
+}
+
+.healthyBabyIconsContainer:before {
+  left: 0;
+  background: linear-gradient(to right, white 0%, transparent 100%);
+}
+.healthyBabyIconsContainer:after {
+  right: 0;
+  background: linear-gradient(to left, white 0%, transparent 100%);
+}
+.poo {
+  color: brown;
+}
+.disease {
+  color: greenyellow;
+}
+.child {
+  color: blue;
+}
+.bowl-food {
+  color: green;
+}
+.baby-carriage {
+  color: fuchsia;
+}
+.apple-whole {
+  color: red;
+}
+li.healthyBabyIcon.child-dress {
+  color: pink;
+}
+.bed {
+  color: skyblue;
+}
+.syringe {
+  color: #747bff;
+}
+@keyframes scrolling {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      calc(
+        -1 * var(--healthyBabyIcons-elm-width) * var(--healthyBabyIcons-elms)
+      )
+    );
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  :root {
+    --healthyBabyIcons-width: 100%;
+    --healthyBabyIcons-elms-displayed: 3;
+  }
+  .healthyBabyIcons:before,
+  .healthyBabyIcons:after {
+    width: 5rem;
+  }
+}
+
+@media (max-width: 450px) {
+  :root {
+    --healthyBabyIcons-width: 100%;
+    --healthyBabyIcons-elms-displayed: 2;
+  }
+  .healthyBabyIconsContainer:before,
+  .healthyBabyIcons:after {
+    width: 5rem;
+  }
+}

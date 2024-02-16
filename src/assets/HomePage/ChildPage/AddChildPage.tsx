@@ -4,6 +4,8 @@ import {
   futureDOBNotAllowed,
   onlyKeyNumbers,
   preventKeyingNumbers,
+  setActiveHomePageComponentInLocalStorage,
+  setActiveMainComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
@@ -114,6 +116,7 @@ export const AddChildPage = () => {
                     JSON.stringify({
                       name: data.name,
                       age: data.age,
+                      DOB: data.DOB,
                       gender: data.gender,
                       weight: data.weight,
                       height: data.height,
@@ -128,7 +131,9 @@ export const AddChildPage = () => {
                 .then(fetchChildInfo)
                 .then(() => {
                   setActiveMainComponent("home");
+                  setActiveMainComponentInLocalStorage("home");
                   setActiveHomePageComponent("feeding");
+                  setActiveHomePageComponentInLocalStorage("feeding");
                 })
                 .then(() => {
                   setLoading(false);

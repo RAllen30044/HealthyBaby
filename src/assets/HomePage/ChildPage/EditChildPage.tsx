@@ -4,8 +4,8 @@ import {
   futureDOBNotAllowed,
   onlyKeyNumbers,
   preventKeyingNumbers,
-  
   setActiveHomePageComponentInLocalStorage,
+  setActiveMainComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
@@ -22,43 +22,6 @@ import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponent
 // const getCurrentChildInfo = localStorage.getItem("child");
 
 export const EditChildPage = () => {
-  // const [correctedName, setCorrectedName] = useState(
-  //   getCurrentChildInfo
-  //     ? JSON.parse(getCurrentChildInfo).name
-  //     : "Couldn't find name"
-
-  // );
-  // const [correctedGender, setCorrectedGender] = useState(
-  //   getCurrentChildInfo
-  //     ? JSON.parse(getCurrentChildInfo).gender
-  //     : "Couldn't find gender"
-
-  // );
-  // const [correctedWeight, setCorrectedWeight] = useState(
-  //   getCurrentChildInfo
-  //     ? JSON.parse(getCurrentChildInfo).weight
-  //     : "Couldn't find Weight"
-
-  // );
-  // const [correctedHeight, setCorrectedHeight] = useState(
-  //   getCurrentChildInfo
-  //     ? JSON.parse(getCurrentChildInfo).height
-  //     : "Couldn't find height"
-
-  // );
-  // const [correctedHeadSize, setCorrectedHeadSize] = useState(
-  //   getCurrentChildInfo
-  //     ? JSON.parse(getCurrentChildInfo).headSize
-  //     : "Couldn't find head size"
-
-  // );
-  // const [correctedDOB, seCorrectedDOB] = useState(
-  //   getCurrentChildInfo
-  //     ? JSON.parse(getCurrentChildInfo).DOB
-  //     : "Couldn't find DOB"
-
-  // );
-
   const {
     childName,
     setChildName,
@@ -77,55 +40,16 @@ export const EditChildPage = () => {
   } = useChildInfo();
 
   const { loading, setLoading } = useTimeInfo();
-  const { setActiveHomePageComponent, setEditor } = useActiveComponent();
+  const { setActiveHomePageComponent, setActiveMainComponent, setEditor } =
+    useActiveComponent();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
   const { fetchChildInfo, setChildId } = useHistoryIDComponent();
-
-  // const [babyPic, setBabyPic] = useState<string>("");
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const selectedFile = e.target.files?.[0];
-  //   // Do something with the selected file, e.g., display it or upload it
-  //   if (selectedFile) {
-  //     const reader = new FileReader();
-
-  //     reader.onload = () => {
-  //       // Set the selected image to the base64 data URL of the selected file.
-  //       const dataUrl = reader.result as string;
-  //       setBabyPic(dataUrl);
-  //       localStorage.setItem("selectedPicture", dataUrl);
-  //     };
-
-  //     reader.readAsDataURL(selectedFile);
-  //   }
-  // };
 
   return (
     <>
       <div className="childPage">
         <h1>Edit Child </h1>
         <div className="childPageInfo">
-          {/* <div
-            className="childPictureContainer"
-            onClick={() => {
-              document.getElementById("fileInput")?.click();
-            }}
-          >
-            {babyPic ? (
-              <img src={`${babyPic}`} alt="" />
-            ) : (
-              <i className="fa fa-plus fa-5x" aria-hidden="false"></i>
-            )}
-
-            <input
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-          </div> */}
-
           <form
             action="POST"
             className="childInfo"
@@ -165,7 +89,7 @@ export const EditChildPage = () => {
                       gender: data.gender,
                       weight: data.weight,
                       height: data.height,
-                      headSize: data.HeadSize,
+                      headSize: data.headSize,
                       profileId: data.profileId,
                       id: data.id,
                     })
@@ -176,8 +100,11 @@ export const EditChildPage = () => {
                 .then(fetchChildInfo)
 
                 .then(() => {
+                  toast.success("Child Profile information Updated");
                   setActiveHomePageComponent("feeding");
                   setActiveHomePageComponentInLocalStorage("feeding");
+                  setActiveMainComponent("home");
+                  setActiveMainComponentInLocalStorage("home");
                   setEditor("not present");
                   setLoading(false);
                 });
