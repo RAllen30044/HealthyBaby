@@ -35,7 +35,7 @@ export const Header = () => {
     setCurrentChildId,
   } = useChildInfo();
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
-  const { setUser,  maybeChild } = useAuthProviderContext();
+  const { setUser, maybeChild } = useAuthProviderContext();
   const [iconColor, setIconColor] = useState<Color>("#A0C0FA");
   const filterChildInfo = () => {
     return (

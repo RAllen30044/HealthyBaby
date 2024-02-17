@@ -1,7 +1,11 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./FeedingPage.css";
 
-import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import {
+  TimeInfo,
+  dateBeforeBirthMessage,
+  useTimeInfo,
+} from "../TimeInfo/TimeInfoProvider";
 import { useState } from "react";
 
 import { BreastFeedingHistory } from "./BreastFeedingHistory";
@@ -24,12 +28,14 @@ import { InfantFeedingHistory } from "./InfantFeedingHistory";
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
+  isDateBeforeBirth,
   onlyKeyNumbers,
   onlyNumbersWithDecimal,
   preventKeyingNumbers,
   timeInvaild,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
+import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 type FeedingType = "breastFeed" | "bottleFeed" | "infantModeOff";
 type InfantModeType = "on" | "off";
@@ -52,6 +58,7 @@ export const FeedingPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
+    shouldShowDateBeforeBirthError,
   } = useTimeInfo();
   const {
     bottleFeedHistory,
@@ -66,6 +73,7 @@ export const FeedingPage = () => {
     childId,
   } = useHistoryIDComponent();
 
+  const { maybeChild } = useAuthProviderContext();
   const removeBreastFeedingHistory = (id: number) => {
     const updateData = breastFeedHistory.filter((history) => history.id !== id);
 
@@ -176,6 +184,14 @@ export const FeedingPage = () => {
               setIsSubmitted(true);
               return;
             }
+            if (
+              maybeChild &&
+              isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+            ) {
+              setIsSubmitted(true);
+              return;
+            }
+
             setIsSubmitted(false);
 
             setLoading(true);
@@ -248,6 +264,9 @@ export const FeedingPage = () => {
           <TimeInfo />{" "}
           {shouldShowDateTimeEntryError && (
             <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+          {shouldShowDateBeforeBirthError && (
+            <ErrorMessage message={dateBeforeBirthMessage} show={true} />
           )}
           <div
             className={`bottleFeedInput ${

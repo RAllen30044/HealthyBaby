@@ -1,6 +1,10 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./IllnessPage.css";
-import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import {
+  TimeInfo,
+  dateBeforeBirthMessage,
+  useTimeInfo,
+} from "../TimeInfo/TimeInfoProvider";
 import { useState } from "react";
 
 import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../api";
@@ -13,11 +17,13 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
+  isDateBeforeBirth,
   onlyNumbersWithDecimal,
   preventKeyingNumbers,
   timeInvaild,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
+import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 export const IllnessPage = () => {
   const [sicknessType, setSicknessType] = useState("");
@@ -33,8 +39,9 @@ export const IllnessPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
+    shouldShowDateBeforeBirthError,
   } = useTimeInfo();
-
+  const { maybeChild } = useAuthProviderContext();
   const { illnessHistory, setIllnessHistory, fetchIllnessHistory, childId } =
     useHistoryIDComponent();
 
@@ -65,6 +72,13 @@ export const IllnessPage = () => {
             e.preventDefault();
 
             if (timeInvaild(date, time)) {
+              setIsSubmitted(true);
+              return;
+            }
+            if (
+              maybeChild &&
+              isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+            ) {
               setIsSubmitted(true);
               return;
             }
@@ -101,6 +115,9 @@ export const IllnessPage = () => {
           <TimeInfo />
           {shouldShowDateTimeEntryError && (
             <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+          {shouldShowDateBeforeBirthError && (
+            <ErrorMessage message={dateBeforeBirthMessage} show={true} />
           )}
           <div className="sickness">
             <label htmlFor="sickness">Sickness: </label>

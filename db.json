@@ -151,7 +151,7 @@
     {
       "name": "Joe",
       "DOB": "2024-02-13",
-      "age": "2 days",
+      "age": "NaN days",
       "gender": "Female",
       "weight": "12 ",
       "headSize": "21",
@@ -222,6 +222,14 @@
       "consistancy": "Wet",
       "childId": 8,
       "id": 4
+    },
+    {
+      "time": "10:53 PM",
+      "date": "February 14, 2024",
+      "type": "Poop",
+      "consistancy": "Solid",
+      "childId": 11,
+      "id": 5
     }
   ],
   "illness": []

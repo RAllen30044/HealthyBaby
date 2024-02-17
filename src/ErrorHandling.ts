@@ -66,3 +66,7 @@ export const babyNameForHistory = () => {
   const child = localStorage.getItem("child");
   return child ? JSON.parse(child)?.name : "";
 };
+
+export const isDateBeforeBirth = (DOB: string, currentDate: string) => {
+  return currentDate < DOB;
+};

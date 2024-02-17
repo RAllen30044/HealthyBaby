@@ -1,5 +1,9 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
-import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import {
+  TimeInfo,
+  dateBeforeBirthMessage,
+  useTimeInfo,
+} from "../TimeInfo/TimeInfoProvider";
 
 import { useState } from "react";
 import "./NappingPage.css";
@@ -14,10 +18,12 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
+  isDateBeforeBirth,
   onlyKeyNumbers,
   timeInvaild,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
+import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 export const NappingPage = () => {
   const [LengthOfTime, setLengthOfTime] = useState("");
@@ -30,8 +36,10 @@ export const NappingPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
+    shouldShowDateBeforeBirthError,
   } = useTimeInfo();
 
+  const { maybeChild } = useAuthProviderContext();
   const { nappingHistory, setNappingHistory, fetchNappingHistory, childId } =
     useHistoryIDComponent();
 
@@ -65,6 +73,13 @@ export const NappingPage = () => {
               setIsSubmitted(true);
               return;
             }
+            if (
+              maybeChild &&
+              isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+            ) {
+              setIsSubmitted(true);
+              return;
+            }
             setIsSubmitted(false);
             setLoading(true);
             postInfo(
@@ -90,6 +105,9 @@ export const NappingPage = () => {
           <TimeInfo />
           {shouldShowDateTimeEntryError && (
             <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+          {shouldShowDateBeforeBirthError && (
+            <ErrorMessage message={dateBeforeBirthMessage} show={true} />
           )}
           <div className="napLength ">
             <label htmlFor="napLength">Nap Length:</label>

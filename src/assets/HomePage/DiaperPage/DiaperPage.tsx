@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { ChildInfo } from "../ChildInfo/ChildInfo";
-import { TimeInfo, useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import {
+  TimeInfo,
+  dateBeforeBirthMessage,
+  useTimeInfo,
+} from "../TimeInfo/TimeInfoProvider";
 import "./Diaper.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,9 +24,11 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
+  isDateBeforeBirth,
   timeInvaild,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
+import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 type DaiperType = "Wet" | "Poop";
 type ConsistancyTypeT = "Pebbles" | "Solid" | "Soft" | "Wet";
@@ -30,7 +36,7 @@ type ConsistancyTypeT = "Pebbles" | "Solid" | "Soft" | "Wet";
 export const DaiperPage = () => {
   const [diaperType, setDiaperType] = useState<DaiperType>("Wet");
   const [consistancy, setConsistancy] = useState<ConsistancyTypeT>("Wet");
-
+  const { maybeChild } = useAuthProviderContext();
   const {
     time,
     setTime,
@@ -40,6 +46,7 @@ export const DaiperPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
+    shouldShowDateBeforeBirthError,
   } = useTimeInfo();
   const { diapersHistory, setDiapersHistory, fetchDaiperHistory, childId } =
     useHistoryIDComponent();
@@ -76,6 +83,13 @@ export const DaiperPage = () => {
               setIsSubmitted(true);
               return;
             }
+            if (
+              maybeChild &&
+              isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+            ) {
+              setIsSubmitted(true);
+              return;
+            }
             setIsSubmitted(false);
             setLoading(true);
             return postInfo(
@@ -101,12 +115,13 @@ export const DaiperPage = () => {
           }}
         >
           <TimeInfo />
-       
-          
-            {shouldShowDateTimeEntryError && (
-              <ErrorMessage message={futureTimeNotAllowed} show={true} />
-            )}
-         
+
+          {shouldShowDateTimeEntryError && (
+            <ErrorMessage message={futureTimeNotAllowed} show={true} />
+          )}
+          {shouldShowDateBeforeBirthError && (
+            <ErrorMessage message={dateBeforeBirthMessage} show={true} />
+          )}
           <div className="diaperType ">
             <label htmlFor="diaperType">Diaper Type?</label>
             <br />

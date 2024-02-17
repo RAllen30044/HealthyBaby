@@ -43,8 +43,7 @@ const icons = [
 export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, setLog, maybeChild, setShowAddChildError } =
-    useAuthProviderContext();
+  const { loggedIn, setLog, setShowAddChildError } = useAuthProviderContext();
   const { setProfileId, childInfo } = useHistoryIDComponent();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
