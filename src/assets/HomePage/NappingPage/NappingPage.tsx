@@ -42,6 +42,7 @@ export const NappingPage = () => {
   const { maybeChild } = useAuthProviderContext();
   const { nappingHistory, setNappingHistory, fetchNappingHistory, childId } =
     useHistoryIDComponent();
+console.log(nappingHistory);
 
   const removeNappingHistory = (id: number) => {
     const updateData = nappingHistory.filter((history) => history.id !== id);
@@ -142,10 +143,10 @@ export const NappingPage = () => {
         {nappingHistory
           .filter((history) => history.childId === childId)
           .sort((b, a) => {
-            if (a.date < b.date) {
+            if (new Date(a.date) < new Date(b.date)) {
               return -1;
             }
-            if (a.date > b.date) {
+            if (new Date(a.date) > new Date(b.date)) {
               return 1;
             }
 

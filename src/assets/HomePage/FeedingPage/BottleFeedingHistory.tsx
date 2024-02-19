@@ -11,10 +11,10 @@ export const BottleFeedingHistory = ({
       {bottleFeedHistory
         .filter((history) => history.childId === childId)
         .sort((b, a) => {
-          if (a.date < b.date) {
+          if (new Date(a.date) < new Date(b.date)) {
             return -1;
           }
-          if (a.date > b.date) {
+          if (new Date(a.date) > new Date(b.date)) {
             return 1;
           }
 
@@ -24,7 +24,6 @@ export const BottleFeedingHistory = ({
           return (
             <div className="historyContainer" key={history.id}>
               <div className="bottlefeedingHistory feedingTimeline">
-
                 <h4>Date: {history.date}</h4>
                 <h4>Time: {history.time}</h4>
                 <h4>Oz.: {history.oz}</h4>

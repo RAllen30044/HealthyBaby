@@ -213,10 +213,10 @@ export const DaiperPage = () => {
         {diapersHistory
           .filter((history) => history.childId === childId)
           .sort((b, a) => {
-            if (a.date < b.date) {
+            if (new Date(a.date) < new Date(b.date)) {
               return -1;
             }
-            if (a.date > b.date) {
+            if (new Date(a.date) > new Date(b.date)) {
               return 1;
             }
 

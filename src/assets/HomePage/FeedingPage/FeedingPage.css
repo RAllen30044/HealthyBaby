@@ -1,4 +1,3 @@
-
 .feedingBanner {
   background-color: #fadd9f;
 }
@@ -11,45 +10,54 @@
   /* box-shadow: 1px 1px 2px 2px inset; */
 }
 
-.categoryName h1{
+.categoryName h1 {
   margin-bottom: 0;
 }
-button h2{
+button h2 {
   margin: auto;
+}
+button.infantModeSwitch {
+  background-color: #bab4a6;
+}
 
+
+button.infantModeSwitch:hover {
+  background-color: #9d988c;
+  
 }
-button.infantModeSwitch{
-  background-color: #BAB4A6;
+button.infantModeSwitch.pressedButton {
+  background-color: #9d988c;
 }
-button.infantModeSwitch.pressedButton{
-  background-color: #9D988C;
-}
-.infantModeSwitch .fa-baby{
+.infantModeSwitch .fa-baby {
   color: #fadd9f;
 }
-.fa-child-dress{
-  color: #FAC093;
+.fa-child-dress {
+  color: #fac093;
 }
-.fa-child-reaching{
-  color: #425BF5;
+.fa-child-reaching {
+  color: #425bf5;
 }
 
-button.bottleFeed{
+button.bottleFeed {
   padding: 10px;
-  background-color: #BAB4A6;
+  background-color: #bab4a6;
 }
-button.bottleFeed.pressedButton{
-  
-  background-color: #9D988C;
+button.bottleFeed:hover {
+  background-color: #9d988c;
 }
-button.breastFeed{
+button.bottleFeed.pressedButton {
+  background-color: #9d988c;
+}
+button.breastFeed {
   padding: 10px;
-  background-color: #BAB4A6;
+  background-color: #bab4a6;
 }
-button.breastFeed.pressedButton{
-  
-  background-color: #9D988C;
+button.breastFeed:hover {
+  background-color: #9d988c;
 }
-.subCategories button{
+button.breastFeed.pressedButton {
+  background-color: #9d988c;
+}
+.subCategories button {
   margin: 0 13px;
 }

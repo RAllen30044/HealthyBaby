@@ -145,7 +145,7 @@ export const Header = () => {
                   setActiveMainComponentInLocalStorage("about");
                 }}
               >
-                About
+                About Us
               </div>
               <div
                 className={` pageLink `}
@@ -187,7 +187,7 @@ export const Header = () => {
                   setActiveMainComponentInLocalStorage("about");
                 }}
               >
-                About
+                About Us
               </div>
               <div
                 className={` pageLink `}
@@ -254,7 +254,7 @@ export const Header = () => {
                       }}
                     >
                       <div className="linkContainer">
-                        <div className="aboutContainer"> About</div>
+                        <div className="aboutContainer"> About Us</div>
                       </div>
                     </div>
                     <div
@@ -325,7 +325,7 @@ export const Header = () => {
                   setActiveMainComponentInLocalStorage("about");
                 }}
               >
-                About
+                About Us
               </div>
               <div
                 className={` LandingPageLink `}

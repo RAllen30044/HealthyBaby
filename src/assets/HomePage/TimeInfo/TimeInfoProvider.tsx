@@ -5,6 +5,13 @@ import {
   timeInvaild,
 } from "../../../ErrorHandling";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
+import { faker } from "@faker-js/faker";
+import {
+  convertToStandardTime,
+  formatDate,
+  setRandomTime,
+} from "./TimeConversion";
+import { max, min } from "lodash";
 
 export type TimeInfoProviderT = {
   time: string;
@@ -35,6 +42,11 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
     isSubmitted &&
     isDateBeforeBirth(JSON.parse(maybeChild || "Error finding DOB").DOB, date);
 
+  console.log(
+    formatDate(`${faker.date.birthdate({ min: 0, max: 6, mode: "age" })}`)
+  );
+  console.log(setRandomTime());
+
   return (
     <TimeInfoContext.Provider
       value={{
@@ -55,8 +67,6 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
     </TimeInfoContext.Provider>
   );
 };
-
-
 
 export const dateBeforeBirthMessage =
   "Can not choose a date the is before the birth of the child";

@@ -3,38 +3,26 @@
     {
       "username": "robharmony",
       "password": "Comets#29",
-      "caregiver": "Debbie",
+      "caregiver": "robharmony",
       "id": 1
     },
     {
-      "username": "Yalana1987",
-      "password": "Saint",
-      "caregiver": "Debbie",
+      "username": "Lebron",
+      "password": "Cavs23",
+      "caregiver": "James",
       "id": 2
     },
     {
-      "username": "Prime",
-      "password": "Cowboys21",
-      "caregiver": "Wife",
+      "username": "leemuffin87",
+      "password": "Arinaya2223",
+      "caregiver": "Yalana",
       "id": 3
     },
     {
-      "username": "lebron",
-      "password": "Cavs23",
-      "caregiver": "James",
+      "username": "Jarvis",
+      "password": "brittany",
+      "caregiver": "Brittney",
       "id": 4
-    },
-    {
-      "username": "Brittney",
-      "password": "Newborn",
-      "caregiver": "Jarvis",
-      "id": 5
-    },
-    {
-      "username": "Booby",
-      "password": "Spiderman",
-      "caregiver": "Miles",
-      "id": 6
     }
   ],
   "child": [
@@ -43,194 +31,305 @@
       "DOB": "2022-03-03",
       "age": "NaN days",
       "gender": "Female",
-      "weight": "52",
-      "headSize": "22",
+      "weight": "35 ",
+      "headSize": "21",
       "height": "35",
       "profileId": 1,
       "id": 1
     },
     {
-      "name": "Robby",
-      "DOB": "2024-02-07",
-      "age": "8 days",
-      "gender": "Male",
-      "weight": "7",
-      "headSize": "19",
-      "height": "18",
+      "name": "Naya",
+      "DOB": "2023-02-27",
+      "age": "11 months",
+      "gender": "Female",
+      "weight": "30",
+      "headSize": "20",
+      "height": "24",
       "profileId": 1,
       "id": 2
     },
     {
-      "name": "Robert Jr",
-      "DOB": "2021-01-12",
-      "age": "3 yrs",
+      "name": "Bronny",
+      "DOB": "2018-05-08",
+      "age": "5 yrs.",
       "gender": "Male",
-      "weight": "56 ",
+      "weight": "67 ",
       "headSize": "22",
-      "height": "34",
+      "height": "52",
       "profileId": 2,
       "id": 3
     },
     {
-      "name": "Yalana Jr",
-      "DOB": "2024-01-04",
-      "age": "40 days",
-      "gender": "Female",
-      "weight": "10 ",
-      "headSize": "19",
-      "height": "20",
+      "name": "Bryce",
+      "DOB": "2022-10-18",
+      "age": "15 months",
+      "gender": "Male",
+      "weight": "34 ",
+      "headSize": "20",
+      "height": "26",
       "profileId": 2,
       "id": 4
     },
     {
-      "name": "Brett",
-      "DOB": "2024-01-05",
-      "age": "39 days",
-      "gender": "Male",
-      "weight": "13 ",
-      "headSize": "20",
+      "name": "Naya",
+      "DOB": "2023-02-27",
+      "age": "11 months",
+      "gender": "Female",
+      "weight": "7 ",
+      "headSize": "8",
       "height": "21",
-      "profileId": 2,
+      "profileId": 3,
       "id": 5
     },
     {
-      "name": "Johnny",
-      "DOB": "2023-11-14",
-      "age": "2 months",
+      "name": "Greg",
+      "DOB": "2024-02-06",
+      "age": "11 days",
       "gender": "Male",
-      "weight": "23 ",
+      "weight": "12",
       "headSize": "20",
       "height": "21",
-      "profileId": 2,
+      "profileId": 4,
       "id": 6
     },
     {
-      "name": "Bianca",
-      "DOB": "2023-12-20",
-      "age": "1 month",
-      "gender": "Female",
-      "weight": "20 ",
-      "headSize": "21",
-      "height": "22",
-      "profileId": 2,
-      "id": 7
-    },
-    {
-      "name": "Shilo",
-      "DOB": "2024-01-15",
-      "age": "1 month",
-      "gender": "Male",
-      "weight": "7 ",
-      "headSize": "20",
-      "height": "19",
-      "profileId": 3,
-      "id": 8
-    },
-    {
-      "name": "Bronny",
-      "DOB": "2024-02-05",
-      "age": "NaN days",
-      "gender": "Male",
-      "weight": "12 ",
-      "headSize": "21",
-      "height": "20",
-      "profileId": 4,
-      "id": 9
-    },
-    {
-      "name": "Joe",
+      "name": "Anna",
       "DOB": "2024-02-06",
-      "age": "NaN days",
-      "gender": "Male",
-      "weight": "12 ",
-      "headSize": "21",
-      "height": "20",
-      "profileId": 5,
-      "id": 10
-    },
-    {
-      "name": "Joe",
-      "DOB": "2024-02-13",
-      "age": "NaN days",
+      "age": "11 days",
       "gender": "Female",
-      "weight": "12 ",
-      "headSize": "21",
-      "height": "20",
-      "profileId": 6,
-      "id": 11
+      "weight": "9 ",
+      "headSize": "22",
+      "height": "18",
+      "profileId": 4,
+      "id": 7
     }
   ],
-  "napHistory": [],
+  "napHistory": [
+    {
+      "time": "7:35 AM",
+      "date": "February 16, 2024",
+      "lengthOfTime": "20",
+      "childId": 1,
+      "id": 1
+    },
+    {
+      "time": "6:35 AM",
+      "date": "January 30, 2024",
+      "lengthOfTime": "20",
+      "childId": 1,
+      "id": 2
+    },
+    {
+      "time": "6:42 PM",
+      "date": "February 14, 2024",
+      "lengthOfTime": "90",
+      "childId": 1,
+      "id": 3
+    },
+    {
+      "time": "6:55 PM",
+      "date": "February 15, 2024",
+      "lengthOfTime": "20",
+      "childId": 1,
+      "id": 4
+    },
+    {
+      "time": "1:00 PM",
+      "date": "February 17, 2024",
+      "lengthOfTime": "60",
+      "childId": 5,
+      "id": 5
+    }
+  ],
   "bottleFeedingHistory": [
     {
-      "time": "12:50 AM",
-      "date": "February 14, 2024",
-      "oz": "3",
-      "ozLeft": "1",
-      "childId": 8,
+      "time": "10:25 AM",
+      "date": "February 16, 2024",
+      "oz": "8",
+      "ozLeft": "2",
+      "childId": 2,
       "id": 1
+    },
+    {
+      "time": "6:27 PM",
+      "date": "February 7, 2024",
+      "oz": "8",
+      "ozLeft": "1",
+      "childId": 2,
+      "id": 2
+    },
+    {
+      "time": "9:06 PM",
+      "date": "February 5, 2024",
+      "oz": "12",
+      "ozLeft": "2",
+      "childId": 3,
+      "id": 3
+    },
+    {
+      "time": "12:01 PM",
+      "date": "February 6, 2024",
+      "oz": "12",
+      "ozLeft": "2",
+      "childId": 6,
+      "id": 4
     }
   ],
   "breastFeedingHistory": [
     {
-      "time": "11:50 AM",
-      "date": "January 2, 2024",
-      "feedingTimeLength": "20min",
-      "childId": 8,
+      "time": "2:02 PM",
+      "date": "February 16, 2024",
+      "feedingTimeLength": "20",
+      "childId": 7,
       "id": 1
     }
   ],
   "infantFeedingHistory": [
     {
-      "time": "12:19 PM",
-      "date": "February 12, 2024",
+      "time": "7:45 PM",
+      "date": "February 13, 2024",
       "drinkType": "Milk",
-      "foodType": "Green eggs and ham",
+      "foodType": "Mac and cheese chicken",
       "childId": 1,
       "id": 1
+    },
+    {
+      "time": "9:48 PM",
+      "date": "February 12, 2024",
+      "drinkType": "Milk",
+      "foodType": "Mac and cheese chicken",
+      "childId": 1,
+      "id": 2
+    },
+    {
+      "time": "6:48 PM",
+      "date": "February 16, 2024",
+      "drinkType": "Milk",
+      "foodType": "Mac and cheese chicken",
+      "childId": 1,
+      "id": 3
+    },
+    {
+      "time": "10:53 AM",
+      "date": "February 14, 2024",
+      "drinkType": "Water",
+      "foodType": "Pizza",
+      "childId": 1,
+      "id": 4
+    },
+    {
+      "time": "5:49 AM",
+      "date": "February 16, 2024",
+      "drinkType": "Milk",
+      "foodType": "Salad",
+      "childId": 1,
+      "id": 5
+    },
+    {
+      "time": "6:53 PM",
+      "date": "February 15, 2024",
+      "drinkType": "Milk",
+      "foodType": "asda",
+      "childId": 1,
+      "id": 6
     }
   ],
   "diapersHistory": [
     {
-      "time": "11:24 PM",
-      "date": "February 6, 2024",
+      "time": "6:35 PM",
+      "date": "February 17, 2024",
       "type": "Poop",
       "consistancy": "Solid",
-      "childId": 2,
+      "childId": 1,
       "id": 1
     },
     {
-      "time": "11:26 PM",
-      "date": "February 8, 2024",
-      "type": "Poop",
-      "consistancy": "Soft",
-      "childId": 2,
+      "time": "6:38 PM",
+      "date": "February 14, 2024",
+      "type": "Wet",
+      "consistancy": "Wet",
+      "childId": 1,
       "id": 2
     },
     {
-      "time": "6:57 AM",
-      "date": "February 5, 2024",
-      "type": "Poop",
-      "consistancy": "Pebbles",
-      "childId": 8,
+      "time": "6:43 AM",
+      "date": "February 16, 2024",
+      "type": "Wet",
+      "consistancy": "Wet",
+      "childId": 1,
       "id": 3
     },
     {
-      "time": "10:59 AM",
-      "date": "February 13, 2024",
+      "time": "6:44 PM",
+      "date": "February 16, 2024",
       "type": "Wet",
       "consistancy": "Wet",
-      "childId": 8,
+      "childId": 1,
       "id": 4
     },
     {
-      "time": "10:53 PM",
-      "date": "February 14, 2024",
+      "time": "9:57 PM",
+      "date": "January 30, 2024",
+      "type": "Poop",
+      "consistancy": "Pebbles",
+      "childId": 1,
+      "id": 5
+    },
+    {
+      "time": "10:06 PM",
+      "date": "February 15, 2024",
       "type": "Poop",
       "consistancy": "Solid",
-      "childId": 11,
-      "id": 5
+      "childId": 6,
+      "id": 6
+    },
+    {
+      "time": "12:03 PM",
+      "date": "February 12, 2024",
+      "type": "Wet",
+      "consistancy": "Wet",
+      "childId": 6,
+      "id": 7
+    },
+    {
+      "time": "10:05 PM",
+      "date": "February 16, 2024",
+      "type": "Poop",
+      "consistancy": "Pebbles",
+      "childId": 6,
+      "id": 8
     }
   ],
-  "illness": []
+  "illness": [
+    {
+      "time": "6:39 PM",
+      "date": "February 16, 2024",
+      "sicknessType": "Fever",
+      "symptoms": "Runny nose, Cough ",
+      "medicineGiven": "Tylenol",
+      "oz": "1.5",
+      "childId": 1,
+      "id": 1
+    },
+    {
+      "time": "6:41 PM",
+      "date": "February 15, 2024",
+      "sicknessType": "Fever",
+      "symptoms": "Runny nose, Cough ",
+      "medicineGiven": "Tylenol",
+      "oz": "1.5",
+      "childId": 1,
+      "id": 2
+    },
+    {
+      "time": "9:22 PM",
+      "date": "January 31, 2024",
+      "sicknessType": "cold",
+      "symptoms": "fever, runny nose",
+      "medicineGiven": "nyquil",
+      "oz": "3",
+      "childId": 3,
+      "id": 3
+    }
+  ]
 }

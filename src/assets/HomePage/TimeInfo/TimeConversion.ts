@@ -84,7 +84,7 @@ export const convertAgeToAppropriateAgeType = (DOB: string): string => {
   } else if (calculateAgeInDays(shortHandDate) === 1) {
     return `${calculateAgeInDays(shortHandDate)} day`;
   } else if (calculateAgeInMonths(shortHandDate) >= 24) {
-    return `${calculateAge(shortHandDate)} yrs`;
+    return `${calculateAge(shortHandDate)} yrs.`;
   } else if (
     calculateAgeInMonths(shortHandDate) < 24 &&
     calculateAgeInMonths(shortHandDate) > 1
@@ -95,4 +95,21 @@ export const convertAgeToAppropriateAgeType = (DOB: string): string => {
   } else {
     return `${calculateAgeInDays(shortHandDate)} days`;
   }
+};
+
+// const randomNumber = () => {
+//   return Math.floor(Math.random() * 24);
+// };
+export const setRandomTime = () => {
+  const randomNumber = Math.floor(Math.random() * 24);
+
+  if (randomNumber < 10) {
+    return `0${randomNumber}:${Math.floor(Math.random() * 6)}${Math.floor(
+      Math.random() * 10
+    )}`;
+  }
+
+  return `${randomNumber}:${Math.floor(Math.random() * 6)}${Math.floor(
+    Math.random() * 10
+  )}`;
 };

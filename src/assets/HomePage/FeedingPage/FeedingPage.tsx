@@ -117,13 +117,11 @@ export const FeedingPage = () => {
         <ChildInfo />
         <div className="category">
           <div className="categoryName">
-            <h1>Feeding</h1>
+            <h1>{infantMode === "off" ? "Child Eating" : "Baby Feeding"}</h1>
           </div>
           <div className={`feedingOffSwitch `}>
             <button
-              className={`infantModeSwitch button ${
-                feed === "infantModeOff" ? "pressedButton" : ""
-              }`}
+              className={`infantModeSwitch button `}
               onClick={() => {
                 if (infantMode === "on") {
                   setInfantMode("off");
@@ -135,7 +133,7 @@ export const FeedingPage = () => {
                 }
               }}
             >
-              {infantMode === "off" ? "Toddler" : "Baby"} Feeding{" "}
+              {infantMode === "off" ? "Baby Feeding" : "Child Eating"}
               {infantMode === "off" ? (
                 <i
                   className={`fa-solid fa-child-${
@@ -360,7 +358,12 @@ export const FeedingPage = () => {
       </div>
       <div className="historyHeaderContainer">
         <div className="categoryName historyHeader">
-          <h1>{babyNameForHistory()}'s Feeding History</h1>
+          <h1>
+            {babyNameForHistory()}'s{" "}
+            {infantMode === "on" && feed === "bottleFeed" ? "Bottle " : ""}
+            {feed === "breastFeed" && infantMode === "on" ? "Breast " : ""}
+            {infantMode === "off" ? "Eating" : "Feeding"} History
+          </h1>
         </div>
       </div>
       <div className="historyTimelineContainer ">

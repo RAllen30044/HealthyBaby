@@ -22,6 +22,15 @@ export const ChildInfo = () => {
     setHeight,
     setCurrentChildId,
   } = useChildInfo();
+
+  const inchToFeet = (inches: string) => {
+    const inchNumber = Number.parseInt(inches);
+    if (inchNumber >= 24) {
+      return `${Math.floor(inchNumber / 12)}' ${inchNumber % 12}"`;
+    }
+    return `${inchNumber} in.`;
+  };
+
   return (
     <>
       <div className="childInfoContainerHP">
@@ -29,7 +38,7 @@ export const ChildInfo = () => {
           <div className="info" key={JSON.parse(maybeChild).id}>
             <div className="childname">Name: {JSON.parse(maybeChild).name}</div>
             <div className="childAge">
-              Age: {convertAgeToAppropriateAgeType(JSON.parse(maybeChild).DOB)}{" "}
+              Age: {convertAgeToAppropriateAgeType(JSON.parse(maybeChild).DOB)}
             </div>
             <div className="DOB">
               Date of Birth:{" "}
@@ -39,7 +48,7 @@ export const ChildInfo = () => {
               Gender: {JSON.parse(maybeChild).gender}{" "}
             </div>
             <div className="childHeight">
-              Height: {JSON.parse(maybeChild).height} in.
+              Height: {inchToFeet(JSON.parse(maybeChild).height)}
             </div>
             <div className="childWeight">
               Weight: {JSON.parse(maybeChild).weight} lbs.

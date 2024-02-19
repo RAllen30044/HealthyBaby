@@ -55,6 +55,10 @@ export const IllnessPage = () => {
       } else return;
     });
   };
+const newDate = new Date("January 30, 2024")
+const nextDate = new Date("Febuary 13, 2024 ")
+console.log(newDate > nextDate);
+
   return (
     <>
       <div className="banner illnessBanner">
@@ -187,10 +191,10 @@ export const IllnessPage = () => {
         {illnessHistory
           .filter((history) => history.childId === childId)
           .sort((b, a) => {
-            if (a.date < b.date) {
+            if (new Date(a.date) < new Date(b.date)) {
               return -1;
             }
-            if (a.date > b.date) {
+            if (new Date(a.date) > new Date(b.date)) {
               return 1;
             }
 
