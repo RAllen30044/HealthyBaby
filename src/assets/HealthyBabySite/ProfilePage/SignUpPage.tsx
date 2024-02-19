@@ -158,7 +158,7 @@ export const SignUpPage = () => {
                 className="profileInput"
                 value={password}
                 onChange={(e) => {
-                  setPassword(e.target.value);
+                  setPassword(preventKeyingSpaces(e.target.value));
                 }}
               />
             </div>

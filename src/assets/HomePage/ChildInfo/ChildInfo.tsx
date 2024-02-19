@@ -1,5 +1,5 @@
 import { setActiveMainComponentInLocalStorage } from "../../../ErrorHandling";
-
+import "./ChildInfo.css";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 import { useChildInfo } from "../ChildPage/ChildInfoProvider";
@@ -58,7 +58,7 @@ export const ChildInfo = () => {
             </div>
             {editor === "not present" ? (
               <button
-                className="button"
+                className="button editButton"
                 type="button"
                 onClick={() => {
                   setChildName(JSON.parse(maybeChild).name);

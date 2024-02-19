@@ -4,14 +4,14 @@ import { faker } from "@faker-js/faker";
 
 const range = _.range;
 
-let personType = faker.person.sexType();
+
 const food = [
   "Pizza",
   "Mac and Cheese",
   "Cheeseburger",
   "Fries",
   "PB and J",
-  "Tirkey Sandwich",
+  "Turkey Sandwich",
   "Mixed Fruit",
 ];
 const drink = ["Milk", "Water", "Apple juice", "Soda"];
@@ -113,57 +113,78 @@ export const randomizeDate = () => {
 };
 
 const db = {
-  profile: range(1, 5).map((_, id) => ({
-    username: `${faker.person.zodiacSign()}${Math.floor(
-      Math.random() * 100 + 1
-    )}`,
-    password: `${faker.animal()}${Math.floor(Math.random() * 100 + 1)}}`,
-    caregiver: `${faker.person.firstName()}`,
-    id,
-  })),
-  child: range(1, 16).map((_, id) => ({
-    gender: personType,
-    name: `${
-      personType === `female`
-        ? faker.person.firstName("female")
-        : faker.person.firstName("male")
-    }`,
-    DOB: randomDOB,
-    weight: `${Math.floor(Math.random() * 56 + 1)}`,
-    height: `${Math.floor(Math.random() * 56 + 1)}`,
-    headSize: `${Math.floor(Math.random() * 56 + 1)}`,
-    profileId: Math.floor(Math.random() * 4 + 1),
-    id,
-  })),
+  profile: [
+    {
+      username: `Andrei.Obushnyi`,
+      password: `ILoveBears85`,
+      caregiver: `Anna`,
+      id: 1,
+    },
+    {
+      username: `Jon.Higger`,
+      password: `ILoveDogs87`,
+      caregiver: `Mark`,
+      id: 2,
+    },
+    {
+      username: `Robharmony`,
+      password: `Panthers29`,
+      caregiver: `Debbie`,
+      id: 3,
+    },
+    {
+      username: `Yalana.Rashton`,
+      password: `Saints1`,
+      caregiver: `Brittany`,
+      id: 4,
+    },
+  ],
+  child: range(1, 16).map((_, id) => {
+    let personType = faker.person.sexType();
+    return {
+      gender: personType,
+      name: `${
+        personType === `female`
+          ? faker.person.firstName("female")
+          : faker.person.firstName("male")
+      }`,
+      DOB: randomDOB(),
+      weight: `${Math.floor(Math.random() * 46 + 10)}`,
+      height: `${Math.floor(Math.random() * 39 + 17)}`,
+      headSize: `${Math.floor(Math.random() * 6 + 17)}`,
+      profileId: Math.floor(Math.random() * 4 + 1),
+      id: id + 1,
+    };
+  }),
   napHistory: range(1, 100).map((_, id) => ({
     time: convertToStandardTime(setRandomTime()),
     date: formatDate(createShortHandDate(randomizeDate())),
-    lengthOfTime: `${faker.number(range(1, 181))}`,
-    childId: Math.floor(Math.random() * 15 + 1),
-    id,
+    lengthOfTime: `${Math.floor(Math.random() * 171 + 10)}`,
+    childId: Math.floor(Math.random() * 15),
+    id: id + 1,
   })),
   bottleFeedingHistory: range(1, 100).map((_, id) => ({
     time: convertToStandardTime(setRandomTime()),
     date: formatDate(createShortHandDate(randomizeDate())),
     oz: `${Math.floor(Math.random() * 6 + 4)}`,
     ozLeft: `${Math.floor(Math.random() * 3 + 1)}`,
-    childId: Math.floor(Math.random() * 15 + 1),
-    id,
+    childId: Math.floor(Math.random() * 15),
+    id: id + 1,
   })),
   breastFeedingHistory: range(1, 100).map((_, id) => ({
     time: convertToStandardTime(setRandomTime()),
     date: formatDate(createShortHandDate(randomizeDate())),
     feedingTimeLength: `${Math.floor(Math.random() * 31 + 10)}`,
-    childId: Math.floor(Math.random() * 15 + 1),
-    id,
+    childId: Math.floor(Math.random() * 15),
+    id: id + 1,
   })),
   infantFeedingHistory: range(1, 100).map((_, id) => ({
     time: convertToStandardTime(setRandomTime()),
     date: formatDate(createShortHandDate(randomizeDate())),
     drinkType: randomizeItem(drink),
     foodType: randomizeItem(food),
-    childId: Math.floor(Math.random() * 15 + 1),
-    id,
+    childId: Math.floor(Math.random() * 15),
+    id: id + 1,
   })),
   diapersHistory: range(1, 100).map((_, id) => {
     let daiper = randomizeItem(daiperConsistancy);
@@ -174,8 +195,8 @@ const db = {
       consistancy:
         daiper.toLowerCase() === "poop" ? randomizeItem(poopType) : "Wet",
 
-      childId: Math.floor(Math.random() * 15 + 1),
-      id,
+      childId: Math.floor(Math.random() * 15),
+      id: id + 1,
     };
   }),
   illness: range(1, 100).map((_, id) => ({
@@ -184,9 +205,9 @@ const db = {
     symptoms: randomizeItem(symptoms),
     medicineGiven: randomizeItem(medicine),
     oz: randomizeMedicineOz(),
-    childId: Math.floor(Math.random() * 15 + 1),
-    id,
+    childId: Math.floor(Math.random() * 15),
+    id: id + 1,
   })),
 };
 
-// writeFileSync("db.json", JSON.stringify(db), { encoding: "utf-8" });
+writeFileSync("db.json", JSON.stringify(db), { encoding: "utf-8" });

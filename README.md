@@ -1,27 +1,31 @@
-# React + TypeScript + Vite
+# General use Guidlines
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This site was created with busy parents in mind. As we go on with
+our busy days, we do not always have the time to keep track of the
+care that is given to our children. Insert Healthy Baby, a place
+where you can easily save your child care history were anyone who
+logs in can have an understanding of what care there has been
+thoughout the day.
 
-Currently, two official plugins are available:
+If you choose to sign up to this site, You must add a child to your
+profile. If you do not add a child you will not be able to
+continue to the site untill you do so.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Each time the you have finished using the site, we recommend
+that you log out of the site. If you do not, the last page of
+the site will remain active until you do so.
 
-## Expanding the ESLint configuration
+## Using Npm run seed
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+If you choose to run npm run seed in the terminal, please keep these things in mind while trying to execute the app.
 
-- Configure the top-level `parserOptions` property like this:
+1. They're 4 staticly created profiles that will not change. You can find the profiles at the top of the db.json file within the profile array.  
+   If you do want to change the username and or password manually just keep one rule in mind. No spaces in the username or password.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+2. This site is not built with someone tinkering with the source code in mind so if you do tinker with the code,
+   and something breaks, localstorage.clear() has to be apart of the debugging process because the localStorage
+   is a major part of how this websites runs at this time. Also you may have to log ou and log back is
+   and refreash to page to see update data from npm run seed.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Using npm run seed will give you data to work with but some of the data may seem illogical depending on the catagory.
+   Npm run seed is meant to give you usable data not necessarily to make the most sense of the date in each catagory.
