@@ -19,7 +19,7 @@ the site will remain active until you do so.
 
 If you choose to run npm run seed in the terminal, please keep these things in mind while trying to execute the app.
 
-1. They're 4 staticly created profiles that will not change. You can find the profiles at the top of the db.json file within the profile array.  
+1. There are 4 staticly created profiles that will not change. You can find the profiles at the top of the db.json file within the profile array.  
    If you do want to change the username and or password manually just keep one rule in mind. No spaces in the username or password.
 
 2. This site is not built with someone tinkering with the source code in mind so if you do tinker with the code,
