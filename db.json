@@ -29,7 +29,7 @@
     {
       "name": "Arielle",
       "DOB": "2022-03-03",
-      "age": "NaN days",
+     
       "gender": "Female",
       "weight": "35 ",
       "headSize": "21",
@@ -40,7 +40,7 @@
     {
       "name": "Naya",
       "DOB": "2023-02-27",
-      "age": "11 months",
+      
       "gender": "Female",
       "weight": "30",
       "headSize": "20",
@@ -51,7 +51,7 @@
     {
       "name": "Bronny",
       "DOB": "2018-05-08",
-      "age": "5 yrs.",
+     
       "gender": "Male",
       "weight": "67 ",
       "headSize": "22",
@@ -62,7 +62,7 @@
     {
       "name": "Bryce",
       "DOB": "2022-10-18",
-      "age": "15 months",
+    
       "gender": "Male",
       "weight": "34 ",
       "headSize": "20",
@@ -73,7 +73,7 @@
     {
       "name": "Naya",
       "DOB": "2023-02-27",
-      "age": "11 months",
+     
       "gender": "Female",
       "weight": "7 ",
       "headSize": "8",
@@ -84,7 +84,7 @@
     {
       "name": "Greg",
       "DOB": "2024-02-06",
-      "age": "11 days",
+      
       "gender": "Male",
       "weight": "12",
       "headSize": "20",
@@ -95,7 +95,7 @@
     {
       "name": "Anna",
       "DOB": "2024-02-06",
-      "age": "11 days",
+      
       "gender": "Female",
       "weight": "9 ",
       "headSize": "22",
@@ -304,7 +304,7 @@
     {
       "time": "6:39 PM",
       "date": "February 16, 2024",
-      "sicknessType": "Fever",
+   
       "symptoms": "Runny nose, Cough ",
       "medicineGiven": "Tylenol",
       "oz": "1.5",
@@ -314,7 +314,7 @@
     {
       "time": "6:41 PM",
       "date": "February 15, 2024",
-      "sicknessType": "Fever",
+     
       "symptoms": "Runny nose, Cough ",
       "medicineGiven": "Tylenol",
       "oz": "1.5",
@@ -324,7 +324,7 @@
     {
       "time": "9:22 PM",
       "date": "January 31, 2024",
-      "sicknessType": "cold",
+     
       "symptoms": "fever, runny nose",
       "medicineGiven": "nyquil",
       "oz": "3",

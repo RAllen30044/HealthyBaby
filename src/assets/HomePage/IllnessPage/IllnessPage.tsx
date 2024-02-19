@@ -26,7 +26,7 @@ import { ErrorMessage } from "../../../ErrorMessage";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 export const IllnessPage = () => {
-  const [sicknessType, setSicknessType] = useState("");
+  
   const [symptoms, setSymptoms] = useState("");
   const [medicineGiven, setMedicineGiven] = useState("");
   const [oz, setOz] = useState("");
@@ -94,7 +94,7 @@ console.log(newDate > nextDate);
               {
                 time: convertToStandardTime(time),
                 date: formatDate(createShortHandDate(date)),
-                sicknessType: sicknessType,
+                
                 symptoms: symptoms,
                 medicineGiven: medicineGiven,
                 oz: oz,
@@ -107,7 +107,7 @@ console.log(newDate > nextDate);
                 setDate("");
                 setTime("");
                 setSymptoms("");
-                setSicknessType("");
+           
                 setOz("");
                 setMedicineGiven("");
               })
@@ -123,18 +123,7 @@ console.log(newDate > nextDate);
           {shouldShowDateBeforeBirthError && (
             <ErrorMessage message={dateBeforeBirthMessage} show={true} />
           )}
-          <div className="sickness">
-            <label htmlFor="sickness">Sickness: </label>
-            <input
-              type="text"
-              id="sickness"
-              value={sicknessType}
-              onChange={(e) => {
-                setSicknessType(e.target.value);
-              }}
-              required
-            />
-          </div>
+   
           <div className="symptoms">
             <label htmlFor="symptoms">Symptoms: </label>
             <input
@@ -206,7 +195,6 @@ console.log(newDate > nextDate);
                 <div className="illnessHistory">
                   <h3>Date: {history.date}</h3>
                   <h3>Time: {history.time}</h3>
-                  <h3>Type of Sickness: {history.sicknessType}</h3>
                   <h3>Symptoms: {history.symptoms}</h3>
                   <h3>Medicine Given: {history.medicineGiven}</h3>
                   <h3>Oz. of Medicine Given: {history.oz}</h3>

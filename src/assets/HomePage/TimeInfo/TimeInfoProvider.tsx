@@ -7,11 +7,12 @@ import {
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 import { faker } from "@faker-js/faker";
 import {
+  convertAgeToAppropriateAgeType,
   convertToStandardTime,
+  createShortHandDate,
   formatDate,
   setRandomTime,
 } from "./TimeConversion";
-import { max, min } from "lodash";
 
 export type TimeInfoProviderT = {
   time: string;
@@ -42,10 +43,39 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
     isSubmitted &&
     isDateBeforeBirth(JSON.parse(maybeChild || "Error finding DOB").DOB, date);
 
+  const randomizeDate = () => {
+    const getRandomDate = faker.date.recent({ days: 10 });
+    console.log(getRandomDate);
+    if (getRandomDate.getMonth() + 1 < 10 && getRandomDate.getDate() < 10) {
+      return `${getRandomDate.getFullYear()}-0${
+        getRandomDate.getMonth() + 1
+      }-0${getRandomDate.getDate()}`;
+    } else if (getRandomDate.getDate() < 10) {
+      return `${getRandomDate.getFullYear()}-${
+        getRandomDate.getMonth() + 1
+      }-0${getRandomDate.getDate()}`;
+    } else if (getRandomDate.getMonth() < 10) {
+      return `${getRandomDate.getFullYear()}-0${
+        getRandomDate.getMonth() + 1
+      }-${getRandomDate.getDate()}`;
+    } else {
+      return `${getRandomDate.getFullYear()}-${
+        getRandomDate.getMonth() + 1
+      }-${getRandomDate.getDate()}`;
+    }
+  };
+
+  console.log(Math.floor(Math.random() * 6 + 4));
+
+  console.log(formatDate(createShortHandDate(randomizeDate())));
+
   console.log(
-    formatDate(`${faker.date.birthdate({ min: 0, max: 6, mode: "age" })}`)
+    convertAgeToAppropriateAgeType(
+      `${faker.date.birthdate({ min: 0, max: 6, mode: "age" })}`
+    )
   );
-  console.log(setRandomTime());
+
+  console.log(convertToStandardTime(setRandomTime()));
 
   return (
     <TimeInfoContext.Provider

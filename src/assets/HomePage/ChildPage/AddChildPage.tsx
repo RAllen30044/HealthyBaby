@@ -12,7 +12,6 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { childUrl, postInfo } from "../../../api";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
-import { convertAgeToAppropriateAgeType } from "../TimeInfo/TimeConversion";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
@@ -76,7 +75,7 @@ export const AddChildPage = () => {
                 {
                   name: name,
                   DOB: date,
-                  age: convertAgeToAppropriateAgeType(date),
+                  
                   gender: gender,
                   weight: `${weight} `,
                   headSize: `${headSize}`,

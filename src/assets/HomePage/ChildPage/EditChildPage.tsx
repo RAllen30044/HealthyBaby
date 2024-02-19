@@ -84,7 +84,7 @@ export const EditChildPage = () => {
                     "child",
                     JSON.stringify({
                       name: data.name,
-                      age: data.age,
+
                       DOB: data.DOB,
                       gender: data.gender,
                       weight: data.weight,
