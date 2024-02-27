@@ -1,4 +1,4 @@
-nav {
+.largeScreenNav {
   /* max-height: 6vh; */
   display: flex;
   justify-content: space-between;
@@ -7,14 +7,68 @@ nav {
 .logo {
   position: relative;
 }
+.logo:hover {
+  cursor: pointer;
+  color: lightgrey;
+}
+.child:hover {
+  color: #12d7e6;
+}
+.switchChild {
+  font-weight: 500;
+  border: solid 2px black;
+  border-radius: 10px;
+  padding: 0 50px 0 25px;
+  position: relative;
+}
+.clickPositioning {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+}
+.childNameContainer {
+  background-color: rgba(208, 206, 209, 0.9);
+  border-radius: 10px;
+  position: absolute;
+  width: 167px;
+}
+
+.filteredChildInfo {
+  width: 100%;
+  text-align: center;
+  height: 90%;
+  font-size: larger;
+}
+
+.switchToChild {
+  font-weight: 700;
+}
+.switchToChild:hover {
+  cursor: pointer;
+}
 
 .logo .fa-baby {
   font-size: 28px;
 }
-@media screen and (min-width: 800px) {
-  .logo .fa-baby:hover {
-    cursor: pointer;
-    color: gray;
+.smallScreenNav {
+  display: none;
+}
+@media screen and (max-width: 500px) {
+  .largeScreenNav {
+    display: none;
+  }
+  .smallScreenNav {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 20px;
+    width: 100%;
+  }
+  div.mobileLanding {
+    display: flex;
+    gap: 40px;
+  }
+  div.mobileLanding.hidden {
+    display: none;
   }
 }
 
@@ -89,6 +143,11 @@ nav {
   text-align: center;
   width: 100%;
 }
+.selectedChild {
+  height: 100%;
+  color: #12d7e6;
+  font-size: 20px;
+}
 .selected.feedingLink {
   background-color: #fadd9f;
   color: black;
@@ -141,7 +200,9 @@ nav {
   cursor: pointer;
 }
 
-.filteredChildInfo {
+.mobileDropSection {
+  display: flex;
   width: 100%;
-  text-align: center;
+  justify-content: space-between;
+  gap: 10%;
 }

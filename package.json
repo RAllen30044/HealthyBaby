@@ -19,6 +19,7 @@
     "@types/lodash-es": "^4.17.7",
     "faker": "^5.5.3",
     "fs": "^0.0.1-security",
+    "json-server": "^1.0.0-alpha.23",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",

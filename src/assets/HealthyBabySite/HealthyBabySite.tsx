@@ -9,22 +9,34 @@ import { EditProfilePage } from "./ProfilePage/EditProfilePage";
 import { AboutPage } from "./AboutPage/AboutPage";
 import { SignUpPage } from "./ProfilePage/SignUpPage";
 import { LandingPage } from "./LandingPage/LandingPage";
+import { useChildInfo } from "../HomePage/ChildPage/ChildInfoProvider";
 
 export const HealthyBabySite = () => {
   const { activeMainComponent } = useActiveComponent();
+  const { setCheveronPosition, cheveronPosition } = useChildInfo();
   return (
     <>
-      <Header />
-      <main>
-        {activeMainComponent === "landingPage" ? <LandingPage /> : ""}
-        {activeMainComponent === "home" ? <HomePage /> : ""}
+      <div
+        className="wholePage"
+        onClick={() => {
+          if (cheveronPosition === "up") {
+            setCheveronPosition("down");
+            return;
+          }
+        }}
+      >
+        <Header />
+        <main>
+          {activeMainComponent === "landingPage" ? <LandingPage /> : ""}
+          {activeMainComponent === "home" ? <HomePage /> : ""}
 
-        {activeMainComponent === "addChild" ? <AddChildPage /> : ""}
-        {activeMainComponent === "editChild" ? <EditChildPage /> : ""}
-        {activeMainComponent === "editProfile" ? <EditProfilePage /> : ""}
-        {activeMainComponent === "about" ? <AboutPage /> : ""}
-        {activeMainComponent === "signUp" ? <SignUpPage /> : ""}
-      </main>
+          {activeMainComponent === "addChild" ? <AddChildPage /> : ""}
+          {activeMainComponent === "editChild" ? <EditChildPage /> : ""}
+          {activeMainComponent === "editProfile" ? <EditProfilePage /> : ""}
+          {activeMainComponent === "about" ? <AboutPage /> : ""}
+          {activeMainComponent === "signUp" ? <SignUpPage /> : ""}
+        </main>
+      </div>
     </>
   );
 };

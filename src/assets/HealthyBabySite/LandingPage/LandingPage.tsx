@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from "react";
 
 import { useAuthProviderContext } from "./authProvider";
 import "./LandingPage.css";
-import { getProfileData, updateChildDateAge } from "../../../api";
+import { getProfileData } from "../../../api";
 import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   firstAvailableChild,
+  getIsSubmittedFromLocalStorage,
   setActiveHomePageComponentInLocalStorage,
   setActiveMainComponentInLocalStorage,
+  setIsSubmittedInLocalStorage,
 } from "../../../ErrorHandling";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
@@ -43,7 +45,8 @@ const icons = [
 export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, setLog, setShowAddChildError } = useAuthProviderContext();
+  const { loggedIn, setLog, setShowAddChildError, showAddChildError } =
+    useAuthProviderContext();
   const { setProfileId, childInfo } = useHistoryIDComponent();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
@@ -108,9 +111,18 @@ export const LandingPage = () => {
               id: user?.id,
             })
           );
+          console.log(childInfo);
+
+          console.log(user);
 
           firstAvailableChild(childInfo, user);
+          const firstChild = childInfo.find(
+            (child) => child.profileId === user?.id
+          );
+          console.log(firstChild?.id);
+
           if (firstAvailableChild(childInfo, user)) {
+            console.log(firstAvailableChild(childInfo, user));
             localStorage.setItem(
               "child",
               JSON.stringify({
@@ -127,12 +139,6 @@ export const LandingPage = () => {
                 id: firstAvailableChild(childInfo, user)?.id,
               })
             );
-            updateChildDateAge(
-              convertAgeToAppropriateAgeType(
-                firstAvailableChild(childInfo, user)?.DOB || "Error"
-              ),
-              firstAvailableChild(childInfo, user)?.id || 0
-            );
           }
           toast.success("Success");
 
@@ -142,10 +148,15 @@ export const LandingPage = () => {
           if (!firstAvailableChild(childInfo, user)) {
             setActiveMainComponent("addChild");
             setActiveMainComponentInLocalStorage("addChild");
-            setShowAddChildError(true);
+            setIsSubmittedInLocalStorage("true");
+            setShowAddChildError(getIsSubmittedFromLocalStorage());
+            console.log(showAddChildError);
+
             return;
           }
 
+          setIsSubmittedInLocalStorage("false");
+          setShowAddChildError(getIsSubmittedFromLocalStorage());
           setActiveHomePageComponent("feeding");
           setActiveHomePageComponentInLocalStorage("feeding");
           setActiveMainComponent("home");

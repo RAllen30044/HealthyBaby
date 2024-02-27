@@ -74,7 +74,7 @@ export const FeedingPage = () => {
   } = useHistoryIDComponent();
 
   const { maybeChild } = useAuthProviderContext();
-  const removeBreastFeedingHistory = (id: number) => {
+  const removeBreastFeedingHistory = (id: string) => {
     const updateData = breastFeedHistory.filter((history) => history.id !== id);
 
     setBreastFeedHistory(updateData);
@@ -85,7 +85,7 @@ export const FeedingPage = () => {
       } else return;
     });
   };
-  const removeBottleFeedingHistory = (id: number) => {
+  const removeBottleFeedingHistory = (id: string) => {
     const updateData = bottleFeedHistory.filter((history) => history.id !== id);
 
     setBottleFeedHistory(updateData);
@@ -96,7 +96,7 @@ export const FeedingPage = () => {
       } else return;
     });
   };
-  const removeInfantFeedingHistory = (id: number) => {
+  const removeInfantFeedingHistory = (id: string) => {
     const updateData = infantFeedHistory.filter((history) => history.id !== id);
 
     setInfantFeedHistory(updateData);
@@ -117,7 +117,7 @@ export const FeedingPage = () => {
         <ChildInfo />
         <div className="category">
           <div className="categoryName">
-            <h1>{infantMode === "off" ? "Child Eating" : "Baby Feeding"}</h1>
+            <h1>{infantMode === "off" ? "Eating" : "Baby Feeding"}</h1>
           </div>
           <div className={`feedingOffSwitch `}>
             <button
@@ -133,15 +133,15 @@ export const FeedingPage = () => {
                 }
               }}
             >
-              {infantMode === "off" ? "Baby Feeding" : "Child Eating"}
+              {infantMode === "off" ? "Baby Feeding" : "Eating "}
               {infantMode === "off" ? (
+                <i className="fa-solid fa-baby"></i>
+              ) : (
                 <i
                   className={`fa-solid fa-child-${
-                    getGender === "Female" ? `dress` : `reaching`
+                    getGender.toLowerCase() === "female" ? `dress` : `reaching`
                   }`}
                 ></i>
-              ) : (
-                <i className="fa-solid fa-baby"></i>
               )}
             </button>
           </div>

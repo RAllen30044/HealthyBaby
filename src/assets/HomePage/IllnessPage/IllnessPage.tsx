@@ -45,7 +45,7 @@ export const IllnessPage = () => {
   const { illnessHistory, setIllnessHistory, fetchIllnessHistory, childId } =
     useHistoryIDComponent();
 
-  const removeIllnessHistory = (id: number) => {
+  const removeIllnessHistory = (id: string) => {
     const updateData = illnessHistory.filter((history) => history.id !== id);
     setIllnessHistory(updateData);
 

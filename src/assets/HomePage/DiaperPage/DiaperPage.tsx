@@ -30,6 +30,7 @@ import {
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
+
 type DaiperType = "Wet" | "Poop";
 type ConsistancyTypeT = "Pebbles" | "Solid" | "Soft" | "Wet";
 
@@ -51,7 +52,7 @@ export const DaiperPage = () => {
   const { diapersHistory, setDiapersHistory, fetchDaiperHistory, childId } =
     useHistoryIDComponent();
 
-  const removeDiaperHistory = (id: number) => {
+  const removeDiaperHistory = (id: string) => {
     const updateData = diapersHistory.filter((history) => history.id !== id);
 
     setDiapersHistory(updateData);
@@ -90,6 +91,7 @@ export const DaiperPage = () => {
               setIsSubmitted(true);
               return;
             }
+
             setIsSubmitted(false);
             setLoading(true);
             return postInfo(

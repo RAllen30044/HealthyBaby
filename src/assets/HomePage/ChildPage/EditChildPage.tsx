@@ -98,7 +98,6 @@ export const EditChildPage = () => {
                   setChildId(JSON.parse(data.id));
                 })
                 .then(fetchChildInfo)
-
                 .then(() => {
                   toast.success("Child Profile information Updated");
                   setActiveHomePageComponent("feeding");

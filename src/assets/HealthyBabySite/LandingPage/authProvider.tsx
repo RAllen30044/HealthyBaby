@@ -8,6 +8,7 @@ import {
 
 import { User } from "../../../Types";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { getIsSubmittedFromLocalStorage } from "../../../ErrorHandling";
 
 // type LogInfo = "logIn" | "logOut";
 export type AuthComponentProviderT = {
@@ -42,7 +43,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [landingPage, setLandingPage] = useState<LandingPageT>("on");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [showAddChildError, setShowAddChildError] = useState<boolean>(false);
+  const [showAddChildError, setShowAddChildError] = useState<boolean>(
+    getIsSubmittedFromLocalStorage()
+  );
 
   const loggedIn = (username: string, password: string) => {
     setLog("logOut");
@@ -65,9 +68,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("log", "logIn");
       const firstAvailableChild = childInfo.find(
         (child) => child.profileId === userID.id
-      )?.id;
+      );
+      console.log(firstAvailableChild);
+
       if (firstAvailableChild) {
-        setChildId(firstAvailableChild);
+        localStorage.setItem(
+          "child",
+          JSON.stringify({
+            name: firstAvailableChild.name,
+            DOB: firstAvailableChild.DOB,
+            gender: firstAvailableChild.gender,
+            weight: firstAvailableChild.weight,
+            headSize: firstAvailableChild.headSize,
+            height: firstAvailableChild.height,
+            profileId: firstAvailableChild.profileId,
+            id: firstAvailableChild.id,
+          })
+        );
+        setChildId(firstAvailableChild.id);
       }
     }
   };
@@ -76,7 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (maybeUser) {
       setUser(JSON.parse(maybeUser));
       if (maybeChild) {
-        setChildId(Number.parseInt(JSON.parse(maybeChild).id));
+        setChildId(JSON.parse(maybeChild).id);
       }
 
       setLog(localStorage.getItem("log" || "logIn"));

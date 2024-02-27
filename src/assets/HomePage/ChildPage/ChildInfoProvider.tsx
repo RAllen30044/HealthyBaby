@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-
+type CheveronPostion = "up" | "down";
 export type TChildInfoProvider = {
   childName: string;
   setChildName: React.Dispatch<React.SetStateAction<string>>;
@@ -13,8 +13,10 @@ export type TChildInfoProvider = {
   setHeadSize: React.Dispatch<React.SetStateAction<string>>;
   gender: string;
   setGender: React.Dispatch<React.SetStateAction<string>>;
-  currentChildId: number;
-  setCurrentChildId: React.Dispatch<React.SetStateAction<number>>;
+  currentChildId: string;
+  setCurrentChildId: React.Dispatch<React.SetStateAction<string>>;
+  cheveronPosition: CheveronPostion;
+  setCheveronPosition: React.Dispatch<React.SetStateAction<CheveronPostion>>;
 };
 
 const ChildInfoContext = createContext<TChildInfoProvider>(
@@ -55,9 +57,12 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
   );
   const [currentChildId, setCurrentChildId] = useState(
     getCurrentChildInfo
-      ? Number.parseInt(JSON.parse(getCurrentChildInfo).id)
-      : 0
+      ? JSON.parse(getCurrentChildInfo).id
+      : "Couldn't locate id"
   );
+
+  const [cheveronPosition, setCheveronPosition] =
+    useState<CheveronPostion>("down");
   return (
     <ChildInfoContext.Provider
       value={{
@@ -75,6 +80,8 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
         setWeight,
         currentChildId,
         setCurrentChildId,
+        cheveronPosition,
+        setCheveronPosition,
       }}
     >
       {children}

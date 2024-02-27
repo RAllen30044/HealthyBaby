@@ -2,16 +2,17 @@ import toast from "react-hot-toast";
 import {
   DOBnotVaild,
   futureDOBNotAllowed,
+  getIsSubmittedFromLocalStorage,
   onlyKeyNumbers,
   preventKeyingNumbers,
   setActiveHomePageComponentInLocalStorage,
   setActiveMainComponentInLocalStorage,
+  setIsSubmittedInLocalStorage,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { childUrl, postInfo } from "../../../api";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
-
 
 import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
@@ -29,9 +30,9 @@ export const AddChildPage = () => {
   const { loading, setLoading, date, setDate } = useTimeInfo();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
-  const { setShowAddChildError, showAddChildError } = useAuthProviderContext();
+  const { showAddChildError } = useAuthProviderContext();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
-  const { fetchChildInfo, profileId, setChildId } = useHistoryIDComponent();
+  const { fetchChildInfo, profileId } = useHistoryIDComponent();
 
   // const [babyPic, setBabyPic] = useState<string>("");
 
@@ -66,16 +67,18 @@ export const AddChildPage = () => {
               e.preventDefault();
 
               if (DOBnotVaild(date)) {
-                setIsSubmitted(true);
+                setIsSubmittedInLocalStorage("true");
+                setIsSubmitted(getIsSubmittedFromLocalStorage());
                 return;
               }
-              setIsSubmitted(false);
+              setIsSubmittedInLocalStorage("false");
+              setIsSubmitted(getIsSubmittedFromLocalStorage());
               setLoading(true);
               postInfo(
                 {
                   name: name,
                   DOB: date,
-                  
+
                   gender: gender,
                   weight: `${weight} `,
                   headSize: `${headSize}`,
@@ -107,8 +110,6 @@ export const AddChildPage = () => {
                       id: data.id,
                     })
                   );
-
-                  setChildId(JSON.parse(data.id));
                 })
                 .then(fetchChildInfo)
                 .then(() => {
@@ -118,7 +119,6 @@ export const AddChildPage = () => {
                   setActiveHomePageComponentInLocalStorage("feeding");
                 })
                 .then(() => {
-                  setShowAddChildError(false);
                   setLoading(false);
                 });
             }}

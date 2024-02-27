@@ -6,7 +6,6 @@ import {
 } from "../../../ErrorHandling";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
-
 export type TimeInfoProviderT = {
   time: string;
   date: string;
@@ -35,8 +34,6 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
   const shouldShowDateBeforeBirthError =
     isSubmitted &&
     isDateBeforeBirth(JSON.parse(maybeChild || "Error finding DOB").DOB, date);
-
-
 
   return (
     <TimeInfoContext.Provider

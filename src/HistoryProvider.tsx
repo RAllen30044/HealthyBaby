@@ -66,11 +66,11 @@ export type HistoryIDComponentProvider = {
   fetchIllnessHistory: () => Promise<void>;
   fetchNappingHistory: () => Promise<void>;
 
-  childId: number;
-  setChildId: React.Dispatch<React.SetStateAction<number>>;
+  childId: string;
+  setChildId: React.Dispatch<React.SetStateAction<string>>;
 
-  profileId: number | null;
-  setProfileId: React.Dispatch<React.SetStateAction<number | null>>;
+  profileId: string;
+  setProfileId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const HistoryIDComponentContext = createContext<HistoryIDComponentProvider>(
@@ -99,12 +99,12 @@ export const HistoryIDComponentProvider = ({
   const [nappingHistory, setNappingHistory] = useState<nappingType[]>([]);
   const [illnessHistory, setIllnessHistory] = useState<IllnessType[]>([]);
   const [profile, setProfile] = useState<ProfileInfoTypes[]>([]);
-  const [childId, setChildId] = useState<number>(0);
+  const [childId, setChildId] = useState<string>("");
 
   const getUser = localStorage.getItem("user");
-  const maybeUserId= getUser ? Number.parseInt(JSON.parse(getUser).id) : null;
+  const maybeUserId = getUser ? JSON.parse(getUser).id : null;
 
-  const [profileId, setProfileId] = useState<null | number>(maybeUserId);
+  const [profileId, setProfileId] = useState<string>(maybeUserId);
   const [child, setChild] = useState({});
 
   const fetchProfileInfo = () => getProfileData().then(setProfile);
@@ -137,8 +137,6 @@ export const HistoryIDComponentProvider = ({
     });
     fetchNappingHistory().catch((err) => console.log(err));
   }, []);
-
-  
 
   return (
     <HistoryIDComponentContext.Provider

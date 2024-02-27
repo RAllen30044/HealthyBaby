@@ -26,31 +26,31 @@ export type ProfileInfoTypes = {
   caregiver: string;
   // userEmail: string;
   // cargiverEmail: string;
-  id: number;
+  id: string;
 };
 
 export type breastFeedingInfoType = {
   time: string;
   date: string;
-  id: number;
+  id: string;
   feedingTimeLength: string;
-  childId: number;
+  childId: string;
 };
 export type infantFeedingInfoType = {
   time: string;
   date: string;
-  id: number;
+  id: string;
   drinkType: string;
   foodType: string;
-  childId: number;
+  childId: string;
 };
 export type bottleFeedingInfoType = {
   time: string;
   date: string;
-  id: number;
+  id: string;
   oz: string;
   ozLeft: string;
-  childId: number;
+  childId: string;
 };
 export type ChildInfoT = {
   name: string;
@@ -61,19 +61,19 @@ export type ChildInfoT = {
   height: string;
   headSize: string;
 
-  profileId: number | null;
-  id: number;
+  profileId: string ;
+  id: string;
 };
 
 export type IllnessType = {
-  id: number;
+  id: string;
   date: string;
   time: string;
   
   symptoms: string;
   medicineGiven: string;
   oz: string;
-  childId: number;
+  childId: string;
 };
 
 export type DaipersHistoryInfoTypes = {
@@ -81,32 +81,32 @@ export type DaipersHistoryInfoTypes = {
   date: string;
   consistancy: string;
   type: string;
-  id: number;
-  childId: number;
+  id: string;
+  childId: string;
 };
 
 export type nappingType = {
-  id: number;
+  id: string;
   date: string;
   time: string;
   lengthOfTime: string;
-  childId: number;
+  childId: string;
 };
 export type childNapDBType = {
-  id: number;
-  childId: number;
-  nappingId: number;
+  id: string;
+  childId: string;
+  nappingId: string;
 };
 
 export type bottlefeedingHistoryT = {
   bottleFeedHistory: bottleFeedingInfoType[];
-  removeBottleFeedingHistory: (id: number) => void;
+  removeBottleFeedingHistory: (id: string) => void;
 };
 export type breastfeedingHistoryT = {
   breastFeedHistory: breastFeedingInfoType[];
-  removeBreastFeedingHistory: (id: number) => void;
+  removeBreastFeedingHistory: (id: string) => void;
 };
 export type infantfeedingHistoryT = {
   infantFeedHistory: infantFeedingInfoType[];
-  removeInfantFeedingHistory: (id: number) => void;
+  removeInfantFeedingHistory: (id: string) => void;
 };

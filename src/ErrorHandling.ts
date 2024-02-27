@@ -70,3 +70,18 @@ export const babyNameForHistory = () => {
 export const isDateBeforeBirth = (DOB: string, currentDate: string) => {
   return currentDate < DOB;
 };
+
+export const getIsSubmittedFromLocalStorage = (): boolean => {
+  const isSubmitted = localStorage.getItem("isSubmitted");
+
+  if (isSubmitted === "true") {
+    console.log(isSubmitted);
+
+    return true;
+  }
+  return false;
+};
+
+export const setIsSubmittedInLocalStorage = (isSubmitted: string) => {
+  return localStorage.setItem("isSubmitted", isSubmitted);
+};

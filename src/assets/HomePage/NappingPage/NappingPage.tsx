@@ -42,9 +42,9 @@ export const NappingPage = () => {
   const { maybeChild } = useAuthProviderContext();
   const { nappingHistory, setNappingHistory, fetchNappingHistory, childId } =
     useHistoryIDComponent();
-console.log(nappingHistory);
+  console.log(nappingHistory);
 
-  const removeNappingHistory = (id: number) => {
+  const removeNappingHistory = (id: string) => {
     const updateData = nappingHistory.filter((history) => history.id !== id);
     setNappingHistory(updateData);
 
@@ -97,6 +97,8 @@ console.log(nappingHistory);
                 setTime("");
                 setDate("");
                 setLengthOfTime("");
+       
+                
               })
               .then(() => {
                 setLoading(false);
