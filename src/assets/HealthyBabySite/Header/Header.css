@@ -12,7 +12,7 @@
   color: lightgrey;
 }
 .child:hover {
-  color: #12d7e6;
+  color: white;
 }
 .switchChild {
   font-weight: 500;
@@ -53,7 +53,7 @@
 .smallScreenNav {
   display: none;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
   .largeScreenNav {
     display: none;
   }
@@ -143,9 +143,9 @@
   text-align: center;
   width: 100%;
 }
-.selectedChild {
+.child.selectedChild {
   height: 100%;
-  color: #12d7e6;
+  color: white;
   font-size: 20px;
 }
 .selected.feedingLink {
@@ -174,11 +174,11 @@
   background-color: grey;
 }
 .selected.illnessLink {
-  background-color: #96cbb6;
+  background-color: coral;
   color: black;
 }
 .illnessLink:hover {
-  color: #96cbb6;
+  color: coral;
   background-color: grey;
 }
 .addChildLink:hover {
@@ -187,11 +187,12 @@
 
 .link:hover {
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 550;
 }
 .pageLink {
   color: initial;
   text-decoration: none;
+  width: 25;
 }
 .pageLink:hover {
   color: initial;

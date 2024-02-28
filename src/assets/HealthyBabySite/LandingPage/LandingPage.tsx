@@ -208,6 +208,7 @@ export const LandingPage = () => {
             <div className="username">
               <label htmlFor="user">Username: </label>
               <input
+              className="input"
                 type="text"
                 value={userNameInput}
                 onChange={(e) => {
@@ -218,6 +219,7 @@ export const LandingPage = () => {
             <div className="password">
               <label htmlFor="user">Password: </label>
               <input
+              className="input"
                 type="password"
                 value={passwordInput}
                 onChange={(e) => {

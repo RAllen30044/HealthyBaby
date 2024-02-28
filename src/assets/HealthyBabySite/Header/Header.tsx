@@ -10,26 +10,34 @@ import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConv
 import { useAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
-import { useState } from "react";
 
 export const Header = () => {
-  const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
-
   const {
     activeHomePageComponent,
     setActiveHomePageComponent,
     setActiveMainComponent,
     activeMainComponent,
     setEditor,
+    nameColors,
+    switchColors,
   } = useActiveComponent();
-  const { cheveronPosition, setCheveronPosition } = useChildInfo();
+  const {
+    cheveronPosition,
+    setCheveronPosition,
+    hiddenPagesLinks,
+    setHiddenPagesLinks,
+  } = useChildInfo();
 
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
   const { setUser, maybeChild } = useAuthProviderContext();
 
   const filterChildInfo = () => {
     return (
-      <div className="filteredChildInfo">
+      <div
+        className={`filteredChildInfo ${
+          activeMainComponent !== "home" ? "hidden" : ""
+        }`}
+      >
         <div
           className="switchChild"
           onClick={() => {
@@ -58,6 +66,11 @@ export const Header = () => {
                   className={`child ${
                     childId === childProfile.id ? "selectedChild" : ""
                   }`}
+                  style={
+                    childId === childProfile.id
+                      ? { color: `${switchColors(activeHomePageComponent)}` }
+                      : {}
+                  }
                   key={childProfile.id}
                   onClick={() => {
                     const selectedChildId = childProfile.id;
@@ -67,6 +80,7 @@ export const Header = () => {
 
                     if (selectedChildProfile) {
                       setChildId(selectedChildId);
+
                       setCheveronPosition("down");
                       localStorage.setItem(
                         "child",
@@ -229,17 +243,14 @@ export const Header = () => {
               </div>
             </section>
 
-            <div className={`pagesDropDown ${maybeChild ? "" : "hidden"}`}>
+            <div
+              className={`pagesDropDown ${maybeChild ? "" : "hidden"}`}
+              onClick={() => {}}
+            >
               <div
                 className="linksContainer"
                 onClick={() => {
                   setHiddenPagesLinks(!hiddenPagesLinks);
-                }}
-                onMouseLeave={() => {
-                  setHiddenPagesLinks(false);
-                }}
-                onMouseEnter={() => {
-                  setHiddenPagesLinks(true);
                 }}
               >
                 <div
@@ -363,12 +374,6 @@ export const Header = () => {
                   className="hamburgerIcon"
                   onClick={() => {
                     setHiddenPagesLinks(!hiddenPagesLinks);
-                  }}
-                  onMouseEnter={() => {
-                    setHiddenPagesLinks(true);
-                  }}
-                  onMouseLeave={() => {
-                    setHiddenPagesLinks(false);
                   }}
                   // onClick={() => {
                   //   setHiddenPagesLinks(!hiddenPagesLinks);

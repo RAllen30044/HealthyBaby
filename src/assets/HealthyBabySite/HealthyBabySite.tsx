@@ -13,7 +13,12 @@ import { useChildInfo } from "../HomePage/ChildPage/ChildInfoProvider";
 
 export const HealthyBabySite = () => {
   const { activeMainComponent } = useActiveComponent();
-  const { setCheveronPosition, cheveronPosition } = useChildInfo();
+  const {
+    setCheveronPosition,
+    cheveronPosition,
+    hiddenPagesLinks,
+    setHiddenPagesLinks,
+  } = useChildInfo();
   return (
     <>
       <div
@@ -21,6 +26,10 @@ export const HealthyBabySite = () => {
         onClick={() => {
           if (cheveronPosition === "up") {
             setCheveronPosition("down");
+            return;
+          }
+          if (hiddenPagesLinks === true) {
+            setHiddenPagesLinks(false);
             return;
           }
         }}

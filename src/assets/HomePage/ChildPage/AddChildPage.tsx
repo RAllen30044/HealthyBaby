@@ -30,7 +30,7 @@ export const AddChildPage = () => {
   const { loading, setLoading, date, setDate } = useTimeInfo();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
-  const { showAddChildError } = useAuthProviderContext();
+  const { showAddChildError, setShowAddChildError } = useAuthProviderContext();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
   const { fetchChildInfo, profileId } = useHistoryIDComponent();
 
@@ -71,8 +71,10 @@ export const AddChildPage = () => {
                 setIsSubmitted(getIsSubmittedFromLocalStorage());
                 return;
               }
+
               setIsSubmittedInLocalStorage("false");
               setIsSubmitted(getIsSubmittedFromLocalStorage());
+              setShowAddChildError(getIsSubmittedFromLocalStorage());
               setLoading(true);
               postInfo(
                 {

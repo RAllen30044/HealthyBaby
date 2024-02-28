@@ -17,6 +17,8 @@ export type TChildInfoProvider = {
   setCurrentChildId: React.Dispatch<React.SetStateAction<string>>;
   cheveronPosition: CheveronPostion;
   setCheveronPosition: React.Dispatch<React.SetStateAction<CheveronPostion>>;
+  hiddenPagesLinks: boolean;
+  setHiddenPagesLinks: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ChildInfoContext = createContext<TChildInfoProvider>(
@@ -60,7 +62,7 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
       ? JSON.parse(getCurrentChildInfo).id
       : "Couldn't locate id"
   );
-
+  const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [cheveronPosition, setCheveronPosition] =
     useState<CheveronPostion>("down");
   return (
@@ -82,6 +84,8 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
         setCurrentChildId,
         cheveronPosition,
         setCheveronPosition,
+        hiddenPagesLinks,
+        setHiddenPagesLinks,
       }}
     >
       {children}
