@@ -7,7 +7,7 @@ where you can easily save your child care history were anyone who
 logs in can have an understanding of what care there has been
 thoughout the day.
 
-# General use Guidlines
+## General use Guidlines
 
 If you choose to sign up to this site, You must add a child to your
 profile. If you do not add a child you will not be able to
