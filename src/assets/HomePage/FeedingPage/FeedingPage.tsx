@@ -126,10 +126,14 @@ export const FeedingPage = () => {
                 if (infantMode === "on") {
                   setInfantMode("off");
                   setFeed("infantModeOff");
+                  setDate("");
+                  setTime("");
                 }
                 if (infantMode === "off") {
                   setInfantMode("on");
                   setFeed("bottleFeed");
+                  setDate("");
+                  setTime("");
                 }
               }}
             >
@@ -152,7 +156,11 @@ export const FeedingPage = () => {
               className={`breastFeed  button ${
                 feed === "breastFeed" ? "pressedButton" : ""
               }`}
-              onClick={() => setFeed("breastFeed")}
+              onClick={() => {
+                setFeed("breastFeed");
+                setDate("");
+                setTime("");
+              }}
             >
               <h2>🤱 </h2>
               <p>
@@ -163,7 +171,11 @@ export const FeedingPage = () => {
               className={`bottleFeed button ${
                 feed === "bottleFeed" ? "pressedButton" : ""
               }  `}
-              onClick={() => setFeed("bottleFeed")}
+              onClick={() => {
+                setFeed("bottleFeed");
+                setDate("");
+                setTime("");
+              }}
             >
               <h2>🍼 </h2>
               <p>

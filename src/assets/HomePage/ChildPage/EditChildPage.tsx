@@ -148,6 +148,7 @@ export const EditChildPage = () => {
                 }}
               >
                 <i className="fa fa-male" aria-hidden="true"></i>
+                <div className="maleText">Male</div>
               </button>
               <button
                 type="button"
@@ -159,6 +160,7 @@ export const EditChildPage = () => {
                 }}
               >
                 <i className="fa fa-female" aria-hidden="true"></i>
+                <div className="femaleText">Female</div>
               </button>
             </div>
 

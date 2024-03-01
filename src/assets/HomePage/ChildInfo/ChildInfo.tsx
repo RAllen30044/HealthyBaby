@@ -8,6 +8,7 @@ import {
   createShortHandDate,
   formatDate,
 } from "../TimeInfo/TimeConversion";
+import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 
 export const ChildInfo = () => {
   const { maybeChild } = useAuthProviderContext();
@@ -22,7 +23,7 @@ export const ChildInfo = () => {
     setHeight,
     setCurrentChildId,
   } = useChildInfo();
-
+  const { setDate, setTime } = useTimeInfo();
   const inchToFeet = (inches: string) => {
     const inchNumber = Number.parseInt(inches);
     if (inchNumber >= 24) {
@@ -71,6 +72,8 @@ export const ChildInfo = () => {
                   setEditor("present");
                   setActiveMainComponent("editChild");
                   setActiveMainComponentInLocalStorage("editChild");
+                  setDate("");
+                  setTime("");
                 }}
               >
                 Edit

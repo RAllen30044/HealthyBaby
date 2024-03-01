@@ -156,6 +156,7 @@ export const AddChildPage = () => {
             </div>
             <div className="genderInfo childInfoContainer">
               <label className="gender childInfoLabel">Gender :</label>
+
               <button
                 type="button"
                 className={`male button ${
@@ -166,7 +167,9 @@ export const AddChildPage = () => {
                 }}
               >
                 <i className="fa fa-male" aria-hidden="true"></i>
+                <div className="maleText">Male</div>
               </button>
+
               <button
                 type="button"
                 className={`female button ${
@@ -177,6 +180,7 @@ export const AddChildPage = () => {
                 }}
               >
                 <i className="fa fa-female" aria-hidden="true"></i>
+                <div className="femaleText">Female</div>
               </button>
             </div>
             <div className="weightInfo childInfoContainer">

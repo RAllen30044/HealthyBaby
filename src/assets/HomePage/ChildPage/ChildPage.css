@@ -11,16 +11,16 @@
   display: flex;
   flex-direction: column;
   padding-left: 15px;
+
+  padding: 0 10%;
+  margin: 50px 0;
   gap: 10px;
-  margin-top: 80px;
-  
 }
 
 .childInfoContainer {
   margin-bottom: 10px;
   width: 100%;
   display: flex;
- 
 }
 .childInfoLabel {
   width: 50%;
@@ -33,16 +33,26 @@
 .headSizeInfo {
   margin-bottom: 40px;
 }
-.fa-female{
-color: #F7FBF0
+.fa-female {
+  color: #f7fbf0;
 }
-.fa-male{
-color: #F7FBF0
+.fa-male {
+  color: #f7fbf0;
 }
-.male.button{
+.male.button {
   background-color: blue;
   margin-right: 20px;
+  color: #f7fbf0;
 }
-.female.button{
+.female.button {
   background-color: pink;
+  color: #f7fbf0;
+  font-size: 16px;
+  padding: 0.6em 0.8em;
+}
+.maleText{
+  margin: 0;
+}
+.femaleText{
+  margin: 0;
 }

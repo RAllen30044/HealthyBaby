@@ -6,6 +6,7 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { useChildInfo } from "../../HomePage/ChildPage/ChildInfoProvider";
 
 import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
+import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 
 import { useAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
@@ -18,7 +19,6 @@ export const Header = () => {
     setActiveMainComponent,
     activeMainComponent,
     setEditor,
-    nameColors,
     switchColors,
   } = useActiveComponent();
   const {
@@ -27,7 +27,7 @@ export const Header = () => {
     hiddenPagesLinks,
     setHiddenPagesLinks,
   } = useChildInfo();
-
+  const { setDate, setTime } = useTimeInfo();
   const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
   const { setUser, maybeChild } = useAuthProviderContext();
 
@@ -119,10 +119,15 @@ export const Header = () => {
               <div
                 className={`logoActionContainer`}
                 onClick={() => {
+                  if (!maybeChild) {
+                    return;
+                  }
                   setActiveHomePageComponent("feeding");
                   setActiveHomePageComponentInLocalStorage("feeding");
                   setActiveMainComponent("home");
                   setActiveMainComponentInLocalStorage("home");
+                  setDate("");
+                  setTime("");
                 }}
               >
                 <i
@@ -155,6 +160,8 @@ export const Header = () => {
                 onClick={() => {
                   setActiveMainComponent("about");
                   setActiveMainComponentInLocalStorage("about");
+                  setDate("");
+                  setTime("");
                 }}
               >
                 About Us
@@ -164,6 +171,8 @@ export const Header = () => {
                 onClick={() => {
                   setActiveMainComponent("editProfile");
                   setActiveMainComponentInLocalStorage("editProfile");
+                  setDate("");
+                  setTime("");
                 }}
               >
                 Edit Profile
@@ -177,6 +186,8 @@ export const Header = () => {
                   setHiddenPagesLinks(false);
                   setActiveMainComponent("landingPage");
                   setActiveMainComponentInLocalStorage("landingPage");
+                  setDate("");
+                  setTime("");
                 }}
               >
                 Log Out
@@ -197,6 +208,8 @@ export const Header = () => {
                 onClick={() => {
                   setActiveMainComponent("about");
                   setActiveMainComponentInLocalStorage("about");
+                  setDate("");
+                  setTime("");
                 }}
               >
                 About Us
@@ -279,6 +292,10 @@ export const Header = () => {
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("feeding");
                       setActiveHomePageComponentInLocalStorage("feeding");
+                      if (activeHomePageComponent !== "feeding") {
+                        setDate("");
+                        setTime("");
+                      }
                     }}
                   >
                     Feeding
@@ -292,6 +309,10 @@ export const Header = () => {
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("diaper");
                       setActiveHomePageComponentInLocalStorage("diaper");
+                      if (activeHomePageComponent !== "diaper") {
+                        setDate("");
+                        setTime("");
+                      }
                     }}
                   >
                     Diaper
@@ -305,6 +326,10 @@ export const Header = () => {
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("napping");
                       setActiveHomePageComponentInLocalStorage("napping");
+                      if (activeHomePageComponent !== "napping") {
+                        setDate("");
+                        setTime("");
+                      }
                     }}
                   >
                     Napping
@@ -318,6 +343,10 @@ export const Header = () => {
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("illness");
                       setActiveHomePageComponentInLocalStorage("illness");
+                      if (activeHomePageComponent !== "illness") {
+                        setDate("");
+                        setTime("");
+                      }
                     }}
                   >
                     Illness
@@ -355,6 +384,8 @@ export const Header = () => {
                     setActiveHomePageComponentInLocalStorage("feeding");
                     setActiveMainComponent("home");
                     setActiveMainComponentInLocalStorage("home");
+                    setDate("");
+                    setTime("");
                   }}
                 >
                   <i
@@ -400,6 +431,8 @@ export const Header = () => {
                       setActiveHomePageComponent("feeding");
                       setActiveHomePageComponentInLocalStorage("feeding");
                       setHiddenPagesLinks(!hiddenPagesLinks);
+                      setDate("");
+                      setTime("");
                     }}
                   >
                     <div className="linkContainer">
@@ -413,6 +446,8 @@ export const Header = () => {
                     onClick={() => {
                       setActiveMainComponent("about");
                       setActiveMainComponentInLocalStorage("about");
+                      setDate("");
+                      setTime("");
                       setHiddenPagesLinks(!hiddenPagesLinks);
                     }}
                   >
@@ -428,6 +463,8 @@ export const Header = () => {
                       setActiveMainComponent("editProfile");
                       setActiveMainComponentInLocalStorage("editProfile");
                       setHiddenPagesLinks(!hiddenPagesLinks);
+                      setDate("");
+                      setTime("");
                     }}
                   >
                     <div className="linkContainer">
@@ -444,6 +481,8 @@ export const Header = () => {
                       setActiveMainComponent("addChild");
                       setActiveMainComponentInLocalStorage("addChild");
                       setHiddenPagesLinks(!hiddenPagesLinks);
+                      setDate("");
+                      setTime("");
                     }}
                   >
                     <div className="linkContainer">
