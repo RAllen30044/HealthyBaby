@@ -62,7 +62,7 @@ input {
 .saveContainer {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: center;
 }
 .save {
   height: 50px;
@@ -90,6 +90,8 @@ input {
   flex-wrap:wrap;
   margin: 30px;
   gap: 50px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .historyTimelineContainer h2{

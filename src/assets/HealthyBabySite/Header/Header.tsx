@@ -509,7 +509,7 @@ export const Header = () => {
 
             <div className={`mobileLanding ${maybeChild ? "hidden" : ""}`}>
               <div
-                className={`logIn`}
+                className={`logIn mobileLandingLink`}
                 onClick={() => {
                   setActiveMainComponent("landingPage");
                   setActiveMainComponentInLocalStorage("landingPage");
@@ -518,7 +518,21 @@ export const Header = () => {
                 Log In
               </div>
               <div
-                className={`signUp`}
+                className={` about mobileLandingLink  `}
+                onClick={() => {
+                  setActiveMainComponent("about");
+                  setActiveMainComponentInLocalStorage("about");
+                  setDate("");
+                  setTime("");
+                  setHiddenPagesLinks(!hiddenPagesLinks);
+                }}
+              >
+                <div className="linkContainer">
+                  <div className="aboutContainerLanding"> About Us</div>
+                </div>
+              </div>
+              <div
+                className={`signUp mobileLandingLink `}
                 onClick={() => {
                   setActiveMainComponent("signUp");
                   setActiveMainComponentInLocalStorage("signUp");

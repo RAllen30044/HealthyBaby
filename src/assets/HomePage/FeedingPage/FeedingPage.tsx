@@ -185,225 +185,234 @@ export const FeedingPage = () => {
           </div>
         </div>
       </div>
-      <div className="dataInputForm">
-        <form
-          action="POST"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (timeInvaild(date, time)) {
-              setIsSubmitted(true);
-              return;
-            }
-            if (
-              maybeChild &&
-              isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-            ) {
-              setIsSubmitted(true);
-              return;
-            }
 
-            setIsSubmitted(false);
+      <section className="historySection">
+        <div className="dataInputForm feedingForm">
+          <form
+            action="POST"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (timeInvaild(date, time)) {
+                setIsSubmitted(true);
+                return;
+              }
+              if (
+                maybeChild &&
+                isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+              ) {
+                setIsSubmitted(true);
+                return;
+              }
 
-            setLoading(true);
-            if (feed === "bottleFeed") {
-              return postInfo(
-                {
-                  time: convertToStandardTime(time),
-                  date: formatDate(createShortHandDate(date)),
-                  oz: oz,
-                  ozLeft: ozLeft,
-                  childId: childId,
-                },
-                bottleFeedingHistoryUrl
-              )
-                .then(fetchBottleFeedingData)
-                .then(() => {
-                  setTime("");
-                  setOz("");
-                  setOzLeft("");
-                  setDate("");
-                })
-                .then(() => {
-                  setLoading(false);
-                });
-            }
-            if (feed === "breastFeed") {
-              return postInfo(
-                {
-                  time: convertToStandardTime(time),
-                  date: formatDate(createShortHandDate(date)),
-                  feedingTimeLength: feedingTimeLength,
-                  childId: childId,
-                },
-                breastFeedingHistoryUrl
-              )
-                .then(fetchBreastFeedingData)
-                .then(() => {
-                  setDate("");
-                  setTime("");
-                  setfeedingTimeLength("");
-                })
-                .then(() => {
-                  setLoading(false);
-                });
-            }
-            if (feed === "infantModeOff") {
-              return postInfo(
-                {
-                  time: convertToStandardTime(time),
-                  date: formatDate(createShortHandDate(date)),
-                  drinkType: drinkType,
-                  foodType: foodType,
-                  childId: childId,
-                },
-                infantFeedingHistoryUrl
-              )
-                .then(fetchInfantFeedingData)
-                .then(() => {
-                  setDate("");
-                  setTime("");
-                  setDrinkType("");
-                  setFoodType("");
-                })
-                .then(() => {
-                  setLoading(false);
-                });
-            }
-          }}
-        >
-          <TimeInfo />{" "}
-          {shouldShowDateTimeEntryError && (
-            <ErrorMessage message={futureTimeNotAllowed} show={true} />
-          )}
-          {shouldShowDateBeforeBirthError && (
-            <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-          )}
-          <div
-            className={`bottleFeedInput ${
-              feed === "bottleFeed" ? "" : "hidden"
-            }`}
+              setIsSubmitted(false);
+
+              setLoading(true);
+              if (feed === "bottleFeed") {
+                return postInfo(
+                  {
+                    time: convertToStandardTime(time),
+                    date: formatDate(createShortHandDate(date)),
+                    oz: oz,
+                    ozLeft: ozLeft,
+                    childId: childId,
+                  },
+                  bottleFeedingHistoryUrl
+                )
+                  .then(fetchBottleFeedingData)
+                  .then(() => {
+                    setTime("");
+                    setOz("");
+                    setOzLeft("");
+                    setDate("");
+                  })
+                  .then(() => {
+                    setLoading(false);
+                  });
+              }
+              if (feed === "breastFeed") {
+                return postInfo(
+                  {
+                    time: convertToStandardTime(time),
+                    date: formatDate(createShortHandDate(date)),
+                    feedingTimeLength: feedingTimeLength,
+                    childId: childId,
+                  },
+                  breastFeedingHistoryUrl
+                )
+                  .then(fetchBreastFeedingData)
+                  .then(() => {
+                    setDate("");
+                    setTime("");
+                    setfeedingTimeLength("");
+                  })
+                  .then(() => {
+                    setLoading(false);
+                  });
+              }
+              if (feed === "infantModeOff") {
+                return postInfo(
+                  {
+                    time: convertToStandardTime(time),
+                    date: formatDate(createShortHandDate(date)),
+                    drinkType: drinkType,
+                    foodType: foodType,
+                    childId: childId,
+                  },
+                  infantFeedingHistoryUrl
+                )
+                  .then(fetchInfantFeedingData)
+                  .then(() => {
+                    setDate("");
+                    setTime("");
+                    setDrinkType("");
+                    setFoodType("");
+                  })
+                  .then(() => {
+                    setLoading(false);
+                  });
+              }
+            }}
           >
-            <div className="oz">
-              <label htmlFor="oz">Bottle oz:</label>
-              <input
-                type="text"
-                id="time"
-                value={oz}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setOz(onlyNumbersWithDecimal(e.target.value));
-                }}
-              />
+            <div>
+              <h2>Add History</h2>
             </div>
-            <div className="ozDiscarded">
-              <label htmlFor="">Oz. discarded:</label>
-              <input
-                type="text"
-                id="ozDiscarded"
-                value={ozLeft}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setOzLeft(onlyNumbersWithDecimal(e.target.value));
-                }}
-              />
-            </div>
-          </div>
-          <div
-            className={`breastFeedingInput ${
-              feed === "breastFeed" ? "" : "hidden"
-            }`}
-          >
-            <div className="feedingTime ">
-              <label htmlFor="">How much time was feeding:</label>
-              <input
-                type="text"
-                id="feedingTime"
-                value={feedingTimeLength}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setfeedingTimeLength(onlyKeyNumbers(e.target.value));
-                }}
-              />
-              <span> min.</span>
-            </div>
-          </div>
-          <div
-            className={`breastFeedingInput ${
-              feed === "infantModeOff" ? "" : "hidden"
-            }`}
-          >
-            <div className="drinkType">
-              <label htmlFor="">Drink:</label>
-              <input
-                type="text"
-                id="DrinkType"
-                value={drinkType}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setDrinkType(preventKeyingNumbers(e.target.value));
-                }}
-              />
-            </div>
-            <div className="foodType ">
-              <label htmlFor="">Food: </label>
-              <input
-                type="text"
-                id="foodType"
-                value={foodType}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setFoodType(preventKeyingNumbers(e.target.value));
-                }}
-              />
-            </div>
-          </div>
-          <div className="saveContainer">
-            <button
-              type="submit"
-              className="save feedingSave"
-              disabled={loading}
+            <TimeInfo />{" "}
+            {shouldShowDateTimeEntryError && (
+              <ErrorMessage message={futureTimeNotAllowed} show={true} />
+            )}
+            {shouldShowDateBeforeBirthError && (
+              <ErrorMessage message={dateBeforeBirthMessage} show={true} />
+            )}
+            <div
+              className={`bottleFeedInput ${
+                feed === "bottleFeed" ? "" : "hidden"
+              }`}
             >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-      <div className="historyHeaderContainer">
-        <div className="categoryName historyHeader">
-          <h1>
-            {babyNameForHistory()}'s{" "}
-            {infantMode === "on" && feed === "bottleFeed" ? "Bottle " : ""}
-            {feed === "breastFeed" && infantMode === "on" ? "Breast " : ""}
-            {infantMode === "off" ? "Eating" : "Feeding"} History
-          </h1>
+              <div className="oz">
+                <label htmlFor="oz">Bottle oz:</label>
+                <input
+                  type="text"
+                  id="time"
+                  value={oz}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setOz(onlyNumbersWithDecimal(e.target.value));
+                  }}
+                />
+              </div>
+              <div className="ozDiscarded">
+                <label htmlFor="">Oz. discarded:</label>
+                <input
+                  type="text"
+                  id="ozDiscarded"
+                  value={ozLeft}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setOzLeft(onlyNumbersWithDecimal(e.target.value));
+                  }}
+                />
+              </div>
+            </div>
+            <div
+              className={`breastFeedingInput ${
+                feed === "breastFeed" ? "" : "hidden"
+              }`}
+            >
+              <div className="feedingTime ">
+                <label htmlFor="">How much time was feeding:</label>
+                <input
+                  type="text"
+                  id="feedingTime"
+                  value={feedingTimeLength}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setfeedingTimeLength(onlyKeyNumbers(e.target.value));
+                  }}
+                />
+                <span> min.</span>
+              </div>
+            </div>
+            <div
+              className={`breastFeedingInput ${
+                feed === "infantModeOff" ? "" : "hidden"
+              }`}
+            >
+              <div className="drinkType">
+                <label htmlFor="">Drink:</label>
+                <input
+                  type="text"
+                  id="DrinkType"
+                  value={drinkType}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setDrinkType(preventKeyingNumbers(e.target.value));
+                  }}
+                />
+              </div>
+              <div className="foodType ">
+                <label htmlFor="">Food: </label>
+                <input
+                  type="text"
+                  id="foodType"
+                  value={foodType}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setFoodType(preventKeyingNumbers(e.target.value));
+                  }}
+                />
+              </div>
+            </div>
+            <div className="saveContainer">
+              <button
+                type="submit"
+                className="save feedingSave"
+                disabled={loading}
+              >
+                Save
+              </button>
+            </div>
+          </form>
         </div>
-      </div>
-      <div className="historyTimelineContainer ">
-        {feed === "breastFeed" ? (
-          <BreastFeedingHistory
-            breastFeedHistory={breastFeedHistory}
-            removeBreastFeedingHistory={removeBreastFeedingHistory}
-          />
-        ) : (
-          ""
-        )}
-        {feed === "bottleFeed" ? (
-          <BottleFeedingHistory
-            bottleFeedHistory={bottleFeedHistory}
-            removeBottleFeedingHistory={removeBottleFeedingHistory}
-          />
-        ) : (
-          ""
-        )}
-        {feed === "infantModeOff" ? (
-          <InfantFeedingHistory
-            infantFeedHistory={infantFeedHistory}
-            removeInfantFeedingHistory={removeInfantFeedingHistory}
-          />
-        ) : (
-          ""
-        )}
-      </div>
+        <div className="historyInformationContainer">
+          <div className="historyHeaderContainer">
+            <div className="categoryName historyHeader">
+              <h1>
+                {babyNameForHistory()}'s{" "}
+                {infantMode === "on" && feed === "bottleFeed" ? "Bottle " : ""}
+                {feed === "breastFeed" && infantMode === "on" ? "Breast " : ""}
+                {infantMode === "off" ? "Eating" : "Feeding"} History
+              </h1>
+            </div>
+          </div>
+
+          <div className="historyTimelineContainer ">
+            {feed === "breastFeed" ? (
+              <BreastFeedingHistory
+                breastFeedHistory={breastFeedHistory}
+                removeBreastFeedingHistory={removeBreastFeedingHistory}
+              />
+            ) : (
+              ""
+            )}
+            {feed === "bottleFeed" ? (
+              <BottleFeedingHistory
+                bottleFeedHistory={bottleFeedHistory}
+                removeBottleFeedingHistory={removeBottleFeedingHistory}
+              />
+            ) : (
+              ""
+            )}
+            {feed === "infantModeOff" ? (
+              <InfantFeedingHistory
+                infantFeedHistory={infantFeedHistory}
+                removeInfantFeedingHistory={removeInfantFeedingHistory}
+              />
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+      </section>
     </>
   );
 };

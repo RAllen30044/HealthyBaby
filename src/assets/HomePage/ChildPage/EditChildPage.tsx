@@ -1,7 +1,8 @@
 import toast from "react-hot-toast";
 import {
-  DOBnotVaild,
+  
   futureDOBNotAllowed,
+  isDOBVaild,
   onlyKeyNumbers,
   preventKeyingNumbers,
   setActiveHomePageComponentInLocalStorage,
@@ -56,7 +57,7 @@ export const EditChildPage = () => {
             onSubmit={(e) => {
               e.preventDefault();
 
-              if (DOBnotVaild(DOB)) {
+              if (isDOBVaild(DOB)) {
                 setIsSubmitted(true);
                 return;
               }

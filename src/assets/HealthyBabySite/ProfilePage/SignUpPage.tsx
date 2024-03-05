@@ -112,7 +112,7 @@ export const SignUpPage = () => {
             }}
           >
             <div className="inputContainer">
-              <label htmlFor="name" className="profileLable">
+              <label htmlFor="name" className="profileLabel">
                 Username:
               </label>
 
@@ -132,8 +132,8 @@ export const SignUpPage = () => {
             )}
 
             <div className="inputContainer">
-              <label htmlFor="caregiver" className="profileLable">
-                Child(ren) Caregiver:{" "}
+              <label htmlFor="caregiver" className="profileLabel">
+                Child(ren) Caregiver's Name:{" "}
               </label>
               <input
                 type="text"
@@ -144,11 +144,12 @@ export const SignUpPage = () => {
                 onChange={(e) => {
                   setChildCaregiver(preventKeyingNumbers(e.target.value));
                 }}
+                placeholder="Ex. Grandma, Babysitter's name, self"
               />
             </div>
-
+            <p className="optionalText">(Optional)</p>
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 Password:
               </label>
               <input
@@ -163,13 +164,13 @@ export const SignUpPage = () => {
               />
             </div>
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>
               <input
                 type="password"
-                name="confirmNewPassword"
-                id="confirmNewPassword"
+                name="confirmPassword"
+                id="confirmPassword"
                 className="profileInput"
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
@@ -180,7 +181,7 @@ export const SignUpPage = () => {
               <ErrorMessage message={passwordErrorMessage} show={true} />
             )}
             <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 New Password:
               </label>
               <input
@@ -194,7 +195,7 @@ export const SignUpPage = () => {
               />
             </div>
             <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>
               <input

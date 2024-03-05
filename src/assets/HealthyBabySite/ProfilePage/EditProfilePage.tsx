@@ -47,6 +47,7 @@ export const EditProfilePage = () => {
         <h1>Edit Profile</h1>
         <div className="profile">
           <form
+          
             action="POST"
             className="profileForm"
             onSubmit={(e) => {
@@ -107,13 +108,13 @@ export const EditProfilePage = () => {
             }}
           >
             <div className="inputContainer">
-              <label htmlFor="name" className="profileLable">
+              <label htmlFor="name" className="profileLabel">
                 Username:
               </label>
               <span>{maybeUser ? JSON.parse(maybeUser).username : ""}</span>
             </div>
             <div className="inputContainer">
-              <label htmlFor="caregiver" className="profileLable">
+              <label htmlFor="caregiver" className="profileLabel">
                 Child(ren) Caregiver:{" "}
               </label>
               <input
@@ -128,11 +129,12 @@ export const EditProfilePage = () => {
               />
             </div>
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 Password:
               </label>
               <input
                 type="password"
+                title="password"
                 name="password"
                 id="password"
                 className="profileInput"
@@ -140,29 +142,31 @@ export const EditProfilePage = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                placeholder=""
               />
             </div>
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>
               <input
                 type="password"
-                name="confirmNewPassword"
-                id="confirmNewPassword"
+                title="confirmPassword"
+                name="confirmPassword"
+                id="confirmPassword"
                 className="profileInput"
                 value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                 }}
+                placeholder=""
               />
-   
-           
-            </div>   {shouldShowPasswordErrorMessage && (
-                <ErrorMessage message={passwordErrorMessage} show={true} />
-              )}
+            </div>{" "}
+            {shouldShowPasswordErrorMessage && (
+              <ErrorMessage message={passwordErrorMessage} show={true} />
+            )}
             <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 New Password:
               </label>
               <input
@@ -173,15 +177,15 @@ export const EditProfilePage = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                title="newPassword"
+                placeholder=""
               />
             </div>
-            
-              {shouldShowNoPasswordEntryMessage && (
-                <ErrorMessage message={passwordEntryErrorMessage} show={true} />
-              )}
-            
+            {shouldShowNoPasswordEntryMessage && (
+              <ErrorMessage message={passwordEntryErrorMessage} show={true} />
+            )}
             <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
-              <label htmlFor="password" className="profileLable">
+              <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>
               <input
@@ -192,15 +196,15 @@ export const EditProfilePage = () => {
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                 }}
+                title="confirmNewPassword"
+                placeholder=""
               />
             </div>
-            
-              {shouldShowPasswordErrorMessage && (
-                <ErrorMessage message={passwordErrorMessage} show={true} />
-              )}
-            
+            {shouldShowPasswordErrorMessage && (
+              <ErrorMessage message={passwordErrorMessage} show={true} />
+            )}
             <div className="buttonContainer">
-              <button className="saveButton" disabled={loading}>
+              <button type="button" className="saveButton" disabled={loading}>
                 Save
               </button>
             </div>

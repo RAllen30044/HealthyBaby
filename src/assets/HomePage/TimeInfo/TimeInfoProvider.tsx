@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import {
-  DOBnotVaild,
+  isDOBVaild,
   isDateBeforeBirth,
   timeInvaild,
 } from "../../../ErrorHandling";
@@ -12,7 +12,7 @@ export type TimeInfoProviderT = {
   loading: boolean;
   shouldShowDOBentryError: boolean;
   shouldShowDateTimeEntryError: boolean;
-  shouldShowDateBeforeBirthError: boolean;
+  shouldShowDateBeforeBirthError: boolean | "" | null;
   isSubmitted: boolean;
   setTime: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<string>>;
@@ -29,11 +29,13 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { maybeChild } = useAuthProviderContext();
-  const shouldShowDOBentryError = isSubmitted && DOBnotVaild(date);
+  const shouldShowDOBentryError = isSubmitted && isDOBVaild(date);
   const shouldShowDateTimeEntryError = isSubmitted && timeInvaild(date, time);
+
   const shouldShowDateBeforeBirthError =
     isSubmitted &&
-    isDateBeforeBirth(JSON.parse(maybeChild || "Error finding DOB").DOB, date);
+    maybeChild &&
+    isDateBeforeBirth(JSON.parse(maybeChild).DOB, date);
 
   return (
     <TimeInfoContext.Provider

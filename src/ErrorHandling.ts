@@ -26,9 +26,11 @@ export function isFirstNameValid(firstName: string) {
   return firstName.length > 1;
 }
 
-export function DOBnotVaild(DOB: string) {
+export function isDOBVaild(DOB: string) {
   return new Date() < new Date(DOB);
 }
+console.log(isDOBVaild("03/01/2024"));
+
 export function timeInvaild(date: string, time: string) {
   return new Date() < new Date(`${date}T${time}`);
 }

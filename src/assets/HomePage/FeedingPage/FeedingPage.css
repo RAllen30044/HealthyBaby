@@ -61,3 +61,15 @@ button.breastFeed.pressedButton {
 .subCategories button {
   margin: 0 13px;
 }
+
+.historySection{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dataInputForm.feedingForm{
+width: 50%;
+}
+.historyInformationContainer{
+  width: 50%;
+}
