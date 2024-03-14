@@ -1664,6 +1664,14 @@
       "bottleOzLeft": "2",
       "childId": "11",
       "id": "99"
+    },
+    {
+      "id": "c883",
+      "time": "11:12 PM",
+      "date": "March 4, 2024",
+      "bottleOz": "23",
+      "bottleOzLeft": "2",
+      "childId": "15"
     }
   ],
   "breastFeedingHistory": [
@@ -3309,14 +3317,6 @@
       "id": "19"
     },
     {
-      "time": "3:56 PM",
-      "date": "March 5, 2024",
-      "diaperType": "Wet",
-      "consistancy": "Wet",
-      "childId": "15",
-      "id": "20"
-    },
-    {
       "time": "2:04 PM",
       "date": "March 7, 2024",
       "diaperType": "Wet",
@@ -3499,14 +3499,6 @@
       "consistancy": "pebbles",
       "childId": "1",
       "id": "43"
-    },
-    {
-      "time": "7:03 PM",
-      "date": "March 7, 2024",
-      "diaperType": "Wet",
-      "consistancy": "Wet",
-      "childId": "15",
-      "id": "44"
     },
     {
       "time": "3:48 PM",
@@ -3947,6 +3939,14 @@
       "consistancy": "Wet",
       "childId": "14",
       "id": "99"
+    },
+    {
+      "id": "fe3b",
+      "time": "1:42 PM",
+      "date": "March 11, 2024",
+      "diaperType": "Poop",
+      "consistancy": "Solid",
+      "childId": "15"
     }
   ],
   "illness": [
@@ -4552,15 +4552,6 @@
       "medicineOz": "1.5",
       "childId": "8",
       "id": "67"
-    },
-    {
-      "time": "12:03 AM",
-      "date": "March 4, 2024",
-      "symptoms": "soft stool",
-      "medicineGiven": "Moltrin",
-      "medicineOz": "1.1",
-      "childId": "15",
-      "id": "68"
     },
     {
       "time": "2:54 PM",

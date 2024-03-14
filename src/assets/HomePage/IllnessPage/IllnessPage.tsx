@@ -27,6 +27,7 @@ import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authPr
 import {
   HistoryDateAndTimeColumn,
   HistoryInfoColumn,
+  HistoryMobileView,
   HistoryTableHeader,
 } from "../historyTable";
 
@@ -75,108 +76,112 @@ export const IllnessPage = () => {
       </div>
 
       <section className="historySection">
-        <div className="dataInputForm">
-          <form
-            action="POST"
-            onSubmit={(e) => {
-              e.preventDefault();
+        <div className="dataInputForm illnessForm">
+          <div className="dataInputFormContainer">
+            <h2 className="addHistoryText">Add History</h2>
 
-              if (timeInvaild(date, time)) {
-                setIsSubmitted(true);
-                return;
-              }
-              if (
-                maybeChild &&
-                isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-              ) {
-                setIsSubmitted(true);
-                return;
-              }
-              setIsSubmitted(false);
+            <form
+              action="POST"
+              onSubmit={(e) => {
+                e.preventDefault();
 
-              setLoading(true);
+                if (timeInvaild(date, time)) {
+                  setIsSubmitted(true);
+                  return;
+                }
+                if (
+                  maybeChild &&
+                  isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+                ) {
+                  setIsSubmitted(true);
+                  return;
+                }
+                setIsSubmitted(false);
 
-              postInfo(
-                {
-                  time: convertToStandardTime(time),
-                  date: formatDate(createShortHandDate(date)),
+                setLoading(true);
 
-                  symptoms: symptoms,
-                  medicineGiven: medicineGiven,
-                  medicineOz: oz,
-                  childId: childId,
-                },
-                illnessUrl
-              )
-                .then(fetchIllnessHistory)
-                .then(() => {
-                  setDate("");
-                  setTime("");
-                  setSymptoms("");
+                postInfo(
+                  {
+                    time: convertToStandardTime(time),
+                    date: formatDate(createShortHandDate(date)),
 
-                  setOz("");
-                  setMedicineGiven("");
-                })
-                .then(() => {
-                  setLoading(false);
-                });
-            }}
-          >
-            <TimeInfo />
-            {shouldShowDateTimeEntryError && (
-              <ErrorMessage message={futureTimeNotAllowed} show={true} />
-            )}
-            {shouldShowDateBeforeBirthError && (
-              <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-            )}
+                    symptoms: symptoms,
+                    medicineGiven: medicineGiven,
+                    medicineOz: oz,
+                    childId: childId,
+                  },
+                  illnessUrl
+                )
+                  .then(fetchIllnessHistory)
+                  .then(() => {
+                    setDate("");
+                    setTime("");
+                    setSymptoms("");
 
-            <div className="symptoms">
-              <label htmlFor="symptoms">Symptoms: </label>
-              <input
-                type="text"
-                id="symptoms"
-                value={symptoms}
-                onChange={(e) => {
-                  setSymptoms(e.target.value);
-                }}
-                required
-              />
-            </div>
-            <div className="medicineGiven">
-              <label htmlFor="medicineGiven">Medicine given: </label>
-              <input
-                type="text"
-                id="medicineGiven"
-                value={medicineGiven}
-                onChange={(e) => {
-                  setMedicineGiven(preventKeyingNumbers(e.target.value));
-                }}
-                required
-              />
-            </div>
-            <div className="oz">
-              <label htmlFor="oz">Oz: </label>
-              <input
-                type="text"
-                id="oz"
-                value={oz}
-                onChange={(e) => {
-                  setOz(onlyNumbersWithDecimal(e.target.value));
-                }}
-                required
-              />
-            </div>
-            <div className="saveContainer">
-              <button
-                type="submit"
-                className="save illnessSave"
-                disabled={loading}
-              >
-                Save
-              </button>
-            </div>
-          </form>
-        </div>{" "}
+                    setOz("");
+                    setMedicineGiven("");
+                  })
+                  .then(() => {
+                    setLoading(false);
+                  });
+              }}
+            >
+              <TimeInfo />
+              {shouldShowDateTimeEntryError && (
+                <ErrorMessage message={futureTimeNotAllowed} show={true} />
+              )}
+              {shouldShowDateBeforeBirthError && (
+                <ErrorMessage message={dateBeforeBirthMessage} show={true} />
+              )}
+
+              <div className="symptoms">
+                <label htmlFor="symptoms">Symptoms: </label>
+                <input
+                  type="text"
+                  id="symptoms"
+                  value={symptoms}
+                  onChange={(e) => {
+                    setSymptoms(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+              <div className="medicineGiven">
+                <label htmlFor="medicineGiven">Medicine given: </label>
+                <input
+                  type="text"
+                  id="medicineGiven"
+                  value={medicineGiven}
+                  onChange={(e) => {
+                    setMedicineGiven(preventKeyingNumbers(e.target.value));
+                  }}
+                  required
+                />
+              </div>
+              <div className="oz">
+                <label htmlFor="oz">Oz: </label>
+                <input
+                  type="text"
+                  id="oz"
+                  value={oz}
+                  onChange={(e) => {
+                    setOz(onlyNumbersWithDecimal(e.target.value));
+                  }}
+                  required
+                />
+              </div>
+              <div className="saveContainer">
+                <button
+                  type="submit"
+                  className="save illnessSave"
+                  disabled={loading}
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
         <div className="historyInformationContainer">
           <div className="historyHeaderContainer">
             <div className="categoryName historyHeader">
@@ -184,17 +189,53 @@ export const IllnessPage = () => {
             </div>
           </div>
 
-          <div className="historyTable">
-            {HistoryTableHeader(["Symptoms", "Type of Medicine", "Medicine Given(Oz)"], "Illness")}
-            <div className="historyTimelineContainer ">
-              {HistoryDateAndTimeColumn(illnessHistory,"Illness", removeIllnessHistory)}
-              <div>{HistoryInfoColumn(illnessHistory, "symptoms", "", "Illness")}</div>
-              <div>
-                {HistoryInfoColumn(illnessHistory, "medicineGiven", "", "Illness")}
+          <section className="largeScreenHistorySection">
+            <div className="historyTable">
+              {HistoryTableHeader(
+                ["Symptoms", "Type of Medicine", "Medicine Given(Oz)"],
+                "Illness"
+              )}
+              <div className="historyTimelineContainer ">
+                {HistoryDateAndTimeColumn(
+                  illnessHistory,
+                  "Illness",
+                  removeIllnessHistory
+                )}
+                <div>
+                  {HistoryInfoColumn(illnessHistory, "symptoms", "", "Illness")}
+                </div>
+                <div>
+                  {HistoryInfoColumn(
+                    illnessHistory,
+                    "medicineGiven",
+                    "",
+                    "Illness"
+                  )}
+                </div>
+                <div>
+                  {HistoryInfoColumn(
+                    illnessHistory,
+                    "medicineOz",
+                    "oz",
+                    "Illness"
+                  )}
+                </div>
               </div>
-              <div>{HistoryInfoColumn(illnessHistory, "medicineOz", "oz", "Illness")}</div>
             </div>
-          </div>
+          </section>
+
+          <section className="smallerScreenHistorySection">
+            <div className="smallerScreenHistoryTable">
+              {HistoryMobileView(
+                illnessHistory,
+                ["symptoms", "medicineGiven", "medicineOz"],
+                ["Symptoms", "Type of Medicine", "Medicine Given(oz)"],
+                ["", "", "oz"],
+                "Illness",
+                removeIllnessHistory
+              )}
+            </div>
+          </section>
         </div>
       </section>
     </>

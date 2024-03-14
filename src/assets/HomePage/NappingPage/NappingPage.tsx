@@ -24,7 +24,12 @@ import {
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
-import { HistoryDateAndTimeColumn, HistoryInfoColumn, HistoryTableHeader } from "../historyTable";
+import {
+  HistoryDateAndTimeColumn,
+  HistoryInfoColumn,
+  HistoryMobileView,
+  HistoryTableHeader,
+} from "../historyTable";
 
 export const NappingPage = () => {
   const [LengthOfTime, setLengthOfTime] = useState("");
@@ -69,73 +74,77 @@ export const NappingPage = () => {
 
       <section className="historySection">
         <div className="dataInputForm">
-          <form
-            action="POST"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (timeInvaild(date, time)) {
-                setIsSubmitted(true);
-                return;
-              }
-              if (
-                maybeChild &&
-                isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-              ) {
-                setIsSubmitted(true);
-                return;
-              }
-              setIsSubmitted(false);
-              setLoading(true);
-              postInfo(
-                {
-                  time: convertToStandardTime(time),
-                  date: formatDate(createShortHandDate(date)),
-                  lengthOfTime: LengthOfTime,
-                  childId: childId,
-                },
-                nappingUrl
-              )
-                .then(fetchNappingHistory)
-                .then(() => {
-                  setTime("");
-                  setDate("");
-                  setLengthOfTime("");
-                })
-                .then(() => {
-                  setLoading(false);
-                });
-            }}
-          >
-            <TimeInfo />
-            {shouldShowDateTimeEntryError && (
-              <ErrorMessage message={futureTimeNotAllowed} show={true} />
-            )}
-            {shouldShowDateBeforeBirthError && (
-              <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-            )}
-            <div className="napLength ">
-              <label htmlFor="napLength">Nap Length:</label>
-              <input
-                type="text"
-                name="napLength"
-                id="napLength"
-                value={LengthOfTime}
-                onChange={(e) => {
-                  setLengthOfTime(onlyKeyNumbers(e.target.value));
-                }}
-              />
-              <span> min</span>
-            </div>
-            <div className="saveContainer">
-              <button
-                type="submit"
-                className="save nappingSave"
-                disabled={loading}
-              >
-                Save
-              </button>
-            </div>
-          </form>
+          <div className="dataInputFormContainer">
+            <h2 className="addHistoryText">Add History</h2>
+
+            <form
+              action="POST"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (timeInvaild(date, time)) {
+                  setIsSubmitted(true);
+                  return;
+                }
+                if (
+                  maybeChild &&
+                  isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+                ) {
+                  setIsSubmitted(true);
+                  return;
+                }
+                setIsSubmitted(false);
+                setLoading(true);
+                postInfo(
+                  {
+                    time: convertToStandardTime(time),
+                    date: formatDate(createShortHandDate(date)),
+                    lengthOfTime: LengthOfTime,
+                    childId: childId,
+                  },
+                  nappingUrl
+                )
+                  .then(fetchNappingHistory)
+                  .then(() => {
+                    setTime("");
+                    setDate("");
+                    setLengthOfTime("");
+                  })
+                  .then(() => {
+                    setLoading(false);
+                  });
+              }}
+            >
+              <TimeInfo />
+              {shouldShowDateTimeEntryError && (
+                <ErrorMessage message={futureTimeNotAllowed} show={true} />
+              )}
+              {shouldShowDateBeforeBirthError && (
+                <ErrorMessage message={dateBeforeBirthMessage} show={true} />
+              )}
+              <div className="napLength ">
+                <label htmlFor="napLength">Nap Length:</label>
+                <input
+                  type="text"
+                  name="napLength"
+                  id="napLength"
+                  value={LengthOfTime}
+                  onChange={(e) => {
+                    setLengthOfTime(onlyKeyNumbers(e.target.value));
+                  }}
+                />
+                <span> min</span>
+              </div>
+              <div className="saveContainer">
+                <button
+                  type="submit"
+                  className="save nappingSave"
+                  disabled={loading}
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
         <div className="historyInformationContainer">
           <div className="historyHeaderContainer">
@@ -144,13 +153,41 @@ export const NappingPage = () => {
             </div>
           </div>
 
+<section className="largeScreenHistorySection">
+
           <div className="historyTable">
             {HistoryTableHeader(["Nap Legnth of time"], "Napping")}
             <div className="historyTimelineContainer ">
-              {HistoryDateAndTimeColumn(nappingHistory,"Napping", removeNappingHistory)}
-              <div>{HistoryInfoColumn(nappingHistory, "lengthOfTime", "min", "Napping")}</div>
+              {HistoryDateAndTimeColumn(
+                nappingHistory,
+                "Napping",
+                removeNappingHistory
+              )}
+              <div>
+                {HistoryInfoColumn(
+                  nappingHistory,
+                  "lengthOfTime",
+                  "min",
+                  "Napping"
+                )}
+              </div>
             </div>
           </div>
+          </section>
+
+          <section className="smallerScreenHistorySection">
+            <div className="smallerScreenHistoryTable">
+              {HistoryMobileView(
+                nappingHistory,
+                ["lengthOfTime"],
+                ["Nap Time(min)"],
+                ["min"],
+                "Napping",
+               removeNappingHistory
+              )}
+            </div>
+          </section>
+
         </div>
       </section>
     </>

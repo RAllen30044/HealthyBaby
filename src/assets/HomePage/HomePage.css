@@ -104,7 +104,6 @@ input {
   display: flex;
   flex-wrap: wrap;
 
-
   width: 100%;
   max-height: 300px;
   overflow-y: scroll;
@@ -125,7 +124,6 @@ input {
   text-align: center;
 }
 
-
 .historyTableContainer {
   width: 100%;
 }
@@ -141,7 +139,6 @@ input {
   justify-content: center;
   text-align: center;
   width: 100%;
-
 }
 .dateTimeHeader {
   display: flex;
@@ -175,4 +172,15 @@ input {
 }
 .arrowDownNapping:hover {
   color: #b935f9;
+}
+.smallerScreenHistorySection {
+  display: none;
+}
+@media screen and (max-width: 1000px) {
+  .largeScreenHistorySection {
+    display: none;
+  }
+  .smallerScreenHistorySection {
+    display: block;
+  }
 }

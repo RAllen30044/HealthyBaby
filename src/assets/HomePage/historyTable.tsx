@@ -110,10 +110,11 @@ export const HistoryTableHeader = (
       </div>
       {headerValue.map((header, index) => {
         return (
-          <div className={`historyColumnContainer ${pageName}ColumnContainer`}>
-            <h3 key={index} className={`${header}Header`}>
-              {header}
-            </h3>
+          <div
+            key={`${pageName}${index}`}
+            className={`historyColumnContainer ${pageName}ColumnContainer`}
+          >
+            <h3 className={`${header}Header`}>{header}</h3>
           </div>
         );
       })}
@@ -218,17 +219,14 @@ export const HistoryMobileView = (
                   <h4>Date: {history.date}</h4>
                   <h4>Time: {history.time}</h4>
                 </div>
-                {historyProperty.map((historyProperty, index) => {
-                  return suffix.map((suffix) => {
-                    <div className={`mobile${historyProperty}`} key={index}>
-                      {historyPropertyLabel.map((historyLabel) => {
-                        return (
-                          <h4>{`${historyLabel}: ${specificHistory[historyProperty]} ${suffix}`}</h4>
-                        );
-                      })}
-                    </div>;
-                  });
-                })}
+                {historyProperty.map((property, index) => (
+                  <div
+                    className={`mobile${property}`}
+                    key={`${property}-${index}`}
+                  >
+                    <h4>{`${historyPropertyLabel[index]}: ${specificHistory[property]} ${suffix[index]}`}</h4>
+                  </div>
+                ))}
               </div>
               <button
                 className="Delete button"

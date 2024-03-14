@@ -26,6 +26,7 @@
     align-items: center;
    
   }
+
 }
 @media screen and (max-width: 640px) {
 
@@ -153,7 +154,7 @@
     justify-content: initial;
   }
   div.historyHeaderContainer .historyHeader h1 {
-    margin: 25px 67px;
+    font-size: 65px;
   }
   .historyTimelineContainer {
     justify-content: center;
