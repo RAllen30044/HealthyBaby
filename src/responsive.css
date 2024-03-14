@@ -11,19 +11,24 @@
   display: none;
   font-size: 20px;
 }
-@media screen and (max-width: 767px) {
-  .historyTimelineContainer {
+
+@media screen and (max-width: 1100px) {
+  .historySection {
     flex-direction: column;
     align-items: center;
   }
 }
-@media screen and (max-width: 550px) {
-  /* .logo {
-    display: none;
+
+@media screen and (max-width: 767px) {
+
+  .historyTimelineContainer {
+    flex-direction: column;
+    align-items: center;
+   
   }
-  .mobileLogo {
-    display: block;
-  } */
+}
+@media screen and (max-width: 640px) {
+
 
   .linksDropDown {
     display: block;

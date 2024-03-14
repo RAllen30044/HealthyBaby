@@ -1,47 +1,30 @@
-import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { breastfeedingHistoryT } from "../../../Types";
+import { HistoryDateAndTimeColumn, HistoryInfoColumn, HistoryTableHeader } from "../historyTable";
+
+import "./FeedingPage.css";
 
 export const BreastFeedingHistory = ({
   breastFeedHistory,
   removeBreastFeedingHistory,
 }: breastfeedingHistoryT) => {
-  const { childId } = useHistoryIDComponent();
   return (
-    <>
-      {breastFeedHistory
-        .filter((history) => history.childId === childId)
-        .sort((b, a) => {
-          if (new Date(a.date) < new Date(b.date)) {
-            return -1;
-          }
-          if (new Date(a.date) > new Date(b.date)) {
-            return 1;
-          }
-
-          return 0;
-        })
-        .map((history) => {
-          return (
-            <div className="historyContainer" key={history.id}>
-              <div className="breasfeedingHistory">
-                <h4>Date: {history.date}</h4>
-                <h4>Time: {history.time}</h4>
-                <h4>
-                  Feeding Time in minutes and seconds:
-                  {history.feedingTimeLength}
-                </h4>
-              </div>
-              <button
-                className="Delete button"
-                onClick={() => {
-                  removeBreastFeedingHistory(history.id);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          );
-        })}
-    </>
+    <div className="historyTable">
+      {HistoryTableHeader(["Feeding Time"], "Feeding")}
+      <div className="historyTimelineContainer ">
+        {HistoryDateAndTimeColumn(
+          breastFeedHistory,
+          "Feeding",
+          removeBreastFeedingHistory
+        )}
+        <div>
+          {HistoryInfoColumn(
+         breastFeedHistory,
+            "feedingTimeLength",
+            "min",
+            "Feeding"
+          )}
+        </div>
+      </div>
+    </div>
   );
 };

@@ -19,7 +19,18 @@ export type HistoryInfoTypes =
   | Omit<ChildInfoT, "id">
   | Omit<ProfileInfoTypes, "id">
   | Omit<infantFeedingInfoType, "id">;
+export type ChildInfoT = {
+  name: string;
 
+  DOB: string;
+  gender: string;
+  weight: string;
+  height: string;
+  headSize: string;
+
+  profileId: string ;
+  id: string;
+};
 export type ProfileInfoTypes = {
   username: string;
   password: string;
@@ -48,22 +59,11 @@ export type bottleFeedingInfoType = {
   time: string;
   date: string;
   id: string;
-  oz: string;
-  ozLeft: string;
+  bottleOz: string;
+  bottleOzLeft: string;
   childId: string;
 };
-export type ChildInfoT = {
-  name: string;
 
-  DOB: string;
-  gender: string;
-  weight: string;
-  height: string;
-  headSize: string;
-
-  profileId: string ;
-  id: string;
-};
 
 export type IllnessType = {
   id: string;
@@ -72,7 +72,7 @@ export type IllnessType = {
   
   symptoms: string;
   medicineGiven: string;
-  oz: string;
+  medicineOz: string;
   childId: string;
 };
 
@@ -80,7 +80,7 @@ export type DaipersHistoryInfoTypes = {
   time: string;
   date: string;
   consistancy: string;
-  type: string;
+  diaperType: string;
   id: string;
   childId: string;
 };

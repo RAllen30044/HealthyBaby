@@ -24,7 +24,7 @@ button:hover {
   margin-bottom: 80px;
   background-color: lightgrey;
 }
-img{
+img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -45,8 +45,18 @@ img{
 .notActive {
   display: none;
 }
+
+.historySection {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.historyInformationContainer {
+  width: 65%;
+}
+
 .dataInputForm {
-  width: 89vw;
+  width: 35%;
   display: flex;
   justify-content: center;
   margin-top: 50px;
@@ -58,6 +68,7 @@ form div {
 input {
   border: solid 1px transparent;
   background-color: transparent;
+  font-size: 20px;
 }
 .saveContainer {
   width: 100%;
@@ -70,9 +81,13 @@ input {
   border: 1px solid transparent;
   border-radius: 25px;
   font-size: 16px;
-
 }
 
+.historyContainer {
+  width: 100%;
+  height: 130px;
+  margin: 0 0 40px 0;
+}
 .historyHeaderContainer {
   width: 100%;
   display: flex;
@@ -85,16 +100,79 @@ input {
 .historyHeader h1 {
   margin: 25px 0;
 }
-.historyTimelineContainer{
+.historyTimelineContainer {
   display: flex;
-  flex-wrap:wrap;
-  margin: 30px;
-  gap: 50px;
+  flex-wrap: wrap;
+
+
+  width: 100%;
   max-height: 300px;
   overflow-y: scroll;
+  justify-content: center;
 }
 
-.historyTimelineContainer h2{
+.historyTimelineContainer h2 {
   font-family: "Caveat", cursive;
   font-size: 40px;
+}
+.historyColumnContainer {
+  min-width: 200px;
+}
+.IllnessColumnContainer {
+  min-width: 160px;
+}
+.newColumnContainer {
+  text-align: center;
+}
+
+
+.historyTableContainer {
+  width: 100%;
+}
+
+.historyTable {
+  display: flex;
+
+  width: 100%;
+  flex-direction: column;
+}
+.historyTableHeader {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+
+}
+.dateTimeHeader {
+  display: flex;
+  gap: 20px;
+}
+.arrowContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  cursor: pointer;
+}
+.arrowUpFeeding:hover {
+  color: #fadd9f;
+}
+.arrowDownFeeding:hover {
+  color: #fadd9f;
+}
+.arrowUpIllness:hover {
+  color: coral;
+}
+.arrowDownIllness:hover {
+  color: coral;
+}
+.arrowUpDiaper:hover {
+  color: #12d7e6;
+}
+.arrowDownDiaper:hover {
+  color: #12d7e6;
+}
+.arrowUpNapping:hover {
+  color: #b935f9;
+}
+.arrowDownNapping:hover {
+  color: #b935f9;
 }

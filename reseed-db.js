@@ -165,8 +165,8 @@ const db = {
   bottleFeedingHistory: range(1, 100).map((_, id) => ({
     time: convertToStandardTime(setRandomTime()),
     date: formatDate(createShortHandDate(randomizeDate())),
-    oz: `${Math.floor(Math.random() * 6 + 4)}`,
-    ozLeft: `${Math.floor(Math.random() * 3 + 1)}`,
+    bottleOz: `${Math.floor(Math.random() * 6 + 4)}`,
+    bottleOzLeft: `${Math.floor(Math.random() * 3 + 1)}`,
     childId: `${Math.floor(Math.random() * 15 + 1)}`,
     id: `${id + 1}`,
   })),
@@ -186,13 +186,13 @@ const db = {
     id: `${id + 1}`,
   })),
   diapersHistory: range(1, 100).map((_, id) => {
-    let daiper = randomizeItem(daiperConsistancy);
+    let diaper = randomizeItem(daiperConsistancy);
     return {
       time: convertToStandardTime(setRandomTime()),
       date: formatDate(createShortHandDate(randomizeDate())),
-      type: daiper,
+      diaperType: diaper,
       consistancy:
-        daiper.toLowerCase() === "poop" ? randomizeItem(poopType) : "Wet",
+        diaper.toLowerCase() === "poop" ? randomizeItem(poopType) : "Wet",
 
       childId: `${Math.floor(Math.random() * 15 + 1)}`,
       id: `${id + 1}`,
@@ -203,7 +203,7 @@ const db = {
     date: formatDate(createShortHandDate(randomizeDate())),
     symptoms: randomizeItem(symptoms),
     medicineGiven: randomizeItem(medicine),
-    oz: randomizeMedicineOz(),
+    medicineOz: randomizeMedicineOz(),
     childId: `${Math.floor(Math.random() * 15 + 1)}`,
     id: `${id + 1}`,
   })),

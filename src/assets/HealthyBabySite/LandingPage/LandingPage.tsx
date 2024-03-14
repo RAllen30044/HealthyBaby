@@ -66,7 +66,7 @@ export const LandingPage = () => {
   };
 
   useEffect(() => {
-    loadIcons(); // Initial load
+    loadIcons(); 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

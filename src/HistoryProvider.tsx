@@ -25,6 +25,7 @@ import {
   getNappingHistory,
   getProfileData,
 } from "./api";
+type SortDirection = "asc" | "desc";
 
 export type HistoryIDComponentProvider = {
   bottleFeedHistory: bottleFeedingInfoType[];
@@ -71,6 +72,9 @@ export type HistoryIDComponentProvider = {
 
   profileId: string;
   setProfileId: React.Dispatch<React.SetStateAction<string>>;
+
+  sortDirection: SortDirection;
+  setSortDirection: React.Dispatch<React.SetStateAction<SortDirection>>;
 };
 
 const HistoryIDComponentContext = createContext<HistoryIDComponentProvider>(
@@ -106,6 +110,7 @@ export const HistoryIDComponentProvider = ({
 
   const [profileId, setProfileId] = useState<string>(maybeUserId);
   const [child, setChild] = useState({});
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
 
   const fetchProfileInfo = () => getProfileData().then(setProfile);
 
@@ -171,6 +176,8 @@ export const HistoryIDComponentProvider = ({
         setProfileId,
         child,
         setChild,
+        setSortDirection,
+        sortDirection,
       }}
     >
       {children}

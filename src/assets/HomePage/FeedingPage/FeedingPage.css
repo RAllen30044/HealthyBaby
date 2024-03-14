@@ -20,10 +20,8 @@ button.infantModeSwitch {
   background-color: #bab4a6;
 }
 
-
 button.infantModeSwitch:hover {
   background-color: #9d988c;
-  
 }
 button.infantModeSwitch.pressedButton {
   background-color: #9d988c;
@@ -62,14 +60,10 @@ button.breastFeed.pressedButton {
   margin: 0 13px;
 }
 
-.historySection{
-  display: flex;
-  flex-wrap: wrap;
-}
 
-.dataInputForm.feedingForm{
-width: 50%;
-}
-.historyInformationContainer{
-  width: 50%;
+
+.BreastFeedHistoryTableHeader{
+  display: flex;
+  gap: 19.3%;
+  width: 100%;
 }
