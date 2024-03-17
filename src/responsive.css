@@ -135,11 +135,7 @@
   .pagesDropDown {
     display: none;
   }
-  .banner {
-    flex-direction: column-reverse;
-    align-items: center;
-    gap: 30px;
-  }
+
   .category {
     width: 100%;
     gap: 10px;

@@ -337,7 +337,7 @@ export const FeedingPage = () => {
                   <label htmlFor="quantity">Bottle Quantity:</label>
                   <input
                     type="text"
-                    id="time"
+                    id="quantity"
                     value={quantity}
                     onChange={(e) => {
                       e.preventDefault();
@@ -352,7 +352,7 @@ export const FeedingPage = () => {
                   <label htmlFor="">Quantity Discarded:</label>
                   <input
                     type="text"
-                    id="ozDiscarded"
+                    id="quantityDiscarded"
                     value={quantityLeft}
                     onChange={(e) => {
                       e.preventDefault();

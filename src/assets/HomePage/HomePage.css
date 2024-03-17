@@ -64,6 +64,17 @@ img {
 
 form div {
   margin-bottom: 20px;
+ 
+}
+.drinkType, .foodType, .napLength{
+  display: flex;
+}
+#napLength{
+  width: 40px;
+  margin-right: 10px;
+}
+#quantity, #quantityDiscarded{
+  width: 40px;
 }
 input {
   border: solid 1px transparent;
