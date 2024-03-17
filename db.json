@@ -47,9 +47,9 @@
       "id": "2"
     },
     {
-      "gender": "male",
+      "gender": "Male",
       "name": "Ralph",
-      "DOB": "2017-12-05",
+      "DOB": "2017-09-23",
       "weight": "49",
       "height": "28",
       "headSize": "18",
