@@ -1,5 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-type CheveronPostion = "up" | "down";
+type ChevronPosition = "up" | "down";
+type UnitOfMeasurement = "mL" | "oz";
+
 export type TChildInfoProvider = {
   childName: string;
   setChildName: React.Dispatch<React.SetStateAction<string>>;
@@ -15,10 +17,12 @@ export type TChildInfoProvider = {
   setGender: React.Dispatch<React.SetStateAction<string>>;
   currentChildId: string;
   setCurrentChildId: React.Dispatch<React.SetStateAction<string>>;
-  cheveronPosition: CheveronPostion;
-  setCheveronPosition: React.Dispatch<React.SetStateAction<CheveronPostion>>;
+  chevronPosition: ChevronPosition;
+  setChevronPosition: React.Dispatch<React.SetStateAction<ChevronPosition>>;
   hiddenPagesLinks: boolean;
   setHiddenPagesLinks: React.Dispatch<React.SetStateAction<boolean>>;
+  unitOfMeasurement: UnitOfMeasurement;
+  setUnitOfMeasurement: React.Dispatch<React.SetStateAction<UnitOfMeasurement>>;
 };
 
 const ChildInfoContext = createContext<TChildInfoProvider>(
@@ -63,8 +67,14 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
       : "Couldn't locate id"
   );
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
-  const [cheveronPosition, setCheveronPosition] =
-    useState<CheveronPostion>("down");
+  const [chevronPosition, setChevronPosition] =
+    useState<ChevronPosition>("down");
+
+    const [unitOfMeasurement, setUnitOfMeasurement] = useState<UnitOfMeasurement>(
+      JSON.parse(JSON.stringify(localStorage.getItem("unitOfMeasurement"))) ||
+        "mL"
+    );
+
   return (
     <ChildInfoContext.Provider
       value={{
@@ -82,10 +92,12 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
         setWeight,
         currentChildId,
         setCurrentChildId,
-        cheveronPosition,
-        setCheveronPosition,
+        chevronPosition,
+        setChevronPosition,
         hiddenPagesLinks,
         setHiddenPagesLinks,
+        unitOfMeasurement,
+        setUnitOfMeasurement
       }}
     >
       {children}

@@ -25,7 +25,7 @@ import {
   babyNameForHistory,
   futureTimeNotAllowed,
   isDateBeforeBirth,
-  timeInvaild,
+  timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
@@ -36,12 +36,12 @@ import {
   HistoryTableHeader,
 } from "../historyTable";
 
-type DaiperType = "Wet" | "Poop";
-type ConsistancyTypeT = "Pebbles" | "Solid" | "Soft" | "Wet";
+type DiaperType = "Wet" | "Poop";
+type ConsistencyTypeT = "Pebbles" | "Solid" | "Soft" | "Wet";
 
-export const DaiperPage = () => {
-  const [diaperType, setDiaperType] = useState<DaiperType>("Wet");
-  const [consistancy, setConsistancy] = useState<ConsistancyTypeT>("Wet");
+export const DiaperPage = () => {
+  const [diaperType, setDiaperType] = useState<DiaperType>("Wet");
+  const [consistency, setConsistency] = useState<ConsistencyTypeT>("Wet");
   const { maybeChild } = useAuthProviderContext();
   const {
     time,
@@ -54,7 +54,7 @@ export const DaiperPage = () => {
     shouldShowDateTimeEntryError,
     shouldShowDateBeforeBirthError,
   } = useTimeInfo();
-  const { diapersHistory, setDiapersHistory, fetchDaiperHistory, childId } =
+  const { diapersHistory, setDiapersHistory, fetchDiaperHistory, childId } =
     useHistoryIDComponent();
 
   const removeDiaperHistory = (id: string) => {
@@ -90,7 +90,7 @@ export const DaiperPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (timeInvaild(date, time)) {
+                if (timeInvalid(date, time)) {
                   setIsSubmitted(true);
                   return;
                 }
@@ -109,17 +109,17 @@ export const DaiperPage = () => {
                     time: convertToStandardTime(time),
                     date: formatDate(createShortHandDate(date)),
                     diaperType: diaperType,
-                    consistancy: consistancy,
+                    consistency: consistency,
                     childId: childId,
                   },
                   diaperUrl
                 )
-                  .then(fetchDaiperHistory)
+                  .then(fetchDiaperHistory)
                   .then(() => {
                     setTime("");
                     setDate("");
                     setDiaperType("Wet");
-                    setConsistancy("Wet");
+                    setConsistency("Wet");
                   })
                   .then(() => {
                     setLoading(false);
@@ -144,7 +144,7 @@ export const DaiperPage = () => {
                   }`}
                   onClick={() => {
                     setDiaperType("Wet");
-                    setConsistancy("Wet");
+                    setConsistency("Wet");
                   }}
                 >
                   <FontAwesomeIcon icon={faDroplet} />
@@ -164,19 +164,19 @@ export const DaiperPage = () => {
                 </button>
               </div>
               <div
-                className={`consistancy ${
+                className={`consistency ${
                   diaperType === "Wet" ? "hidden" : ""
                 }`}
               >
-                <label htmlFor="consistancy">Consistancy?</label>
+                <label htmlFor="consistency">Consistency?</label>
                 <br />
                 <button
                   type="button"
                   className={`soft button ${
-                    consistancy === "Soft" ? "pressedButton" : ""
+                    consistency === "Soft" ? "pressedButton" : ""
                   }`}
                   onClick={() => {
-                    setConsistancy("Soft");
+                    setConsistency("Soft");
                   }}
                 >
                   <FontAwesomeIcon icon={faCloud} />
@@ -185,10 +185,10 @@ export const DaiperPage = () => {
                 <button
                   type="button"
                   className={`solid button ${
-                    consistancy === "Solid" ? "pressedButton" : ""
+                    consistency === "Solid" ? "pressedButton" : ""
                   }`}
                   onClick={() => {
-                    setConsistancy("Solid");
+                    setConsistency("Solid");
                   }}
                 >
                   <FontAwesomeIcon icon={faSquare} />
@@ -197,10 +197,10 @@ export const DaiperPage = () => {
                 <button
                   type="button"
                   className={`pebbles button ${
-                    consistancy === "Pebbles" ? "pressedButton" : ""
+                    consistency === "Pebbles" ? "pressedButton" : ""
                   }`}
                   onClick={() => {
-                    setConsistancy("Pebbles");
+                    setConsistency("Pebbles");
                   }}
                 >
                   <FontAwesomeIcon icon={faHillRockslide} />
@@ -229,7 +229,7 @@ export const DaiperPage = () => {
 
           <section className="largeScreenHistorySection">
             <div className="historyTable">
-              {HistoryTableHeader(["Diaper(Type)", "Consistancy"], "Diaper")}
+              {HistoryTableHeader(["Diaper(Type)", "Consistency"], "Diaper")}
               <div className="historyTimelineContainer ">
                 {HistoryDateAndTimeColumn(
                   diapersHistory,
@@ -247,7 +247,7 @@ export const DaiperPage = () => {
                 <div>
                   {HistoryInfoColumn(
                     diapersHistory,
-                    "consistancy",
+                    "consistency",
                     "",
                     "Diaper"
                   )}
@@ -260,8 +260,8 @@ export const DaiperPage = () => {
             <div className="smallerScreenHistoryTable">
               {HistoryMobileView(
                 diapersHistory,
-                ["diaperType", "consistancy"],
-                ["Diaper(Type)", "Consistancy"],
+                ["diaperType", "consistency"],
+                ["Diaper(Type)", "Consistency"],
                 ["", ""],
                 "Diaper",
                 removeDiaperHistory

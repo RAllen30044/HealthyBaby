@@ -1,8 +1,8 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import {
-  isDOBVaild,
+  isDOBValid,
   isDateBeforeBirth,
-  timeInvaild,
+  timeInvalid,
 } from "../../../ErrorHandling";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
@@ -29,8 +29,8 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { maybeChild } = useAuthProviderContext();
-  const shouldShowDOBentryError = isSubmitted && isDOBVaild(date);
-  const shouldShowDateTimeEntryError = isSubmitted && timeInvaild(date, time);
+  const shouldShowDOBentryError = isSubmitted && isDOBValid(date);
+  const shouldShowDateTimeEntryError = isSubmitted && timeInvalid(date, time);
 
   const shouldShowDateBeforeBirthError =
     isSubmitted &&

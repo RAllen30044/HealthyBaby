@@ -14,13 +14,13 @@ const food = [
   "Mixed Fruit",
 ];
 const drink = ["Milk", "Water", "Apple juice", "Soda"];
-const daiperConsistancy = ["Wet", "Poop"];
+const diaperConsistency = ["Wet", "Poop"];
 const poopType = ["Solid", "Soft", "pebbles"];
 const symptoms = ["runny nose", "cough", "nausea", "soft stool", "fever"];
-const medicine = ["Tylenol", "NyQuil", "Moltrin"];
-
+const medicine = ["Tylenol", "NyQuil", "Motrin"];
+const unitOfMeasurement = ["mL", "oz"];
 const randomizeMedicineOz = () => {
-  return `1.${Math.floor(Math.random() * 9)}`;
+  return `${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 9)}`;
 };
 const setRandomTime = () => {
   const randomNumber = Math.floor(Math.random() * 24);
@@ -165,8 +165,12 @@ const db = {
   bottleFeedingHistory: range(1, 100).map((_, id) => ({
     time: convertToStandardTime(setRandomTime()),
     date: formatDate(createShortHandDate(randomizeDate())),
-    bottleOz: `${Math.floor(Math.random() * 6 + 4)}`,
-    bottleOzLeft: `${Math.floor(Math.random() * 3 + 1)}`,
+    bottleQuantity: `${Math.floor(Math.random() * 6 + 4)} ${randomizeItem(
+      unitOfMeasurement
+    )}`,
+    bottleQuantityLeft: `${Math.floor(Math.random() * 3 + 1)} ${randomizeItem(
+      unitOfMeasurement
+    )}`,
     childId: `${Math.floor(Math.random() * 15 + 1)}`,
     id: `${id + 1}`,
   })),
@@ -186,12 +190,12 @@ const db = {
     id: `${id + 1}`,
   })),
   diapersHistory: range(1, 100).map((_, id) => {
-    let diaper = randomizeItem(daiperConsistancy);
+    let diaper = randomizeItem(diaperConsistency);
     return {
       time: convertToStandardTime(setRandomTime()),
       date: formatDate(createShortHandDate(randomizeDate())),
       diaperType: diaper,
-      consistancy:
+      consistency:
         diaper.toLowerCase() === "poop" ? randomizeItem(poopType) : "Wet",
 
       childId: `${Math.floor(Math.random() * 15 + 1)}`,
@@ -203,7 +207,7 @@ const db = {
     date: formatDate(createShortHandDate(randomizeDate())),
     symptoms: randomizeItem(symptoms),
     medicineGiven: randomizeItem(medicine),
-    medicineOz: randomizeMedicineOz(),
+    dosage: `${randomizeMedicineOz()} ${randomizeItem(unitOfMeasurement)}`,
     childId: `${Math.floor(Math.random() * 15 + 1)}`,
     id: `${id + 1}`,
   })),

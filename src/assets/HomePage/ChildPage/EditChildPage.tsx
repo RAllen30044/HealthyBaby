@@ -1,8 +1,7 @@
 import toast from "react-hot-toast";
 import {
-  
   futureDOBNotAllowed,
-  isDOBVaild,
+  isDOBValid,
   onlyKeyNumbers,
   preventKeyingNumbers,
   setActiveHomePageComponentInLocalStorage,
@@ -57,7 +56,7 @@ export const EditChildPage = () => {
             onSubmit={(e) => {
               e.preventDefault();
 
-              if (isDOBVaild(DOB)) {
+              if (isDOBValid(DOB)) {
                 setIsSubmitted(true);
                 return;
               }
@@ -96,7 +95,7 @@ export const EditChildPage = () => {
                     })
                   );
 
-                  setChildId(JSON.parse(data.id));
+                  setChildId(data.id);
                 })
                 .then(fetchChildInfo)
                 .then(() => {

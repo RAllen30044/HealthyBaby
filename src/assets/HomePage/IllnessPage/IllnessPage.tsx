@@ -18,9 +18,8 @@ import {
   babyNameForHistory,
   futureTimeNotAllowed,
   isDateBeforeBirth,
-  onlyNumbersWithDecimal,
   preventKeyingNumbers,
-  timeInvaild,
+  timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
@@ -30,11 +29,13 @@ import {
   HistoryMobileView,
   HistoryTableHeader,
 } from "../historyTable";
+import { useChildInfo } from "../ChildPage/ChildInfoProvider";
 
 export const IllnessPage = () => {
   const [symptoms, setSymptoms] = useState("");
   const [medicineGiven, setMedicineGiven] = useState("");
-  const [oz, setOz] = useState("");
+  const [dosage, setDosage] = useState("");
+
   const {
     time,
     setTime,
@@ -49,6 +50,7 @@ export const IllnessPage = () => {
   const { maybeChild } = useAuthProviderContext();
   const { illnessHistory, setIllnessHistory, fetchIllnessHistory, childId } =
     useHistoryIDComponent();
+  const { unitOfMeasurement, setUnitOfMeasurement } = useChildInfo();
 
   const removeIllnessHistory = (id: string) => {
     const updateData = illnessHistory.filter((history) => history.id !== id);
@@ -60,9 +62,6 @@ export const IllnessPage = () => {
       } else return;
     });
   };
-  const newDate = new Date("January 30, 2024");
-  const nextDate = new Date("Febuary 13, 2024 ");
-  console.log(newDate > nextDate);
 
   return (
     <>
@@ -85,7 +84,7 @@ export const IllnessPage = () => {
               onSubmit={(e) => {
                 e.preventDefault();
 
-                if (timeInvaild(date, time)) {
+                if (timeInvalid(date, time)) {
                   setIsSubmitted(true);
                   return;
                 }
@@ -107,7 +106,7 @@ export const IllnessPage = () => {
 
                     symptoms: symptoms,
                     medicineGiven: medicineGiven,
-                    medicineOz: oz,
+                    dosage: `${dosage} ${unitOfMeasurement}`,
                     childId: childId,
                   },
                   illnessUrl
@@ -118,7 +117,7 @@ export const IllnessPage = () => {
                     setTime("");
                     setSymptoms("");
 
-                    setOz("");
+                    setDosage("");
                     setMedicineGiven("");
                   })
                   .then(() => {
@@ -147,7 +146,7 @@ export const IllnessPage = () => {
                 />
               </div>
               <div className="medicineGiven">
-                <label htmlFor="medicineGiven">Medicine given: </label>
+                <label htmlFor="medicineGiven">Medicine: </label>
                 <input
                   type="text"
                   id="medicineGiven"
@@ -158,17 +157,43 @@ export const IllnessPage = () => {
                   required
                 />
               </div>
-              <div className="oz">
-                <label htmlFor="oz">Oz: </label>
+              <div className="dosage">
+                <label htmlFor="dosage">Dosage: </label>
                 <input
                   type="text"
-                  id="oz"
-                  value={oz}
+                  id="dosage"
+                  value={dosage}
                   onChange={(e) => {
-                    setOz(onlyNumbersWithDecimal(e.target.value));
+                    setDosage(e.target.value);
                   }}
                   required
                 />
+                <div className={`unitOfMeasurementButtons`}>
+                  <button
+                    type="button"
+                    className={`mLButton  ${
+                      unitOfMeasurement === "mL" ? "pressedButton" : ""
+                    }`}
+                    onClick={() => {
+                      setUnitOfMeasurement("mL");
+                      localStorage.setItem("unitOfMeasurement", "mL");
+                    }}
+                  >
+                    mL
+                  </button>
+                  <button
+                    type="button"
+                    className={`ozButton ${
+                      unitOfMeasurement === "oz" ? "pressedButton" : ""
+                    }`}
+                    onClick={() => {
+                      setUnitOfMeasurement("oz");
+                      localStorage.setItem("unitOfMeasurement", "oz");
+                    }}
+                  >
+                    oz
+                  </button>
+                </div>
               </div>
               <div className="saveContainer">
                 <button
@@ -192,7 +217,7 @@ export const IllnessPage = () => {
           <section className="largeScreenHistorySection">
             <div className="historyTable">
               {HistoryTableHeader(
-                ["Symptoms", "Type of Medicine", "Medicine Given(Oz)"],
+                ["Symptoms", "Type of Medicine", "Dosage"],
                 "Illness"
               )}
               <div className="historyTimelineContainer ">
@@ -213,12 +238,7 @@ export const IllnessPage = () => {
                   )}
                 </div>
                 <div>
-                  {HistoryInfoColumn(
-                    illnessHistory,
-                    "medicineOz",
-                    "oz",
-                    "Illness"
-                  )}
+                  {HistoryInfoColumn(illnessHistory, "dosage", "", "Illness")}
                 </div>
               </div>
             </div>
@@ -228,9 +248,9 @@ export const IllnessPage = () => {
             <div className="smallerScreenHistoryTable">
               {HistoryMobileView(
                 illnessHistory,
-                ["symptoms", "medicineGiven", "medicineOz"],
-                ["Symptoms", "Type of Medicine", "Medicine Given(oz)"],
-                ["", "", "oz"],
+                ["symptoms", "medicineGiven", "dosage"],
+                ["Symptoms", "Medicine", "Dosage"],
+                ["", "", ""],
                 "Illness",
                 removeIllnessHistory
               )}

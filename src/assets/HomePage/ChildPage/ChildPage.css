@@ -50,9 +50,19 @@
   font-size: 16px;
   padding: 0.6em 0.8em;
 }
-.maleText{
+.maleText {
   margin: 0;
 }
-.femaleText{
+.femaleText {
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  input {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 16px;
+  }
 }

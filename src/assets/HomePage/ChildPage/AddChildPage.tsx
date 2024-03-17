@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import {
   futureDOBNotAllowed,
   getIsSubmittedFromLocalStorage,
-  isDOBVaild,
+  isDOBValid,
   onlyKeyNumbers,
   preventKeyingNumbers,
   setActiveHomePageComponentInLocalStorage,
@@ -66,7 +66,7 @@ export const AddChildPage = () => {
             onSubmit={(e) => {
               e.preventDefault();
 
-              if (isDOBVaild(date)) {
+              if (isDOBValid(date)) {
                 setIsSubmittedInLocalStorage("true");
                 setIsSubmitted(getIsSubmittedFromLocalStorage());
 

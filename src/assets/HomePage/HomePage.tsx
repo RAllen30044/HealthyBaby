@@ -1,6 +1,6 @@
 import "./HomePage.css";
 import { FeedingPage } from "./FeedingPage/FeedingPage";
-import { DaiperPage } from "./DiaperPage/DiaperPage";
+import { DiaperPage } from "./DiaperPage/DiaperPage";
 import { NappingPage } from "./NappingPage/NappingPage";
 import { IllnessPage } from "./IllnessPage/IllnessPage";
 import { useActiveComponent } from "../HealthyBabySite/Header/ActiveComponentProvider";
@@ -67,7 +67,7 @@ export const HomePage = () => {
         </div>
       </div>
       {activeHomePageComponent === "feeding" ? <FeedingPage /> : ""}
-      {activeHomePageComponent === "diaper" ? <DaiperPage /> : ""}
+      {activeHomePageComponent === "diaper" ? <DiaperPage /> : ""}
       {activeHomePageComponent === "napping" ? <NappingPage /> : ""}
       {activeHomePageComponent === "illness" ? <IllnessPage /> : ""}
     </>

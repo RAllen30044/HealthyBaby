@@ -147,7 +147,7 @@ export const SignUpPage = () => {
                 placeholder="Ex. Grandma, Babysitter's name, self"
               />
             </div>
-            <p className="optionalText">(Optional)</p>
+            
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLabel">
                 Password:

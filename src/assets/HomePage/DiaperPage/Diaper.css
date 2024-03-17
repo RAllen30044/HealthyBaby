@@ -43,6 +43,7 @@ button p {
 .pebbles.button {
   color: crimson;
   background-color: #bab4a6;
+  padding: 0.6em 1em;
 }
 .pebbles.button.pressedButton {
   background-color: #9d988c;

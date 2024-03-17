@@ -67,3 +67,17 @@ button.breastFeed.pressedButton {
   gap: 19.3%;
   width: 100%;
 }
+.quantity{
+  display: flex;
+  
+}
+.unitOfMeasurementText{
+  margin: 11px 0 0 0;
+}
+.quantity input{
+height: initial;
+flex: 1;
+}
+.quantityDiscarded{
+  display: flex;
+}

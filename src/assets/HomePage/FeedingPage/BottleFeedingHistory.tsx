@@ -24,16 +24,16 @@ export const BottleFeedingHistory = ({
             <div>
               {HistoryInfoColumn(
                 bottleFeedHistory,
-                "bottleOz",
-                "oz",
+                "bottleQuantity",
+                "",
                 "Feeding"
               )}
             </div>
             <div>
               {HistoryInfoColumn(
                 bottleFeedHistory,
-                "bottleOzLeft",
-                "oz",
+                "bottleQuantityLeft",
+                "",
                 "Feeding"
               )}
             </div>
@@ -44,9 +44,9 @@ export const BottleFeedingHistory = ({
         <div className="smallerScreenHistoryTable">
           {HistoryMobileView(
             bottleFeedHistory,
-            ["bottleOz", "bottleOzLeft"],
+            ["bottleQuantity", "bottleQuantityLeft"],
             ["Ounces", "Ounces Discarded"],
-            ["oz", "oz"],
+            ["", ""],
             "Feeding",
             removeBottleFeedingHistory
           )}

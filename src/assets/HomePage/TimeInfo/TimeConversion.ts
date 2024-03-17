@@ -113,3 +113,43 @@ export const setRandomTime = () => {
     Math.random() * 10
   )}`;
 };
+
+export function combineDateAndTime(
+  dateString: string,
+  timeString: string
+): string {
+  // Parse the date string to a Date object
+  const date = new Date(dateString);
+
+  // Extract hours and minutes from the time string
+  const [time, modifier] = timeString.split(" ");
+  let [hours, minutes] = time.split(":");
+
+  // Convert 12-hour clock to 24-hour clock
+  if (hours === "12") {
+    hours = "00";
+  }
+  if (modifier === "PM") {
+    hours = (parseInt(hours, 10) + 12).toString();
+  }
+
+  // Ensure hours and minutes are in 2-digit format
+  hours = hours.padStart(2, "0");
+  minutes = minutes.padStart(2, "0");
+
+  // Format the date components
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
+  // Combine and format as ISO string
+  const dateTimeISO = `${year}-${month}-${day}T${hours}:${minutes}:00Z`;
+
+  return dateTimeISO;
+}
+
+// Example usage
+const dateString = "January 30, 2024";
+const timeString = "10:39 PM";
+const result = combineDateAndTime(dateString, timeString);
+console.log(result);

@@ -24,7 +24,7 @@ form {
   display: flex;
   flex-direction: column;
   text-align: left;
-  font-size: 22px;
+  
 }
 
 form h3 {
@@ -136,8 +136,28 @@ li.healthyBabyIcon.child-dress {
   }
 }
 
+@media (max-width: 1100px) {
+  :root {
+    --healthyBabyIcons-width: 100%;
+    --healthyBabyIcons-elms-displayed: 4;
+  }
+  .healthyBabyIcons:before,
+  .healthyBabyIcons:after {
+    width: 5rem;
+  }
+}
 
 
+@media (max-width: 768px) {
+  :root {
+    --healthyBabyIcons-width: 100%;
+    --healthyBabyIcons-elms-displayed: 3;
+  }
+  .healthyBabyIcons:before,
+  .healthyBabyIcons:after {
+    width: 5rem;
+  }
+}
 @media (max-width: 768px) {
   :root {
     --healthyBabyIcons-width: 100%;

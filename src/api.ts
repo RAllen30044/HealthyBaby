@@ -1,6 +1,6 @@
 import {
   ChildInfoT,
-  DaipersHistoryInfoTypes,
+  DiapersHistoryInfoTypes,
   HistoryInfoTypes,
   IllnessType,
   ProfileInfoTypes,
@@ -84,7 +84,7 @@ export const getIllnessHistory = (): Promise<IllnessType[]> =>
     .then((res) => res.json())
     .then((data) => data);
 
-export const getDaipersHistory = (): Promise<DaipersHistoryInfoTypes[]> =>
+export const getDiapersHistory = (): Promise<DiapersHistoryInfoTypes[]> =>
   fetch(diaperUrl)
     .then((res) => res.json())
     .then((data) => data);

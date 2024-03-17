@@ -57,27 +57,30 @@ export const ChildInfo = () => {
             <div className="childHeadSize">
               Head Size: {JSON.parse(maybeChild).headSize} in.
             </div>
+
             {editor === "not present" ? (
-              <button
-                className="button editButton"
-                type="button"
-                onClick={() => {
-                  setChildName(JSON.parse(maybeChild).name);
-                  setGender(JSON.parse(maybeChild).gender);
-                  setHeadSize(JSON.parse(maybeChild).headSize);
-                  setWeight(JSON.parse(maybeChild).weight);
-                  setHeight(JSON.parse(maybeChild).height);
-                  setDOB(JSON.parse(maybeChild).DOB);
-                  setCurrentChildId(JSON.parse(maybeChild).id);
-                  setEditor("present");
-                  setActiveMainComponent("editChild");
-                  setActiveMainComponentInLocalStorage("editChild");
-                  setDate("");
-                  setTime("");
-                }}
-              >
-                Edit
-              </button>
+              <div className="editButtonContainer">
+                <button
+                  className="button editButton"
+                  type="button"
+                  onClick={() => {
+                    setChildName(JSON.parse(maybeChild).name);
+                    setGender(JSON.parse(maybeChild).gender);
+                    setHeadSize(JSON.parse(maybeChild).headSize);
+                    setWeight(JSON.parse(maybeChild).weight);
+                    setHeight(JSON.parse(maybeChild).height);
+                    setDOB(JSON.parse(maybeChild).DOB);
+                    setCurrentChildId(JSON.parse(maybeChild).id);
+                    setEditor("present");
+                    setActiveMainComponent("editChild");
+                    setActiveMainComponentInLocalStorage("editChild");
+                    setDate("");
+                    setTime("");
+                  }}
+                >
+                  Edit
+                </button>
+              </div>
             ) : (
               ""
             )}

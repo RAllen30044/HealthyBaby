@@ -146,6 +146,7 @@
   }
   div.categoryName h1 {
     margin-bottom: 0px;
+    font-size: 70px;
   }
   form .saveContainer {
     justify-content: center;
@@ -154,7 +155,7 @@
     justify-content: initial;
   }
   div.historyHeaderContainer .historyHeader h1 {
-    font-size: 65px;
+    font-size: 60px;
   }
   .historyTimelineContainer {
     justify-content: center;

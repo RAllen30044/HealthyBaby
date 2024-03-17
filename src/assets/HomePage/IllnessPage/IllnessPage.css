@@ -5,3 +5,28 @@
 .illnessSave{
       background-color: coral;
 }
+.symptoms{
+      display: flex;
+      flex:1;
+      
+}
+.medicineGiven{
+      display: flex;
+      flex: 1;
+}
+.dosage{
+      display: flex;
+      flex:1;
+      width: 100%;
+      gap: 10px;
+}
+#dosage{
+      width: 100%;
+      margin: 0px 0 23px;
+}
+.unitOfMeasurementButtons{
+      display: flex;
+      flex: 1;
+      gap: 10px;
+
+}

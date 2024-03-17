@@ -1,15 +1,15 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistoryIDComponent } from "../../HistoryProvider";
 import {
-  DaipersHistoryInfoTypes,
+  DiapersHistoryInfoTypes,
   IllnessType,
   bottleFeedingInfoType,
   breastFeedingInfoType,
   infantFeedingInfoType,
   nappingType,
 } from "../../Types";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+
 import { ReactElement } from "react";
+import { combineDateAndTime } from "./TimeInfo/TimeConversion";
 
 type historyDataType =
   | breastFeedingInfoType
@@ -17,7 +17,7 @@ type historyDataType =
   | infantFeedingInfoType
   | nappingType
   | IllnessType
-  | DaipersHistoryInfoTypes;
+  | DiapersHistoryInfoTypes;
 
 type UnionKeys<T> = T extends T ? keyof T : never;
 
@@ -37,14 +37,14 @@ export type HistoryInfoTypeData = {
   drinkType: string;
   foodType: string;
 
-  medicineOz: string;
-  bottleOz: string;
-  bottleOzLeft: string;
+  dosage: string;
+  bottleQuantity: string;
+  bottleQuantityLeft: string;
 
   symptoms: string;
   medicineGiven: string;
 
-  consistancy: string;
+  consistency: string;
   diaperType: string;
 
   lengthOfTime: string;
@@ -56,20 +56,32 @@ const historyInfoSortDirection = (
   sortDirection: string
 ) => {
   if (sortDirection === "asc") {
-    if (new Date(date1.date) < new Date(date2.date)) {
+    if (
+      new Date(combineDateAndTime(date1.date, date1.time)) <
+      new Date(combineDateAndTime(date2.date, date2.time))
+    ) {
       return -1;
     }
-    if (new Date(date1.date) > new Date(date2.date)) {
+    if (
+      new Date(combineDateAndTime(date1.date, date1.time)) >
+      new Date(combineDateAndTime(date2.date, date2.time))
+    ) {
       return 1;
     }
 
     return 0;
   }
   if (sortDirection === "desc") {
-    if (new Date(date2.date) < new Date(date1.date)) {
+    if (
+      new Date(combineDateAndTime(date2.date, date2.time)) <
+      new Date(combineDateAndTime(date1.date, date1.time))
+    ) {
       return -1;
     }
-    if (new Date(date2.date) > new Date(date1.date)) {
+    if (
+      new Date(combineDateAndTime(date2.date, date2.time)) >
+      new Date(combineDateAndTime(date1.date, date1.time))
+    ) {
       return 1;
     }
 
@@ -82,42 +94,57 @@ export const HistoryTableHeader = (
   headerValue: string[],
   pageName: string
 ): ReactElement => {
-  const { setSortDirection } = useHistoryIDComponent();
+  const { setSortDirection, sortDirection } = useHistoryIDComponent();
 
   return (
-    <div className="historyTableHeader" key={`${pageName}Header`}>
-      <div className={`historyColumnContainer ${pageName}ColumnContainer`}>
-        <h3 className="dateTime dateTimeHeader">
-          Date/Time
-          <div className="arrowContainer">
-            <FontAwesomeIcon
-              icon={faArrowDown}
+    <div className="historyTableContainer">
+      <div className="sortingContainer">
+        <div className="historySortingContainer">
+          <label htmlFor="historySortingButtonsContainer">
+            <h3>Date Order:</h3>
+          </label>
+          <div className="historySortingButtonsContainer">
+            <button
+              type="button"
               onClick={() => {
                 setSortDirection("desc");
+                localStorage.setItem("sortDirection", "desc");
               }}
-              className={`arrowDown${pageName}`}
-            />
-            {"   "}
-            <FontAwesomeIcon
-              icon={faArrowUp}
+              className={`latestButton ${
+                sortDirection === "desc" ? "pressedButton" : ""
+              }`}
+            >
+              Latest
+            </button>
+            <button
               onClick={() => {
                 setSortDirection("asc");
+                localStorage.setItem("sortDirection", "asc");
               }}
-              className={`arrowUp${pageName}`}
-            />
+              className={`oldestButton ${
+                sortDirection === "desc" ? "" : "pressedButton"
+              }`}
+            >
+              Earliest
+            </button>
           </div>
-        </h3>
+        </div>
       </div>
-      {headerValue.map((header, index) => {
-        return (
-          <div
-            key={`${pageName}${index}`}
-            className={`historyColumnContainer ${pageName}ColumnContainer`}
-          >
-            <h3 className={`${header}Header`}>{header}</h3>
-          </div>
-        );
-      })}
+      <div className="historyTableHeader" key={`${pageName}Header`}>
+        <div className={`historyColumnContainer ${pageName}ColumnContainer`}>
+          <h3 className="dateTime dateTimeHeader">Date/Time</h3>
+        </div>
+        {headerValue.map((header, index) => {
+          return (
+            <div
+              key={`${pageName}${index}`}
+              className={`historyColumnContainer ${pageName}ColumnContainer`}
+            >
+              <h3 className={`${header}Header`}>{header}</h3>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -200,11 +227,43 @@ export const HistoryMobileView = (
   historyPage: string,
   removeHistory: (id: string) => void
 ) => {
-  const { sortDirection, childId } = useHistoryIDComponent();
+  const { sortDirection, setSortDirection, childId } = useHistoryIDComponent();
   return (
     <div
       className={`mobileHistoryColumnContainer mobile${historyPage}ColumnContainer`}
     >
+      <div className="sortingContainer">
+        <div className="historySortingContainer">
+          <label htmlFor="historySortingButtonsContainer">
+            <h3>Date Order:</h3>
+          </label>
+          <div className="historySortingButtonsContainer">
+            <button
+              type="button"
+              onClick={() => {
+                setSortDirection("desc");
+                localStorage.setItem("sortDirection", "desc");
+              }}
+              className={`latestButton ${
+                sortDirection === "desc" ? "pressedButton" : ""
+              }`}
+            >
+              Latest
+            </button>
+            <button
+              onClick={() => {
+                setSortDirection("asc");
+                localStorage.setItem("sortDirection", "asc");
+              }}
+              className={`oldestButton  ${
+                sortDirection === "desc" ? "" : "pressedButton"
+              }`}
+            >
+              Earliest
+            </button>
+          </div>
+        </div>
+      </div>
       {history
         .filter((history) => history.childId === childId)
         .sort((b, a) => {
@@ -215,10 +274,11 @@ export const HistoryMobileView = (
           return (
             <div className="mobileHistoryContainer" key={history.id}>
               <div className="mobileHistoryTableContainer">
-                <div className="moblieDateTime">
+                <div className="mobileDateTime">
                   <h4>Date: {history.date}</h4>
                   <h4>Time: {history.time}</h4>
                 </div>
+
                 {historyProperty.map((property, index) => (
                   <div
                     className={`mobile${property}`}

@@ -149,6 +149,17 @@ input {
   flex-direction: column-reverse;
   cursor: pointer;
 }
+
+form {
+  width: 260px;
+}
+label {
+  font-size: 22px;
+}
+.mLButton, .ozButton {
+  font-size: 12px;
+  margin: 7px;
+}
 .arrowUpFeeding:hover {
   color: #fadd9f;
 }
@@ -176,11 +187,46 @@ input {
 .smallerScreenHistorySection {
   display: none;
 }
+.sortingContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.historySortingContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 600px;
+}
+.historySortingContainer h3 {
+  font-size: 22px;
+}
+.historySortingButtonsContainer {
+  display: flex;
+  gap: 10px;
+}
+
 @media screen and (max-width: 1000px) {
   .largeScreenHistorySection {
     display: none;
   }
   .smallerScreenHistorySection {
     display: block;
+  }
+}
+@media screen and (max-width: 300px) {
+  div.historyHeaderContainer .historyHeader h1 {
+    font-size: 55px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mobileHistoryInfoSection input {
+    width: 75px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .childInfoContainerHP {
+    width: 100%;
+    justify-content: center;
   }
 }

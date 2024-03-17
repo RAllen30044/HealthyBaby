@@ -22,8 +22,8 @@ export const Header = () => {
     switchColors,
   } = useActiveComponent();
   const {
-    cheveronPosition,
-    setCheveronPosition,
+    chevronPosition,
+    setChevronPosition,
     hiddenPagesLinks,
     setHiddenPagesLinks,
   } = useChildInfo();
@@ -41,21 +41,21 @@ export const Header = () => {
         <div
           className="switchChild"
           onClick={() => {
-            if (cheveronPosition === "down") {
-              setCheveronPosition("up");
+            if (chevronPosition === "down") {
+              setChevronPosition("up");
               return;
             }
-            setCheveronPosition("down");
+            setChevronPosition("down");
           }}
         >
           Switch Child
           <div className="clickPositioning">
-            <i className={`fa-solid fa-chevron-${cheveronPosition}`}></i>
+            <i className={`fa-solid fa-chevron-${chevronPosition}`}></i>
           </div>
         </div>
         <div
           className={`childNameContainer ${
-            cheveronPosition === "down" ? "hidden" : ""
+            chevronPosition === "down" ? "hidden" : ""
           }`}
         >
           {childInfo
@@ -81,7 +81,7 @@ export const Header = () => {
                     if (selectedChildProfile) {
                       setChildId(selectedChildId);
 
-                      setCheveronPosition("down");
+                      setChevronPosition("down");
                       localStorage.setItem(
                         "child",
                         JSON.stringify({

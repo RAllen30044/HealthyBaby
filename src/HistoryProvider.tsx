@@ -7,7 +7,7 @@ import {
 } from "react";
 import {
   ChildInfoT,
-  DaipersHistoryInfoTypes,
+  DiapersHistoryInfoTypes,
   IllnessType,
   ProfileInfoTypes,
   bottleFeedingInfoType,
@@ -19,7 +19,7 @@ import {
   getBottleFeedingHistoryInfo,
   getBreastFeedingHistoryInfo,
   getChildInfo,
-  getDaipersHistory,
+  getDiapersHistory,
   getIllnessHistory,
   getInfantFeedingHistoryInfo,
   getNappingHistory,
@@ -40,9 +40,9 @@ export type HistoryIDComponentProvider = {
   setInfantFeedHistory: React.Dispatch<
     React.SetStateAction<infantFeedingInfoType[]>
   >;
-  diapersHistory: DaipersHistoryInfoTypes[];
+  diapersHistory: DiapersHistoryInfoTypes[];
   setDiapersHistory: React.Dispatch<
-    React.SetStateAction<DaipersHistoryInfoTypes[]>
+    React.SetStateAction<DiapersHistoryInfoTypes[]>
   >;
   childInfo: ChildInfoT[];
   setChildInfo: React.Dispatch<React.SetStateAction<ChildInfoT[]>>;
@@ -63,7 +63,7 @@ export type HistoryIDComponentProvider = {
   fetchBreastFeedingData: () => Promise<void>;
   fetchInfantFeedingData: () => Promise<void>;
   fetchChildInfo: () => Promise<void>;
-  fetchDaiperHistory: () => Promise<void>;
+  fetchDiaperHistory: () => Promise<void>;
   fetchIllnessHistory: () => Promise<void>;
   fetchNappingHistory: () => Promise<void>;
 
@@ -97,7 +97,7 @@ export const HistoryIDComponentProvider = ({
   >([]);
   const [childInfo, setChildInfo] = useState<ChildInfoT[]>([]);
   const [diapersHistory, setDiapersHistory] = useState<
-    DaipersHistoryInfoTypes[]
+    DiapersHistoryInfoTypes[]
   >([]);
 
   const [nappingHistory, setNappingHistory] = useState<nappingType[]>([]);
@@ -110,7 +110,10 @@ export const HistoryIDComponentProvider = ({
 
   const [profileId, setProfileId] = useState<string>(maybeUserId);
   const [child, setChild] = useState({});
-  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+  const getSortingDirection = localStorage.getItem("sortDirection");
+  const [sortDirection, setSortDirection] = useState<SortDirection>(
+    JSON.parse(JSON.stringify(getSortingDirection)) || "asc"
+  );
 
   const fetchProfileInfo = () => getProfileData().then(setProfile);
 
@@ -118,7 +121,7 @@ export const HistoryIDComponentProvider = ({
 
   const fetchIllnessHistory = () => getIllnessHistory().then(setIllnessHistory);
 
-  const fetchDaiperHistory = () => getDaipersHistory().then(setDiapersHistory);
+  const fetchDiaperHistory = () => getDiapersHistory().then(setDiapersHistory);
 
   const fetchBottleFeedingData = () =>
     getBottleFeedingHistoryInfo().then(setBottleFeedHistory);
@@ -135,7 +138,7 @@ export const HistoryIDComponentProvider = ({
     fetchBottleFeedingData().catch((err) => console.log(err));
     fetchBreastFeedingData().catch((err) => console.log(err));
     fetchInfantFeedingData().catch((err) => console.log(err));
-    fetchDaiperHistory().catch((err) => console.log(err));
+    fetchDiaperHistory().catch((err) => console.log(err));
     fetchIllnessHistory().catch((err) => console.log(err));
     fetchChildInfo().catch((err) => {
       console.log(err);
@@ -157,7 +160,7 @@ export const HistoryIDComponentProvider = ({
         fetchChildInfo,
         diapersHistory,
         setDiapersHistory,
-        fetchDaiperHistory,
+        fetchDiaperHistory,
         illnessHistory,
         setIllnessHistory,
         fetchIllnessHistory,

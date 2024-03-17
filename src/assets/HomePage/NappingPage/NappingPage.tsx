@@ -20,7 +20,7 @@ import {
   futureTimeNotAllowed,
   isDateBeforeBirth,
   onlyKeyNumbers,
-  timeInvaild,
+  timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
@@ -81,7 +81,7 @@ export const NappingPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (timeInvaild(date, time)) {
+                if (timeInvalid(date, time)) {
                   setIsSubmitted(true);
                   return;
                 }
@@ -153,26 +153,25 @@ export const NappingPage = () => {
             </div>
           </div>
 
-<section className="largeScreenHistorySection">
-
-          <div className="historyTable">
-            {HistoryTableHeader(["Nap Legnth of time"], "Napping")}
-            <div className="historyTimelineContainer ">
-              {HistoryDateAndTimeColumn(
-                nappingHistory,
-                "Napping",
-                removeNappingHistory
-              )}
-              <div>
-                {HistoryInfoColumn(
+          <section className="largeScreenHistorySection">
+            <div className="historyTable">
+              {HistoryTableHeader(["Nap Length of time"], "Napping")}
+              <div className="historyTimelineContainer ">
+                {HistoryDateAndTimeColumn(
                   nappingHistory,
-                  "lengthOfTime",
-                  "min",
-                  "Napping"
+                  "Napping",
+                  removeNappingHistory
                 )}
+                <div>
+                  {HistoryInfoColumn(
+                    nappingHistory,
+                    "lengthOfTime",
+                    "min",
+                    "Napping"
+                  )}
+                </div>
               </div>
             </div>
-          </div>
           </section>
 
           <section className="smallerScreenHistorySection">
@@ -183,11 +182,10 @@ export const NappingPage = () => {
                 ["Nap Time(min)"],
                 ["min"],
                 "Napping",
-               removeNappingHistory
+                removeNappingHistory
               )}
             </div>
           </section>
-
         </div>
       </section>
     </>

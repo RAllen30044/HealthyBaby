@@ -32,23 +32,28 @@ import {
   onlyKeyNumbers,
   onlyNumbersWithDecimal,
   preventKeyingNumbers,
-  timeInvaild,
+  timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
+import { useChildInfo } from "../ChildPage/ChildInfoProvider";
 
 type FeedingType = "breastFeed" | "bottleFeed" | "infantModeOff";
 type InfantModeType = "on" | "off";
 
 export const FeedingPage = () => {
-  const [feed, setFeed] = useState<FeedingType>("bottleFeed");
-  const [infantMode, setInfantMode] = useState<InfantModeType>("on");
-  const [oz, setOz] = useState("");
-  const [ozLeft, setOzLeft] = useState("");
+  const [feed, setFeed] = useState<FeedingType>(
+    JSON.parse(JSON.stringify(localStorage.getItem("feed"))) || "bottleFeed"
+  );
+  const [infantMode, setInfantMode] = useState<InfantModeType>(
+    JSON.parse(JSON.stringify(localStorage.getItem("infantMode"))) || "on"
+  );
+  const [quantity, setQuantity] = useState("");
+  const [quantityLeft, setQuantityLeft] = useState("");
   const [feedingTimeLength, setfeedingTimeLength] = useState("");
   const [drinkType, setDrinkType] = useState("");
   const [foodType, setFoodType] = useState("");
-
+  const { unitOfMeasurement, setUnitOfMeasurement } = useChildInfo();
   const {
     time,
     setTime,
@@ -130,12 +135,16 @@ export const FeedingPage = () => {
                 if (infantMode === "on") {
                   setInfantMode("off");
                   setFeed("infantModeOff");
+                  localStorage.setItem("feed", "infantModeOff");
+                  localStorage.setItem("infantMode", "off");
                   setDate("");
                   setTime("");
                 }
                 if (infantMode === "off") {
                   setInfantMode("on");
                   setFeed("bottleFeed");
+                  localStorage.setItem("feed", "bottleFeed");
+                  localStorage.setItem("infantMode", "on");
                   setDate("");
                   setTime("");
                 }
@@ -162,6 +171,7 @@ export const FeedingPage = () => {
               }`}
               onClick={() => {
                 setFeed("breastFeed");
+                localStorage.setItem("feed", "breastFeed");
                 setDate("");
                 setTime("");
               }}
@@ -177,6 +187,7 @@ export const FeedingPage = () => {
               }  `}
               onClick={() => {
                 setFeed("bottleFeed");
+                localStorage.setItem("feed", "bottleFeed");
                 setDate("");
                 setTime("");
               }}
@@ -199,7 +210,7 @@ export const FeedingPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (timeInvaild(date, time)) {
+                if (timeInvalid(date, time)) {
                   setIsSubmitted(true);
                   return;
                 }
@@ -219,8 +230,11 @@ export const FeedingPage = () => {
                     {
                       time: convertToStandardTime(time),
                       date: formatDate(createShortHandDate(date)),
-                      bottleOz: oz,
-                      bottleOzLeft: ozLeft,
+                      bottleQuantity: `${quantity} ${unitOfMeasurement} `,
+                      bottleQuantityLeft:
+                        parseInt(quantityLeft) > 0
+                          ? ` ${quantityLeft} ${unitOfMeasurement}`
+                          : "0",
                       childId: childId,
                     },
                     bottleFeedingHistoryUrl
@@ -228,8 +242,8 @@ export const FeedingPage = () => {
                     .then(fetchBottleFeedingData)
                     .then(() => {
                       setTime("");
-                      setOz("");
-                      setOzLeft("");
+                      setQuantity("");
+                      setQuantityLeft("");
                       setDate("");
                     })
                     .then(() => {
@@ -292,29 +306,62 @@ export const FeedingPage = () => {
                   feed === "bottleFeed" ? "" : "hidden"
                 }`}
               >
-                <div className="oz">
-                  <label htmlFor="oz">Bottle oz:</label>
+                <div className={`unitOfMeasurementButtons`}>
+                  <label htmlFor="unitOfMeasurement">Unit of Measurement</label>
+                  <button
+                    type="button"
+                    className={`mLButton  ${
+                      unitOfMeasurement === "mL" ? "pressedButton" : ""
+                    }`}
+                    onClick={() => {
+                      setUnitOfMeasurement("mL");
+                      localStorage.setItem("unitOfMeasurement", "mL");
+                    }}
+                  >
+                    mL
+                  </button>
+                  <button
+                    type="button"
+                    className={`ozButton ${
+                      unitOfMeasurement === "oz" ? "pressedButton" : ""
+                    }`}
+                    onClick={() => {
+                      setUnitOfMeasurement("oz");
+                      localStorage.setItem("unitOfMeasurement", "oz");
+                    }}
+                  >
+                    oz
+                  </button>
+                </div>
+                <div className="quantity">
+                  <label htmlFor="quantity">Bottle Quantity:</label>
                   <input
                     type="text"
                     id="time"
-                    value={oz}
+                    value={quantity}
                     onChange={(e) => {
                       e.preventDefault();
-                      setOz(onlyNumbersWithDecimal(e.target.value));
+                      setQuantity(onlyNumbersWithDecimal(e.target.value));
                     }}
                   />
+                  <div className="unitOfMeasurementText">
+                    {unitOfMeasurement}
+                  </div>
                 </div>
-                <div className="ozDiscarded">
-                  <label htmlFor="">Oz. discarded:</label>
+                <div className="quantityDiscarded">
+                  <label htmlFor="">Quantity Discarded:</label>
                   <input
                     type="text"
                     id="ozDiscarded"
-                    value={ozLeft}
+                    value={quantityLeft}
                     onChange={(e) => {
                       e.preventDefault();
-                      setOzLeft(onlyNumbersWithDecimal(e.target.value));
+                      setQuantityLeft(onlyNumbersWithDecimal(e.target.value));
                     }}
                   />
+                  <div className="unitOfMeasurementText">
+                    {unitOfMeasurement}
+                  </div>
                 </div>
               </div>
               <div
