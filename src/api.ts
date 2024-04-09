@@ -4,8 +4,8 @@ import {
   HistoryInfoTypes,
   IllnessType,
   ProfileInfoTypes,
-  User,
-  baseUrl,
+
+  
   bottleFeedingInfoType,
   breastFeedingInfoType,
   childNapDBType,
@@ -13,7 +13,7 @@ import {
   nappingType,
 } from "./Types";
 
-const url = "http://localhost:3000/user";
+export const baseUrl = "http://localhost:3000";
 
 export const childUrl = `${baseUrl}/child`;
 export const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
@@ -25,22 +25,8 @@ export const nappingUrl = `${baseUrl}/napHistory`;
 export const profileUrl = `${baseUrl}/profile`;
 export const childNapDBUrl = `${baseUrl}/childNapDB`;
 
-const getUser = (): Promise<User[]> =>
-  fetch(url)
-    .then((response) => response.json())
-    .then((data: User[]) => data);
 
-const postUser = (user: string, password: string) =>
-  fetch(url, {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ user: user, password: password }),
-  });
 
-export const Request = {
-  getUser,
-  postUser,
-};
 
 export const postInfo = (object: HistoryInfoTypes, url: string) =>
   fetch(url, {

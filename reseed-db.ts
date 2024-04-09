@@ -81,12 +81,13 @@ const createShortHandDate = (date) => {
 const formatDate = (inputDate) => {
   const date = new Date(inputDate);
 
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
   };
-  return date.toLocaleDateString(undefined, options);
+  date.toLocaleDateString(undefined, options);
+  return;
 };
 
 export const randomizeDate = () => {
@@ -139,7 +140,7 @@ const db = {
     },
   ],
   child: range(1, 16).map((_, id) => {
-    let personType = faker.person.sexType();
+    const personType = faker.person.sexType();
     return {
       gender: personType,
       name: `${
@@ -190,7 +191,7 @@ const db = {
     id: `${id + 1}`,
   })),
   diapersHistory: range(1, 100).map((_, id) => {
-    let diaper = randomizeItem(diaperConsistency);
+    const diaper = randomizeItem(diaperConsistency);
     return {
       time: convertToStandardTime(setRandomTime()),
       date: formatDate(createShortHandDate(randomizeDate())),
