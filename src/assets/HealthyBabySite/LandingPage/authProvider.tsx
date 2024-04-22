@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 
-import { User } from "../../../Types";
+import { User } from "../../../../Types";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import { getIsSubmittedFromLocalStorage } from "../../../ErrorHandling";
 

@@ -1,8 +1,12 @@
 // import { writeFileSync } from "fs";
+
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
 
 const client = new PrismaClient();
+
+import "./Types";
+import { historyTypes } from "./Types";
 
 const food = [
   "Pizza",
@@ -35,7 +39,7 @@ const setRandomTime = () => {
     Math.random() * 10
   )}`;
 };
-export function convertToStandardTime(time24hr) {
+export function convertToStandardTime(time24hr: string) {
   const [hours, minutes] = time24hr.split(":");
 
   const hoursNum = parseInt(hours, 10);
@@ -49,7 +53,7 @@ export function convertToStandardTime(time24hr) {
   return standardTime;
 }
 
-const randomizeItem = (itemArray) => {
+const randomizeItem = (itemArray: string[]) => {
   return itemArray[Math.floor(Math.random() * itemArray.length)];
 };
 const randomDOB = () => {
@@ -73,15 +77,15 @@ const randomDOB = () => {
     }-${getDOB.getDate()}`;
   }
 };
-const createShortHandDate = (date) => {
+const createShortHandDate = (date: string) => {
   const dateParts = date.split("-");
   return `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`;
 };
 
-const formatDate = (inputDate) => {
+const formatDate = (inputDate: string) => {
   const date = new Date(inputDate);
 
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -115,7 +119,7 @@ export const randomizeDate = () => {
 const clearDb = async () => {
   await client.illnessHistory.deleteMany();
   await client.diapersHistory.deleteMany();
-  await client.eatingHistory.deleteMany();
+  await client.mealHistory.deleteMany();
   await client.breastFeedingHistory.deleteMany();
   await client.bottleFeedingHistory.deleteMany();
   await client.napHistory.deleteMany();
@@ -143,7 +147,7 @@ const seedInfo = async () => {
   const rob = await client.profile.create({
     data: {
       username: `Robharmony`,
-      password: `Panthers29`,
+      password: `Inhumane#1`,
       caregiver: `Debbie`,
       email: `robharmony@gmail.com`,
     },
@@ -159,19 +163,16 @@ const seedInfo = async () => {
   });
 
   const users = [andrei, jon, rob, yalana];
+  const usersId: number[] = users.map((user) => user.id);
   users.forEach((user) => user);
 
-  const findFirstProfile = await client.profile.findFirst({
-    where: {
-      username: "Andrei.Obushnyi",
-    },
-  });
+  const childIds: number[] = [];
+  type ComponentArray<T> = T[];
 
-  const childIds = [];
-  const components = [];
+  const components: ComponentArray<historyTypes> = [];
   for (let i = 0; i < 15; i++) {
     const personType = faker.person.sexType();
-
+    const randomProfileId = usersId[Math.floor(Math.random() * usersId.length)];
     const child = await client.child.create({
       data: {
         gender: personType,
@@ -184,7 +185,7 @@ const seedInfo = async () => {
         weight: `${Math.floor(Math.random() * 46 + 10)}`,
         height: `${Math.floor(Math.random() * 39 + 17)}`,
         headSize: `${Math.floor(Math.random() * 6 + 17)}`,
-        profileId: Math.floor(Math.random() * 4 + findFirstProfile.id),
+        profileId: randomProfileId,
       },
     });
     childIds.push(child.id);
@@ -238,7 +239,7 @@ const seedInfo = async () => {
 
   for (let i = 0; i < 100; i++) {
     const randomChildId = childIds[Math.floor(Math.random() * childIds.length)];
-    const eatingHistory = await client.eatingHistory.create({
+    const mealHistory = await client.mealHistory.create({
       data: {
         time: convertToStandardTime(setRandomTime()),
         date: formatDate(createShortHandDate(randomizeDate())),
@@ -247,7 +248,7 @@ const seedInfo = async () => {
         childId: randomChildId,
       },
     });
-    components.push(eatingHistory);
+    components.push(mealHistory);
   }
 
   for (let i = 0; i < 100; i++) {

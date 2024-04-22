@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import "./NappingPage.css";
 
-import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../api";
+import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../../clientApi";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   convertToStandardTime,
@@ -50,7 +50,7 @@ export const NappingPage = () => {
     useHistoryIDComponent();
   console.log(nappingHistory);
 
-  const removeNappingHistory = (id: string) => {
+  const removeNappingHistory = (id: number) => {
     const updateData = nappingHistory.filter((history) => history.id !== id);
     setNappingHistory(updateData);
 
@@ -99,7 +99,7 @@ export const NappingPage = () => {
                     time: convertToStandardTime(time),
                     date: formatDate(createShortHandDate(date)),
                     lengthOfTime: LengthOfTime,
-                    childId: childId,
+                    childId,
                   },
                   nappingUrl
                 )

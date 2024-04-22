@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ProfilePage.css";
-import { updateProfileInfo } from "../../../api";
+import { updateProfileInfo } from "../../../../clientApi";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import { preventKeyingNumbers } from "../../../ErrorHandling";
 import toast from "react-hot-toast";

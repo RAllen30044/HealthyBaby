@@ -9,7 +9,7 @@ import {
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { updateChildInfo } from "../../../api";
+import { updateChildInfo } from "../../../../clientApi";
 // import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";

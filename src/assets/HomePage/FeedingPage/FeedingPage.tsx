@@ -15,16 +15,16 @@ import {
   bottleFeedingHistoryUrl,
   breastFeedingHistoryUrl,
   deleteHistoryInfo,
-  infantFeedingHistoryUrl,
+  mealHistoryUrl,
   postInfo,
-} from "../../../api";
+} from "../../../../clientApi";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   convertToStandardTime,
   createShortHandDate,
   formatDate,
 } from "../TimeInfo/TimeConversion";
-import { InfantFeedingHistory } from "./InfantFeedingHistory";
+import { EatingHistory} from "./MealHistory";
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
@@ -68,18 +68,18 @@ export const FeedingPage = () => {
   const {
     bottleFeedHistory,
     breastFeedHistory,
-    infantFeedHistory,
-    setInfantFeedHistory,
+    mealHistory,
+    setMealHistory,
     setBreastFeedHistory,
     setBottleFeedHistory,
     fetchBottleFeedingData,
     fetchBreastFeedingData,
-    fetchInfantFeedingData,
+    fetchMealData,
     childId,
   } = useHistoryIDComponent();
 
   const { maybeChild } = useAuthProviderContext();
-  const removeBreastFeedingHistory = (id: string) => {
+  const removeBreastFeedingHistory = (id: number) => {
     const updateData = breastFeedHistory.filter((history) => history.id !== id);
 
     setBreastFeedHistory(updateData);
@@ -90,7 +90,7 @@ export const FeedingPage = () => {
       } else return;
     });
   };
-  const removeBottleFeedingHistory = (id: string) => {
+  const removeBottleFeedingHistory = (id: number) => {
     const updateData = bottleFeedHistory.filter((history) => history.id !== id);
 
     setBottleFeedHistory(updateData);
@@ -101,14 +101,14 @@ export const FeedingPage = () => {
       } else return;
     });
   };
-  const removeInfantFeedingHistory = (id: string) => {
-    const updateData = infantFeedHistory.filter((history) => history.id !== id);
+  const removeMealHistory = (id: number) => {
+    const updateData = mealHistory.filter((history) => history.id !== id);
 
-    setInfantFeedHistory(updateData);
+    setMealHistory(updateData);
 
-    deleteHistoryInfo(infantFeedingHistoryUrl, id).then((res) => {
+    deleteHistoryInfo(mealHistoryUrl, id).then((res) => {
       if (!res.ok) {
-        setInfantFeedHistory(infantFeedHistory);
+        setMealHistory(mealHistory);
       } else return;
     });
   };
@@ -124,7 +124,7 @@ export const FeedingPage = () => {
           <div className="categoryName">
             <h1>
               {infantMode === "off"
-                ? "Eating"
+                ? "Meal"
                 : `${feed === "bottleFeed" ? "Bottle" : "Breast"} Feeding`}
             </h1>
           </div>
@@ -150,7 +150,7 @@ export const FeedingPage = () => {
                 }
               }}
             >
-              {infantMode === "off" ? "Baby Feeding" : "Eating "}
+              {infantMode === "off" ? "Baby Feeding" : "Meals"}
               {infantMode === "off" ? (
                 <i className="fa-solid fa-baby"></i>
               ) : (
@@ -279,9 +279,9 @@ export const FeedingPage = () => {
                       foodType: foodType,
                       childId: childId,
                     },
-                    infantFeedingHistoryUrl
+                    mealHistoryUrl
                   )
-                    .then(fetchInfantFeedingData)
+                    .then(fetchMealData)
                     .then(() => {
                       setDate("");
                       setTime("");
@@ -449,9 +449,9 @@ export const FeedingPage = () => {
             ""
           )}
           {feed === "infantModeOff" ? (
-            <InfantFeedingHistory
-              infantFeedHistory={infantFeedHistory}
-              removeInfantFeedingHistory={removeInfantFeedingHistory}
+            <EatingHistory
+              eatingHistory={mealHistory}
+              removeEatingHistory={removeMealHistory}
             />
           ) : (
             ""

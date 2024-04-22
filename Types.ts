@@ -18,7 +18,8 @@ export type HistoryInfoTypes =
   | Omit<DiapersHistoryInfoTypes, "id">
   | Omit<ChildInfoT, "id">
   | Omit<ProfileInfoTypes, "id">
-  | Omit<infantFeedingInfoType, "id">;
+  | Omit<eatingInfoType, "id">;
+
 export type ChildInfoT = {
   name: string;
 
@@ -27,52 +28,50 @@ export type ChildInfoT = {
   weight: string;
   height: string;
   headSize: string;
-
-  profileId: string ;
-  id: string;
+  profileId: number;
+  id: number;
 };
 export type ProfileInfoTypes = {
   username: string;
   password: string;
   caregiver: string;
-
-  id: string;
+  email: string;
+  id: number;
 };
 
 export type breastFeedingInfoType = {
   time: string;
   date: string;
-  id: string;
+  id: number;
   feedingTimeLength: string;
-  childId: string;
+  childId: number;
 };
-export type infantFeedingInfoType = {
+export type eatingInfoType = {
   time: string;
   date: string;
-  id: string;
+  id: number;
   drinkType: string;
   foodType: string;
-  childId: string;
+  childId: number;
 };
 export type bottleFeedingInfoType = {
   time: string;
   date: string;
-  id: string;
+  id: number;
   bottleQuantity: string;
   bottleQuantityLeft: string;
-  childId: string;
+  childId: number;
 };
 
-
 export type IllnessType = {
-  id: string;
+  id: number;
   date: string;
   time: string;
-  
+
   symptoms: string;
-  medicineGiven: string;
+  medicationType: string;
   dosage: string;
-  childId: string;
+  childId: number;
 };
 
 export type DiapersHistoryInfoTypes = {
@@ -80,32 +79,37 @@ export type DiapersHistoryInfoTypes = {
   date: string;
   consistency: string;
   diaperType: string;
-  id: string;
-  childId: string;
+  id: number;
+  childId: number;
 };
 
 export type nappingType = {
-  id: string;
+  id: number;
   date: string;
   time: string;
   lengthOfTime: string;
-  childId: string;
+  childId: number;
 };
-export type childNapDBType = {
-  id: string;
-  childId: string;
-  nappingId: string;
-};
+
+export type historyTypes =
+  | ChildInfoT
+  | ProfileInfoTypes
+  | breastFeedingInfoType
+  | eatingInfoType
+  | bottleFeedingInfoType
+  | IllnessType
+  | DiapersHistoryInfoTypes
+  | nappingType;
 
 export type bottlefeedingHistoryT = {
   bottleFeedHistory: bottleFeedingInfoType[];
-  removeBottleFeedingHistory: (id: string) => void;
+  removeBottleFeedingHistory: (id: number) => void;
 };
 export type breastfeedingHistoryT = {
   breastFeedHistory: breastFeedingInfoType[];
-  removeBreastFeedingHistory: (id: string) => void;
+  removeBreastFeedingHistory: (id: number) => void;
 };
-export type infantfeedingHistoryT = {
-  infantFeedHistory: infantFeedingInfoType[];
-  removeInfantFeedingHistory: (id: string) => void;
+export type eatingHistoryT = {
+  eatingHistory: eatingInfoType[];
+  removeEatingHistory: (id: number) => void;
 };

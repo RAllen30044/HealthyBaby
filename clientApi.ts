@@ -4,12 +4,9 @@ import {
   HistoryInfoTypes,
   IllnessType,
   ProfileInfoTypes,
-
-  
   bottleFeedingInfoType,
   breastFeedingInfoType,
-  childNapDBType,
-  infantFeedingInfoType,
+  eatingInfoType,
   nappingType,
 } from "./Types";
 
@@ -18,15 +15,12 @@ export const baseUrl = "http://localhost:3000";
 export const childUrl = `${baseUrl}/child`;
 export const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
 export const bottleFeedingHistoryUrl = `${baseUrl}/bottleFeedingHistory`;
-export const infantFeedingHistoryUrl = `${baseUrl}/infantFeedingHistory`;
+export const mealHistoryUrl = `${baseUrl}/mealHistory`;
 export const diaperUrl = `${baseUrl}/diapersHistory`;
-export const illnessUrl = `${baseUrl}/illness`;
+export const illnessUrl = `${baseUrl}/illnessHistory`;
 export const nappingUrl = `${baseUrl}/napHistory`;
 export const profileUrl = `${baseUrl}/profile`;
 export const childNapDBUrl = `${baseUrl}/childNapDB`;
-
-
-
 
 export const postInfo = (object: HistoryInfoTypes, url: string) =>
   fetch(url, {
@@ -35,7 +29,7 @@ export const postInfo = (object: HistoryInfoTypes, url: string) =>
     body: JSON.stringify(object),
   });
 
-export const deleteHistoryInfo = (url: string, id: string) =>
+export const deleteHistoryInfo = (url: string, id: number) =>
   fetch(`${url}/${id}`, {
     method: "DELETE",
   });
@@ -51,10 +45,8 @@ export const getBreastFeedingHistoryInfo = (): Promise<
   fetch(breastFeedingHistoryUrl)
     .then((res) => res.json())
     .then((data) => data);
-export const getInfantFeedingHistoryInfo = (): Promise<
-  infantFeedingInfoType[]
-> =>
-  fetch(infantFeedingHistoryUrl)
+export const getMealHistoryInfo = (): Promise<eatingInfoType[]> =>
+  fetch(mealHistoryUrl)
     .then((res) => res.json())
     .then((data) => data);
 
@@ -85,7 +77,7 @@ export const getProfileData = (): Promise<ProfileInfoTypes[]> =>
     .then((res) => res.json())
     .then((data) => data);
 
-export const getChildNapHistory = (): Promise<childNapDBType[]> =>
+export const getChildNapHistory = (): Promise<nappingType[]> =>
   fetch(childNapDBUrl).then((res) => {
     if (!res.ok) {
       throw new Error("Failed to get napping history");

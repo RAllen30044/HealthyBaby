@@ -32,7 +32,7 @@ model Child {
   napHistory           NapHistory[]
   bottleFeedingHistory BottleFeedingHistory[]
   breastFeedingHistory BreastFeedingHistory[]
-  eatingHistory        EatingHistory[]
+  mealHistory          MealHistory[]
   diapersHistory       DiapersHistory[]
   illnessHistory       IllnessHistory[]
 }
@@ -65,7 +65,7 @@ model BreastFeedingHistory {
   Child             Child  @relation(fields: [childId], references: [id])
 }
 
-model EatingHistory {
+model MealHistory {
   id        Int    @id @default(autoincrement())
   time      String
   date      String

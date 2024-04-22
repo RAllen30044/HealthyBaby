@@ -4,9 +4,9 @@ import {
   IllnessType,
   bottleFeedingInfoType,
   breastFeedingInfoType,
-  infantFeedingInfoType,
+  eatingInfoType,
   nappingType,
-} from "../../Types";
+} from "../../../Types";
 
 import { ReactElement } from "react";
 import { combineDateAndTime } from "./TimeInfo/TimeConversion";
@@ -14,7 +14,7 @@ import { combineDateAndTime } from "./TimeInfo/TimeConversion";
 type historyDataType =
   | breastFeedingInfoType
   | bottleFeedingInfoType
-  | infantFeedingInfoType
+  | eatingInfoType
   | nappingType
   | IllnessType
   | DiapersHistoryInfoTypes;
@@ -30,9 +30,9 @@ type CommonKeys<T> = UnionKeys<T> extends infer U
 export type HistoryInfoTypeData = {
   time: string;
   date: string;
-  id: string;
+  id: number;
   feedingTimeLength: string;
-  childId: string;
+  childId: number;
 
   drinkType: string;
   foodType: string;
@@ -42,7 +42,7 @@ export type HistoryInfoTypeData = {
   bottleQuantityLeft: string;
 
   symptoms: string;
-  medicineGiven: string;
+  medicationType: string;
 
   consistency: string;
   diaperType: string;
@@ -152,7 +152,7 @@ export const HistoryTableHeader = (
 export const HistoryDateAndTimeColumn = (
   history: historyDataType[],
   historyPage: string,
-  removeHistory: (id: string) => void
+  removeHistory: (id: number) => void
 ): ReactElement => {
   const { sortDirection, childId } = useHistoryIDComponent();
   return (
@@ -225,7 +225,7 @@ export const HistoryMobileView = (
   historyPropertyLabel: string[],
   suffix: string[],
   historyPage: string,
-  removeHistory: (id: string) => void
+  removeHistory: (id: number) => void
 ) => {
   const { sortDirection, setSortDirection, childId } = useHistoryIDComponent();
   return (

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { useAuthProviderContext } from "./authProvider";
 import "./LandingPage.css";
-import { getProfileData } from "../../../api";
+import { getProfileData } from "../../../../clientApi";
 import toast from "react-hot-toast";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
@@ -66,7 +66,7 @@ export const LandingPage = () => {
   };
 
   useEffect(() => {
-    loadIcons(); 
+    loadIcons();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -103,17 +103,9 @@ export const LandingPage = () => {
         );
 
         if (userExist) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              username: user?.username,
-              password: user?.password,
-              id: user?.id,
-            })
-          );
-          console.log(childInfo);
-
-          console.log(user);
+          setProfileId(user?.id || 0);
+        
+        
 
           firstAvailableChild(childInfo, user);
           const firstChild = childInfo.find(
@@ -122,7 +114,7 @@ export const LandingPage = () => {
           console.log(firstChild?.id);
 
           if (firstAvailableChild(childInfo, user)) {
-            console.log(firstAvailableChild(childInfo, user));
+            
             localStorage.setItem(
               "child",
               JSON.stringify({

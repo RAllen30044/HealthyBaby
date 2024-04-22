@@ -1,4 +1,4 @@
-import { infantfeedingHistoryT } from "../../../Types";
+import { eatingHistoryT } from "../../../../Types";
 import {
   HistoryDateAndTimeColumn,
   HistoryInfoColumn,
@@ -6,10 +6,10 @@ import {
   HistoryTableHeader,
 } from "../historyTable";
 
-export const InfantFeedingHistory = ({
-  infantFeedHistory,
-  removeInfantFeedingHistory,
-}: infantfeedingHistoryT) => {
+export const EatingHistory = ({
+  eatingHistory,
+  removeEatingHistory,
+}: eatingHistoryT) => {
   return (
     <section className="historyInfoSection">
       <section className="largeScreenHistorySection">
@@ -17,15 +17,15 @@ export const InfantFeedingHistory = ({
           {HistoryTableHeader(["Food Served", "Beverage"], "Feeding")}
           <div className="historyTimelineContainer ">
             {HistoryDateAndTimeColumn(
-              infantFeedHistory,
+              eatingHistory,
               "Feeding",
-              removeInfantFeedingHistory
+              removeEatingHistory
             )}
             <div>
-              {HistoryInfoColumn(infantFeedHistory, "foodType", "", "Feeding")}
+              {HistoryInfoColumn(eatingHistory, "foodType", "", "Feeding")}
             </div>
             <div>
-              {HistoryInfoColumn(infantFeedHistory, "drinkType", "", "Feeding")}
+              {HistoryInfoColumn(eatingHistory, "drinkType", "", "Feeding")}
             </div>
           </div>
         </div>
@@ -33,12 +33,12 @@ export const InfantFeedingHistory = ({
       <section className="smallerScreenHistorySection">
         <div className="smallerScreenHistoryTable">
           {HistoryMobileView(
-            infantFeedHistory,
+            eatingHistory,
             ["foodType", "drinkType"],
             ["Food Served", "Beverage"],
             ["", ""],
             "Feeding",
-            removeInfantFeedingHistory
+            removeEatingHistory
           )}
         </div>
       </section>

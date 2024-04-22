@@ -1,4 +1,4 @@
-import { breastfeedingHistoryT } from "../../../Types";
+import { breastfeedingHistoryT } from "../../../../Types";
 import {
   HistoryDateAndTimeColumn,
   HistoryInfoColumn,

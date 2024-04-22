@@ -1,4 +1,4 @@
-import { ChildInfoT, ProfileInfoTypes } from "./Types";
+import { ChildInfoT, ProfileInfoTypes } from "../Types";
 
 export const preventKeyingNumbers = (value: string) => {
   return value.replace(/[^A-Za-z\s]/, "");

@@ -7,7 +7,7 @@ import {
 } from "../TimeInfo/TimeInfoProvider";
 import { useState } from "react";
 
-import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../api";
+import { deleteHistoryInfo, illnessUrl, postInfo } from "../../../../clientApi";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   convertToStandardTime,
@@ -33,7 +33,7 @@ import { useChildInfo } from "../ChildPage/ChildInfoProvider";
 
 export const IllnessPage = () => {
   const [symptoms, setSymptoms] = useState("");
-  const [medicineGiven, setMedicineGiven] = useState("");
+  const [medicationType, setMedicationType] = useState("");
   const [dosage, setDosage] = useState("");
 
   const {
@@ -52,7 +52,7 @@ export const IllnessPage = () => {
     useHistoryIDComponent();
   const { unitOfMeasurement, setUnitOfMeasurement } = useChildInfo();
 
-  const removeIllnessHistory = (id: string) => {
+  const removeIllnessHistory = (id: number) => {
     const updateData = illnessHistory.filter((history) => history.id !== id);
     setIllnessHistory(updateData);
 
@@ -61,6 +61,7 @@ export const IllnessPage = () => {
         setIllnessHistory(illnessHistory);
       } else return;
     });
+  
   };
 
   return (
@@ -105,7 +106,7 @@ export const IllnessPage = () => {
                     date: formatDate(createShortHandDate(date)),
 
                     symptoms: symptoms,
-                    medicineGiven: medicineGiven,
+                    medicationType: medicationType,
                     dosage: `${dosage} ${unitOfMeasurement}`,
                     childId: childId,
                   },
@@ -118,7 +119,7 @@ export const IllnessPage = () => {
                     setSymptoms("");
 
                     setDosage("");
-                    setMedicineGiven("");
+                    setMedicationType("");
                   })
                   .then(() => {
                     setLoading(false);
@@ -150,9 +151,9 @@ export const IllnessPage = () => {
                 <input
                   type="text"
                   id="medicineGiven"
-                  value={medicineGiven}
+                  value={medicationType}
                   onChange={(e) => {
-                    setMedicineGiven(preventKeyingNumbers(e.target.value));
+                    setMedicationType(preventKeyingNumbers(e.target.value));
                   }}
                   required
                 />
@@ -232,7 +233,7 @@ export const IllnessPage = () => {
                 <div>
                   {HistoryInfoColumn(
                     illnessHistory,
-                    "medicineGiven",
+                    "medicationType",
                     "",
                     "Illness"
                   )}
@@ -248,7 +249,7 @@ export const IllnessPage = () => {
             <div className="smallerScreenHistoryTable">
               {HistoryMobileView(
                 illnessHistory,
-                ["symptoms", "medicineGiven", "dosage"],
+                ["symptoms", "medicationType", "dosage"],
                 ["Symptoms", "Medicine", "Dosage"],
                 ["", "", ""],
                 "Illness",

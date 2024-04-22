@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ProfilePage.css";
-import { postInfo, profileUrl } from "../../../api";
+import { postInfo, profileUrl } from "../../../../clientApi";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import {
   preventKeyingNumbers,
@@ -17,11 +17,11 @@ import { useHistoryIDComponent } from "../../../HistoryProvider";
 export const SignUpPage = () => {
   const [username, setUsername] = useState<string>("");
   // const [email, setEmail] = useState<string>("");
-  const [childCaregiver, setChildCaregiver] = useState<string>("");
+  const [caregiver, setCaregiver] = useState<string>("");
   // const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
   // const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [email, setEmail] = useState("");
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
 
   const { loggedIn, maybeUser, setPassword, password } =
@@ -70,9 +70,10 @@ export const SignUpPage = () => {
 
               return postInfo(
                 {
-                  username: username,
-                  password: password,
-                  caregiver: childCaregiver,
+                  username,
+                  password,
+                  caregiver,
+                  email: email,
                 },
                 profileUrl
               )
@@ -82,6 +83,7 @@ export const SignUpPage = () => {
                 })
                 .then((data) => {
                   setActiveMainComponent("addChild");
+                  setProfileId(JSON.parse(JSON.stringify(data)).id);
                   if (!maybeUser) {
                     const username = JSON.parse(JSON.stringify(data)).username;
 
@@ -95,7 +97,7 @@ export const SignUpPage = () => {
                       JSON.stringify({
                         username: username,
                         password: userPassword,
-                        caregiver: childCaregiver,
+                        caregiver,
                         id: userId,
                       })
                     );
@@ -132,6 +134,23 @@ export const SignUpPage = () => {
             )}
 
             <div className="inputContainer">
+              <label htmlFor="email" className="profileLabel">
+                Email:
+              </label>
+
+              <input
+                type="text"
+                name="email"
+                id="email"
+                className="profileInput"
+                value={email}
+                onChange={(e) => {
+                  setEmail(preventKeyingSpaces(e.target.value));
+                }}
+              />
+            </div>
+
+            <div className="inputContainer">
               <label htmlFor="caregiver" className="profileLabel">
                 Child(ren) Caregiver's Name:{" "}
               </label>
@@ -140,14 +159,14 @@ export const SignUpPage = () => {
                 name="caregiver"
                 id="caregiver"
                 className="profileInput"
-                value={childCaregiver}
+                value={caregiver}
                 onChange={(e) => {
-                  setChildCaregiver(preventKeyingNumbers(e.target.value));
+                  setCaregiver(preventKeyingNumbers(e.target.value));
                 }}
                 placeholder="Ex. Grandma, Babysitter's name, self"
               />
             </div>
-            
+
             <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLabel">
                 Password:

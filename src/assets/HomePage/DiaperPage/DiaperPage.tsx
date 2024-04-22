@@ -14,7 +14,7 @@ import {
   faDroplet,
   faCloud,
 } from "@fortawesome/free-solid-svg-icons";
-import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../api";
+import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../../clientApi";
 import { useHistoryIDComponent } from "../../../HistoryProvider";
 import {
   convertToStandardTime,
@@ -57,7 +57,7 @@ export const DiaperPage = () => {
   const { diapersHistory, setDiapersHistory, fetchDiaperHistory, childId } =
     useHistoryIDComponent();
 
-  const removeDiaperHistory = (id: string) => {
+  const removeDiaperHistory = (id: number) => {
     const updateData = diapersHistory.filter((history) => history.id !== id);
 
     setDiapersHistory(updateData);
