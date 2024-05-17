@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import {
   TimeInfo,
-  dateBeforeBirthMessage,
+  // dateBeforeBirthMessage,
   useTimeInfo,
 } from "../TimeInfo/TimeInfoProvider";
 import "./Diaper.css";
@@ -14,8 +14,8 @@ import {
   faDroplet,
   faCloud,
 } from "@fortawesome/free-solid-svg-icons";
-import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../../clientApi";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { deleteHistoryInfo, diaperUrl, postInfo } from "../../../../callApis";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import {
   convertToStandardTime,
   createShortHandDate,
@@ -24,11 +24,11 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
-  isDateBeforeBirth,
+  // isDateBeforeBirth,
   timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
-import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
+// import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 import {
   HistoryDateAndTimeColumn,
   HistoryInfoColumn,
@@ -42,7 +42,7 @@ type ConsistencyTypeT = "Pebbles" | "Solid" | "Soft" | "Wet";
 export const DiaperPage = () => {
   const [diaperType, setDiaperType] = useState<DiaperType>("Wet");
   const [consistency, setConsistency] = useState<ConsistencyTypeT>("Wet");
-  const { maybeChild } = useAuthProviderContext();
+  
   const {
     time,
     setTime,
@@ -52,10 +52,10 @@ export const DiaperPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
-    shouldShowDateBeforeBirthError,
+    // shouldShowDateBeforeBirthError,
   } = useTimeInfo();
   const { diapersHistory, setDiapersHistory, fetchDiaperHistory, childId } =
-    useHistoryIDComponent();
+    UseHistoryIDComponent();
 
   const removeDiaperHistory = (id: number) => {
     const updateData = diapersHistory.filter((history) => history.id !== id);
@@ -94,13 +94,13 @@ export const DiaperPage = () => {
                   setIsSubmitted(true);
                   return;
                 }
-                if (
-                  maybeChild &&
-                  isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-                ) {
-                  setIsSubmitted(true);
-                  return;
-                }
+                // if (
+                //   // maybeChild &&
+                //   // isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+                // ) {
+                //   setIsSubmitted(true);
+                //   return;
+                // }
 
                 setIsSubmitted(false);
                 setLoading(true);
@@ -131,9 +131,9 @@ export const DiaperPage = () => {
               {shouldShowDateTimeEntryError && (
                 <ErrorMessage message={futureTimeNotAllowed} show={true} />
               )}
-              {shouldShowDateBeforeBirthError && (
+              {/* {shouldShowDateBeforeBirthError && (
                 <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-              )}
+              )} */}
               <div className="diaperType ">
                 <label htmlFor="diaperType">Diaper Type?</label>
                 <br />

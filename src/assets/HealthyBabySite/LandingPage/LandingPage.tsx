@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 
-import { useAuthProviderContext } from "./authProvider";
+// import { useAuthProviderContext } from "./authProvider";
 import "./LandingPage.css";
-import { getProfileData } from "../../../../clientApi";
-import toast from "react-hot-toast";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
+// import toast from "react-hot-toast";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import {
-  firstAvailableChild,
-  getIsSubmittedFromLocalStorage,
+  // firstAvailableChild,
+  // getIsSubmittedFromLocalStorage,
   setActiveHomePageComponentInLocalStorage,
   setActiveMainComponentInLocalStorage,
-  setIsSubmittedInLocalStorage,
+  // setIsSubmittedInLocalStorage,
 } from "../../../ErrorHandling";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
-import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
+// import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
@@ -29,6 +28,9 @@ import {
   faDisease,
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
+import { authorization, getProfilesFirstChild } from "../../../../callApis";
+import toast from "react-hot-toast";
+
 const icons = [
   faPoo,
   faChildDress,
@@ -45,9 +47,15 @@ const icons = [
 export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  const { loggedIn, setLog, setShowAddChildError, showAddChildError } =
-    useAuthProviderContext();
-  const { setProfileId, childInfo } = useHistoryIDComponent();
+  // const {
+  // loggedIn,
+  // setLog,
+  // setShowAddChildError,
+  // showAddChildError,
+  //   setUsername,
+  //   setPassword,
+  // } = useAuthProviderContext();
+  const { setToken, setChildId } = UseHistoryIDComponent();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
 
@@ -88,85 +96,94 @@ export const LandingPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadIndex]);
 
-  const isUserValid = (username: string, password: string) => {
-    return getProfileData()
-      .then((users) => {
-        const userExist = users.some(
-          (user) =>
-            user.username.toLowerCase() === username.toLowerCase() &&
-            user.password === password
-        );
-        const user = users.find(
-          (user) =>
-            user.username.toLowerCase() === username.toLowerCase() &&
-            user.password === password
-        );
+  // const isUserValid = (username: string, password: string) => {
+  //   return getAllProfiles()
+  //     .then((users) => {
+  //       const userExist = users.some(
+  //         (user) =>
+  //           user.username.toLowerCase() === username.toLowerCase() &&
+  //           user.password === password
+  //       );
+  //       const user = users.find(
+  //         (user) =>
+  //           user.username.toLowerCase() === username.toLowerCase() &&
+  //           user.password === password
+  //       );
 
-        if (userExist) {
-          setProfileId(user?.id || 0);
-        
-        
+  //       if (userExist) {
+  //         localStorage.setItem(
+  //           "user",
+  //           JSON.stringify({
+  //             username: user?.username,
+  //             password: user?.password,
+  //             // id: user?.id,
+  //           })
+  //         );
+  //         console.log(childInfo);
 
-          firstAvailableChild(childInfo, user);
-          const firstChild = childInfo.find(
-            (child) => child.profileId === user?.id
-          );
-          console.log(firstChild?.id);
+  //         console.log(user);
 
-          if (firstAvailableChild(childInfo, user)) {
-            
-            localStorage.setItem(
-              "child",
-              JSON.stringify({
-                name: firstAvailableChild(childInfo, user)?.name,
-                age: convertAgeToAppropriateAgeType(
-                  firstAvailableChild(childInfo, user)?.DOB || "Error"
-                ),
-                DOB: firstAvailableChild(childInfo, user)?.DOB,
-                gender: firstAvailableChild(childInfo, user)?.gender,
-                weight: firstAvailableChild(childInfo, user)?.weight,
-                height: firstAvailableChild(childInfo, user)?.height,
-                headSize: firstAvailableChild(childInfo, user)?.headSize,
-                profileId: firstAvailableChild(childInfo, user)?.profileId,
-                id: firstAvailableChild(childInfo, user)?.id,
-              })
-            );
-          }
-          toast.success("Success");
+  //         firstAvailableChild(childInfo, user);
+  //         const firstChild = childInfo.find(
+  //           (child) => child.profileUsername === user?.username
+  //         );
+  //         console.log(firstChild?.id);
 
-          loggedIn(userNameInput, passwordInput);
-          setLog("logOut");
-          // const userID = localStorage.getItem("user");
-          if (!firstAvailableChild(childInfo, user)) {
-            setActiveMainComponent("addChild");
-            setActiveMainComponentInLocalStorage("addChild");
-            setIsSubmittedInLocalStorage("true");
-            setShowAddChildError(getIsSubmittedFromLocalStorage());
-            console.log(showAddChildError);
+  //         if (firstAvailableChild(childInfo, user)) {
+  //           console.log(firstAvailableChild(childInfo, user));
+  //           localStorage.setItem(
+  //             "child",
+  //             JSON.stringify({
+  //               name: firstAvailableChild(childInfo, user)?.name,
+  //               age: convertAgeToAppropriateAgeType(
+  //                 firstAvailableChild(childInfo, user)?.DOB || "Error"
+  //               ),
+  //               DOB: firstAvailableChild(childInfo, user)?.DOB,
+  //               gender: firstAvailableChild(childInfo, user)?.gender,
+  //               weight: firstAvailableChild(childInfo, user)?.weight,
+  //               height: firstAvailableChild(childInfo, user)?.height,
+  //               headSize: firstAvailableChild(childInfo, user)?.headSize,
+  //               profileUsername: firstAvailableChild(childInfo, user)
+  //                 ?.profileUsername,
+  //               id: firstAvailableChild(childInfo, user)?.id,
+  //             })
+  //           );
+  //         }
+  //         toast.success("Success");
 
-            return;
-          }
+  //         // loggedIn(userNameInput, passwordInput);
+  //         setLog("logOut");
+  //         // const userID = localStorage.getItem("user");
+  //         if (!firstAvailableChild(childInfo, user)) {
+  //           setActiveMainComponent("addChild");
+  //           setActiveMainComponentInLocalStorage("addChild");
+  //           setIsSubmittedInLocalStorage("true");
+  //           setShowAddChildError(getIsSubmittedFromLocalStorage());
+  //           console.log(showAddChildError);
 
-          setIsSubmittedInLocalStorage("false");
-          setShowAddChildError(getIsSubmittedFromLocalStorage());
-          setActiveHomePageComponent("feeding");
-          setActiveHomePageComponentInLocalStorage("feeding");
-          setActiveMainComponent("home");
-          setActiveMainComponentInLocalStorage("home");
+  //           return;
+  //         }
 
-          return;
-        } else {
-          toast.error("Username and/or Password Not found");
-          return;
-        }
-      })
-      .then(() => {
-        const userID = localStorage.getItem("user");
-        if (userID) {
-          setProfileId(JSON.parse(userID).id);
-        }
-      });
-  };
+  //         setIsSubmittedInLocalStorage("false");
+  //         setShowAddChildError(getIsSubmittedFromLocalStorage());
+  //         setActiveHomePageComponent("feeding");
+  //         setActiveHomePageComponentInLocalStorage("feeding");
+  //         setActiveMainComponent("home");
+  //         setActiveMainComponentInLocalStorage("home");
+
+  //         return;
+  //       } else {
+  //         toast.error("Username and/or Password Not found");
+  //         return;
+  //       }
+  //     })
+  //     .then(() => {
+  //       const userID = localStorage.getItem("user");
+  //       if (userID) {
+  //         setProfileId(JSON.parse(userID).id);
+  //       }
+  //     });
+  // };
   return (
     <>
       <div className={`landingPage `}>
@@ -189,11 +206,34 @@ export const LandingPage = () => {
         <div className="card">
           <form
             method="post"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              isUserValid(userNameInput, passwordInput);
-              setPasswordInput("");
+              // isUserValid(userNameInput, passwordInput);
+              const authorize = await authorization(
+                userNameInput,
+                passwordInput
+              );
+
+              if (!authorize.token) {
+                console.log("Username and/or Password Not found");
+                toast.error("Username and/or Password Not found");
+                setUserNameInput("");
+                setPasswordInput("");
+                return;
+              }
+              setToken(authorize.token);
+              localStorage.setItem("token", authorize.token);
+              getProfilesFirstChild(authorize.token).then((profile) => {
+                setChildId(profile.id);
+                localStorage.setItem("childId", JSON.stringify(profile.id));
+              });
+
               setUserNameInput("");
+              setPasswordInput("");
+              setActiveMainComponentInLocalStorage("home");
+              setActiveMainComponent("home");
+              setActiveHomePageComponentInLocalStorage("feeding");
+              setActiveHomePageComponent("feeding");
             }}
           >
             <h3>Login</h3>

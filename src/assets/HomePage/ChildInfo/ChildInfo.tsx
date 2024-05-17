@@ -1,7 +1,7 @@
 import { setActiveMainComponentInLocalStorage } from "../../../ErrorHandling";
 import "./ChildInfo.css";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
-import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
+
 import { useChildInfo } from "../ChildPage/ChildInfoProvider";
 import {
   convertAgeToAppropriateAgeType,
@@ -9,10 +9,10 @@ import {
   formatDate,
 } from "../TimeInfo/TimeConversion";
 import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
 
 export const ChildInfo = () => {
-  const { maybeChild } = useAuthProviderContext();
-
+  const { profileChildren, childId } = UseHistoryIDComponent();
   const { editor, setEditor, setActiveMainComponent } = useActiveComponent();
   const {
     setChildName,
@@ -31,63 +31,59 @@ export const ChildInfo = () => {
     }
     return `${inchNumber} in.`;
   };
+  console.log(childId);
 
   return (
     <>
       <div className="childInfoContainerHP">
-        {maybeChild ? (
-          <div className="info" key={JSON.parse(maybeChild).id}>
-            <div className="childname">Name: {JSON.parse(maybeChild).name}</div>
-            <div className="childAge">
-              Age: {convertAgeToAppropriateAgeType(JSON.parse(maybeChild).DOB)}
-            </div>
-            <div className="DOB">
-              Date of Birth:{" "}
-              {formatDate(createShortHandDate(JSON.parse(maybeChild).DOB))}{" "}
-            </div>
-            <div className="childGender">
-              Gender: {JSON.parse(maybeChild).gender}{" "}
-            </div>
-            <div className="childHeight">
-              Height: {inchToFeet(JSON.parse(maybeChild).height)}
-            </div>
-            <div className="childWeight">
-              Weight: {JSON.parse(maybeChild).weight} lbs.
-            </div>
-            <div className="childHeadSize">
-              Head Size: {JSON.parse(maybeChild).headSize} in.
-            </div>
-
-            {editor === "not present" ? (
-              <div className="editButtonContainer">
-                <button
-                  className="button editButton"
-                  type="button"
-                  onClick={() => {
-                    setChildName(JSON.parse(maybeChild).name);
-                    setGender(JSON.parse(maybeChild).gender);
-                    setHeadSize(JSON.parse(maybeChild).headSize);
-                    setWeight(JSON.parse(maybeChild).weight);
-                    setHeight(JSON.parse(maybeChild).height);
-                    setDOB(JSON.parse(maybeChild).DOB);
-                    setCurrentChildId(JSON.parse(maybeChild).id);
-                    setEditor("present");
-                    setActiveMainComponent("editChild");
-                    setActiveMainComponentInLocalStorage("editChild");
-                    setDate("");
-                    setTime("");
-                  }}
-                >
-                  Edit
-                </button>
+        {profileChildren
+          .filter((child) => child.id === childId)
+          .map((child) => (
+            <div className="info" key={child.id}>
+              <div className="childname">Name: {child.name}</div>
+              <div className="childAge">
+                Age: {convertAgeToAppropriateAgeType(child.DOB)}
               </div>
-            ) : (
-              ""
-            )}
-          </div>
-        ) : (
-          ""
-        )}
+              <div className="DOB">
+                Date of Birth: {formatDate(createShortHandDate(child.DOB))}{" "}
+              </div>
+              <div className="childGender">Gender: {child.gender} </div>
+              <div className="childHeight">
+                Height: {inchToFeet(child.height)}
+              </div>
+              <div className="childWeight">Weight: {child.weight} lbs.</div>
+              <div className="childHeadSize">
+                Head Size: {child.headSize} in.
+              </div>
+
+              {editor === "not present" ? (
+                <div className="editButtonContainer">
+                  <button
+                    className="button editButton"
+                    type="button"
+                    onClick={() => {
+                      setChildName(child.name);
+                      setGender(child.gender);
+                      setHeadSize(child.headSize);
+                      setWeight(child.weight);
+                      setHeight(child.height);
+                      setDOB(child.DOB);
+                      setCurrentChildId(child.id);
+                      setEditor("present");
+                      setActiveMainComponent("editChild");
+                      setActiveMainComponentInLocalStorage("editChild");
+                      setDate("");
+                      setTime("");
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          ))}
       </div>
     </>
   );

@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 
-type TActiveHomePageComponent =
+export type TActiveHomePageComponent =
   | "illness"
   | "feeding"
   | "napping"
@@ -68,24 +68,19 @@ export const ActiveComponentProvider = ({
   const [editor, setEditor] = useState<Editor>("not present");
   const [nameColors, setNameColors] = useState<NameColors>("black");
 
-  const switchColors = (activeComponent: TActiveHomePageComponent):string => {
+  const switchColors = (activeComponent: TActiveHomePageComponent): string => {
     switch (activeComponent) {
       case "napping":
-        
         return "#b935f9";
       case "diaper":
-        
-       return "#12d7e6";
+        return "#12d7e6";
       case "feeding":
-        
-       return "#fadd9f";
+        return "#fadd9f";
       case "illness":
-       
-       return "coral"
+        return "coral";
 
       default:
-        
-        return "black" ;
+        return "black";
     }
   };
 
@@ -105,7 +100,7 @@ export const ActiveComponentProvider = ({
         setEditor,
         nameColors,
         setNameColors,
-        switchColors
+        switchColors,
       }}
     >
       {children}

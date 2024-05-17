@@ -11,12 +11,16 @@ datasource db {
 }
 
 model Profile {
-  id        Int     @id @default(autoincrement())
-  username  String  @unique
+  username  String  @id @unique @default("")
   email     String  @unique
   caregiver String?
   password  String  @unique
   children  Child[]
+}
+
+model activeHomepageComponent {
+  id   Int    @id
+  page String
 }
 
 model Child {
@@ -27,8 +31,8 @@ model Child {
   weight               String
   height               String
   headSize             String
-  profileId            Int
-  profile              Profile                @relation(references: [id], fields: [profileId])
+  profileUsername      String                 @default("")
+  profile              Profile                @relation(references: [username], fields: [profileUsername])
   napHistory           NapHistory[]
   bottleFeedingHistory BottleFeedingHistory[]
   breastFeedingHistory BreastFeedingHistory[]

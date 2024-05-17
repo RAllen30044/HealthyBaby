@@ -1,18 +1,18 @@
 import { useState } from "react";
 import "./ProfilePage.css";
-import { updateProfileInfo } from "../../../../clientApi";
+import { updateProfileInfo } from "../../../../callApis";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import { preventKeyingNumbers } from "../../../ErrorHandling";
 import toast from "react-hot-toast";
 
-import { useAuthProviderContext } from "../LandingPage/authProvider";
+import { UseAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
 // import { ProfileInfoTypes } from "../../../Types";
 
 export const EditProfilePage = () => {
-  const { maybeUser, setPassword, password } = useAuthProviderContext();
+  const { maybeUser, setPassword, password } = UseAuthProviderContext();
 
   // const [email, setEmail] = useState<string>("");
   const [childCaregiver, setChildCaregiver] = useState<string>(
@@ -29,7 +29,7 @@ export const EditProfilePage = () => {
   // );
   const { setActiveHomePageComponent, setActiveMainComponent } =
     useActiveComponent();
-  const { setProfileId } = useHistoryIDComponent();
+  const { setProfileUsername } = UseHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
@@ -47,7 +47,6 @@ export const EditProfilePage = () => {
         <h1>Edit Profile</h1>
         <div className="profile">
           <form
-          
             action="POST"
             className="profileForm"
             onSubmit={(e) => {
@@ -67,7 +66,9 @@ export const EditProfilePage = () => {
                 return updateProfileInfo(
                   childCaregiver,
                   password,
-                  Number.parseInt(JSON.parse(maybeUser).id)
+                  //replace with Username
+                  ""
+                  //
                 )
                   .then((res) => {
                     if (!res.ok) {
@@ -87,7 +88,9 @@ export const EditProfilePage = () => {
                       JSON.stringify(data)
                     ).password;
                     const userId = JSON.parse(JSON.stringify(data)).id;
-                    setProfileId(userId);
+                    //Set to current username
+                    setProfileUsername("");
+
                     localStorage.setItem(
                       "user",
                       JSON.stringify({

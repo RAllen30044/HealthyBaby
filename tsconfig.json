@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2018",
     "useDefineForClassFields": true,
     "lib": [
       "ES2020",
@@ -21,13 +21,24 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "*"
+    ], // Include your custom types directory
+    "types": [
+      "express"
+    ]
   },
   "include": [
     "src",
     "test.js",
     "Types.ts",
-    "clientApi.ts"
+    "callApis.ts",
+    "validations.ts",
+    "**/express.d.ts",
+    "**/node.d.ts",
+    "authRouter.ts"
   ],
   "references": [
     {

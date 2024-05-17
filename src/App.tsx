@@ -6,16 +6,22 @@ import { HealthyBabySite } from "./assets/HealthyBabySite/HealthyBabySite";
 import { TimeInfoProvider } from "./assets/HomePage/TimeInfo/TimeInfoProvider";
 import { AuthProvider } from "./assets/HealthyBabySite/LandingPage/authProvider";
 import { ChildInfoProvider } from "./assets/HomePage/ChildPage/ChildInfoProvider";
+import { HistoryIDComponentProvider } from "./HistoryProvider";
+import { ActiveComponentProvider } from "./assets/HealthyBabySite/Header/ActiveComponentProvider";
 
- function App () {
+function App() {
   return (
     <>
       <AuthProvider>
-        <ChildInfoProvider>
-          <TimeInfoProvider>
-            <HealthyBabySite />
-          </TimeInfoProvider>
-        </ChildInfoProvider>
+        <HistoryIDComponentProvider>
+          <ActiveComponentProvider>
+            <ChildInfoProvider>
+              <TimeInfoProvider>
+                <HealthyBabySite />
+              </TimeInfoProvider>
+            </ChildInfoProvider>
+          </ActiveComponentProvider>{" "}
+        </HistoryIDComponentProvider>
       </AuthProvider>
     </>
   );

@@ -2,13 +2,13 @@ import {
   setActiveHomePageComponentInLocalStorage,
   setActiveMainComponentInLocalStorage,
 } from "../../../ErrorHandling";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import { useChildInfo } from "../../HomePage/ChildPage/ChildInfoProvider";
 
-import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
+// import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 
-import { useAuthProviderContext } from "../LandingPage/authProvider";
+import { UseAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
 import "./Header.css";
 
@@ -28,8 +28,15 @@ export const Header = () => {
     setHiddenPagesLinks,
   } = useChildInfo();
   const { setDate, setTime } = useTimeInfo();
-  const { childInfo, setChildId, childId, profileId } = useHistoryIDComponent();
-  const { setUser, maybeChild } = useAuthProviderContext();
+  const {
+    // childInfo,
+    setChildId,
+    childId,
+    profileChildren,
+    setProfileChildren,
+    setToken,
+  } = UseHistoryIDComponent();
+  const { setUser } = UseAuthProviderContext();
 
   const filterChildInfo = () => {
     return (
@@ -58,53 +65,33 @@ export const Header = () => {
             chevronPosition === "down" ? "hidden" : ""
           }`}
         >
-          {childInfo
-            .filter((childProfile) => childProfile.profileId === profileId)
-            .map((childProfile) => {
-              return (
-                <div
-                  className={`child ${
-                    childId === childProfile.id ? "selectedChild" : ""
-                  }`}
-                  style={
-                    childId === childProfile.id
-                      ? { color: `${switchColors(activeHomePageComponent)}` }
-                      : {}
-                  }
-                  key={childProfile.id}
-                  onClick={() => {
-                    const selectedChildId = childProfile.id;
-                    const selectedChildProfile = childInfo.find(
-                      (childProfile) => childProfile.id === selectedChildId
-                    );
+          {profileChildren.map((childProfile) => {
+            return (
+              <div
+                className={`child ${
+                  childId === childProfile.id ? "selectedChild" : ""
+                }`}
+                style={
+                  childId === childProfile.id
+                    ? { color: `${switchColors(activeHomePageComponent)}` }
+                    : {}
+                }
+                key={childProfile.id}
+                onClick={() => {
+                  const selectedChildId = childProfile.id;
 
-                    if (selectedChildProfile) {
-                      setChildId(selectedChildId);
-
-                      setChevronPosition("down");
-                      localStorage.setItem(
-                        "child",
-                        JSON.stringify({
-                          name: selectedChildProfile.name,
-                          age: convertAgeToAppropriateAgeType(
-                            selectedChildProfile.DOB
-                          ),
-                          DOB: selectedChildProfile.DOB,
-                          gender: selectedChildProfile.gender,
-                          height: selectedChildProfile.height,
-                          weight: selectedChildProfile.weight,
-                          headSize: selectedChildProfile.headSize,
-                          profileId: selectedChildProfile.profileId,
-                          id: selectedChildProfile.id,
-                        })
-                      );
-                    }
-                  }}
-                >
-                  {childProfile.name}
-                </div>
-              );
-            })}
+                  setChildId(selectedChildId);
+                  localStorage.setItem(
+                    "childId",
+                    JSON.stringify(selectedChildId)
+                  );
+                  setChevronPosition("down");
+                }}
+              >
+                {childProfile.name}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -119,15 +106,14 @@ export const Header = () => {
               <div
                 className={`logoActionContainer`}
                 onClick={() => {
-                  if (!maybeChild) {
-                    return;
+                  if (profileChildren.length > 0) {
+                    setActiveHomePageComponent("feeding");
+                    setActiveHomePageComponentInLocalStorage("feeding");
+                    setActiveMainComponent("home");
+                    setActiveMainComponentInLocalStorage("home");
+                    setDate("");
+                    setTime("");
                   }
-                  setActiveHomePageComponent("feeding");
-                  setActiveHomePageComponentInLocalStorage("feeding");
-                  setActiveMainComponent("home");
-                  setActiveMainComponentInLocalStorage("home");
-                  setDate("");
-                  setTime("");
                 }}
               >
                 <i
@@ -138,19 +124,27 @@ export const Header = () => {
             </div>
           </div>
 
-          <div className={`switchToChild ${maybeChild ? "" : "hidden"}`}>
+          <div
+            className={`switchToChild ${
+              profileChildren.length > 0 ? "" : "hidden"
+            }`}
+          >
             {filterChildInfo()}
           </div>
 
           <div className="pages">
-            <div className={`loggedInHeader ${maybeChild ? "" : "hidden"}`}>
+            <div
+              className={`loggedInHeader ${
+                profileChildren.length > 0 ? "" : "hidden"
+              }`}
+            >
               <div
                 className={` pageLink `}
                 onClick={() => {
                   setActiveMainComponent("home");
                   setActiveMainComponentInLocalStorage("home");
                   setActiveHomePageComponent("feeding");
-                  setActiveMainComponentInLocalStorage("feeding");
+                  setActiveHomePageComponentInLocalStorage("feeding");
                 }}
               >
                 Home
@@ -182,10 +176,11 @@ export const Header = () => {
                 onClick={() => {
                   localStorage.clear();
                   setUser(null);
-
+                  setProfileChildren([]);
                   setHiddenPagesLinks(false);
                   setActiveMainComponent("landingPage");
                   setActiveMainComponentInLocalStorage("landingPage");
+                  setToken(null);
                   setDate("");
                   setTime("");
                 }}
@@ -194,7 +189,11 @@ export const Header = () => {
               </div>
             </div>
 
-            <div className={`loggedOutHeader ${maybeChild ? "hidden" : ""}`}>
+            <div
+              className={`loggedOutHeader ${
+                profileChildren.length === 0 ? "" : "hidden"
+              }`}
+            >
               <div
                 className={` pageLink `}
                 onClick={() => {
@@ -225,7 +224,9 @@ export const Header = () => {
             </div>
 
             <section
-              className={`landingPageHeader  ${maybeChild ? "hidden" : ""}`}
+              className={`landingPageHeader  ${
+                profileChildren.length < 0 ? "hidden" : ""
+              }`}
             >
               <div
                 className={` LandingPageLink `}
@@ -257,7 +258,9 @@ export const Header = () => {
             </section>
 
             <div
-              className={`pagesDropDown ${maybeChild ? "" : "hidden"}`}
+              className={`pagesDropDown ${
+                profileChildren.length > 0 ? "" : "hidden"
+              }`}
               onClick={() => {}}
             >
               <div
@@ -377,7 +380,7 @@ export const Header = () => {
                 <div
                   className={`logoActionContainer`}
                   onClick={() => {
-                    if (!maybeChild) {
+                    if (profileChildren.length === 0) {
                       return;
                     }
                     setActiveHomePageComponent("feeding");
@@ -396,10 +399,18 @@ export const Header = () => {
               </div>
             </div>
 
-            <div className={`switchToChild ${maybeChild ? "" : "hidden"}`}>
+            <div
+              className={`switchToChild ${
+                profileChildren.length > 0 ? "" : "hidden"
+              }`}
+            >
               {filterChildInfo()}
             </div>
-            <div className={`linksDropDown  ${maybeChild ? "" : "hidden"}`}>
+            <div
+              className={`linksDropDown  ${
+                profileChildren.length > 0 ? "" : "hidden"
+              }`}
+            >
               <div className="mobileDropdownContainer">
                 <div
                   className="hamburgerIcon"
@@ -494,9 +505,11 @@ export const Header = () => {
                     onClick={() => {
                       localStorage.clear();
                       setUser(null);
+                      setProfileChildren([]);
                       setActiveMainComponent("landingPage");
                       setActiveMainComponentInLocalStorage("landingPage");
                       setHiddenPagesLinks(false);
+                      setToken(null);
                     }}
                   >
                     <div className="linkContainer">
@@ -507,7 +520,11 @@ export const Header = () => {
               </div>
             </div>
 
-            <div className={`mobileLanding ${maybeChild ? "hidden" : ""}`}>
+            <div
+              className={`mobileLanding ${
+                profileChildren.length > 0 ? "hidden" : ""
+              }`}
+            >
               <div
                 className={`logIn mobileLandingLink`}
                 onClick={() => {

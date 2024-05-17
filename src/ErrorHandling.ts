@@ -1,4 +1,4 @@
-import { ChildInfoT, ProfileInfoTypes } from "../Types";
+// import { ChildInfoT, ProfileInfoTypes } from "../Types";
 
 export const preventKeyingNumbers = (value: string) => {
   return value.replace(/[^A-Za-z\s]/, "");
@@ -40,12 +40,12 @@ export const futureTimeNotAllowed =
 export const futureDOBNotAllowed =
   "Cannot chose a future time, Please select a different date";
 
-export const firstAvailableChild = (
-  child: ChildInfoT[],
-  user: ProfileInfoTypes | undefined
-) => {
-  return child.find((child) => child.profileId === user?.id);
-};
+// export const firstAvailableChild = (
+//   child: ChildInfoT[],
+//   user: ProfileInfoTypes | undefined
+// ) => {
+//   return child.find((child) => child.profileId === user?.id);
+// };
 
 export const setActiveHomePageComponentInLocalStorage = (component: string) => {
   return localStorage.setItem(

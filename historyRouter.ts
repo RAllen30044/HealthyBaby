@@ -1,36 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import { Router } from "express";
+import { client } from "./prismaClient";
 
-import express from "express";
-import path from "path";
+const historyController = Router();
 
-const client = new PrismaClient();
-const app = express();
-app.use(express.json());
-const publicPath = path.resolve(__dirname, "dist");
-app.use(express.static(publicPath));
-const PORT = process.env.PORT || 3000;
-
-app.get("/", (_req, res) => {
-  res.sendFile(path.join(publicPath, "index.html"));
-});
-
-app.get("/child", async (_req, res) => {
-  const child = await client.child.findMany({
-    orderBy: {
-      profileId: "asc",
-    },
-  });
-  res.send(child);
-});
-app.get("/profile", async (_req, res) => {
-  const profile = await client.profile.findMany({
-    orderBy: {
-      id: "asc",
-    },
-  });
-  res.send(profile);
-});
-app.get("/bottleFeedingHistory", async (_req, res) => {
+historyController.get("/bottleFeedingHistory", async (_req, res) => {
   const bottleFeedingHistory = await client.bottleFeedingHistory.findMany({
     orderBy: {
       childId: "asc",
@@ -38,7 +11,7 @@ app.get("/bottleFeedingHistory", async (_req, res) => {
   });
   res.send(bottleFeedingHistory);
 });
-app.get("/breastFeedingHistory", async (_req, res) => {
+historyController.get("/breastFeedingHistory", async (_req, res) => {
   const breastFeedingHistory = await client.breastFeedingHistory.findMany({
     orderBy: {
       childId: "asc",
@@ -46,7 +19,7 @@ app.get("/breastFeedingHistory", async (_req, res) => {
   });
   res.send(breastFeedingHistory);
 });
-app.get("/mealHistory", async (_req, res) => {
+historyController.get("/mealHistory", async (_req, res) => {
   const eatingHistory = await client.mealHistory.findMany({
     orderBy: {
       childId: "asc",
@@ -54,7 +27,7 @@ app.get("/mealHistory", async (_req, res) => {
   });
   res.send(eatingHistory);
 });
-app.get("/diapersHistory", async (_req, res) => {
+historyController.get("/diapersHistory", async (_req, res) => {
   const diapersHistory = await client.diapersHistory.findMany({
     orderBy: {
       childId: "asc",
@@ -62,7 +35,7 @@ app.get("/diapersHistory", async (_req, res) => {
   });
   res.send(diapersHistory);
 });
-app.get("/illnessHistory", async (_req, res) => {
+historyController.get("/illnessHistory", async (_req, res) => {
   const illnessHistory = await client.illnessHistory.findMany({
     orderBy: {
       childId: "asc",
@@ -70,7 +43,7 @@ app.get("/illnessHistory", async (_req, res) => {
   });
   res.send(illnessHistory);
 });
-app.get("/napHistory", async (_req, res) => {
+historyController.get("/napHistory", async (_req, res) => {
   const napHistory = await client.napHistory.findMany({
     orderBy: {
       childId: "asc",
@@ -79,7 +52,7 @@ app.get("/napHistory", async (_req, res) => {
   res.send(napHistory);
 });
 
-app.delete(`/IllnessHistory/:id`, async (req, res) => {
+historyController.delete(`/IllnessHistory/:id`, async (req, res) => {
   const id = +req.params.id;
   if (isNaN(id)) {
     return res.status(400).send({ message: "id should be a number" });
@@ -98,7 +71,7 @@ app.delete(`/IllnessHistory/:id`, async (req, res) => {
   }
   return res.status(200).send(deleteHistory);
 });
-app.delete(`/diapersHistory/:id`, async (req, res) => {
+historyController.delete(`/diapersHistory/:id`, async (req, res) => {
   const id = +req.params.id;
   if (isNaN(id)) {
     return res.status(400).send({ message: "id should be a number" });
@@ -117,7 +90,7 @@ app.delete(`/diapersHistory/:id`, async (req, res) => {
   }
   return res.status(200).send(deleteHistory);
 });
-app.delete(`/napHistory/:id`, async (req, res) => {
+historyController.delete(`/napHistory/:id`, async (req, res) => {
   const id = +req.params.id;
   if (isNaN(id)) {
     return res.status(400).send({ message: "id should be a number" });
@@ -136,7 +109,7 @@ app.delete(`/napHistory/:id`, async (req, res) => {
   }
   return res.status(200).send(deleteHistory);
 });
-app.delete(`/mealHistory/:id`, async (req, res) => {
+historyController.delete(`/mealHistory/:id`, async (req, res) => {
   const id = +req.params.id;
   if (isNaN(id)) {
     return res.status(400).send({ message: "id should be a number" });
@@ -155,7 +128,7 @@ app.delete(`/mealHistory/:id`, async (req, res) => {
   }
   return res.status(200).send(deleteHistory);
 });
-app.delete(`/breastFeedingHistory/:id`, async (req, res) => {
+historyController.delete(`/breastFeedingHistory/:id`, async (req, res) => {
   const id = +req.params.id;
   if (isNaN(id)) {
     return res.status(400).send({ message: "id should be a number" });
@@ -174,7 +147,7 @@ app.delete(`/breastFeedingHistory/:id`, async (req, res) => {
   }
   return res.status(200).send(deleteHistory);
 });
-app.delete(`/bottleFeedingHistory/:id`, async (req, res) => {
+historyController.delete(`/bottleFeedingHistory/:id`, async (req, res) => {
   const id = +req.params.id;
   if (isNaN(id)) {
     return res.status(400).send({ message: "id should be a number" });
@@ -194,7 +167,7 @@ app.delete(`/bottleFeedingHistory/:id`, async (req, res) => {
   return res.status(200).send(deleteHistory);
 });
 
-app.post("/napHistory", async (req, res) => {
+historyController.post("/napHistory", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = ["time", "date", "lengthOfTime", "childId"];
@@ -239,7 +212,7 @@ app.post("/napHistory", async (req, res) => {
     return res.status(500).send({ error: "Internal server error" });
   }
 });
-app.post("/illnessHistory", async (req, res) => {
+historyController.post("/illnessHistory", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = [
@@ -300,7 +273,7 @@ app.post("/illnessHistory", async (req, res) => {
   }
 });
 
-app.post("/diapersHistory", async (req, res) => {
+historyController.post("/diapersHistory", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = ["time", "date", "diaperType", "consistency", "childId"];
@@ -349,117 +322,7 @@ app.post("/diapersHistory", async (req, res) => {
     return res.status(500).send({ error: "Internal server error" });
   }
 });
-app.post("/profile", async (req, res) => {
-  const body = req.body;
-  const errors: string[] = [];
-  const validKeys = ["username", "password", "caregiver", "email"];
-  const inputKeys = Object.keys(body);
-
-  // Check for invalid keys
-  inputKeys.forEach((key) => {
-    if (!validKeys.includes(key)) {
-      errors.push(`'${key}' is not a valid key`);
-    }
-  });
-
-  // Validate fields
-  if (typeof body.username !== "string") {
-    errors.push("username should be a string");
-  }
-  if (typeof body.password !== "string") {
-    errors.push("password should be a string");
-  }
-  if (typeof body.caregiver !== "string") {
-    errors.push("caregiver should be a string");
-  }
-  if (typeof body.email !== "string") {
-    errors.push("email should be a string");
-  }
-
-  // If there are any errors, return them
-  if (errors.length > 0) {
-    return res.status(400).send({ errors });
-  }
-  try {
-    const profile = await client.profile.create({
-      data: {
-        username: body.username,
-        password: body.password,
-        caregiver: body.caregiver,
-        email: body.email,
-      },
-    });
-    return res.status(201).send(profile);
-  } catch (err) {
-    return res.status(500).send({ error: "Internal server error" });
-  }
-});
-app.post("/child", async (req, res) => {
-  const body = req.body;
-  const errors: string[] = [];
-  const validKeys = [
-    "name",
-    "DOB",
-    "gender",
-    "weight",
-    "headSize",
-    "height",
-    "profileId",
-  ];
-  const inputKeys = Object.keys(body);
-
-  // Check for invalid keys
-  inputKeys.forEach((key) => {
-    if (!validKeys.includes(key)) {
-      errors.push(`'${key}' is not a valid key`);
-    }
-  });
-
-  // Validate fields
-  if (typeof body.name !== "string") {
-    errors.push("name should be a string");
-  }
-  if (typeof body.DOB !== "string") {
-    errors.push("DOB should be a string");
-  }
-  if (typeof body.gender !== "string") {
-    errors.push("gender should be a string");
-  }
-  if (typeof body.weight !== "string") {
-    errors.push("weight should be a string");
-  }
-  if (typeof body.headSize !== "string") {
-    errors.push("headSize should be a string");
-  }
-  if (typeof body.height !== "string") {
-    errors.push("height should be a string");
-  }
-  if (typeof body.profileId !== "number" || isNaN(body.profileId)) {
-    errors.push("profileId should be a number");
-  }
-
-  // If there are any errors, return them
-  if (errors.length > 0) {
-    return res.status(400).send({ errors });
-  }
-  try {
-    const child = await client.child.create({
-      data: {
-        name: body.name,
-        DOB: body.DOB,
-        gender: body.gender,
-        height: body.height,
-        weight: body.Weight,
-        headSize: body.headSize,
-        profileId: body.profileId,
-      },
-    });
-    return res.status(201).send(child);
-  } catch (err) {
-    return res.status(500).send({ error: "Internal server error" });
-  }
-});
-app.post("/mealHistory", async (req, res) => {
+historyController.post("/mealHistory", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = ["time", "date", "drinkType", "foodType", "childId"];
@@ -509,7 +372,7 @@ app.post("/mealHistory", async (req, res) => {
     return res.status(500).send({ error: "Internal server error" });
   }
 });
-app.post("/breastFeedingHistory", async (req, res) => {
+historyController.post("/breastFeedingHistory", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = ["time", "date", "feedingTimeLength", "childId"];
@@ -555,7 +418,7 @@ app.post("/breastFeedingHistory", async (req, res) => {
     return res.status(500).send({ error: "Internal server error" });
   }
 });
-app.post("/bottleFeedingHistory", async (req, res) => {
+historyController.post("/bottleFeedingHistory", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = [
@@ -612,4 +475,4 @@ app.post("/bottleFeedingHistory", async (req, res) => {
   }
 });
 
-app.listen(PORT);
+export { historyController };

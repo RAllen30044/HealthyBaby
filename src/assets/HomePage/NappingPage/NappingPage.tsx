@@ -1,15 +1,15 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import {
   TimeInfo,
-  dateBeforeBirthMessage,
+  // dateBeforeBirthMessage,
   useTimeInfo,
 } from "../TimeInfo/TimeInfoProvider";
 
 import { useState } from "react";
 import "./NappingPage.css";
 
-import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../../clientApi";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { deleteHistoryInfo, nappingUrl, postInfo } from "../../../../callApis";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import {
   convertToStandardTime,
   createShortHandDate,
@@ -18,12 +18,12 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
-  isDateBeforeBirth,
+  // isDateBeforeBirth,
   onlyKeyNumbers,
   timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
-import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
+// import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 import {
   HistoryDateAndTimeColumn,
   HistoryInfoColumn,
@@ -42,12 +42,12 @@ export const NappingPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
-    shouldShowDateBeforeBirthError,
+    // shouldShowDateBeforeBirthError,
   } = useTimeInfo();
 
-  const { maybeChild } = useAuthProviderContext();
+ 
   const { nappingHistory, setNappingHistory, fetchNappingHistory, childId } =
-    useHistoryIDComponent();
+    UseHistoryIDComponent();
   console.log(nappingHistory);
 
   const removeNappingHistory = (id: number) => {
@@ -85,13 +85,13 @@ export const NappingPage = () => {
                   setIsSubmitted(true);
                   return;
                 }
-                if (
-                  maybeChild &&
-                  isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-                ) {
-                  setIsSubmitted(true);
-                  return;
-                }
+                // if (
+                //   maybeChild &&
+                //   isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
+                // ) {
+                //   setIsSubmitted(true);
+                //   return;
+                // }
                 setIsSubmitted(false);
                 setLoading(true);
                 postInfo(
@@ -118,9 +118,9 @@ export const NappingPage = () => {
               {shouldShowDateTimeEntryError && (
                 <ErrorMessage message={futureTimeNotAllowed} show={true} />
               )}
-              {shouldShowDateBeforeBirthError && (
+              {/* {shouldShowDateBeforeBirthError && (
                 <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-              )}
+              )} */}
               <div className="napLength ">
                 <label htmlFor="napLength">Nap Length:</label>
                 <input

@@ -5,11 +5,17 @@ import { NappingPage } from "./NappingPage/NappingPage";
 import { IllnessPage } from "./IllnessPage/IllnessPage";
 import { useActiveComponent } from "../HealthyBabySite/Header/ActiveComponentProvider";
 
-import { setActiveHomePageComponentInLocalStorage } from "../../ErrorHandling";
+// import { setActiveHomePageComponentInLocalStorage } from "../../ErrorHandling";
+
+import {
+  setActiveHomePageComponentInLocalStorage,
+  
+} from "../../ErrorHandling";
 
 export const HomePage = () => {
   const { activeHomePageComponent, setActiveHomePageComponent } =
     useActiveComponent();
+
   return (
     <>
       <div className={`tabs `}>
@@ -46,7 +52,7 @@ export const HomePage = () => {
             }`}
             onClick={() => {
               setActiveHomePageComponent("napping");
-              setActiveHomePageComponentInLocalStorage("napping");
+              setActiveHomePageComponentInLocalStorage("napping"); //
             }}
           >
             <p>Napping</p>

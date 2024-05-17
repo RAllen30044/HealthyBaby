@@ -28,7 +28,7 @@ export type ChildInfoT = {
   weight: string;
   height: string;
   headSize: string;
-  profileId: number;
+  profileUsername: string;
   id: number;
 };
 export type ProfileInfoTypes = {
@@ -36,7 +36,6 @@ export type ProfileInfoTypes = {
   password: string;
   caregiver: string;
   email: string;
-  id: number;
 };
 
 export type breastFeedingInfoType = {

@@ -10,14 +10,19 @@ import {
   setIsSubmittedInLocalStorage,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { childUrl, postInfo } from "../../../../clientApi";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
+import {
+  childrenUrl,
+  // getProfilesChildren,
+  // getProfilesFirstChild,
+  postInfo,
+} from "../../../../callApis";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
 import { useState } from "react";
-import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
+import { UseAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 type Gender = "Male" | "Female";
 
@@ -30,9 +35,12 @@ export const AddChildPage = () => {
   const { loading, setLoading, date, setDate } = useTimeInfo();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
-  const { showAddChildError, setShowAddChildError } = useAuthProviderContext();
+  const { showAddChildError, setShowAddChildError } = UseAuthProviderContext();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
-  const { fetchChildInfo, profileId } = useHistoryIDComponent();
+  const {
+    //  setChildId, setProfileChildren,
+     profileChildren } =
+    UseHistoryIDComponent();
 
   // const [babyPic, setBabyPic] = useState<string>("");
 
@@ -52,6 +60,7 @@ export const AddChildPage = () => {
   //     reader.readAsDataURL(selectedFile);
   //   }
   // };
+  console.log(profileChildren);
 
   const addChildErrorMessage =
     "This profile has not added a child. In order to continue you must add a child to your profile.";
@@ -81,17 +90,15 @@ export const AddChildPage = () => {
 
               postInfo(
                 {
-                  name: name,
+                  name,
                   DOB: date,
-
-                  gender: gender,
+                  gender,
                   weight: `${weight} `,
                   headSize: `${headSize}`,
                   height: `${height}`,
-
-                  profileId: profileId,
+                  profileUsername: "",
                 },
-                childUrl
+                childrenUrl
               )
                 .then((res) => {
                   if (!res.ok) {
@@ -101,22 +108,27 @@ export const AddChildPage = () => {
                   return res.json();
                 })
                 .then((data) => {
-                  localStorage.setItem(
-                    "child",
-                    JSON.stringify({
-                      name: data.name,
-                      age: data.age,
-                      DOB: data.DOB,
-                      gender: data.gender,
-                      weight: data.weight,
-                      height: data.height,
-                      headSize: data.headSize,
-                      profileId: data.profileId,
-                      id: data.id,
-                    })
-                  );
+                  return data;
+                  // localStorage.setItem(
+                  //   "child",
+                  //   JSON.stringify({
+                  //     name: data.name,
+                  //     age: data.age,
+                  //     DOB: data.DOB,
+                  //     gender: data.gender,
+                  //     weight: data.weight,
+                  //     height: data.height,
+                  //     headSize: data.headSize,
+                  //     profileId: data.profileId,
+                  //     id: data.id,
+                  //   })
+                  // );
+                  // getProfilesChildren(profileId || 0).then(setProfilesChildren);
+
+                  // getProfilesFirstChild(profileId || 0).then(() => {
+                  //   setChildId(data.id);
+                  // });
                 })
-                .then(fetchChildInfo)
                 .then(() => {
                   setActiveMainComponent("home");
                   setActiveMainComponentInLocalStorage("home");

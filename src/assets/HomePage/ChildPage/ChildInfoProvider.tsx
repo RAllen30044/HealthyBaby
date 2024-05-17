@@ -15,8 +15,8 @@ export type TChildInfoProvider = {
   setHeadSize: React.Dispatch<React.SetStateAction<string>>;
   gender: string;
   setGender: React.Dispatch<React.SetStateAction<string>>;
-  currentChildId: string;
-  setCurrentChildId: React.Dispatch<React.SetStateAction<string>>;
+  currentChildId: number;
+  setCurrentChildId: React.Dispatch<React.SetStateAction<number>>;
   chevronPosition: ChevronPosition;
   setChevronPosition: React.Dispatch<React.SetStateAction<ChevronPosition>>;
   hiddenPagesLinks: boolean;
@@ -70,10 +70,10 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
   const [chevronPosition, setChevronPosition] =
     useState<ChevronPosition>("down");
 
-    const [unitOfMeasurement, setUnitOfMeasurement] = useState<UnitOfMeasurement>(
-      JSON.parse(JSON.stringify(localStorage.getItem("unitOfMeasurement"))) ||
-        "mL"
-    );
+  const [unitOfMeasurement, setUnitOfMeasurement] = useState<UnitOfMeasurement>(
+    JSON.parse(JSON.stringify(localStorage.getItem("unitOfMeasurement"))) ||
+      "mL"
+  );
 
   return (
     <ChildInfoContext.Provider
@@ -97,7 +97,7 @@ export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
         hiddenPagesLinks,
         setHiddenPagesLinks,
         unitOfMeasurement,
-        setUnitOfMeasurement
+        setUnitOfMeasurement,
       }}
     >
       {children}

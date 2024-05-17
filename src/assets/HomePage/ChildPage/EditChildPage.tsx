@@ -8,8 +8,8 @@ import {
   setActiveMainComponentInLocalStorage,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
-import { updateChildInfo } from "../../../../clientApi";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
+import { updateChildInfo } from "../../../../callApis";
 // import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
 import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
@@ -17,6 +17,7 @@ import "./ChildPage.css";
 
 import { useChildInfo } from "./ChildInfoProvider";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
+import { UseAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 // type Gender = "Male" | "Female";
 // const getCurrentChildInfo = localStorage.getItem("child");
@@ -43,7 +44,8 @@ export const EditChildPage = () => {
   const { setActiveHomePageComponent, setActiveMainComponent, setEditor } =
     useActiveComponent();
   const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
-  const { fetchChildInfo, setChildId } = useHistoryIDComponent();
+  const { token } = UseAuthProviderContext();
+  const { setChildId } = UseHistoryIDComponent();
 
   return (
     <>
@@ -63,50 +65,56 @@ export const EditChildPage = () => {
               setIsSubmitted(false);
               setLoading(true);
 
-              return updateChildInfo(
-                childName,
-                DOB,
-                gender,
-                height,
-                weight,
-                headSize,
-                currentChildId
-              )
-                .then((res) => {
-                  if (!res.ok) {
-                    toast("error");
-                  }
+              return (
+                updateChildInfo(
+                  {
+                    childName,
+                    DOB,
+                    gender,
+                    height,
+                    weight,
+                    headSize,
+                    //profileUsername
+                  },
+                  currentChildId,
+                  token || ""
+                )
+                  .then((res) => {
+                    if (!res.ok) {
+                      toast("error");
+                    }
 
-                  return res.json();
-                })
-                .then((data) => {
-                  localStorage.setItem(
-                    "child",
-                    JSON.stringify({
-                      name: data.name,
+                    return res.json();
+                  })
+                  .then((data) => {
+                    localStorage.setItem(
+                      "child",
+                      JSON.stringify({
+                        name: data.name,
 
-                      DOB: data.DOB,
-                      gender: data.gender,
-                      weight: data.weight,
-                      height: data.height,
-                      headSize: data.headSize,
-                      profileId: data.profileId,
-                      id: data.id,
-                    })
-                  );
+                        DOB: data.DOB,
+                        gender: data.gender,
+                        weight: data.weight,
+                        height: data.height,
+                        headSize: data.headSize,
+                        profileId: data.profileId,
+                        id: data.id,
+                      })
+                    );
 
-                  setChildId(data.id);
-                })
-                .then(fetchChildInfo)
-                .then(() => {
-                  toast.success("Child Profile information Updated");
-                  setActiveHomePageComponent("feeding");
-                  setActiveHomePageComponentInLocalStorage("feeding");
-                  setActiveMainComponent("home");
-                  setActiveMainComponentInLocalStorage("home");
-                  setEditor("not present");
-                  setLoading(false);
-                });
+                    setChildId(data.id);
+                  })
+                  // .then(fetchChildInfo)
+                  .then(() => {
+                    toast.success("Child Profile information Updated");
+                    setActiveHomePageComponent("feeding");
+                    setActiveHomePageComponentInLocalStorage("feeding");
+                    setActiveMainComponent("home");
+                    setActiveMainComponentInLocalStorage("home");
+                    setEditor("not present");
+                    setLoading(false);
+                  })
+              );
             }}
           >
             <div className="nameInfo childInfoContainer">

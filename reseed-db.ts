@@ -1,8 +1,8 @@
 // import { writeFileSync } from "fs";
 
 import { faker } from "@faker-js/faker";
-import { PrismaClient } from "@prisma/client";
-
+import { PrismaClient, Profile } from "@prisma/client";
+import { encryptPassword } from "./validations";
 const client = new PrismaClient();
 
 import "./Types";
@@ -115,7 +115,7 @@ export const randomizeDate = () => {
     }-${getRandomDate.getDate()}`;
   }
 };
-
+let users: Profile[];
 const clearDb = async () => {
   await client.illnessHistory.deleteMany();
   await client.diapersHistory.deleteMany();
@@ -125,13 +125,14 @@ const clearDb = async () => {
   await client.napHistory.deleteMany();
   await client.child.deleteMany();
   await client.profile.deleteMany();
+  await client.activeHomepageComponent.deleteMany();
 };
 
 const seedInfo = async () => {
   const andrei = await client.profile.create({
     data: {
       username: `Andrei.Obushnyi`,
-      password: `ILoveBears85`,
+      password: await encryptPassword(`ILoveBears85`),
       caregiver: `Anna`,
       email: `andrei.obushnyi@gmail.com`,
     },
@@ -139,7 +140,7 @@ const seedInfo = async () => {
   const jon = await client.profile.create({
     data: {
       username: `Jon.Higger`,
-      password: `ILoveDogs87`,
+      password: await encryptPassword(`ILoveDogs87`),
       caregiver: `Mark`,
       email: `jon.higger@gmail.com`,
     },
@@ -147,7 +148,7 @@ const seedInfo = async () => {
   const rob = await client.profile.create({
     data: {
       username: `Robharmony`,
-      password: `Inhumane#1`,
+      password: await encryptPassword(`Inhumane#1`),
       caregiver: `Debbie`,
       email: `robharmony@gmail.com`,
     },
@@ -156,14 +157,14 @@ const seedInfo = async () => {
   const yalana = await client.profile.create({
     data: {
       username: `Yalana.Rashton`,
-      password: `Saints1`,
+      password: await encryptPassword(`Saints1`),
       caregiver: `Brittany`,
       email: `yalana.rashton@gmail.com`,
     },
   });
 
-  const users = [andrei, jon, rob, yalana];
-  const usersId: number[] = users.map((user) => user.id);
+  users = [andrei, jon, rob, yalana];
+  const usersId: string[] = users.map((user) => user.username);
   users.forEach((user) => user);
 
   const childIds: number[] = [];
@@ -185,7 +186,7 @@ const seedInfo = async () => {
         weight: `${Math.floor(Math.random() * 46 + 10)}`,
         height: `${Math.floor(Math.random() * 39 + 17)}`,
         headSize: `${Math.floor(Math.random() * 6 + 17)}`,
-        profileId: randomProfileId,
+        profileUsername: randomProfileId,
       },
     });
     childIds.push(child.id);
@@ -281,6 +282,13 @@ const seedInfo = async () => {
     });
     components.push(illnessHistory);
   }
+  const activeHomepageComponent = await client.activeHomepageComponent.create({
+    data: {
+      id: 1,
+      page: "feeding",
+    },
+  });
+  activeHomepageComponent;
   components.forEach((component) => component);
 };
 

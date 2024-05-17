@@ -1,8 +1,10 @@
 import {
   ReactNode,
   createContext,
+  // useCallback,
   useContext,
   useEffect,
+  // useEffect,
   useState,
 } from "react";
 import {
@@ -18,13 +20,16 @@ import {
 import {
   getBottleFeedingHistoryInfo,
   getBreastFeedingHistoryInfo,
-  getChildInfo,
   getDiapersHistory,
   getIllnessHistory,
   getMealHistoryInfo,
   getNappingHistory,
-  getProfileData,
-} from "../clientApi";
+  getProfile,
+  getProfilesChildren,
+} from "../callApis";
+
+// import { useAuthProviderContext } from "./assets/HealthyBabySite/LandingPage/authProvider";
+
 type SortDirection = "asc" | "desc";
 
 export type HistoryIDComponentProvider = {
@@ -51,25 +56,32 @@ export type HistoryIDComponentProvider = {
   nappingHistory: nappingType[];
   setNappingHistory: React.Dispatch<React.SetStateAction<nappingType[]>>;
 
-  profile: ProfileInfoTypes[];
-  setProfile: React.Dispatch<React.SetStateAction<ProfileInfoTypes[]>>;
-  child: object;
-  setChild: React.Dispatch<React.SetStateAction<object>>;
-
-  fetchProfileInfo: () => Promise<void>;
+  profile: ProfileInfoTypes | null;
+  setProfile: React.Dispatch<React.SetStateAction<ProfileInfoTypes | null>>;
+  firstChild: ChildInfoT[];
+  setFirstChild: React.Dispatch<React.SetStateAction<ChildInfoT[]>>;
+  page: object[];
+  setPage: React.Dispatch<React.SetStateAction<object[]>>;
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  // fetchProfileInfo: () => Promise<void>;
   fetchBottleFeedingData: () => Promise<void>;
   fetchBreastFeedingData: () => Promise<void>;
   fetchMealData: () => Promise<void>;
-  fetchChildInfo: () => Promise<void>;
+
   fetchDiaperHistory: () => Promise<void>;
   fetchIllnessHistory: () => Promise<void>;
   fetchNappingHistory: () => Promise<void>;
+  // fetchProfilesChildren: () => Promise<void>;
 
   childId: number;
   setChildId: React.Dispatch<React.SetStateAction<number>>;
 
-  profileId: number;
-  setProfileId: React.Dispatch<React.SetStateAction<number>>;
+  profileChildren: ChildInfoT[];
+  setProfileChildren: React.Dispatch<React.SetStateAction<ChildInfoT[]>>;
+
+  profileUsername: string;
+  setProfileUsername: React.Dispatch<React.SetStateAction<string>>;
 
   sortDirection: SortDirection;
   setSortDirection: React.Dispatch<React.SetStateAction<SortDirection>>;
@@ -95,25 +107,47 @@ export const HistoryIDComponentProvider = ({
   const [diapersHistory, setDiapersHistory] = useState<
     DiapersHistoryInfoTypes[]
   >([]);
-
+  const [profileChildren, setProfileChildren] = useState<ChildInfoT[]>([]);
   const [nappingHistory, setNappingHistory] = useState<nappingType[]>([]);
   const [illnessHistory, setIllnessHistory] = useState<IllnessType[]>([]);
-  const [profile, setProfile] = useState<ProfileInfoTypes[]>([]);
-  const [childId, setChildId] = useState<number>(0);
+  const [profile, setProfile] = useState<ProfileInfoTypes | null>(null);
 
+  const getId = localStorage.getItem("childId");
 
- 
+  const [childId, setChildId] = useState<number>(
+    getId ? Number.parseInt(getId) : 0
+  );
+
+  if (getId) {
+    const getIdNumber = Number.parseInt(getId);
+    if (typeof getIdNumber === "number") {
+      console.log("getId is a number");
+    } else {
+      console.log("getId is not a number");
+    }
+  }
+
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token")
+  );
   const getUser = localStorage.getItem("user");
   const maybeUserId = getUser ? JSON.parse(getUser).id : null;
-
-  const [profileId, setProfileId] = useState<number>(maybeUserId);
-  const [child, setChild] = useState({});
+  const [page, setPage] = useState<object[]>([]);
+  const [profileUsername, setProfileUsername] = useState<string>(maybeUserId);
+  const [firstChild, setFirstChild] = useState<ChildInfoT[]>([]);
   const getSortingDirection = localStorage.getItem("sortDirection");
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     JSON.parse(JSON.stringify(getSortingDirection)) || "asc"
   );
 
-  const fetchProfileInfo = () => getProfileData().then(setProfile);
+  // const fetchProfileInfo = () => getProfile(getToken).then(setProfile);
+
+  useEffect(() => {
+    if (token) {
+      getProfile(token).then(setProfile);
+      getProfilesChildren(token).then(setProfileChildren);
+    }
+  }, [token]);
 
   const fetchNappingHistory = () => getNappingHistory().then(setNappingHistory);
 
@@ -123,24 +157,18 @@ export const HistoryIDComponentProvider = ({
 
   const fetchBottleFeedingData = () =>
     getBottleFeedingHistoryInfo().then(setBottleFeedHistory);
+
   const fetchMealData = () => getMealHistoryInfo().then(setMealHistory);
 
   const fetchBreastFeedingData = () =>
     getBreastFeedingHistoryInfo().then(setBreastFeedHistory);
 
-  const fetchChildInfo = () => getChildInfo().then(setChildInfo);
-
   useEffect(() => {
-    fetchProfileInfo().catch((err) => console.log(err));
     fetchBottleFeedingData().catch((err) => console.log(err));
     fetchBreastFeedingData().catch((err) => console.log(err));
     fetchMealData().catch((err) => console.log(err));
     fetchDiaperHistory().catch((err) => console.log(err));
     fetchIllnessHistory().catch((err) => console.log(err));
-    fetchChildInfo().catch((err) => {
-      console.log(err);
-    });
-    fetchNappingHistory().catch((err) => console.log(err));
   }, []);
 
   return (
@@ -154,7 +182,7 @@ export const HistoryIDComponentProvider = ({
         fetchBreastFeedingData,
         childInfo,
         setChildInfo,
-        fetchChildInfo,
+
         diapersHistory,
         setDiapersHistory,
         fetchDiaperHistory,
@@ -166,18 +194,25 @@ export const HistoryIDComponentProvider = ({
         fetchNappingHistory,
         profile,
         setProfile,
-        fetchProfileInfo,
+        // fetchProfileInfo,
         mealHistory,
         setMealHistory,
         fetchMealData,
         childId,
         setChildId,
-        profileId,
-        setProfileId,
-        child,
-        setChild,
+        profileUsername,
+        setProfileUsername,
+        firstChild,
+        setFirstChild,
         setSortDirection,
         sortDirection,
+        page,
+        setPage,
+        // fetchProfilesChildren,
+        profileChildren,
+        setProfileChildren,
+        token,
+        setToken,
       }}
     >
       {children}
@@ -185,6 +220,5 @@ export const HistoryIDComponentProvider = ({
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useHistoryIDComponent = () =>
+export const UseHistoryIDComponent = () =>
   useContext(HistoryIDComponentContext);

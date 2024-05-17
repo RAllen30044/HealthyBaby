@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ProfilePage.css";
-import { postInfo, profileUrl } from "../../../../clientApi";
+import { getProfile, postInfo, profileUrl } from "../../../../callApis";
 import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import {
   preventKeyingNumbers,
@@ -8,10 +8,11 @@ import {
 } from "../../../ErrorHandling";
 import toast from "react-hot-toast";
 
-import { useAuthProviderContext } from "../LandingPage/authProvider";
+import { UseAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
-import { useHistoryIDComponent } from "../../../HistoryProvider";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
+
 // import { ProfileInfoTypes } from "../../../Types";
 
 export const SignUpPage = () => {
@@ -24,25 +25,29 @@ export const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
 
-  const { loggedIn, maybeUser, setPassword, password } =
-    useAuthProviderContext();
+  const {
+    // loggedIn,
+    maybeUser,
+    setPassword,
+    password,
+  } = UseAuthProviderContext();
   const { setActiveMainComponent } = useActiveComponent();
-  const { setProfileId, profile } = useHistoryIDComponent();
+  const { profile, setProfileUsername, token } = UseHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
   };
-  const doesUsernameExist = (username: string) => {
-    return profile.some(
-      (user) => user.username.toLowerCase() === username.toLowerCase()
-    );
+  const doesUsernameExist = () => {
+    if (profile) {
+      return true;
+    }
+    return false;
   };
 
   const passwordErrorMessage = "Passwords do not match";
   const shouldShowPasswordErrorMessage =
     isSubmitted && !passwordsDoMatch(password, confirmPassword);
-  const shouldShowUsernameErrorMessage =
-    isSubmitted && doesUsernameExist(username);
+  const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist();
   const usernameErrorMessage = "Username already Exist";
 
   return (
@@ -61,7 +66,7 @@ export const SignUpPage = () => {
                 return;
               }
 
-              if (doesUsernameExist(username)) {
+              if (doesUsernameExist()) {
                 setIsSubmitted(true);
                 return;
               }
@@ -70,42 +75,48 @@ export const SignUpPage = () => {
 
               return postInfo(
                 {
-                  username,
-                  password,
-                  caregiver,
+                  username: username,
+                  password: password,
+                  caregiver: caregiver,
                   email: email,
                 },
                 profileUrl
               )
-                .then((data) => {
-                  toast.success("Profile Saved");
-                  return data.json();
-                })
-                .then((data) => {
-                  setActiveMainComponent("addChild");
-                  setProfileId(JSON.parse(JSON.stringify(data)).id);
-                  if (!maybeUser) {
-                    const username = JSON.parse(JSON.stringify(data)).username;
-
-                    const userPassword = JSON.parse(
-                      JSON.stringify(data)
-                    ).password;
-                    const userId = JSON.parse(JSON.stringify(data)).id;
-                    setProfileId(userId);
-                    localStorage.setItem(
-                      "user",
-                      JSON.stringify({
-                        username: username,
-                        password: userPassword,
-                        caregiver,
-                        id: userId,
-                      })
-                    );
+                .then(() => {
+                  if (token) {
+                    getProfile(token).then((profile) => {
+                      setProfileUsername(profile.username);
+                    });
                   }
+                })
+                .then(() => {
+                  toast.success("Profile Saved");
+                })
+                .then(() => {
+                  setActiveMainComponent("addChild");
+
+                  // if (!maybeUser) {
+                  //   const username = JSON.parse(JSON.stringify(data)).username;
+
+                  //   const userPassword = JSON.parse(
+                  //     JSON.stringify(data)
+                  //   ).password;
+                  //   const userId: number = JSON.parse(JSON.stringify(data)).id;
+                  //   setProfileId(userId);
+                  //   localStorage.setItem(
+                  //     "user",
+                  //     JSON.stringify({
+                  //       username: username,
+                  //       password: userPassword,
+                  //       caregiver,
+                  //       id: userId,
+                  //     })
+                  //   );
+                  // }
                 })
 
                 .then(() => {
-                  loggedIn(username, password);
+                  // loggedIn(username, password);
                   setLoading(false);
                 })
                 .catch((e) => {

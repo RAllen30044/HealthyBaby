@@ -1,4 +1,4 @@
-import { useHistoryIDComponent } from "../../HistoryProvider";
+import { UseHistoryIDComponent } from "../../HistoryProvider";
 import {
   DiapersHistoryInfoTypes,
   IllnessType,
@@ -94,7 +94,7 @@ export const HistoryTableHeader = (
   headerValue: string[],
   pageName: string
 ): ReactElement => {
-  const { setSortDirection, sortDirection } = useHistoryIDComponent();
+  const { setSortDirection, sortDirection } = UseHistoryIDComponent();
 
   return (
     <div className="historyTableContainer">
@@ -154,7 +154,7 @@ export const HistoryDateAndTimeColumn = (
   historyPage: string,
   removeHistory: (id: number) => void
 ): ReactElement => {
-  const { sortDirection, childId } = useHistoryIDComponent();
+  const { sortDirection, childId } = UseHistoryIDComponent();
   return (
     <div className={`historyColumnContainer ${historyPage}ColumnContainer`}>
       {history
@@ -193,7 +193,7 @@ export const HistoryInfoColumn = (
   suffix: string,
   historyPage: string
 ) => {
-  const { sortDirection, childId } = useHistoryIDComponent();
+  const { sortDirection, childId } = UseHistoryIDComponent();
   return (
     <div
       className={`historyColumnContainer ${historyPage}ColumnContainer ${historyProperty}ColumnContainer  newColumnContainer `}
@@ -227,7 +227,7 @@ export const HistoryMobileView = (
   historyPage: string,
   removeHistory: (id: number) => void
 ) => {
-  const { sortDirection, setSortDirection, childId } = useHistoryIDComponent();
+  const { sortDirection, setSortDirection, childId } = UseHistoryIDComponent();
   return (
     <div
       className={`mobileHistoryColumnContainer mobile${historyPage}ColumnContainer`}
