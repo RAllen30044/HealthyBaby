@@ -149,7 +149,7 @@ export function combineDateAndTime(
 }
 
 // Example usage
-const dateString = "January 30, 2024";
+const dateString = "October 30, 2024";
 const timeString = "10:39 PM";
 const result = combineDateAndTime(dateString, timeString);
 console.log(result);

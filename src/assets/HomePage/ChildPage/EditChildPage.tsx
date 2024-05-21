@@ -12,7 +12,7 @@ import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import { updateChildInfo } from "../../../../callApis";
 // import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
-import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import { UseTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
 
 import { useChildInfo } from "./ChildInfoProvider";
@@ -40,10 +40,10 @@ export const EditChildPage = () => {
     currentChildId,
   } = useChildInfo();
 
-  const { loading, setLoading } = useTimeInfo();
+  const { loading, setLoading } = UseTimeInfo();
   const { setActiveHomePageComponent, setActiveMainComponent, setEditor } =
     useActiveComponent();
-  const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
+  const { setIsSubmitted, shouldShowDOBentryError } = UseTimeInfo();
   const { token } = UseAuthProviderContext();
   const { setChildId } = UseHistoryIDComponent();
 

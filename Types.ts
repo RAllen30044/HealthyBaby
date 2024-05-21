@@ -100,6 +100,9 @@ export type historyTypes =
   | DiapersHistoryInfoTypes
   | nappingType;
 
+export type ProfileUsernameTypes = {
+  username: string;
+};
 export type bottlefeedingHistoryT = {
   bottleFeedHistory: bottleFeedingInfoType[];
   removeBottleFeedingHistory: (id: number) => void;

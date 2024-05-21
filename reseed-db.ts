@@ -131,7 +131,7 @@ const clearDb = async () => {
 const seedInfo = async () => {
   const andrei = await client.profile.create({
     data: {
-      username: `Andrei.Obushnyi`,
+      username: `andrei.obushnyi`,
       password: await encryptPassword(`ILoveBears85`),
       caregiver: `Anna`,
       email: `andrei.obushnyi@gmail.com`,
@@ -139,7 +139,7 @@ const seedInfo = async () => {
   });
   const jon = await client.profile.create({
     data: {
-      username: `Jon.Higger`,
+      username: `jon.higger`,
       password: await encryptPassword(`ILoveDogs87`),
       caregiver: `Mark`,
       email: `jon.higger@gmail.com`,
@@ -147,7 +147,7 @@ const seedInfo = async () => {
   });
   const rob = await client.profile.create({
     data: {
-      username: `Robharmony`,
+      username: `robharmony`,
       password: await encryptPassword(`Inhumane#1`),
       caregiver: `Debbie`,
       email: `robharmony@gmail.com`,
@@ -156,7 +156,7 @@ const seedInfo = async () => {
 
   const yalana = await client.profile.create({
     data: {
-      username: `Yalana.Rashton`,
+      username: `yalana.Rashton`,
       password: await encryptPassword(`Saints1`),
       caregiver: `Brittany`,
       email: `yalana.rashton@gmail.com`,

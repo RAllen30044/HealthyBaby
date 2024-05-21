@@ -4,6 +4,7 @@ import {
   HistoryInfoTypes,
   IllnessType,
   ProfileInfoTypes,
+  ProfileUsernameTypes,
   bottleFeedingInfoType,
   breastFeedingInfoType,
   eatingInfoType,
@@ -30,6 +31,7 @@ export const diaperUrl = `${baseUrl}/diapersHistory`;
 export const illnessUrl = `${baseUrl}/illnessHistory`;
 export const nappingUrl = `${baseUrl}/napHistory`;
 export const profileUrl = `${baseUrl}/profile`;
+export const usernamesUrl = `${baseUrl}/allProfileUsernames`;
 
 export const childNapDBUrl = `${baseUrl}/childNapDB`;
 export const childrenUrl = `${baseUrl}/children`;
@@ -171,3 +173,12 @@ export const getChildNapHistory = (): Promise<nappingType[]> =>
     }
     return res.json();
   });
+export const getAllProfileUserNames = (): Promise<ProfileUsernameTypes[]> =>
+  fetch(usernamesUrl)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get Usernames");
+      }
+      return res.json();
+    })
+    .then((data) => data);

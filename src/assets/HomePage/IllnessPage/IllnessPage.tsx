@@ -2,8 +2,8 @@ import { ChildInfo } from "../ChildInfo/ChildInfo";
 import "./IllnessPage.css";
 import {
   TimeInfo,
-  // dateBeforeBirthMessage,
-  useTimeInfo,
+  dateBeforeBirthMessage,
+  UseTimeInfo,
 } from "../TimeInfo/TimeInfoProvider";
 import { useState } from "react";
 
@@ -17,7 +17,8 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
-  // isDateBeforeBirth,
+  getChildDOB,
+  isDateNotBeforeBirth,
   preventKeyingNumbers,
   timeInvalid,
 } from "../../../ErrorHandling";
@@ -45,11 +46,16 @@ export const IllnessPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
-    // shouldShowDateBeforeBirthError,
-  } = useTimeInfo();
-  // const { maybeChild } = useAuthProviderContext();
-  const { illnessHistory, setIllnessHistory, fetchIllnessHistory, childId } =
-    UseHistoryIDComponent();
+    shouldShowDateBeforeBirthError,
+  } = UseTimeInfo();
+
+  const {
+    illnessHistory,
+    setIllnessHistory,
+    fetchIllnessHistory,
+    profileChildren,
+    childId,
+  } = UseHistoryIDComponent();
   const { unitOfMeasurement, setUnitOfMeasurement } = useChildInfo();
 
   const removeIllnessHistory = (id: number) => {
@@ -61,7 +67,6 @@ export const IllnessPage = () => {
         setIllnessHistory(illnessHistory);
       } else return;
     });
-  
   };
 
   return (
@@ -89,13 +94,15 @@ export const IllnessPage = () => {
                   setIsSubmitted(true);
                   return;
                 }
-                // if (
-                //   maybeChild &&
-                //   isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-                // ) {
-                //   setIsSubmitted(true);
-                //   return;
-                // }
+                if (
+                  isDateNotBeforeBirth(
+                    getChildDOB(profileChildren, childId),
+                    date
+                  )
+                ) {
+                  setIsSubmitted(true);
+                  return;
+                }
                 setIsSubmitted(false);
 
                 setLoading(true);
@@ -130,9 +137,9 @@ export const IllnessPage = () => {
               {shouldShowDateTimeEntryError && (
                 <ErrorMessage message={futureTimeNotAllowed} show={true} />
               )}
-              {/* {shouldShowDateBeforeBirthError && (
+              {shouldShowDateBeforeBirthError && (
                 <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-              )} */}
+              )}
 
               <div className="symptoms">
                 <label htmlFor="symptoms">Symptoms: </label>

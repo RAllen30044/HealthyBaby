@@ -1,9 +1,11 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import {
+  getChildDOB,
   isDOBValid,
-  // isDateBeforeBirth,
+  isDateNotBeforeBirth,
   timeInvalid,
 } from "../../../ErrorHandling";
+import { UseHistoryIDComponent } from "../../../HistoryProvider";
 // import { UseAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 export type TimeInfoProviderT = {
@@ -12,7 +14,7 @@ export type TimeInfoProviderT = {
   loading: boolean;
   shouldShowDOBentryError: boolean;
   shouldShowDateTimeEntryError: boolean;
-  // shouldShowDateBeforeBirthError: boolean | "" | null;
+  shouldShowDateBeforeBirthError: boolean;
   isSubmitted: boolean;
   setTime: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<string>>;
@@ -28,14 +30,16 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
- 
+  const { profileChildren, childId } = UseHistoryIDComponent();
   const shouldShowDOBentryError = isSubmitted && isDOBValid(date);
   const shouldShowDateTimeEntryError = isSubmitted && timeInvalid(date, time);
 
-  // const shouldShowDateBeforeBirthError =
-  //   isSubmitted &&
-  //   maybeChild &&
-  //   isDateBeforeBirth(JSON.parse(maybeChild).DOB, date);
+  console.log(getChildDOB(profileChildren, childId));
+  
+
+  const shouldShowDateBeforeBirthError =
+    isSubmitted &&
+    isDateNotBeforeBirth(getChildDOB(profileChildren, childId), date);
 
   return (
     <TimeInfoContext.Provider
@@ -50,7 +54,7 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
         setIsSubmitted,
         shouldShowDateTimeEntryError,
         isSubmitted,
-        // shouldShowDateBeforeBirthError,
+        shouldShowDateBeforeBirthError,
       }}
     >
       {children}
@@ -60,11 +64,11 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
 
 export const dateBeforeBirthMessage =
   "Can not choose a date the is before the birth of the child";
-// eslint-disable-next-line react-refresh/only-export-components
-export const useTimeInfo = () => useContext(TimeInfoContext);
+
+export const UseTimeInfo = () => useContext(TimeInfoContext);
 
 export const TimeInfo = () => {
-  const { time, date, setTime, setDate } = useTimeInfo();
+  const { time, date, setTime, setDate } = UseTimeInfo();
 
   return (
     <>

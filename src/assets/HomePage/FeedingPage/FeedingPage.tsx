@@ -3,8 +3,8 @@ import "./FeedingPage.css";
 
 import {
   TimeInfo,
-  // dateBeforeBirthMessage,
-  useTimeInfo,
+  dateBeforeBirthMessage,
+  UseTimeInfo,
 } from "../TimeInfo/TimeInfoProvider";
 import { useState } from "react";
 
@@ -24,18 +24,18 @@ import {
   createShortHandDate,
   formatDate,
 } from "../TimeInfo/TimeConversion";
-import { EatingHistory} from "./MealHistory";
+import { EatingHistory } from "./MealHistory";
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
-  // isDateBeforeBirth,
+  getChildDOB,
+  isDateNotBeforeBirth,
   onlyKeyNumbers,
   onlyNumbersWithDecimal,
   preventKeyingNumbers,
   timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
-// import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 import { useChildInfo } from "../ChildPage/ChildInfoProvider";
 
 type FeedingType = "breastFeed" | "bottleFeed" | "infantModeOff";
@@ -63,8 +63,8 @@ export const FeedingPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
-    // shouldShowDateBeforeBirthError,
-  } = useTimeInfo();
+    shouldShowDateBeforeBirthError,
+  } = UseTimeInfo();
   const {
     bottleFeedHistory,
     breastFeedHistory,
@@ -76,9 +76,9 @@ export const FeedingPage = () => {
     fetchBreastFeedingData,
     fetchMealData,
     childId,
+    profileChildren,
   } = UseHistoryIDComponent();
 
-  // const { maybeChild } = useAuthProviderContext();
   const removeBreastFeedingHistory = (id: number) => {
     const updateData = breastFeedHistory.filter((history) => history.id !== id);
 
@@ -214,13 +214,15 @@ export const FeedingPage = () => {
                   setIsSubmitted(true);
                   return;
                 }
-                // if (
-                //   maybeChild &&
-                //   isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-                // ) {
-                //   setIsSubmitted(true);
-                //   return;
-                // }
+                if (
+                  isDateNotBeforeBirth(
+                    getChildDOB(profileChildren, childId),
+                    date
+                  )
+                ) {
+                  setIsSubmitted(true);
+                  return;
+                }
 
                 setIsSubmitted(false);
 
@@ -298,9 +300,9 @@ export const FeedingPage = () => {
               {shouldShowDateTimeEntryError && (
                 <ErrorMessage message={futureTimeNotAllowed} show={true} />
               )}
-              {/* {shouldShowDateBeforeBirthError && (
+              {shouldShowDateBeforeBirthError && (
                 <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-              )} */}
+              )}
               <div
                 className={`bottleFeedInput ${
                   feed === "bottleFeed" ? "" : "hidden"

@@ -19,7 +19,7 @@ import {
 } from "../../../../callApis";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
-import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import { UseTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
 import { useState } from "react";
 import { UseAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
@@ -32,11 +32,11 @@ export const AddChildPage = () => {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [headSize, setHeadSize] = useState("");
-  const { loading, setLoading, date, setDate } = useTimeInfo();
+  const { loading, setLoading, date, setDate } = UseTimeInfo();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
   const { showAddChildError, setShowAddChildError } = UseAuthProviderContext();
-  const { setIsSubmitted, shouldShowDOBentryError } = useTimeInfo();
+  const { setIsSubmitted, shouldShowDOBentryError } = UseTimeInfo();
   const {
     //  setChildId, setProfileChildren,
      profileChildren } =

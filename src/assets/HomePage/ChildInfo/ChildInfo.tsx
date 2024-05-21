@@ -8,7 +8,7 @@ import {
   createShortHandDate,
   formatDate,
 } from "../TimeInfo/TimeConversion";
-import { useTimeInfo } from "../TimeInfo/TimeInfoProvider";
+import { UseTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
 
 export const ChildInfo = () => {
@@ -23,7 +23,7 @@ export const ChildInfo = () => {
     setHeight,
     setCurrentChildId,
   } = useChildInfo();
-  const { setDate, setTime } = useTimeInfo();
+  const { setDate, setTime } = UseTimeInfo();
   const inchToFeet = (inches: string) => {
     const inchNumber = Number.parseInt(inches);
     if (inchNumber >= 24) {

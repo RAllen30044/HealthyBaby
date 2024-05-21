@@ -6,7 +6,7 @@ import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import { useChildInfo } from "../../HomePage/ChildPage/ChildInfoProvider";
 
 // import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
-import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
+import { UseTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 
 import { UseAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "./ActiveComponentProvider";
@@ -27,7 +27,7 @@ export const Header = () => {
     hiddenPagesLinks,
     setHiddenPagesLinks,
   } = useChildInfo();
-  const { setDate, setTime } = useTimeInfo();
+  const { setDate, setTime } = UseTimeInfo();
   const {
     // childInfo,
     setChildId,

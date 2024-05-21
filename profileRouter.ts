@@ -8,6 +8,14 @@ import {
 
 const profileController = Router();
 
+profileController.get("/allProfileUsernames", async (_req, res) => {
+  const profileNames = await client.profile.findMany({
+    select: {
+      username: true,
+    },
+  });
+  res.send(profileNames);
+});
 profileController.get("/children", authMiddleware, async (req, res) => {
   const [, token] = req.headers.authorization?.split?.(" ") || [];
   const myJwtData = getDataFromAuthToken(token);

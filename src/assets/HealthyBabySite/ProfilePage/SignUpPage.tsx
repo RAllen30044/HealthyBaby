@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "./ProfilePage.css";
-import { getProfile, postInfo, profileUrl } from "../../../../callApis";
-import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
+import {
+  authorization,
+  getAllProfileUserNames,
+  getProfile,
+  postInfo,
+  profileUrl,
+} from "../../../../callApis";
+import { UseTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import {
   preventKeyingNumbers,
   preventKeyingSpaces,
@@ -23,25 +29,27 @@ export const SignUpPage = () => {
   // const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
-  const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
+  const { loading, setLoading, isSubmitted, setIsSubmitted } = UseTimeInfo();
 
   const {
     // loggedIn,
-    maybeUser,
+
     setPassword,
     password,
   } = UseAuthProviderContext();
   const { setActiveMainComponent } = useActiveComponent();
-  const { profile, setProfileUsername, token } = UseHistoryIDComponent();
+  const { setProfileUsername, token, setToken } = UseHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
   };
-  const doesUsernameExist = () => {
-    if (profile) {
-      return true;
-    }
-    return false;
+  const doesUsernameExist = async () => {
+    const usernames = await getAllProfileUserNames().then((data) => data);
+
+    return usernames.some(
+      (exitingUsername) =>
+        exitingUsername.username === username.toLowerCase()
+    );
   };
 
   const passwordErrorMessage = "Passwords do not match";
@@ -58,15 +66,17 @@ export const SignUpPage = () => {
           <form
             action="POST"
             className="profileForm"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               if (!passwordsDoMatch(password, confirmPassword)) {
                 setIsSubmitted(true);
 
                 return;
               }
+              const usernameExist = await doesUsernameExist();
+              console.log(usernameExist);
 
-              if (doesUsernameExist()) {
+              if (usernameExist) {
                 setIsSubmitted(true);
                 return;
               }
@@ -75,16 +85,27 @@ export const SignUpPage = () => {
 
               return postInfo(
                 {
-                  username: username,
+                  username: username.toLowerCase(),
                   password: password,
                   caregiver: caregiver,
                   email: email,
                 },
                 profileUrl
               )
-                .then(() => {
-                  if (token) {
-                    getProfile(token).then((profile) => {
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error(response.statusText);
+                  }
+                  return response.json();
+                })
+                .then(async (data) => {
+                  const authorize = await authorization(
+                    data.username,
+                    data.password
+                  );
+                  setToken(authorize.token);
+                  if (authorize.token) {
+                    getProfile(authorize.token).then((profile) => {
                       setProfileUsername(profile.username);
                     });
                   }
@@ -94,29 +115,8 @@ export const SignUpPage = () => {
                 })
                 .then(() => {
                   setActiveMainComponent("addChild");
-
-                  // if (!maybeUser) {
-                  //   const username = JSON.parse(JSON.stringify(data)).username;
-
-                  //   const userPassword = JSON.parse(
-                  //     JSON.stringify(data)
-                  //   ).password;
-                  //   const userId: number = JSON.parse(JSON.stringify(data)).id;
-                  //   setProfileId(userId);
-                  //   localStorage.setItem(
-                  //     "user",
-                  //     JSON.stringify({
-                  //       username: username,
-                  //       password: userPassword,
-                  //       caregiver,
-                  //       id: userId,
-                  //     })
-                  //   );
-                  // }
                 })
-
                 .then(() => {
-                  // loggedIn(username, password);
                   setLoading(false);
                 })
                 .catch((e) => {
@@ -178,7 +178,7 @@ export const SignUpPage = () => {
               />
             </div>
 
-            <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
+            <div className={`inputContainer ${token ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLabel">
                 Password:
               </label>
@@ -193,7 +193,7 @@ export const SignUpPage = () => {
                 }}
               />
             </div>
-            <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
+            <div className={`inputContainer ${token ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>
@@ -210,7 +210,7 @@ export const SignUpPage = () => {
             {shouldShowPasswordErrorMessage && (
               <ErrorMessage message={passwordErrorMessage} show={true} />
             )}
-            <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
+            <div className={`inputContainer ${token ? "" : "hidden"}`}>
               <label htmlFor="password" className="profileLabel">
                 New Password:
               </label>
@@ -224,7 +224,7 @@ export const SignUpPage = () => {
                 }}
               />
             </div>
-            <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
+            <div className={`inputContainer ${token ? "" : "hidden"}`}>
               <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>

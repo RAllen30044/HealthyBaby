@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ProfilePage.css";
 import { updateProfileInfo } from "../../../../callApis";
-import { useTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
+import { UseTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import { preventKeyingNumbers } from "../../../ErrorHandling";
 import toast from "react-hot-toast";
 
@@ -22,7 +22,7 @@ export const EditProfilePage = () => {
   // const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { loading, setLoading, isSubmitted, setIsSubmitted } = useTimeInfo();
+  const { loading, setLoading, isSubmitted, setIsSubmitted } = UseTimeInfo();
 
   // const [profileUserName, setProfileUsername] = useState<string>(
   //   maybeUser ? JSON.parse(maybeUser).username : ""

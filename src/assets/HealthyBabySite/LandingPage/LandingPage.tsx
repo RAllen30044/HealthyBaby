@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-// import { useAuthProviderContext } from "./authProvider";
+// import { UseAuthProviderContext } from "./authProvider";
 import "./LandingPage.css";
 // import toast from "react-hot-toast";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
@@ -9,7 +9,7 @@ import {
   // getIsSubmittedFromLocalStorage,
   setActiveHomePageComponentInLocalStorage,
   setActiveMainComponentInLocalStorage,
-  // setIsSubmittedInLocalStorage,
+  setIsSubmittedInLocalStorage,
 } from "../../../ErrorHandling";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 // import { convertAgeToAppropriateAgeType } from "../../HomePage/TimeInfo/TimeConversion";
@@ -28,7 +28,11 @@ import {
   faDisease,
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
-import { authorization, getProfilesFirstChild } from "../../../../callApis";
+import {
+  authorization,
+  getProfilesChildren,
+  getProfilesFirstChild,
+} from "../../../../callApis";
 import toast from "react-hot-toast";
 
 const icons = [
@@ -48,12 +52,12 @@ export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
   // const {
-  // loggedIn,
-  // setLog,
-  // setShowAddChildError,
-  // showAddChildError,
-  //   setUsername,
-  //   setPassword,
+  // // loggedIn,
+  // // setLog,
+  // // setShowAddChildError,
+  // // showAddChildError,
+  // //   setUsername,
+  // //   setPassword,
   // } = useAuthProviderContext();
   const { setToken, setChildId } = UseHistoryIDComponent();
   const { setActiveMainComponent, setActiveHomePageComponent } =
@@ -210,7 +214,7 @@ export const LandingPage = () => {
               e.preventDefault();
               // isUserValid(userNameInput, passwordInput);
               const authorize = await authorization(
-                userNameInput,
+                userNameInput.toLowerCase(),
                 passwordInput
               );
 
@@ -221,6 +225,15 @@ export const LandingPage = () => {
                 setPasswordInput("");
                 return;
               }
+              const children = await getProfilesChildren(authorize.token);
+
+              if (children.length === 0) {
+                setActiveMainComponent("addChild");
+                setActiveMainComponentInLocalStorage("addChild");
+                setIsSubmittedInLocalStorage("true");
+                return;
+              }
+
               setToken(authorize.token);
               localStorage.setItem("token", authorize.token);
               getProfilesFirstChild(authorize.token).then((profile) => {

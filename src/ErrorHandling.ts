@@ -1,5 +1,8 @@
 // import { ChildInfoT, ProfileInfoTypes } from "../Types";
 
+import { ChildInfoT } from "../Types";
+import { UseHistoryIDComponent } from "./HistoryProvider";
+
 export const preventKeyingNumbers = (value: string) => {
   return value.replace(/[^A-Za-z\s]/, "");
 };
@@ -29,7 +32,6 @@ export function isFirstNameValid(firstName: string) {
 export function isDOBValid(DOB: string) {
   return new Date() < new Date(DOB);
 }
-
 
 export function timeInvalid(date: string, time: string) {
   return new Date() < new Date(`${date}T${time}`);
@@ -65,11 +67,19 @@ export const setActiveMainComponentInLocalStorage = (component: string) => {
 };
 
 export const babyNameForHistory = () => {
-  const child = localStorage.getItem("child");
-  return child ? JSON.parse(child)?.name : "";
+  const { profileChildren, childId } = UseHistoryIDComponent();
+  const child = profileChildren.find((child) => child.id === childId);
+  return `${`${child?.name}` || ""}`;
 };
 
-export const isDateBeforeBirth = (DOB: string, currentDate: string) => {
+export const getChildDOB = (profileChildren: ChildInfoT[], childId: number) => {
+
+  console.log(profileChildren);
+  const child = profileChildren.find((child) => child.id === childId);
+  return `${`${child?.DOB}` || ""}`;
+};
+
+export const isDateNotBeforeBirth = (DOB: string, currentDate: string) => {
   return currentDate < DOB;
 };
 

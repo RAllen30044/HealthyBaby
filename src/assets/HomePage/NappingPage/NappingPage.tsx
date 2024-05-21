@@ -1,8 +1,8 @@
 import { ChildInfo } from "../ChildInfo/ChildInfo";
 import {
   TimeInfo,
-  // dateBeforeBirthMessage,
-  useTimeInfo,
+  dateBeforeBirthMessage,
+  UseTimeInfo,
 } from "../TimeInfo/TimeInfoProvider";
 
 import { useState } from "react";
@@ -18,7 +18,8 @@ import {
 import {
   babyNameForHistory,
   futureTimeNotAllowed,
-  // isDateBeforeBirth,
+  getChildDOB,
+  isDateNotBeforeBirth,
   onlyKeyNumbers,
   timeInvalid,
 } from "../../../ErrorHandling";
@@ -42,11 +43,11 @@ export const NappingPage = () => {
     setLoading,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
-    // shouldShowDateBeforeBirthError,
-  } = useTimeInfo();
+    shouldShowDateBeforeBirthError,
+  } = UseTimeInfo();
 
  
-  const { nappingHistory, setNappingHistory, fetchNappingHistory, childId } =
+  const { nappingHistory, setNappingHistory, fetchNappingHistory,profileChildren, childId } =
     UseHistoryIDComponent();
   console.log(nappingHistory);
 
@@ -85,13 +86,15 @@ export const NappingPage = () => {
                   setIsSubmitted(true);
                   return;
                 }
-                // if (
-                //   maybeChild &&
-                //   isDateBeforeBirth(JSON.parse(maybeChild).DOB, date)
-                // ) {
-                //   setIsSubmitted(true);
-                //   return;
-                // }
+                if (
+                  isDateNotBeforeBirth(
+                    getChildDOB(profileChildren, childId),
+                    date
+                  )
+                ) {
+                  setIsSubmitted(true);
+                  return;
+                }
                 setIsSubmitted(false);
                 setLoading(true);
                 postInfo(
@@ -118,9 +121,9 @@ export const NappingPage = () => {
               {shouldShowDateTimeEntryError && (
                 <ErrorMessage message={futureTimeNotAllowed} show={true} />
               )}
-              {/* {shouldShowDateBeforeBirthError && (
+              {shouldShowDateBeforeBirthError && (
                 <ErrorMessage message={dateBeforeBirthMessage} show={true} />
-              )} */}
+              )}
               <div className="napLength ">
                 <label htmlFor="napLength">Nap Length:</label>
                 <input

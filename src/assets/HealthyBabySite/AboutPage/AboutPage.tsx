@@ -7,7 +7,7 @@ export const AboutPage = () => {
       <div className="aboutContainer">
         <div className="AboutTheSite">
           <h3 className="aboutText">
-            Welcolme to the Healthy Baby site where parents can have a place to
+            Welcome to the Healthy Baby site where parents can have a place to
             know what care their child(ren) has had throughout each day.
           </h3>
         </div>
@@ -19,14 +19,14 @@ export const AboutPage = () => {
             care that is given to our children. Insert Healthy Baby, a place
             where you can easily save your child care history were anyone who
             logs in can have an understanding of what care there has been
-            thoughout the day.
+            throughout the day.
           </p>
         </div>
         <div className="siteRules">
           <h2>Site Guidelines to Optimize Experience</h2>
           <p>
             There are a few guidelines to follow to ensure that we can optimize
-            your experince using the website.
+            your experience using the website.
           </p>
           <ol>
             <p>
@@ -35,14 +35,14 @@ export const AboutPage = () => {
                 authentication is not a true secured authentication. Therefore,
                 when signing up to the we do not recommend using the full name
                 of people, rather the first names or nicknames to ensure
-                identity consealment.
+                identity concealment.
               </li>
             </p>
             <p>
               <li>
                 After you sign up to this site, You must add a child to your
                 profile. If you do not add a child you will not be able to
-                continue to the site untill you do so.
+                continue to the site until you do so.
               </li>
             </p>
             <p>
@@ -63,11 +63,11 @@ export const AboutPage = () => {
             child information as you best know it. You must enter all
             information fields to continue. Once you enter the site you will
             start at the home page where you can select one out of 4 different
-            categories. With each different catagory, you will be able to record
+            categories. With each different category, you will be able to record
             the history of each time you child does the event that is recorded.
             It will be a database that will keep these histories so that the
             parents and caregivers will be able to track the daily upkeep of the
-            children by date. The time can be recored well.
+            children by date. The time can be recorded well.
           </p>
 
           <p>
@@ -93,21 +93,21 @@ export const AboutPage = () => {
             <li>
               <h3>Feeding</h3>
               <p>
-                Feeding has 3 sub catagories. Bottle feeding, freast feeding and
+                Feeding has 3 sub catagories. Bottle feeding, Breast feeding and
                 Eating. Eating is a toggle that indicate that the child will now
                 be eating solid foods and will turn of the baby food mode.
               </p>
               <ul className="feedingList">
                 <li>
                   <p>
-                    Bottle feeding - the total ounces and the ounces disgarded
+                    Bottle feeding - the total ounces and the ounces discarded
                     can be recorded
                   </p>
                 </li>
                 <li>
                   <p>
                     Breast feeding - The time that the baby was feeding on the
-                    breast can be recored.
+                    breast can be recorded.
                   </p>
                 </li>
                 <li>
@@ -116,12 +116,12 @@ export const AboutPage = () => {
               </ul>
             </li>
             <li>
-              <h3>Daipers</h3>
+              <h3>Diapers</h3>
               <p>
                 In this category you can record the type of diaper the the baby
                 has soiled whether wet or poop. The poop type will have three
-                consistancy types soft, solid and pellets. The wet tyhpe of
-                diaper will default to a wet consistancy.
+                consistency types soft, solid and pellets. The wet type of
+                diaper will default to a wet consistency.
               </p>
             </li>
             <li>
@@ -135,7 +135,7 @@ export const AboutPage = () => {
               <h3>Illness</h3>
               <p>
                 In this category you can record the the symptoms of your child,
-                the medicine taken and the amoubnt of medicine taken
+                the medicine taken and the amount of medicine taken
               </p>
             </li>
           </ol>
@@ -152,9 +152,9 @@ export const AboutPage = () => {
           <h2>Edit Child </h2>
           <p>
             The edit a specific child information. Select the child by using the
-            the select a child guidelines explained proviously, then click the
-            edit button thaty is below the child information. It will take you
-            to the edit child page where you can change the childs information
+            the select a child guidelines explained previously, then click the
+            edit button that is below the child information. It will take you
+            to the edit child page where you can change the child's information
             that you have selected.
           </p>
         </div>

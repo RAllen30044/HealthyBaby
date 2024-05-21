@@ -15,7 +15,7 @@ import { getIsSubmittedFromLocalStorage } from "../../../ErrorHandling";
 export type AuthComponentProviderT = {
   log: string | null;
   setLog: React.Dispatch<React.SetStateAction<string | null>>;
-  maybeUser: string | null;
+
 
   user: User | null;
   username: string;
@@ -30,7 +30,6 @@ export type AuthComponentProviderT = {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 
-  // loggedIn: (email: string, password: string) => void;
 };
 
 const AuthProviderContext = createContext<AuthComponentProviderT>(
@@ -41,10 +40,10 @@ type LandingPageT = "on" | "off";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [log, setLog] = useState<string | null>("logOut");
   const [user, setUser] = useState<User | null>(null);
-  // const storedToken = localStorage.getItem("token");
+
   const [token, setToken] = useState<string | null>(null);
-  // const { profile, childInfo, setChildId } = useHistoryIDComponent();
-  const maybeUser = localStorage.getItem("user");
+  
+
 
   const [landingPage, setLandingPage] = useState<LandingPageT>("on");
   const [username, setUsername] = useState<string>("");
@@ -53,62 +52,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     getIsSubmittedFromLocalStorage()
   );
 
-  // const loggedIn = (username: string, password: string) => {
-  //   setLog("logOut");
-  //   const userID = profile.find(
-  //     (profile) =>
-  //       profile.username.toLowerCase() === username.toLowerCase() &&
-  //       profile.password === password
-  //   );
 
-  //   if (userID) {
-  //     localStorage.setItem(
-  //       "user",
-  //       JSON.stringify({
-  //         username: userID.username,
-  //         password: userID.password,
-  //         caregiver: userID.caregiver,
-  //         id: userID.id,
-  //       })
-  //     );
-  //     localStorage.setItem("log", "logIn");
-  //     const firstAvailableChild = childInfo.find(
-  //       (child) => child.profileId === userID.id
-  //     );
-  //     console.log(firstAvailableChild);
-
-  //     if (firstAvailableChild) {
-  //       localStorage.setItem(
-  //         "child",
-  //         JSON.stringify({
-  //           name: firstAvailableChild.name,
-  //           DOB: firstAvailableChild.DOB,
-  //           gender: firstAvailableChild.gender,
-  //           weight: firstAvailableChild.weight,
-  //           headSize: firstAvailableChild.headSize,
-  //           height: firstAvailableChild.height,
-  //           profileId: firstAvailableChild.profileId,
-  //           id: firstAvailableChild.id,
-  //         })
-  //       );
-  //       setChildId(firstAvailableChild.id);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (maybeUser) {
-  //     setUser(JSON.parse(maybeUser));
-  //     if (maybeChild) {
-  //       setChildId(JSON.parse(maybeChild).id);
-  //     }
-
-  //     setLog(localStorage.getItem("log" || "logIn"));
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [maybeUser, maybeChild]);
-
-  console.log(`The current token value in this provider is ${token}`);
+ 
 
   return (
     <>
@@ -118,8 +63,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setLog,
           user,
           setUser,
-          // loggedIn,
-          maybeUser,
+       
+       
           username,
           setUsername,
           password,
