@@ -103,6 +103,9 @@ export type historyTypes =
 export type ProfileUsernameTypes = {
   username: string;
 };
+export type ProfileEmailTypes = {
+  email: string;
+};
 export type bottlefeedingHistoryT = {
   bottleFeedHistory: bottleFeedingInfoType[];
   removeBottleFeedingHistory: (id: number) => void;

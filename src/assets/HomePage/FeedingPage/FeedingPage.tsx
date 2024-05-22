@@ -210,15 +210,13 @@ export const FeedingPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (timeInvalid(date, time)) {
-                  setIsSubmitted(true);
-                  return;
-                }
+
                 if (
                   isDateNotBeforeBirth(
                     getChildDOB(profileChildren, childId),
                     date
-                  )
+                  ) ||
+                  timeInvalid(date, time)
                 ) {
                   setIsSubmitted(true);
                   return;
@@ -228,7 +226,7 @@ export const FeedingPage = () => {
 
                 setLoading(true);
                 if (feed === "bottleFeed") {
-                  return postInfo(
+                  postInfo(
                     {
                       time: convertToStandardTime(time),
                       date: formatDate(createShortHandDate(date)),
@@ -253,7 +251,7 @@ export const FeedingPage = () => {
                     });
                 }
                 if (feed === "breastFeed") {
-                  return postInfo(
+                  postInfo(
                     {
                       time: convertToStandardTime(time),
                       date: formatDate(createShortHandDate(date)),
@@ -273,7 +271,7 @@ export const FeedingPage = () => {
                     });
                 }
                 if (feed === "infantModeOff") {
-                  return postInfo(
+                  postInfo(
                     {
                       time: convertToStandardTime(time),
                       date: formatDate(createShortHandDate(date)),

@@ -345,7 +345,7 @@ historyController.post("/mealHistory", async (req, res) => {
   if (typeof body.drinkType !== "string") {
     errors.push("drinkType should be a string");
   }
-  if (typeof body.medicationType !== "string") {
+  if (typeof body.foodType !== "string") {
     errors.push("foodType should be a string");
   }
 

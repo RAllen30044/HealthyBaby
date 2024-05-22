@@ -31,7 +31,7 @@ export const ChildInfo = () => {
     }
     return `${inchNumber} in.`;
   };
-  console.log(childId);
+ 
 
   return (
     <>

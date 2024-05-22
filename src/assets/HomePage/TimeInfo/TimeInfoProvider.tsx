@@ -34,9 +34,6 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
   const shouldShowDOBentryError = isSubmitted && isDOBValid(date);
   const shouldShowDateTimeEntryError = isSubmitted && timeInvalid(date, time);
 
-  console.log(getChildDOB(profileChildren, childId));
-  
-
   const shouldShowDateBeforeBirthError =
     isSubmitted &&
     isDateNotBeforeBirth(getChildDOB(profileChildren, childId), date);

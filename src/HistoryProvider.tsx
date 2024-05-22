@@ -11,7 +11,7 @@ import {
   ChildInfoT,
   DiapersHistoryInfoTypes,
   IllnessType,
-  ProfileInfoTypes,
+ 
   bottleFeedingInfoType,
   breastFeedingInfoType,
   eatingInfoType,
@@ -24,7 +24,6 @@ import {
   getIllnessHistory,
   getMealHistoryInfo,
   getNappingHistory,
-  getProfile,
   getProfilesChildren,
 } from "../callApis";
 
@@ -56,12 +55,12 @@ export type HistoryIDComponentProvider = {
   nappingHistory: nappingType[];
   setNappingHistory: React.Dispatch<React.SetStateAction<nappingType[]>>;
 
-  profile: ProfileInfoTypes | null;
-  setProfile: React.Dispatch<React.SetStateAction<ProfileInfoTypes | null>>;
   firstChild: ChildInfoT[];
   setFirstChild: React.Dispatch<React.SetStateAction<ChildInfoT[]>>;
   page: object[];
   setPage: React.Dispatch<React.SetStateAction<object[]>>;
+  hashedPassword: string;
+  setHashedPassword: React.Dispatch<React.SetStateAction<string>>;
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
   // fetchProfileInfo: () => Promise<void>;
@@ -110,41 +109,29 @@ export const HistoryIDComponentProvider = ({
   const [profileChildren, setProfileChildren] = useState<ChildInfoT[]>([]);
   const [nappingHistory, setNappingHistory] = useState<nappingType[]>([]);
   const [illnessHistory, setIllnessHistory] = useState<IllnessType[]>([]);
-  const [profile, setProfile] = useState<ProfileInfoTypes | null>(null);
-
+  const [hashedPassword, setHashedPassword] = useState<string>("");
   const getId = localStorage.getItem("childId");
 
   const [childId, setChildId] = useState<number>(
     getId ? Number.parseInt(getId) : 0
   );
 
-  if (getId) {
-    const getIdNumber = Number.parseInt(getId);
-    if (typeof getIdNumber === "number") {
-      console.log("getId is a number");
-    } else {
-      console.log("getId is not a number");
-    }
-  }
-
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
-  const getUser = localStorage.getItem("user");
-  const maybeUserId = getUser ? JSON.parse(getUser).id : null;
+
   const [page, setPage] = useState<object[]>([]);
-  const [profileUsername, setProfileUsername] = useState<string>(maybeUserId);
+  const [profileUsername, setProfileUsername] = useState<string>("");
   const [firstChild, setFirstChild] = useState<ChildInfoT[]>([]);
   const getSortingDirection = localStorage.getItem("sortDirection");
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     JSON.parse(JSON.stringify(getSortingDirection)) || "asc"
   );
 
-  // const fetchProfileInfo = () => getProfile(getToken).then(setProfile);
+  
 
   useEffect(() => {
     if (token) {
-      getProfile(token).then(setProfile);
       getProfilesChildren(token).then(setProfileChildren);
     }
   }, [token]);
@@ -182,7 +169,8 @@ export const HistoryIDComponentProvider = ({
         fetchBreastFeedingData,
         childInfo,
         setChildInfo,
-
+        hashedPassword,
+        setHashedPassword,
         diapersHistory,
         setDiapersHistory,
         fetchDiaperHistory,
@@ -192,8 +180,7 @@ export const HistoryIDComponentProvider = ({
         nappingHistory,
         setNappingHistory,
         fetchNappingHistory,
-        profile,
-        setProfile,
+
         // fetchProfileInfo,
         mealHistory,
         setMealHistory,

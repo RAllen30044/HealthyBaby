@@ -12,12 +12,10 @@ import { UseHistoryIDComponent } from "../../../HistoryProvider";
 // import { ProfileInfoTypes } from "../../../Types";
 
 export const EditProfilePage = () => {
-  const { maybeUser, setPassword, password } = UseAuthProviderContext();
+  const { setPassword, password } = UseAuthProviderContext();
 
   // const [email, setEmail] = useState<string>("");
-  const [childCaregiver, setChildCaregiver] = useState<string>(
-    maybeUser ? JSON.parse(maybeUser).caregiver : ""
-  );
+  const [childCaregiver, setChildCaregiver] = useState<string>("");
   // const [childCaregiverEmail, setChildCaregiverEmail] = useState<string>("");
   // const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -29,7 +27,7 @@ export const EditProfilePage = () => {
   // );
   const { setActiveHomePageComponent, setActiveMainComponent } =
     useActiveComponent();
-  const { setProfileUsername } = UseHistoryIDComponent();
+  const { setProfileUsername, token } = UseHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
@@ -62,7 +60,7 @@ export const EditProfilePage = () => {
               }
               setIsSubmitted(false);
               setLoading(true);
-              if (maybeUser) {
+              if (token) {
                 return updateProfileInfo(
                   childCaregiver,
                   password,
@@ -82,24 +80,9 @@ export const EditProfilePage = () => {
                     setActiveHomePageComponent("feeding");
                     setActiveMainComponent("home");
 
-                    const username = JSON.parse(maybeUser).username;
-
-                    const userPassword = JSON.parse(
-                      JSON.stringify(data)
-                    ).password;
-                    const userId = JSON.parse(JSON.stringify(data)).id;
                     //Set to current username
                     setProfileUsername("");
-
-                    localStorage.setItem(
-                      "user",
-                      JSON.stringify({
-                        username: username,
-                        caregiver: childCaregiver,
-                        password: userPassword,
-                        id: userId,
-                      })
-                    );
+                    return data;
                   })
                   .then(() => {
                     setLoading(false);
@@ -114,7 +97,7 @@ export const EditProfilePage = () => {
               <label htmlFor="name" className="profileLabel">
                 Username:
               </label>
-              <span>{maybeUser ? JSON.parse(maybeUser).username : ""}</span>
+              <span>{token ? "Username" : ""}</span>
             </div>
             <div className="inputContainer">
               <label htmlFor="caregiver" className="profileLabel">
@@ -131,7 +114,7 @@ export const EditProfilePage = () => {
                 }}
               />
             </div>
-            <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
+            <div className={`inputContainer ${token ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLabel">
                 Password:
               </label>
@@ -148,7 +131,7 @@ export const EditProfilePage = () => {
                 placeholder=""
               />
             </div>
-            <div className={`inputContainer ${maybeUser ? "hidden" : ""}`}>
+            <div className={`inputContainer ${token ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>
@@ -168,7 +151,7 @@ export const EditProfilePage = () => {
             {shouldShowPasswordErrorMessage && (
               <ErrorMessage message={passwordErrorMessage} show={true} />
             )}
-            <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
+            <div className={`inputContainer ${token ? "" : "hidden"}`}>
               <label htmlFor="password" className="profileLabel">
                 New Password:
               </label>
@@ -187,7 +170,7 @@ export const EditProfilePage = () => {
             {shouldShowNoPasswordEntryMessage && (
               <ErrorMessage message={passwordEntryErrorMessage} show={true} />
             )}
-            <div className={`inputContainer ${maybeUser ? "" : "hidden"}`}>
+            <div className={`inputContainer ${token ? "" : "hidden"}`}>
               <label htmlFor="password" className="profileLabel">
                 Confirm New Password:
               </label>

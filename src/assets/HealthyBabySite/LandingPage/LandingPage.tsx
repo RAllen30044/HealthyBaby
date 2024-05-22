@@ -100,94 +100,6 @@ export const LandingPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadIndex]);
 
-  // const isUserValid = (username: string, password: string) => {
-  //   return getAllProfiles()
-  //     .then((users) => {
-  //       const userExist = users.some(
-  //         (user) =>
-  //           user.username.toLowerCase() === username.toLowerCase() &&
-  //           user.password === password
-  //       );
-  //       const user = users.find(
-  //         (user) =>
-  //           user.username.toLowerCase() === username.toLowerCase() &&
-  //           user.password === password
-  //       );
-
-  //       if (userExist) {
-  //         localStorage.setItem(
-  //           "user",
-  //           JSON.stringify({
-  //             username: user?.username,
-  //             password: user?.password,
-  //             // id: user?.id,
-  //           })
-  //         );
-  //         console.log(childInfo);
-
-  //         console.log(user);
-
-  //         firstAvailableChild(childInfo, user);
-  //         const firstChild = childInfo.find(
-  //           (child) => child.profileUsername === user?.username
-  //         );
-  //         console.log(firstChild?.id);
-
-  //         if (firstAvailableChild(childInfo, user)) {
-  //           console.log(firstAvailableChild(childInfo, user));
-  //           localStorage.setItem(
-  //             "child",
-  //             JSON.stringify({
-  //               name: firstAvailableChild(childInfo, user)?.name,
-  //               age: convertAgeToAppropriateAgeType(
-  //                 firstAvailableChild(childInfo, user)?.DOB || "Error"
-  //               ),
-  //               DOB: firstAvailableChild(childInfo, user)?.DOB,
-  //               gender: firstAvailableChild(childInfo, user)?.gender,
-  //               weight: firstAvailableChild(childInfo, user)?.weight,
-  //               height: firstAvailableChild(childInfo, user)?.height,
-  //               headSize: firstAvailableChild(childInfo, user)?.headSize,
-  //               profileUsername: firstAvailableChild(childInfo, user)
-  //                 ?.profileUsername,
-  //               id: firstAvailableChild(childInfo, user)?.id,
-  //             })
-  //           );
-  //         }
-  //         toast.success("Success");
-
-  //         // loggedIn(userNameInput, passwordInput);
-  //         setLog("logOut");
-  //         // const userID = localStorage.getItem("user");
-  //         if (!firstAvailableChild(childInfo, user)) {
-  //           setActiveMainComponent("addChild");
-  //           setActiveMainComponentInLocalStorage("addChild");
-  //           setIsSubmittedInLocalStorage("true");
-  //           setShowAddChildError(getIsSubmittedFromLocalStorage());
-  //           console.log(showAddChildError);
-
-  //           return;
-  //         }
-
-  //         setIsSubmittedInLocalStorage("false");
-  //         setShowAddChildError(getIsSubmittedFromLocalStorage());
-  //         setActiveHomePageComponent("feeding");
-  //         setActiveHomePageComponentInLocalStorage("feeding");
-  //         setActiveMainComponent("home");
-  //         setActiveMainComponentInLocalStorage("home");
-
-  //         return;
-  //       } else {
-  //         toast.error("Username and/or Password Not found");
-  //         return;
-  //       }
-  //     })
-  //     .then(() => {
-  //       const userID = localStorage.getItem("user");
-  //       if (userID) {
-  //         setProfileId(JSON.parse(userID).id);
-  //       }
-  //     });
-  // };
   return (
     <>
       <div className={`landingPage `}>
@@ -213,14 +125,15 @@ export const LandingPage = () => {
             onSubmit={async (e) => {
               e.preventDefault();
               // isUserValid(userNameInput, passwordInput);
+
               const authorize = await authorization(
                 userNameInput.toLowerCase(),
                 passwordInput
               );
 
               if (!authorize.token) {
-                console.log("Username and/or Password Not found");
                 toast.error("Username and/or Password Not found");
+
                 setUserNameInput("");
                 setPasswordInput("");
                 return;
@@ -236,9 +149,9 @@ export const LandingPage = () => {
 
               setToken(authorize.token);
               localStorage.setItem("token", authorize.token);
-              getProfilesFirstChild(authorize.token).then((profile) => {
-                setChildId(profile.id);
-                localStorage.setItem("childId", JSON.stringify(profile.id));
+              getProfilesFirstChild(authorize.token).then((child) => {
+                setChildId(child.id);
+                localStorage.setItem("childId", JSON.stringify(child.id));
               });
 
               setUserNameInput("");

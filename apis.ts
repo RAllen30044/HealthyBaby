@@ -10,11 +10,10 @@ app.use(express.json());
 const publicPath = path.resolve(__dirname, "dist");
 app.use(express.static(publicPath));
 const PORT = process.env.PORT || 3000;
-app.use(cors()); // This will enable all CORS requests
-// Or for specific options:
+app.use(cors()); 
 app.use(
   cors({
-    origin: "*", // Allow only this origin or use '*' to allow all origins
+    origin: "*",
   })
 );
 app.use(authController);

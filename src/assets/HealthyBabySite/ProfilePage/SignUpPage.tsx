@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./ProfilePage.css";
 import {
   authorization,
+  getAllProfileEmails,
   getAllProfileUserNames,
   getProfile,
   postInfo,
-  profileUrl,
+  postProfile,
+  profilesUrl,
 } from "../../../../callApis";
 import { UseTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import {
@@ -18,10 +20,11 @@ import { UseAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
+import { ProfileInfoTypes } from "../../../../Types";
 
 // import { ProfileInfoTypes } from "../../../Types";
 
-export const SignUpPage = () => {
+export const SignUpPage = async () => {
   const [username, setUsername] = useState<string>("");
   // const [email, setEmail] = useState<string>("");
   const [caregiver, setCaregiver] = useState<string>("");
@@ -38,25 +41,37 @@ export const SignUpPage = () => {
     password,
   } = UseAuthProviderContext();
   const { setActiveMainComponent } = useActiveComponent();
-  const { setProfileUsername, token, setToken } = UseHistoryIDComponent();
+  const { setProfileUsername, token } = UseHistoryIDComponent();
 
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
   };
   const doesUsernameExist = async () => {
-    const usernames = await getAllProfileUserNames().then((data) => data);
+    const usernames = await getAllProfileUserNames();
 
     return usernames.some(
-      (exitingUsername) =>
-        exitingUsername.username === username.toLowerCase()
+      (exitingUsername) => exitingUsername.username === username.toLowerCase()
     );
   };
+  const doesEmailExist = async () => {
+    const emails = await getAllProfileEmails();
+
+    return emails.some(
+      (exitingEmail) => exitingEmail.email === email.toLowerCase()
+    );
+  };
+
+ 
+
+  
 
   const passwordErrorMessage = "Passwords do not match";
   const shouldShowPasswordErrorMessage =
     isSubmitted && !passwordsDoMatch(password, confirmPassword);
-  const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist();
+  const shouldShowUsernameErrorMessage = isSubmitted &&  usernameExist();
+  const shouldShowEmailErrorMessage = isSubmitted &&  emailExist();
   const usernameErrorMessage = "Username already Exist";
+  const emailErrorMessage = "Email already Exist";
 
   return (
     <>
@@ -68,29 +83,29 @@ export const SignUpPage = () => {
             className="profileForm"
             onSubmit={async (e) => {
               e.preventDefault();
-              if (!passwordsDoMatch(password, confirmPassword)) {
-                setIsSubmitted(true);
 
+              // const usernameExist = await doesUsernameExist();
+              // const emailExist = await doesEmailExist();
+              if (
+                await usernameExist() ||
+                emailExist() ||
+                !passwordsDoMatch(password, confirmPassword)
+              ) {
+                setIsSubmitted(true);
                 return;
               }
-              const usernameExist = await doesUsernameExist();
-              console.log(usernameExist);
 
-              if (usernameExist) {
-                setIsSubmitted(true);
-                return;
-              }
               setIsSubmitted(false);
               setLoading(true);
 
-              return postInfo(
+              postInfo(
                 {
                   username: username.toLowerCase(),
                   password: password,
                   caregiver: caregiver,
-                  email: email,
+                  email: email.toLowerCase(),
                 },
-                profileUrl
+                profilesUrl
               )
                 .then((response) => {
                   if (!response.ok) {
@@ -98,17 +113,8 @@ export const SignUpPage = () => {
                   }
                   return response.json();
                 })
-                .then(async (data) => {
-                  const authorize = await authorization(
-                    data.username,
-                    data.password
-                  );
-                  setToken(authorize.token);
-                  if (authorize.token) {
-                    getProfile(authorize.token).then((profile) => {
-                      setProfileUsername(profile.username);
-                    });
-                  }
+                .then(() => {
+                  setProfileUsername(username);
                 })
                 .then(() => {
                   toast.success("Profile Saved");
@@ -120,7 +126,7 @@ export const SignUpPage = () => {
                   setLoading(false);
                 })
                 .catch((e) => {
-                  toast.error(e);
+                  console.log(e);
                 });
             }}
           >
@@ -160,7 +166,9 @@ export const SignUpPage = () => {
                 }}
               />
             </div>
-
+            {shouldShowEmailErrorMessage && (
+              <ErrorMessage message={emailErrorMessage} show={true} />
+            )}
             <div className="inputContainer">
               <label htmlFor="caregiver" className="profileLabel">
                 Child(ren) Caregiver's Name:{" "}

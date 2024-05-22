@@ -16,6 +16,22 @@ profileController.get("/allProfileUsernames", async (_req, res) => {
   });
   res.send(profileNames);
 });
+profileController.get("/profiles", async (_req, res) => {
+  const profiles = await client.profile.findMany({
+    orderBy: {
+      username: "asc",
+    },
+  });
+  res.send(profiles);
+});
+profileController.get("/allProfileEmails", async (_req, res) => {
+  const profileEmails = await client.profile.findMany({
+    select: {
+      email: true,
+    },
+  });
+  res.send(profileEmails);
+});
 profileController.get("/children", authMiddleware, async (req, res) => {
   const [, token] = req.headers.authorization?.split?.(" ") || [];
   const myJwtData = getDataFromAuthToken(token);
@@ -78,7 +94,7 @@ profileController.get("/profile", authMiddleware, async (req, res) => {
   return res.status(200).send(profile);
 });
 
-profileController.post("/profile", async (req, res) => {
+profileController.post("/profiles", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = ["username", "password", "caregiver", "email"];
@@ -120,10 +136,10 @@ profileController.post("/profile", async (req, res) => {
     });
     return res.status(201).send(profile);
   } catch (err) {
-    return res.status(500).send({ error: "Internal server error" });
+    return res.status(500).send({ error: `Internal Server Error` });
   }
 });
-profileController.post("/child", async (req, res) => {
+profileController.post("/children", async (req, res) => {
   const body = req.body;
   const errors: string[] = [];
   const validKeys = [
@@ -133,7 +149,7 @@ profileController.post("/child", async (req, res) => {
     "weight",
     "headSize",
     "height",
-    "profileId",
+    "profileUsername",
   ];
   const inputKeys = Object.keys(body);
 

@@ -91,11 +91,8 @@ export const DiaperPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (timeInvalid(date, time)) {
-                  setIsSubmitted(true);
-                  return;
-                }
-                if (isDateNotBeforeBirth(getChildDOB(profileChildren, childId), date)) {
+        
+                if (isDateNotBeforeBirth(getChildDOB(profileChildren, childId), date)||timeInvalid(date, time)) {
                   setIsSubmitted(true);
                   return;
                 }

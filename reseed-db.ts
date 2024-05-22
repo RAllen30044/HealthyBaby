@@ -58,7 +58,7 @@ const randomizeItem = (itemArray: string[]) => {
 };
 const randomDOB = () => {
   const getDOB = faker.date.birthdate({ min: 0, max: 6, mode: "age" });
-  console.log(getDOB);
+
   if (getDOB.getMonth() + 1 < 10 && getDOB.getDate() < 10) {
     return `${getDOB.getFullYear()}-0${
       getDOB.getMonth() + 1
@@ -156,7 +156,7 @@ const seedInfo = async () => {
 
   const yalana = await client.profile.create({
     data: {
-      username: `yalana.Rashton`,
+      username: `yalana.rashton`,
       password: await encryptPassword(`Saints1`),
       caregiver: `Brittany`,
       email: `yalana.rashton@gmail.com`,
@@ -193,7 +193,7 @@ const seedInfo = async () => {
     components.push(child);
   }
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 40; i++) {
     const randomChildId = childIds[Math.floor(Math.random() * childIds.length)];
     const napHistory = await client.napHistory.create({
       data: {
@@ -206,7 +206,7 @@ const seedInfo = async () => {
     components.push(napHistory);
   }
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 40; i++) {
     const randomChildId = childIds[Math.floor(Math.random() * childIds.length)];
     const bottleFeedingHistory = await client.bottleFeedingHistory.create({
       data: {
@@ -225,7 +225,7 @@ const seedInfo = async () => {
     components.push(bottleFeedingHistory);
   }
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 40; i++) {
     const randomChildId = childIds[Math.floor(Math.random() * childIds.length)];
     const breastFeedingHistory = await client.breastFeedingHistory.create({
       data: {
@@ -238,7 +238,7 @@ const seedInfo = async () => {
     components.push(breastFeedingHistory);
   }
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 40; i++) {
     const randomChildId = childIds[Math.floor(Math.random() * childIds.length)];
     const mealHistory = await client.mealHistory.create({
       data: {
@@ -252,7 +252,7 @@ const seedInfo = async () => {
     components.push(mealHistory);
   }
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 40; i++) {
     const randomChildId = childIds[Math.floor(Math.random() * childIds.length)];
     const diaper = randomizeItem(diaperConsistency);
     const diapersHistory = await client.diapersHistory.create({
@@ -268,7 +268,7 @@ const seedInfo = async () => {
     });
     components.push(diapersHistory);
   }
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 40; i++) {
     const randomChildId = childIds[Math.floor(Math.random() * childIds.length)];
     const illnessHistory = await client.illnessHistory.create({
       data: {

@@ -3,6 +3,7 @@ import {
   DiapersHistoryInfoTypes,
   HistoryInfoTypes,
   IllnessType,
+  ProfileEmailTypes,
   ProfileInfoTypes,
   ProfileUsernameTypes,
   bottleFeedingInfoType,
@@ -31,7 +32,9 @@ export const diaperUrl = `${baseUrl}/diapersHistory`;
 export const illnessUrl = `${baseUrl}/illnessHistory`;
 export const nappingUrl = `${baseUrl}/napHistory`;
 export const profileUrl = `${baseUrl}/profile`;
+export const profilesUrl = `${baseUrl}/profiles`;
 export const usernamesUrl = `${baseUrl}/allProfileUsernames`;
+export const emailsUrl = `${baseUrl}/allProfileEmails`;
 
 export const childNapDBUrl = `${baseUrl}/childNapDB`;
 export const childrenUrl = `${baseUrl}/children`;
@@ -49,7 +52,10 @@ export const authorization = (
     }),
   })
     .then((res) => res.json())
-    .then((data) => data);
+    .then((data) => data)
+    .catch((err) => {
+      console.log(err.message);
+    });
 export const getProfilesChildren = (
   token: string | null
 ): Promise<ChildInfoT[]> =>
@@ -74,8 +80,6 @@ export const getProfile = async (
   if (!token) {
     return Promise.reject(new Error("Token is required"));
   }
-  console.log(token);
-  console.log(`Bearer ${token}`);
 
   const profile = await fetch(`${profileUrl}`, {
     method: "GET",
@@ -123,6 +127,12 @@ export const updateProfileInfo = (
 };
 export const postInfo = (object: HistoryInfoTypes, url: string) =>
   fetch(url, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(object),
+  });
+export const postProfile = (object: HistoryInfoTypes) =>
+  fetch(profilesUrl, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(object),
@@ -178,6 +188,15 @@ export const getAllProfileUserNames = (): Promise<ProfileUsernameTypes[]> =>
     .then((res) => {
       if (!res.ok) {
         throw new Error("Failed to get Usernames");
+      }
+      return res.json();
+    })
+    .then((data) => data);
+export const getAllProfileEmails = (): Promise<ProfileEmailTypes[]> =>
+  fetch(emailsUrl)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get Emails");
       }
       return res.json();
     })

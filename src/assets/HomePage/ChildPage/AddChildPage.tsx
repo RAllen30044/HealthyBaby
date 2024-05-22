@@ -12,6 +12,7 @@ import {
 import { ErrorMessage } from "../../../ErrorMessage";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import {
+  authorization,
   childrenUrl,
   // getProfilesChildren,
   // getProfilesFirstChild,
@@ -35,32 +36,17 @@ export const AddChildPage = () => {
   const { loading, setLoading, date, setDate } = UseTimeInfo();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
-  const { showAddChildError, setShowAddChildError } = UseAuthProviderContext();
+  const { showAddChildError, setShowAddChildError, password } =
+    UseAuthProviderContext();
   const { setIsSubmitted, shouldShowDOBentryError } = UseTimeInfo();
   const {
-    //  setChildId, setProfileChildren,
-     profileChildren } =
-    UseHistoryIDComponent();
-
-  // const [babyPic, setBabyPic] = useState<string>("");
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const selectedFile = e.target.files?.[0];
-  //   // Do something with the selected file, e.g., display it or upload it
-  //   if (selectedFile) {
-  //     const reader = new FileReader();
-
-  //     reader.onload = () => {
-  //       // Set the selected image to the base64 data URL of the selected file.
-  //       const dataUrl = reader.result as string;
-  //       setBabyPic(dataUrl);
-  //       localStorage.setItem("selectedPicture", dataUrl);
-  //     };
-
-  //     reader.readAsDataURL(selectedFile);
-  //   }
-  // };
-  console.log(profileChildren);
+    setChildId,
+    //  setProfileChildren,
+    //  profileChildren
+    setToken,
+    hashedPassword,
+    profileUsername,
+  } = UseHistoryIDComponent();
 
   const addChildErrorMessage =
     "This profile has not added a child. In order to continue you must add a child to your profile.";
@@ -72,8 +58,16 @@ export const AddChildPage = () => {
           <form
             action="POST"
             className="childInfo"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
+
+              console.log(profileUsername.toLowerCase(), hashedPassword);
+
+              const authorize = await authorization(
+                profileUsername.toLowerCase(),
+                password
+              );
+              console.log(authorize.token);
 
               if (isDOBValid(date)) {
                 setIsSubmittedInLocalStorage("true");
@@ -81,22 +75,25 @@ export const AddChildPage = () => {
 
                 return;
               }
-
+              if (authorize.token) {
+                setToken(authorize.token);
+                localStorage.setItem("token", authorize.token);
+              }
               setIsSubmittedInLocalStorage("false");
               setIsSubmitted(getIsSubmittedFromLocalStorage());
               setShowAddChildError(getIsSubmittedFromLocalStorage());
-              console.log(loading);
+
               setLoading(true);
 
-              postInfo(
+              return postInfo(
                 {
                   name,
                   DOB: date,
                   gender,
-                  weight: `${weight} `,
-                  headSize: `${headSize}`,
-                  height: `${height}`,
-                  profileUsername: "",
+                  weight,
+                  headSize,
+                  height,
+                  profileUsername,
                 },
                 childrenUrl
               )
@@ -105,29 +102,14 @@ export const AddChildPage = () => {
                     toast("error");
                   }
                   setDate("");
+                  console.log(res.json());
+
                   return res.json();
                 })
                 .then((data) => {
-                  return data;
-                  // localStorage.setItem(
-                  //   "child",
-                  //   JSON.stringify({
-                  //     name: data.name,
-                  //     age: data.age,
-                  //     DOB: data.DOB,
-                  //     gender: data.gender,
-                  //     weight: data.weight,
-                  //     height: data.height,
-                  //     headSize: data.headSize,
-                  //     profileId: data.profileId,
-                  //     id: data.id,
-                  //   })
-                  // );
-                  // getProfilesChildren(profileId || 0).then(setProfilesChildren);
+                  console.log(data);
 
-                  // getProfilesFirstChild(profileId || 0).then(() => {
-                  //   setChildId(data.id);
-                  // });
+                  setChildId(data.id);
                 })
                 .then(() => {
                   setActiveMainComponent("home");
@@ -137,6 +119,9 @@ export const AddChildPage = () => {
                 })
                 .then(() => {
                   setLoading(false);
+                })
+                .catch((err) => {
+                  console.log(err);
                 });
             }}
           >

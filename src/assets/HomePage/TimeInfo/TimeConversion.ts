@@ -147,9 +147,3 @@ export function combineDateAndTime(
 
   return dateTimeISO;
 }
-
-// Example usage
-const dateString = "October 30, 2024";
-const timeString = "10:39 PM";
-const result = combineDateAndTime(dateString, timeString);
-console.log(result);
