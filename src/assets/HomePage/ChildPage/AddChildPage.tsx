@@ -14,6 +14,7 @@ import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import {
   authorization,
   childrenUrl,
+  getProfilesFirstChild,
   // getProfilesChildren,
   // getProfilesFirstChild,
   postInfo,
@@ -75,11 +76,12 @@ export const AddChildPage = () => {
 
                 return;
               }
-              if (authorize.token) {
+              if (authorize) {
                 setToken(authorize.token);
                 localStorage.setItem("token", authorize.token);
               }
-              setIsSubmittedInLocalStorage("false");
+
+              setIsSubmittedInLocalStorage("true");
               setIsSubmitted(getIsSubmittedFromLocalStorage());
               setShowAddChildError(getIsSubmittedFromLocalStorage());
 
@@ -87,41 +89,44 @@ export const AddChildPage = () => {
 
               return postInfo(
                 {
-                  name,
+                  name: name,
                   DOB: date,
-                  gender,
-                  weight,
-                  headSize,
-                  height,
-                  profileUsername,
+                  gender: gender,
+                  weight: weight,
+                  headSize: headSize,
+                  height: height,
+                  profileUsername: profileUsername.toLowerCase(),
                 },
                 childrenUrl
               )
                 .then((res) => {
                   if (!res.ok) {
-                    toast("error");
+                    throw new Error("Failed to save child information");
                   }
-                  setDate("");
-                  console.log(res.json());
-
                   return res.json();
                 })
                 .then((data) => {
                   console.log(data);
-
                   setChildId(data.id);
-                })
-                .then(() => {
                   setActiveMainComponent("home");
                   setActiveMainComponentInLocalStorage("home");
                   setActiveHomePageComponent("feeding");
                   setActiveHomePageComponentInLocalStorage("feeding");
-                })
-                .then(() => {
-                  setLoading(false);
+                  setIsSubmittedInLocalStorage("false");
+                  setShowAddChildError(getIsSubmittedFromLocalStorage());
+                  setDate("");
+                  setGender("Female");
+                  setWeight("");
+                  setHeight("");
+                  setHeadSize("");
                 })
                 .catch((err) => {
-                  console.log(err);
+                  console.error("Error saving child information:", err);
+                  // Handle error
+                  toast.error("Failed to save child information");
+                })
+                .finally(() => {
+                  setLoading(false);
                 });
             }}
           >

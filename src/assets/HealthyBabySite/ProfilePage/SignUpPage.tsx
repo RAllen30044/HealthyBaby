@@ -122,6 +122,7 @@ export const SignUpPage = () => {
                 })
                 .then(() => {
                   setProfileUsername(username);
+                  
                 })
                 .then(() => {
                   toast.success("Profile Saved");

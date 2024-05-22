@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-// import { UseAuthProviderContext } from "./authProvider";
+import { UseAuthProviderContext } from "./authProvider";
 import "./LandingPage.css";
 // import toast from "react-hot-toast";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import {
+  getIsSubmittedFromLocalStorage,
   // firstAvailableChild,
   // getIsSubmittedFromLocalStorage,
   setActiveHomePageComponentInLocalStorage,
@@ -51,15 +52,15 @@ const icons = [
 export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
-  // const {
-  // // loggedIn,
-  // // setLog,
-  // // setShowAddChildError,
-  // // showAddChildError,
-  // //   setUsername,
-  // //   setPassword,
-  // } = useAuthProviderContext();
-  const { setToken, setChildId } = UseHistoryIDComponent();
+  const {
+    // // loggedIn,
+    // // setLog,
+    setShowAddChildError,
+    // // showAddChildError,
+    // //   setUsername,
+    setPassword,
+  } = UseAuthProviderContext();
+  const { setToken, setChildId, setProfileUsername } = UseHistoryIDComponent();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
 
@@ -144,6 +145,9 @@ export const LandingPage = () => {
                 setActiveMainComponent("addChild");
                 setActiveMainComponentInLocalStorage("addChild");
                 setIsSubmittedInLocalStorage("true");
+                setProfileUsername(userNameInput);
+                setPassword(passwordInput);
+                setShowAddChildError(getIsSubmittedFromLocalStorage());
                 return;
               }
 
@@ -153,9 +157,11 @@ export const LandingPage = () => {
                 setChildId(child.id);
                 localStorage.setItem("childId", JSON.stringify(child.id));
               });
+              setPassword(passwordInput);
 
               setUserNameInput("");
               setPasswordInput("");
+
               setActiveMainComponentInLocalStorage("home");
               setActiveMainComponent("home");
               setActiveHomePageComponentInLocalStorage("feeding");

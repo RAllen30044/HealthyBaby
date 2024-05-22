@@ -45,7 +45,7 @@ export const EditChildPage = () => {
     useActiveComponent();
   const { setIsSubmitted, shouldShowDOBentryError } = UseTimeInfo();
   const { token } = UseAuthProviderContext();
-  const { setChildId } = UseHistoryIDComponent();
+  const { setChildId, profileUsername } = UseHistoryIDComponent();
 
   return (
     <>
@@ -65,56 +65,39 @@ export const EditChildPage = () => {
               setIsSubmitted(false);
               setLoading(true);
 
-              return (
-                updateChildInfo(
-                  {
-                    childName,
-                    DOB,
-                    gender,
-                    height,
-                    weight,
-                    headSize,
-                    //profileUsername
-                  },
-                  currentChildId,
-                  token || ""
-                )
-                  .then((res) => {
-                    if (!res.ok) {
-                      toast("error");
-                    }
+              return updateChildInfo(
+                {
+                  childName,
+                  DOB,
+                  gender,
+                  height,
+                  weight,
+                  headSize,
+                  profileUsername,
+                },
+                currentChildId,
+                token || ""
+              )
+                .then((res) => {
+                  if (!res.ok) {
+                    toast("error");
+                  }
 
-                    return res.json();
-                  })
-                  .then((data) => {
-                    localStorage.setItem(
-                      "child",
-                      JSON.stringify({
-                        name: data.name,
+                  return res.json();
+                })
+                .then((data) => {
+                  setChildId(data.id);
+                })
 
-                        DOB: data.DOB,
-                        gender: data.gender,
-                        weight: data.weight,
-                        height: data.height,
-                        headSize: data.headSize,
-                        profileId: data.profileId,
-                        id: data.id,
-                      })
-                    );
-
-                    setChildId(data.id);
-                  })
-                  // .then(fetchChildInfo)
-                  .then(() => {
-                    toast.success("Child Profile information Updated");
-                    setActiveHomePageComponent("feeding");
-                    setActiveHomePageComponentInLocalStorage("feeding");
-                    setActiveMainComponent("home");
-                    setActiveMainComponentInLocalStorage("home");
-                    setEditor("not present");
-                    setLoading(false);
-                  })
-              );
+                .then(() => {
+                  toast.success("Child Profile information Updated");
+                  setActiveHomePageComponent("feeding");
+                  setActiveHomePageComponentInLocalStorage("feeding");
+                  setActiveMainComponent("home");
+                  setActiveMainComponentInLocalStorage("home");
+                  setEditor("not present");
+                  setLoading(false);
+                });
             }}
           >
             <div className="nameInfo childInfoContainer">
