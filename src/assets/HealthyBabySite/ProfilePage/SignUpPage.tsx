@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ProfilePage.css";
 import {
   authorization,
@@ -20,11 +20,15 @@ import { UseAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
-import { ProfileInfoTypes } from "../../../../Types";
+import {
+  ProfileEmailTypes,
+  ProfileInfoTypes,
+  ProfileUsernameTypes,
+} from "../../../../Types";
 
 // import { ProfileInfoTypes } from "../../../Types";
 
-export const SignUpPage = async () => {
+export const SignUpPage = () => {
   const [username, setUsername] = useState<string>("");
   // const [email, setEmail] = useState<string>("");
   const [caregiver, setCaregiver] = useState<string>("");
@@ -33,7 +37,8 @@ export const SignUpPage = async () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const { loading, setLoading, isSubmitted, setIsSubmitted } = UseTimeInfo();
-
+  const [userEmails, setUserEmails] = useState<ProfileEmailTypes[]>([]);
+  const [userNames, setUserNames] = useState<ProfileUsernameTypes[]>([]);
   const {
     // loggedIn,
 
@@ -43,33 +48,35 @@ export const SignUpPage = async () => {
   const { setActiveMainComponent } = useActiveComponent();
   const { setProfileUsername, token } = UseHistoryIDComponent();
 
+  useEffect(() => {
+    getAllProfileUserNames().then((data) => {
+      setUserNames(data);
+    });
+    getAllProfileEmails().then((data) => {
+      setUserEmails(data);
+    });
+  }, []);
+
   const passwordsDoMatch = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
   };
-  const doesUsernameExist = async () => {
-    const usernames = await getAllProfileUserNames();
-
-    return usernames.some(
+  const doesUsernameExist = () => {
+    return userNames.some(
       (exitingUsername) => exitingUsername.username === username.toLowerCase()
     );
   };
-  const doesEmailExist = async () => {
-    const emails = await getAllProfileEmails();
 
-    return emails.some(
+  const doesEmailExist = () => {
+    return userEmails.some(
       (exitingEmail) => exitingEmail.email === email.toLowerCase()
     );
   };
 
- 
-
-  
-
   const passwordErrorMessage = "Passwords do not match";
   const shouldShowPasswordErrorMessage =
     isSubmitted && !passwordsDoMatch(password, confirmPassword);
-  const shouldShowUsernameErrorMessage = isSubmitted &&  usernameExist();
-  const shouldShowEmailErrorMessage = isSubmitted &&  emailExist();
+  const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist();
+  const shouldShowEmailErrorMessage = isSubmitted && doesEmailExist();
   const usernameErrorMessage = "Username already Exist";
   const emailErrorMessage = "Email already Exist";
 
@@ -87,8 +94,8 @@ export const SignUpPage = async () => {
               // const usernameExist = await doesUsernameExist();
               // const emailExist = await doesEmailExist();
               if (
-                await usernameExist() ||
-                emailExist() ||
+                doesEmailExist() ||
+                doesUsernameExist() ||
                 !passwordsDoMatch(password, confirmPassword)
               ) {
                 setIsSubmitted(true);
