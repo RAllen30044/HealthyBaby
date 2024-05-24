@@ -20,11 +20,9 @@ import { ErrorMessage } from "../../../ErrorMessage";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import { ProfileInfoTypes } from "../../../../Types";
 
-
 export const EditProfilePage = () => {
   const { setPassword, password } = UseAuthProviderContext();
 
- 
   const [childCaregiver, setChildCaregiver] = useState<string>("");
 
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -96,7 +94,7 @@ export const EditProfilePage = () => {
               ) {
                 setIsSubmitted(true);
                 if (!authorize.token) {
-                  toast.error("Invalid password");
+                  toast.error("Invalid Current Password. Profile Not Updated");
                 }
 
                 return;

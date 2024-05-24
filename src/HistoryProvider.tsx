@@ -1,10 +1,8 @@
 import {
   ReactNode,
   createContext,
-  // useCallback,
   useContext,
   useEffect,
-  // useEffect,
   useState,
 } from "react";
 import {
@@ -26,8 +24,6 @@ import {
   getProfilesChildren,
 } from "../callApis";
 
-// import { useAuthProviderContext } from "./assets/HealthyBabySite/LandingPage/authProvider";
-
 type SortDirection = "asc" | "desc";
 
 export type HistoryIDComponentProvider = {
@@ -45,8 +41,6 @@ export type HistoryIDComponentProvider = {
   setDiapersHistory: React.Dispatch<
     React.SetStateAction<DiapersHistoryInfoTypes[]>
   >;
-  childInfo: ChildInfoT[];
-  setChildInfo: React.Dispatch<React.SetStateAction<ChildInfoT[]>>;
 
   illnessHistory: IllnessType[];
   setIllnessHistory: React.Dispatch<React.SetStateAction<IllnessType[]>>;
@@ -54,15 +48,9 @@ export type HistoryIDComponentProvider = {
   nappingHistory: nappingType[];
   setNappingHistory: React.Dispatch<React.SetStateAction<nappingType[]>>;
 
-  firstChild: ChildInfoT[];
-  setFirstChild: React.Dispatch<React.SetStateAction<ChildInfoT[]>>;
-  page: object[];
-  setPage: React.Dispatch<React.SetStateAction<object[]>>;
-  hashedPassword: string;
-  setHashedPassword: React.Dispatch<React.SetStateAction<string>>;
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
-  // fetchProfileInfo: () => Promise<void>;
+
   fetchBottleFeedingData: () => Promise<void>;
   fetchBreastFeedingData: () => Promise<void>;
   fetchMealData: () => Promise<void>;
@@ -70,7 +58,6 @@ export type HistoryIDComponentProvider = {
   fetchDiaperHistory: () => Promise<void>;
   fetchIllnessHistory: () => Promise<void>;
   fetchNappingHistory: () => Promise<void>;
-  // fetchProfilesChildren: () => Promise<void>;
 
   childId: number;
   setChildId: React.Dispatch<React.SetStateAction<number>>;
@@ -101,14 +88,14 @@ export const HistoryIDComponentProvider = ({
     breastFeedingInfoType[]
   >([]);
   const [mealHistory, setMealHistory] = useState<eatingInfoType[]>([]);
-  const [childInfo, setChildInfo] = useState<ChildInfoT[]>([]);
+
   const [diapersHistory, setDiapersHistory] = useState<
     DiapersHistoryInfoTypes[]
   >([]);
   const [profileChildren, setProfileChildren] = useState<ChildInfoT[]>([]);
   const [nappingHistory, setNappingHistory] = useState<nappingType[]>([]);
   const [illnessHistory, setIllnessHistory] = useState<IllnessType[]>([]);
-  const [hashedPassword, setHashedPassword] = useState<string>("");
+
   const getId = localStorage.getItem("childId");
 
   const [childId, setChildId] = useState<number>(
@@ -119,9 +106,8 @@ export const HistoryIDComponentProvider = ({
     localStorage.getItem("token")
   );
 
-  const [page, setPage] = useState<object[]>([]);
   const [profileUsername, setProfileUsername] = useState<string>("");
-  const [firstChild, setFirstChild] = useState<ChildInfoT[]>([]);
+ 
   const getSortingDirection = localStorage.getItem("sortDirection");
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     JSON.parse(JSON.stringify(getSortingDirection)) || "asc"
@@ -164,10 +150,7 @@ export const HistoryIDComponentProvider = ({
         setBottleFeedHistory,
         fetchBottleFeedingData,
         fetchBreastFeedingData,
-        childInfo,
-        setChildInfo,
-        hashedPassword,
-        setHashedPassword,
+
         diapersHistory,
         setDiapersHistory,
         fetchDiaperHistory,
@@ -178,7 +161,6 @@ export const HistoryIDComponentProvider = ({
         setNappingHistory,
         fetchNappingHistory,
 
-        // fetchProfileInfo,
         mealHistory,
         setMealHistory,
         fetchMealData,
@@ -186,13 +168,10 @@ export const HistoryIDComponentProvider = ({
         setChildId,
         profileUsername,
         setProfileUsername,
-        firstChild,
-        setFirstChild,
+
         setSortDirection,
         sortDirection,
-        page,
-        setPage,
-        // fetchProfilesChildren,
+
         profileChildren,
         setProfileChildren,
         token,

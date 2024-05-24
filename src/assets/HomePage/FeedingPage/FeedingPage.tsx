@@ -147,6 +147,7 @@ export const FeedingPage = () => {
               className={`infantModeSwitch button `}
               onClick={() => {
                 if (infantMode === "on") {
+                  setIsSubmitted(false);
                   setInfantMode("off");
                   setFeed("infantModeOff");
                   localStorage.setItem("feed", "infantModeOff");
@@ -155,6 +156,7 @@ export const FeedingPage = () => {
                   setTime("");
                 }
                 if (infantMode === "off") {
+                  setIsSubmitted(false);
                   setInfantMode("on");
                   setFeed("bottleFeed");
                   localStorage.setItem("feed", "bottleFeed");
@@ -184,6 +186,7 @@ export const FeedingPage = () => {
                 feed === "breastFeed" ? "pressedButton" : ""
               }`}
               onClick={() => {
+                setIsSubmitted(false);
                 setFeed("breastFeed");
                 localStorage.setItem("feed", "breastFeed");
                 setDate("");
@@ -200,6 +203,7 @@ export const FeedingPage = () => {
                 feed === "bottleFeed" ? "pressedButton" : ""
               }  `}
               onClick={() => {
+                setIsSubmitted(false);
                 setFeed("bottleFeed");
                 localStorage.setItem("feed", "bottleFeed");
                 setDate("");
@@ -453,9 +457,12 @@ export const FeedingPage = () => {
                     }}
                   />
                 </div>
-                {shouldShowErrorMessageForDrinkType&& (
-                <ErrorMessage message={noWordErrorMessage("Beverage")} show={true} />
-              )}
+                {shouldShowErrorMessageForDrinkType && (
+                  <ErrorMessage
+                    message={noWordErrorMessage("Beverage")}
+                    show={true}
+                  />
+                )}
                 <div className="foodType ">
                   <label htmlFor="">Meal: </label>
                   <input
@@ -468,9 +475,12 @@ export const FeedingPage = () => {
                     }}
                   />
                 </div>
-                {shouldShowErrorMessageForFoodType&& (
-                <ErrorMessage message={noWordErrorMessage("Meal")} show={true} />
-              )}
+                {shouldShowErrorMessageForFoodType && (
+                  <ErrorMessage
+                    message={noWordErrorMessage("Meal")}
+                    show={true}
+                  />
+                )}
               </div>
               <div className="saveContainer">
                 <button

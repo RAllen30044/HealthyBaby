@@ -8,6 +8,7 @@ import {
 } from "../../../../callApis";
 import { UseTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
 import {
+  isEmailValid,
   preventKeyingNumbers,
   preventKeyingSpaces,
 } from "../../../ErrorHandling";
@@ -70,9 +71,10 @@ export const SignUpPage = () => {
     isSubmitted && !passwordsDoMatch(password, confirmPassword);
   const shouldShowUsernameErrorMessage = isSubmitted && doesUsernameExist();
   const shouldShowEmailErrorMessage = isSubmitted && doesEmailExist();
+  const shouldShowEmailValidationMessage = isSubmitted && !isEmailValid(email);
   const usernameErrorMessage = "Username already Exist";
   const emailErrorMessage = "Email already Exist";
-
+  const emailValidationMessage = "Email not valid, Please enter a valid email";
   return (
     <>
       <div className="profilePage">
@@ -84,12 +86,11 @@ export const SignUpPage = () => {
             onSubmit={async (e) => {
               e.preventDefault();
 
-              // const usernameExist = await doesUsernameExist();
-              // const emailExist = await doesEmailExist();
               if (
                 doesEmailExist() ||
                 doesUsernameExist() ||
-                !passwordsDoMatch(password, confirmPassword)
+                !passwordsDoMatch(password, confirmPassword) ||
+                !isEmailValid(email)
               ) {
                 setIsSubmitted(true);
                 return;
@@ -169,6 +170,9 @@ export const SignUpPage = () => {
             </div>
             {shouldShowEmailErrorMessage && (
               <ErrorMessage message={emailErrorMessage} show={true} />
+            )}
+            {shouldShowEmailValidationMessage && (
+              <ErrorMessage message={emailValidationMessage} show={true} />
             )}
             <div className="inputContainer">
               <label htmlFor="caregiver" className="profileLabel">
