@@ -73,8 +73,6 @@ export const babyNameForHistory = () => {
 };
 
 export const getChildDOB = (profileChildren: ChildInfoT[], childId: number) => {
-
-  console.log(profileChildren);
   const child = profileChildren.find((child) => child.id === childId);
   return `${`${child?.DOB}` || ""}`;
 };
@@ -96,4 +94,23 @@ export const getIsSubmittedFromLocalStorage = (): boolean => {
 
 export const setIsSubmittedInLocalStorage = (isSubmitted: string) => {
   return localStorage.setItem("isSubmitted", isSubmitted);
+};
+
+export const numberErrorMessage = "Must enter a number.";
+
+export const isEntryNotANumber = (num: string): boolean => {
+  if (isNaN(Number.parseFloat(num))) {
+    return true;
+  }
+  return false;
+};
+
+export const noWordErrorMessage = (category: string): string => {
+  return `Must enter ${category}`;
+};
+export const isWordsEntered = (message: string): boolean => {
+  if (message.length > 1) {
+    return false;
+  }
+  return true;
 };

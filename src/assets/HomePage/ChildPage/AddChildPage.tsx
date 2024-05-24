@@ -3,6 +3,8 @@ import {
   futureDOBNotAllowed,
   getIsSubmittedFromLocalStorage,
   isDOBValid,
+  isEntryNotANumber,
+  numberErrorMessage,
   onlyKeyNumbers,
   preventKeyingNumbers,
   setActiveHomePageComponentInLocalStorage,
@@ -11,14 +13,7 @@ import {
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
-import {
-  authorization,
-  childrenUrl,
-  getProfilesFirstChild,
-  // getProfilesChildren,
-  // getProfilesFirstChild,
-  postInfo,
-} from "../../../../callApis";
+import { authorization, childrenUrl, postInfo } from "../../../../callApis";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
 import { UseTimeInfo } from "../TimeInfo/TimeInfoProvider";
@@ -37,20 +32,27 @@ export const AddChildPage = () => {
   const { loading, setLoading, date, setDate } = UseTimeInfo();
   const { setActiveMainComponent, setActiveHomePageComponent } =
     useActiveComponent();
-  const { showAddChildError, setShowAddChildError, password } =
+  const { showAddChildError, setShowAddChildError, password, setPassword } =
     UseAuthProviderContext();
-  const { setIsSubmitted, shouldShowDOBentryError } = UseTimeInfo();
+  const { setIsSubmitted, shouldShowDOBentryError, isSubmitted } =
+    UseTimeInfo();
   const {
     setChildId,
-    //  setProfileChildren,
-    //  profileChildren
+
     setToken,
-    hashedPassword,
-    profileUsername,
+    profileChildren,
+    // profileUsername,
   } = UseHistoryIDComponent();
 
   const addChildErrorMessage =
     "This profile has not added a child. In order to continue you must add a child to your profile.";
+
+  const shouldShowNumberErrorMessageForWeight =
+    isSubmitted && isEntryNotANumber(weight);
+  const shouldShowNumberErrorMessageForHeight =
+    isSubmitted && isEntryNotANumber(height);
+  const shouldShowNumberErrorMessageForHeadSize =
+    isSubmitted && isEntryNotANumber(headSize);
   return (
     <>
       <div className="childPage">
@@ -61,27 +63,33 @@ export const AddChildPage = () => {
             className="childInfo"
             onSubmit={async (e) => {
               e.preventDefault();
-
-              console.log(profileUsername.toLowerCase(), hashedPassword);
-
-              const authorize = await authorization(
-                profileUsername.toLowerCase(),
-                password
-              );
-              console.log(authorize.token);
-
-              if (isDOBValid(date)) {
+              const storedUsername = localStorage.getItem("profileUserName");
+              if (
+                isDOBValid(date) ||
+                isEntryNotANumber(headSize) ||
+                isEntryNotANumber(height) ||
+                isEntryNotANumber(weight)
+              ) {
                 setIsSubmittedInLocalStorage("true");
                 setIsSubmitted(getIsSubmittedFromLocalStorage());
 
                 return;
               }
-              if (authorize) {
-                setToken(authorize.token);
-                localStorage.setItem("token", authorize.token);
-              }
 
-              setIsSubmittedInLocalStorage("true");
+              if (profileChildren.length === 0) {
+                const authorize = await authorization(
+                  storedUsername!.toLowerCase(),
+                  password
+                );
+                console.log(authorize.token);
+
+                if (authorize) {
+                  setToken(authorize.token);
+                  localStorage.setItem("token", authorize.token);
+                }
+              }
+              setIsSubmitted(false);
+              setIsSubmittedInLocalStorage("false");
               setIsSubmitted(getIsSubmittedFromLocalStorage());
               setShowAddChildError(getIsSubmittedFromLocalStorage());
 
@@ -95,7 +103,7 @@ export const AddChildPage = () => {
                   weight: weight,
                   headSize: headSize,
                   height: height,
-                  profileUsername: profileUsername.toLowerCase(),
+                  profileUsername: storedUsername!.toLowerCase(),
                 },
                 childrenUrl
               )
@@ -103,17 +111,21 @@ export const AddChildPage = () => {
                   if (!res.ok) {
                     throw new Error("Failed to save child information");
                   }
+                  setToken("");
                   return res.json();
                 })
                 .then((data) => {
+                  setToken(localStorage.getItem("token"));
                   console.log(data);
                   setChildId(data.id);
+                  localStorage.setItem("childId", JSON.stringify(data.id));
                   setActiveMainComponent("home");
                   setActiveMainComponentInLocalStorage("home");
                   setActiveHomePageComponent("feeding");
                   setActiveHomePageComponentInLocalStorage("feeding");
                   setIsSubmittedInLocalStorage("false");
                   setShowAddChildError(getIsSubmittedFromLocalStorage());
+                  setPassword("");
                   setDate("");
                   setGender("Female");
                   setWeight("");
@@ -122,7 +134,6 @@ export const AddChildPage = () => {
                 })
                 .catch((err) => {
                   console.error("Error saving child information:", err);
-                  // Handle error
                   toast.error("Failed to save child information");
                 })
                 .finally(() => {
@@ -143,6 +154,7 @@ export const AddChildPage = () => {
                 onChange={(e) => {
                   setName(preventKeyingNumbers(e.target.value));
                 }}
+                required
               />
             </div>
             {shouldShowDOBentryError && (
@@ -200,6 +212,9 @@ export const AddChildPage = () => {
               />
               <span> lbs.</span>
             </div>
+            {shouldShowNumberErrorMessageForWeight && (
+              <ErrorMessage message={numberErrorMessage} show={true} />
+            )}
             <div className="heightInfo childInfoContainer">
               <label className="height childInfoLabel">Height: </label>
               <input
@@ -212,6 +227,9 @@ export const AddChildPage = () => {
               />
               <span> in.</span>
             </div>
+            {shouldShowNumberErrorMessageForHeight && (
+              <ErrorMessage message={numberErrorMessage} show={true} />
+            )}
             <div className="headSizeInfo childInfoContainer">
               <label className="headSize childInfoLabel">Head Size:</label>
               <input
@@ -224,6 +242,9 @@ export const AddChildPage = () => {
               />
               <span>in.</span>
             </div>
+            {shouldShowNumberErrorMessageForHeadSize && (
+              <ErrorMessage message={numberErrorMessage} show={true} />
+            )}
             <div className="buttonContainer ">
               <button
                 type="submit"

@@ -60,7 +60,7 @@ export const TimeInfoProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const dateBeforeBirthMessage =
-  "Can not choose a date the is before the birth of the child";
+  "Can not choose a date that is before the birth of the child. Please select another date.";
 
 export const UseTimeInfo = () => useContext(TimeInfoContext);
 

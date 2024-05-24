@@ -5,17 +5,14 @@ import { NappingPage } from "./NappingPage/NappingPage";
 import { IllnessPage } from "./IllnessPage/IllnessPage";
 import { useActiveComponent } from "../HealthyBabySite/Header/ActiveComponentProvider";
 
-// import { setActiveHomePageComponentInLocalStorage } from "../../ErrorHandling";
+import { setActiveHomePageComponentInLocalStorage } from "../../ErrorHandling";
 
-import {
-  setActiveHomePageComponentInLocalStorage,
-  
-} from "../../ErrorHandling";
+import { UseTimeInfo } from "./TimeInfo/TimeInfoProvider";
 
 export const HomePage = () => {
   const { activeHomePageComponent, setActiveHomePageComponent } =
     useActiveComponent();
-
+  const { setIsSubmitted } = UseTimeInfo();
   return (
     <>
       <div className={`tabs `}>
@@ -25,6 +22,7 @@ export const HomePage = () => {
               activeHomePageComponent === "feeding" ? "active" : ""
             }`}
             onClick={() => {
+              setIsSubmitted(false);
               setActiveHomePageComponent("feeding");
               setActiveHomePageComponentInLocalStorage("feeding");
             }}
@@ -38,6 +36,7 @@ export const HomePage = () => {
               activeHomePageComponent === "diaper" ? "active" : ""
             }`}
             onClick={() => {
+              setIsSubmitted(false);
               setActiveHomePageComponent("diaper");
               setActiveHomePageComponentInLocalStorage("diaper");
             }}
@@ -51,6 +50,7 @@ export const HomePage = () => {
               activeHomePageComponent === "napping" ? "active" : ""
             }`}
             onClick={() => {
+              setIsSubmitted(false);
               setActiveHomePageComponent("napping");
               setActiveHomePageComponentInLocalStorage("napping"); //
             }}
@@ -64,6 +64,7 @@ export const HomePage = () => {
               activeHomePageComponent === "illness" ? "active" : ""
             }`}
             onClick={() => {
+              setIsSubmitted(false);
               setActiveHomePageComponent("illness");
               setActiveHomePageComponentInLocalStorage("illness");
             }}

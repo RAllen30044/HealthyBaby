@@ -11,7 +11,6 @@ import {
   ChildInfoT,
   DiapersHistoryInfoTypes,
   IllnessType,
- 
   bottleFeedingInfoType,
   breastFeedingInfoType,
   eatingInfoType,
@@ -127,8 +126,6 @@ export const HistoryIDComponentProvider = ({
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     JSON.parse(JSON.stringify(getSortingDirection)) || "asc"
   );
-
-  
 
   useEffect(() => {
     if (token) {

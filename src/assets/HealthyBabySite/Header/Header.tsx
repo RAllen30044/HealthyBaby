@@ -1,6 +1,7 @@
 import {
   setActiveHomePageComponentInLocalStorage,
   setActiveMainComponentInLocalStorage,
+  setIsSubmittedInLocalStorage,
 } from "../../../ErrorHandling";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import { useChildInfo } from "../../HomePage/ChildPage/ChildInfoProvider";
@@ -24,10 +25,11 @@ export const Header = () => {
   const {
     chevronPosition,
     setChevronPosition,
+    
     hiddenPagesLinks,
     setHiddenPagesLinks,
   } = useChildInfo();
-  const { setDate, setTime } = UseTimeInfo();
+  const { setDate, setTime, setIsSubmitted } = UseTimeInfo();
   const {
     // childInfo,
     setChildId,
@@ -50,8 +52,12 @@ export const Header = () => {
           onClick={() => {
             if (chevronPosition === "down") {
               setChevronPosition("up");
+              setIsSubmitted(false);
+              setIsSubmittedInLocalStorage("false");
               return;
             }
+            setIsSubmitted(false);
+            setIsSubmittedInLocalStorage("false");
             setChevronPosition("down");
           }}
         >
@@ -85,6 +91,7 @@ export const Header = () => {
                     "childId",
                     JSON.stringify(selectedChildId)
                   );
+                
                   setChevronPosition("down");
                 }}
               >
@@ -111,6 +118,7 @@ export const Header = () => {
                     setActiveHomePageComponentInLocalStorage("feeding");
                     setActiveMainComponent("home");
                     setActiveMainComponentInLocalStorage("home");
+                    setIsSubmitted(false);
                     setDate("");
                     setTime("");
                   }
@@ -145,6 +153,7 @@ export const Header = () => {
                   setActiveMainComponentInLocalStorage("home");
                   setActiveHomePageComponent("feeding");
                   setActiveHomePageComponentInLocalStorage("feeding");
+                  setIsSubmitted(false);
                 }}
               >
                 Home
@@ -154,6 +163,7 @@ export const Header = () => {
                 onClick={() => {
                   setActiveMainComponent("about");
                   setActiveMainComponentInLocalStorage("about");
+                  setIsSubmitted(false);
                   setDate("");
                   setTime("");
                 }}
@@ -165,6 +175,7 @@ export const Header = () => {
                 onClick={() => {
                   setActiveMainComponent("editProfile");
                   setActiveMainComponentInLocalStorage("editProfile");
+                  setIsSubmitted(false);
                   setDate("");
                   setTime("");
                 }}
@@ -180,6 +191,7 @@ export const Header = () => {
                   setHiddenPagesLinks(false);
                   setActiveMainComponent("landingPage");
                   setActiveMainComponentInLocalStorage("landingPage");
+                  setIsSubmitted(false);
                   setToken(null);
                   setDate("");
                   setTime("");
@@ -197,7 +209,8 @@ export const Header = () => {
               <div
                 className={` pageLink `}
                 onClick={() => {
-                  setActiveMainComponent("landingPage");
+                  setActiveMainComponent("landingPage"); 
+                  setIsSubmitted(false);
                 }}
               >
                 Log In
@@ -207,6 +220,7 @@ export const Header = () => {
                 onClick={() => {
                   setActiveMainComponent("about");
                   setActiveMainComponentInLocalStorage("about");
+                  setIsSubmitted(false);
                   setDate("");
                   setTime("");
                 }}
@@ -216,6 +230,7 @@ export const Header = () => {
               <div
                 className={` pageLink `}
                 onClick={() => {
+                  setIsSubmitted(false);
                   setActiveMainComponent("signUp");
                 }}
               >
@@ -231,6 +246,7 @@ export const Header = () => {
               <div
                 className={` LandingPageLink `}
                 onClick={() => {
+                  setIsSubmitted(false);
                   setActiveMainComponent("landingPage");
                   setActiveMainComponentInLocalStorage("landingPage");
                 }}
@@ -240,6 +256,7 @@ export const Header = () => {
               <div
                 className={` LandingPageLink `}
                 onClick={() => {
+                  setIsSubmitted(false);
                   setActiveMainComponent("about");
                   setActiveMainComponentInLocalStorage("about");
                 }}
@@ -249,6 +266,7 @@ export const Header = () => {
               <div
                 className={` LandingPageLink `}
                 onClick={() => {
+                  setIsSubmitted(false);
                   setActiveMainComponent("signUp");
                   setActiveMainComponentInLocalStorage("signUp");
                 }}
@@ -291,6 +309,7 @@ export const Header = () => {
                       activeHomePageComponent === "feeding" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("home");
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("feeding");
@@ -308,6 +327,7 @@ export const Header = () => {
                       activeHomePageComponent === "diaper" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("home");
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("diaper");
@@ -325,6 +345,7 @@ export const Header = () => {
                       activeHomePageComponent === "napping" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("home");
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("napping");
@@ -342,6 +363,7 @@ export const Header = () => {
                       activeHomePageComponent === "illness" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("home");
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("illness");
@@ -359,6 +381,7 @@ export const Header = () => {
                       activeMainComponent === "addChild" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("addChild");
                       setActiveMainComponentInLocalStorage("addChild");
                       setActiveHomePageComponent("");
@@ -383,6 +406,7 @@ export const Header = () => {
                     if (profileChildren.length === 0) {
                       return;
                     }
+                    setIsSubmitted(false);
                     setActiveHomePageComponent("feeding");
                     setActiveHomePageComponentInLocalStorage("feeding");
                     setActiveMainComponent("home");
@@ -437,6 +461,7 @@ export const Header = () => {
                       activeMainComponent === "home" ? "selected" : ""
                     } `}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("home");
                       setActiveMainComponentInLocalStorage("home");
                       setActiveHomePageComponent("feeding");
@@ -455,6 +480,7 @@ export const Header = () => {
                       activeMainComponent === "about" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("about");
                       setActiveMainComponentInLocalStorage("about");
                       setDate("");
@@ -471,6 +497,7 @@ export const Header = () => {
                       activeMainComponent === "editProfile" ? "selected" : ""
                     }`}
                     onClick={() => {
+                      setIsSubmitted(false);
                       setActiveMainComponent("editProfile");
                       setActiveMainComponentInLocalStorage("editProfile");
                       setHiddenPagesLinks(!hiddenPagesLinks);
@@ -488,7 +515,7 @@ export const Header = () => {
                     }`}
                     onClick={() => {
                       setEditor("not present");
-
+                      setIsSubmitted(false);
                       setActiveMainComponent("addChild");
                       setActiveMainComponentInLocalStorage("addChild");
                       setHiddenPagesLinks(!hiddenPagesLinks);
@@ -504,6 +531,7 @@ export const Header = () => {
                     className={` mobileLink `}
                     onClick={() => {
                       localStorage.clear();
+                      setIsSubmitted(false);
                       setUser(null);
                       setProfileChildren([]);
                       setActiveMainComponent("landingPage");
@@ -528,6 +556,7 @@ export const Header = () => {
               <div
                 className={`logIn mobileLandingLink`}
                 onClick={() => {
+                  setIsSubmitted(false);
                   setActiveMainComponent("landingPage");
                   setActiveMainComponentInLocalStorage("landingPage");
                 }}
@@ -537,6 +566,7 @@ export const Header = () => {
               <div
                 className={` about mobileLandingLink  `}
                 onClick={() => {
+                  setIsSubmitted(false);
                   setActiveMainComponent("about");
                   setActiveMainComponentInLocalStorage("about");
                   setDate("");
@@ -551,6 +581,7 @@ export const Header = () => {
               <div
                 className={`signUp mobileLandingLink `}
                 onClick={() => {
+                  setIsSubmitted(false);
                   setActiveMainComponent("signUp");
                   setActiveMainComponentInLocalStorage("signUp");
                 }}

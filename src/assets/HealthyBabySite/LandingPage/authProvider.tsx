@@ -16,7 +16,6 @@ export type AuthComponentProviderT = {
   log: string | null;
   setLog: React.Dispatch<React.SetStateAction<string | null>>;
 
-
   user: User | null;
   username: string;
   password: string;
@@ -29,7 +28,6 @@ export type AuthComponentProviderT = {
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-
 };
 
 const AuthProviderContext = createContext<AuthComponentProviderT>(
@@ -42,18 +40,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const [token, setToken] = useState<string | null>(null);
-  
-
 
   const [landingPage, setLandingPage] = useState<LandingPageT>("on");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAddChildError, setShowAddChildError] = useState<boolean>(
-    getIsSubmittedFromLocalStorage()
+    getIsSubmittedFromLocalStorage() || false
   );
-
-
- 
 
   return (
     <>
@@ -63,8 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setLog,
           user,
           setUser,
-       
-       
+
           username,
           setUsername,
           password,

@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import "./ProfilePage.css";
 import {
-  authorization,
   getAllProfileEmails,
   getAllProfileUserNames,
-  getProfile,
   postInfo,
-  postProfile,
   profilesUrl,
 } from "../../../../callApis";
 import { UseTimeInfo } from "../../HomePage/TimeInfo/TimeInfoProvider";
@@ -20,11 +17,7 @@ import { UseAuthProviderContext } from "../LandingPage/authProvider";
 import { useActiveComponent } from "../Header/ActiveComponentProvider";
 import { ErrorMessage } from "../../../ErrorMessage";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
-import {
-  ProfileEmailTypes,
-  ProfileInfoTypes,
-  ProfileUsernameTypes,
-} from "../../../../Types";
+import { ProfileEmailTypes, ProfileUsernameTypes } from "../../../../Types";
 
 // import { ProfileInfoTypes } from "../../../Types";
 
@@ -122,7 +115,7 @@ export const SignUpPage = () => {
                 })
                 .then(() => {
                   setProfileUsername(username);
-                  
+                  localStorage.setItem("profileUserName", username);
                 })
                 .then(() => {
                   toast.success("Profile Saved");
@@ -211,7 +204,7 @@ export const SignUpPage = () => {
             </div>
             <div className={`inputContainer ${token ? "hidden" : ""}`}>
               <label htmlFor="password" className="profileLabel">
-                Confirm New Password:
+                Confirm Password:
               </label>
               <input
                 type="password"
@@ -226,37 +219,7 @@ export const SignUpPage = () => {
             {shouldShowPasswordErrorMessage && (
               <ErrorMessage message={passwordErrorMessage} show={true} />
             )}
-            <div className={`inputContainer ${token ? "" : "hidden"}`}>
-              <label htmlFor="password" className="profileLabel">
-                New Password:
-              </label>
-              <input
-                type="password"
-                name="newPassword"
-                id="newPassword"
-                className="profileInput"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
-            <div className={`inputContainer ${token ? "" : "hidden"}`}>
-              <label htmlFor="password" className="profileLabel">
-                Confirm New Password:
-              </label>
-              <input
-                type="password"
-                name="confirmNewPassword"
-                id="confirmNewPassword"
-                className="profileInput"
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                }}
-              />
-            </div>
-            {shouldShowPasswordErrorMessage && (
-              <ErrorMessage message={passwordErrorMessage} show={true} />
-            )}
+
             <div className="buttonContainer">
               <button className="saveButton" disabled={loading}>
                 Save

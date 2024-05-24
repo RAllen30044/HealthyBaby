@@ -24,7 +24,7 @@ export type authorizationType = {
 
 export const baseUrl = "http://localhost:3000";
 export const firstChildUrl = `${baseUrl}/firstChild`;
-
+export const currentChildUrl = `${baseUrl}/currentChild`;
 export const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
 export const bottleFeedingHistoryUrl = `${baseUrl}/bottleFeedingHistory`;
 export const mealHistoryUrl = `${baseUrl}/mealHistory`;
@@ -95,16 +95,31 @@ export const getProfile = async (
     .then((data) => data);
   return profile;
 };
-export const updateChildInfo = (child: object, id: number, token: string) => {
-  return fetch(`${childrenUrl}/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+export const updateChildInfo = async (
+  child: object,
+  id: number,
+  token: string | null
+): Promise<Response> => {
+  try {
+    const response = await fetch(`${childrenUrl}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(child),
+    });
 
-    body: JSON.stringify(child),
-  });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Failed to update child info:", error);
+
+    throw error;
+  }
 };
 
 export const updateProfileInfo = (
@@ -201,3 +216,26 @@ export const getAllProfileEmails = (): Promise<ProfileEmailTypes[]> =>
       return res.json();
     })
     .then((data) => data);
+
+export const getCurrentProfile = (token: string | null) =>
+  fetch(`${profileUrl}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error("Failed to get current child");
+    }
+    return res.json();
+  });
+export const updateCurrentProfile = (
+  object: Partial<ProfileInfoTypes>,
+  token: string | null
+) =>
+  fetch(`${profileUrl}`, {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(object),
+  });

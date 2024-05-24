@@ -14,15 +14,8 @@ import { UseHistoryIDComponent } from "../../../HistoryProvider";
 export const ChildInfo = () => {
   const { profileChildren, childId } = UseHistoryIDComponent();
   const { editor, setEditor, setActiveMainComponent } = useActiveComponent();
-  const {
-    setChildName,
-    setDOB,
-    setGender,
-    setHeadSize,
-    setWeight,
-    setHeight,
-    setCurrentChildId,
-  } = useChildInfo();
+  const { setChildName, setDOB, setGender, setHeadSize, setWeight, setHeight } =
+    useChildInfo();
   const { setDate, setTime } = UseTimeInfo();
   const inchToFeet = (inches: string) => {
     const inchNumber = Number.parseInt(inches);
@@ -31,7 +24,6 @@ export const ChildInfo = () => {
     }
     return `${inchNumber} in.`;
   };
- 
 
   return (
     <>
@@ -68,7 +60,7 @@ export const ChildInfo = () => {
                       setWeight(child.weight);
                       setHeight(child.height);
                       setDOB(child.DOB);
-                      setCurrentChildId(child.id);
+
                       setEditor("present");
                       setActiveMainComponent("editChild");
                       setActiveMainComponentInLocalStorage("editChild");

@@ -19,6 +19,10 @@ import {
   futureTimeNotAllowed,
   getChildDOB,
   isDateNotBeforeBirth,
+  isEntryNotANumber,
+  isWordsEntered,
+  noWordErrorMessage,
+  numberErrorMessage,
   preventKeyingNumbers,
   timeInvalid,
 } from "../../../ErrorHandling";
@@ -45,6 +49,7 @@ export const IllnessPage = () => {
     loading,
     setLoading,
     setIsSubmitted,
+    isSubmitted,
     shouldShowDateTimeEntryError,
     shouldShowDateBeforeBirthError,
   } = UseTimeInfo();
@@ -68,6 +73,11 @@ export const IllnessPage = () => {
       } else return;
     });
   };
+  const shouldShowNumberErrorMessage = isSubmitted && isEntryNotANumber(dosage);
+  const shouldShowErrorMessageForSymptoms =
+    isSubmitted && isWordsEntered(symptoms);
+  const shouldShowErrorMessageForMedicationType =
+    isSubmitted && isWordsEntered(medicationType);
 
   return (
     <>
@@ -89,7 +99,16 @@ export const IllnessPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (isDateNotBeforeBirth(getChildDOB(profileChildren, childId), date)||timeInvalid(date, time)) {
+                if (
+                  isDateNotBeforeBirth(
+                    getChildDOB(profileChildren, childId),
+                    date
+                  ) ||
+                  timeInvalid(date, time) ||
+                  isEntryNotANumber(dosage) ||
+                  isWordsEntered(symptoms) ||
+                  isWordsEntered(medicationType)
+                ) {
                   setIsSubmitted(true);
                   return;
                 }
@@ -140,9 +159,14 @@ export const IllnessPage = () => {
                   onChange={(e) => {
                     setSymptoms(e.target.value);
                   }}
-                  required
                 />
               </div>
+              {shouldShowErrorMessageForSymptoms && (
+                <ErrorMessage
+                  message={noWordErrorMessage("Symptoms")}
+                  show={true}
+                />
+              )}
               <div className="medicineGiven">
                 <label htmlFor="medicineGiven">Medicine: </label>
                 <input
@@ -152,9 +176,14 @@ export const IllnessPage = () => {
                   onChange={(e) => {
                     setMedicationType(preventKeyingNumbers(e.target.value));
                   }}
-                  required
                 />
               </div>
+              {shouldShowErrorMessageForMedicationType && (
+                <ErrorMessage
+                  message={noWordErrorMessage("Medicine")}
+                  show={true}
+                />
+              )}
               <div className="dosage">
                 <label htmlFor="dosage">Dosage: </label>
                 <input
@@ -164,7 +193,6 @@ export const IllnessPage = () => {
                   onChange={(e) => {
                     setDosage(e.target.value);
                   }}
-                  required
                 />
                 <div className={`unitOfMeasurementButtons`}>
                   <button
@@ -193,6 +221,9 @@ export const IllnessPage = () => {
                   </button>
                 </div>
               </div>
+              {shouldShowNumberErrorMessage && (
+                <ErrorMessage message={numberErrorMessage} show={true} />
+              )}
               <div className="saveContainer">
                 <button
                   type="submit"

@@ -5,6 +5,8 @@ import {
   encryptPassword,
   getDataFromAuthToken,
 } from "./validations";
+import { validateRequest } from "zod-express-middleware";
+import z from "zod";
 
 const profileController = Router();
 
@@ -94,116 +96,68 @@ profileController.get("/profile", authMiddleware, async (req, res) => {
   return res.status(200).send(profile);
 });
 
-profileController.post("/profiles", async (req, res) => {
-  const body = req.body;
-  const errors: string[] = [];
-  const validKeys = ["username", "password", "caregiver", "email"];
-  const inputKeys = Object.keys(body);
+profileController.post(
+  "/profiles",
+  validateRequest({
+    body: z.object({
+      username: z.string(),
+      password: z.string(),
+      caregiver: z.string(),
+      email: z.string().email(),
+    }),
+  }),
+  async (req, res) => {
+    const body = req.body;
 
-  // Check for invalid keys
-  inputKeys.forEach((key) => {
-    if (!validKeys.includes(key)) {
-      errors.push(`'${key}' is not a valid key`);
+    try {
+      const profile = await client.profile.create({
+        data: {
+          username: body.username,
+          password: await encryptPassword(body.password),
+          caregiver: body.caregiver,
+          email: body.email,
+        },
+      });
+      return res.status(201).send(profile);
+    } catch (err) {
+      return res.status(500).send({ error: `Internal Server Error` });
     }
-  });
+  }
+);
+profileController.post(
+  "/children",
+  validateRequest({
+    body: z.object({
+      name: z.string(),
+      DOB: z.string(),
+      gender: z.string(),
+      weight: z.string(),
+      headSize: z.string(),
+      height: z.string(),
+      profileUsername: z.string(),
+    }),
+  }),
+  async (req, res) => {
+    const body = req.body;
 
-  // Validate fields
-  if (typeof body.username !== "string") {
-    errors.push("username should be a string");
-  }
-  if (typeof body.password !== "string") {
-    errors.push("password should be a string");
-  }
-  if (typeof body.caregiver !== "string") {
-    errors.push("caregiver should be a string");
-  }
-  if (typeof body.email !== "string") {
-    errors.push("email should be a string");
-  }
-
-  // If there are any errors, return them
-  if (errors.length > 0) {
-    return res.status(400).send({ errors });
-  }
-  try {
-    const profile = await client.profile.create({
-      data: {
-        username: body.username,
-        password: await encryptPassword(body.password),
-        caregiver: body.caregiver,
-        email: body.email,
-      },
-    });
-    return res.status(201).send(profile);
-  } catch (err) {
-    return res.status(500).send({ error: `Internal Server Error` });
-  }
-});
-profileController.post("/children", async (req, res) => {
-  const body = req.body;
-  const errors: string[] = [];
-  const validKeys = [
-    "name",
-    "DOB",
-    "gender",
-    "weight",
-    "headSize",
-    "height",
-    "profileUsername",
-  ];
-  const inputKeys = Object.keys(body);
-
-  // Check for invalid keys
-  inputKeys.forEach((key) => {
-    if (!validKeys.includes(key)) {
-      errors.push(`'${key}' is not a valid key`);
+    try {
+      const child = await client.child.create({
+        data: {
+          name: body.name,
+          DOB: body.DOB,
+          gender: body.gender,
+          height: body.height,
+          weight: body.weight,
+          headSize: body.headSize,
+          profileUsername: body.profileUsername,
+        },
+      });
+      return res.status(201).send(child);
+    } catch (err) {
+      return res.status(500).send({ error: "Internal server error" });
     }
-  });
-
-  // Validate fields
-  if (typeof body.name !== "string") {
-    errors.push("name should be a string");
   }
-  if (typeof body.DOB !== "string") {
-    errors.push("DOB should be a string");
-  }
-  if (typeof body.gender !== "string") {
-    errors.push("gender should be a string");
-  }
-  if (typeof body.weight !== "string") {
-    errors.push("weight should be a string");
-  }
-  if (typeof body.headSize !== "string") {
-    errors.push("headSize should be a string");
-  }
-  if (typeof body.height !== "string") {
-    errors.push("height should be a string");
-  }
-  if (typeof body.profileUsername !== "string") {
-    errors.push("profileId should be a number");
-  }
-
-  // If there are any errors, return them
-  if (errors.length > 0) {
-    return res.status(400).send({ errors });
-  }
-  try {
-    const child = await client.child.create({
-      data: {
-        name: body.name,
-        DOB: body.DOB,
-        gender: body.gender,
-        height: body.height,
-        weight: body.weight,
-        headSize: body.headSize,
-        profileUsername: body.profileUsername,
-      },
-    });
-    return res.status(201).send(child);
-  } catch (err) {
-    return res.status(500).send({ error: "Internal server error" });
-  }
-});
+);
 profileController.get("/currentChild/:id", authMiddleware, async (req, res) => {
   const [, token] = req.headers.authorization?.split?.(" ") || [];
   const myJwtData = getDataFromAuthToken(token);
@@ -251,5 +205,89 @@ profileController.get("/firstChild/:id", authMiddleware, async (req, res) => {
   }
   return res.status(200).send(currentChild);
 });
+
+profileController.patch(
+  "/children/:id",
+  authMiddleware,
+  validateRequest({
+    body: z.object({
+      name: z.string(),
+      DOB: z.string(),
+      gender: z.string(),
+      weight: z.string(),
+      headSize: z.string(),
+      height: z.string(),
+      profileUsername: z.string(),
+    }),
+  }),
+  (req, res) => {
+    const [, token] = req.headers.authorization?.split?.(" ") || [];
+    const myJwtData = getDataFromAuthToken(token);
+    if (!myJwtData) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    const body = req.body;
+    const child = client.child
+      .update({
+        where: {
+          id: +req.params.id,
+          profileUsername: myJwtData.username,
+        },
+        data: {
+          name: body.name,
+          DOB: body.DOB,
+          gender: body.gender,
+          height: body.height,
+          weight: body.weight,
+          headSize: body.headSize,
+          profileUsername: myJwtData.username,
+        },
+      })
+      .catch(() => {
+        null;
+      });
+    if (child === null) {
+      return res.status(204).send({ message: "child not found" });
+    }
+    return res.status(200).send(child);
+  }
+);
+profileController.patch(
+  "/profile",
+  authMiddleware,
+  validateRequest({
+    body: z.object({
+      password: z.string(),
+      caregiver: z.string(),
+      email: z.string().email(),
+    }),
+  }),
+  async (req, res) => {
+    const [, token] = req.headers.authorization?.split?.(" ") || [];
+    const myJwtData = getDataFromAuthToken(token);
+    if (!myJwtData) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    const body = req.body;
+    const profile = client.profile
+      .update({
+        where: {
+          username: myJwtData.username,
+        },
+        data: {
+          password: await encryptPassword(body.password),
+          caregiver: body.caregiver,
+          email: body.email,
+        },
+      })
+      .catch(() => {
+        null;
+      });
+    if (profile === null) {
+      return res.status(204).send({ message: "Profile not found" });
+    }
+    return res.status(200).send(profile);
+  }
+);
 
 export { profileController };

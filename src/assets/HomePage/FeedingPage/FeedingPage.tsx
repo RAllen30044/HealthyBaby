@@ -30,6 +30,10 @@ import {
   futureTimeNotAllowed,
   getChildDOB,
   isDateNotBeforeBirth,
+  isEntryNotANumber,
+  isWordsEntered,
+  noWordErrorMessage,
+  numberErrorMessage,
   onlyKeyNumbers,
   onlyNumbersWithDecimal,
   preventKeyingNumbers,
@@ -61,6 +65,7 @@ export const FeedingPage = () => {
     setDate,
     loading,
     setLoading,
+    isSubmitted,
     setIsSubmitted,
     shouldShowDateTimeEntryError,
     shouldShowDateBeforeBirthError,
@@ -115,7 +120,16 @@ export const FeedingPage = () => {
 
   const getChild = localStorage.getItem("child");
   const getGender = getChild ? JSON.parse(getChild)?.gender : "";
-
+  const shouldShowNumberErrorMessageForQuantity =
+    isSubmitted && isEntryNotANumber(quantity);
+  const shouldShowNumberErrorMessageForQuantityLeft =
+    isSubmitted && isEntryNotANumber(quantityLeft);
+  const shouldShowNumberErrorMessageForFeedingTimeLength =
+    isSubmitted && isEntryNotANumber(feedingTimeLength);
+  const shouldShowErrorMessageForDrinkType =
+    isSubmitted && isWordsEntered(drinkType);
+  const shouldShowErrorMessageForFoodType =
+    isSubmitted && isWordsEntered(foodType);
   return (
     <>
       <div className="banner feedingBanner">
@@ -210,18 +224,47 @@ export const FeedingPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-
-                if (
-                  isDateNotBeforeBirth(
-                    getChildDOB(profileChildren, childId),
-                    date
-                  ) ||
-                  timeInvalid(date, time)
-                ) {
-                  setIsSubmitted(true);
-                  return;
+                if (feed === "bottleFeed") {
+                  if (
+                    isDateNotBeforeBirth(
+                      getChildDOB(profileChildren, childId),
+                      date
+                    ) ||
+                    timeInvalid(date, time) ||
+                    isEntryNotANumber(quantity) ||
+                    isEntryNotANumber(quantityLeft)
+                  ) {
+                    setIsSubmitted(true);
+                    return;
+                  }
                 }
-
+                if (feed === "breastFeed") {
+                  if (
+                    isDateNotBeforeBirth(
+                      getChildDOB(profileChildren, childId),
+                      date
+                    ) ||
+                    timeInvalid(date, time) ||
+                    isEntryNotANumber(feedingTimeLength)
+                  ) {
+                    setIsSubmitted(true);
+                    return;
+                  }
+                }
+                if (feed === "infantModeOff") {
+                  if (
+                    isDateNotBeforeBirth(
+                      getChildDOB(profileChildren, childId),
+                      date
+                    ) ||
+                    timeInvalid(date, time) ||
+                    isWordsEntered(drinkType) ||
+                    isWordsEntered(foodType)
+                  ) {
+                    setIsSubmitted(true);
+                    return;
+                  }
+                }
                 setIsSubmitted(false);
 
                 setLoading(true);
@@ -348,6 +391,10 @@ export const FeedingPage = () => {
                     {unitOfMeasurement}
                   </div>
                 </div>
+                {shouldShowNumberErrorMessageForQuantity && (
+                  <ErrorMessage message={numberErrorMessage} show={true} />
+                )}
+
                 <div className="quantityDiscarded">
                   <label htmlFor="">Quantity Discarded:</label>
                   <input
@@ -363,6 +410,9 @@ export const FeedingPage = () => {
                     {unitOfMeasurement}
                   </div>
                 </div>
+                {shouldShowNumberErrorMessageForQuantityLeft && (
+                  <ErrorMessage message={numberErrorMessage} show={true} />
+                )}
               </div>
               <div
                 className={`breastFeedingInput ${
@@ -382,6 +432,9 @@ export const FeedingPage = () => {
                   />
                   <span> min.</span>
                 </div>
+                {shouldShowNumberErrorMessageForFeedingTimeLength && (
+                  <ErrorMessage message={numberErrorMessage} show={true} />
+                )}
               </div>
               <div
                 className={`breastFeedingInput ${
@@ -389,7 +442,7 @@ export const FeedingPage = () => {
                 }`}
               >
                 <div className="drinkType">
-                  <label htmlFor="">Drink:</label>
+                  <label htmlFor="">Beverage:</label>
                   <input
                     type="text"
                     id="DrinkType"
@@ -400,8 +453,11 @@ export const FeedingPage = () => {
                     }}
                   />
                 </div>
+                {shouldShowErrorMessageForDrinkType&& (
+                <ErrorMessage message={noWordErrorMessage("Beverage")} show={true} />
+              )}
                 <div className="foodType ">
-                  <label htmlFor="">Food: </label>
+                  <label htmlFor="">Meal: </label>
                   <input
                     type="text"
                     id="foodType"
@@ -412,6 +468,9 @@ export const FeedingPage = () => {
                     }}
                   />
                 </div>
+                {shouldShowErrorMessageForFoodType&& (
+                <ErrorMessage message={noWordErrorMessage("Meal")} show={true} />
+              )}
               </div>
               <div className="saveContainer">
                 <button

@@ -2,6 +2,8 @@ import toast from "react-hot-toast";
 import {
   futureDOBNotAllowed,
   isDOBValid,
+  isEntryNotANumber,
+  numberErrorMessage,
   onlyKeyNumbers,
   preventKeyingNumbers,
   setActiveHomePageComponentInLocalStorage,
@@ -17,7 +19,6 @@ import "./ChildPage.css";
 
 import { useChildInfo } from "./ChildInfoProvider";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
-import { UseAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 
 // type Gender = "Male" | "Female";
 // const getCurrentChildInfo = localStorage.getItem("child");
@@ -36,16 +37,21 @@ export const EditChildPage = () => {
     setHeight,
     height,
     setWeight,
-
-    currentChildId,
   } = useChildInfo();
 
   const { loading, setLoading } = UseTimeInfo();
   const { setActiveHomePageComponent, setActiveMainComponent, setEditor } =
     useActiveComponent();
-  const { setIsSubmitted, shouldShowDOBentryError } = UseTimeInfo();
-  const { token } = UseAuthProviderContext();
-  const { setChildId, profileUsername } = UseHistoryIDComponent();
+  const { setIsSubmitted, shouldShowDOBentryError, isSubmitted } =
+    UseTimeInfo();
+
+  const { profileUsername, token, childId, setToken } = UseHistoryIDComponent();
+  const shouldShowNumberErrorMessageForWeight =
+    isSubmitted && isEntryNotANumber(weight);
+  const shouldShowNumberErrorMessageForHeight =
+    isSubmitted && isEntryNotANumber(height);
+  const shouldShowNumberErrorMessageForHeadSize =
+    isSubmitted && isEntryNotANumber(headSize);
 
   return (
     <>
@@ -58,7 +64,12 @@ export const EditChildPage = () => {
             onSubmit={(e) => {
               e.preventDefault();
 
-              if (isDOBValid(DOB)) {
+              if (
+                isDOBValid(DOB) ||
+                isEntryNotANumber(headSize) ||
+                isEntryNotANumber(height) ||
+                isEntryNotANumber(weight)
+              ) {
                 setIsSubmitted(true);
                 return;
               }
@@ -67,7 +78,7 @@ export const EditChildPage = () => {
 
               return updateChildInfo(
                 {
-                  childName,
+                  name: childName,
                   DOB,
                   gender,
                   height,
@@ -75,21 +86,18 @@ export const EditChildPage = () => {
                   headSize,
                   profileUsername,
                 },
-                currentChildId,
-                token || ""
+                childId,
+                token
               )
                 .then((res) => {
                   if (!res.ok) {
                     toast("error");
                   }
-
+                  setToken("");
                   return res.json();
                 })
-                .then((data) => {
-                  setChildId(data.id);
-                })
-
                 .then(() => {
+                  setToken(localStorage.getItem("token"));
                   toast.success("Child Profile information Updated");
                   setActiveHomePageComponent("feeding");
                   setActiveHomePageComponentInLocalStorage("feeding");
@@ -124,6 +132,7 @@ export const EditChildPage = () => {
                 onChange={(e) => {
                   setDOB(e.target.value);
                 }}
+                required
               />
             </div>
 
@@ -167,7 +176,9 @@ export const EditChildPage = () => {
               />
               <span> lbs.</span>
             </div>
-
+            {shouldShowNumberErrorMessageForWeight && (
+              <ErrorMessage message={numberErrorMessage} show={true} />
+            )}
             <div className="heightInfo childInfoContainer">
               <label className="height childInfoLabel">Height: </label>
               <input
@@ -180,6 +191,9 @@ export const EditChildPage = () => {
               />
               <span> in.</span>
             </div>
+            {shouldShowNumberErrorMessageForHeight && (
+              <ErrorMessage message={numberErrorMessage} show={true} />
+            )}
 
             <div className="headSizeInfo childInfoContainer">
               <label className="headSize childInfoLabel">Head Size:</label>
@@ -193,6 +207,9 @@ export const EditChildPage = () => {
               />
               <span>in.</span>
             </div>
+            {shouldShowNumberErrorMessageForHeadSize && (
+              <ErrorMessage message={numberErrorMessage} show={true} />
+            )}
             <div className="buttonContainer ">
               <button
                 type="submit"

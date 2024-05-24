@@ -158,10 +158,13 @@ export const LandingPage = () => {
                 localStorage.setItem("childId", JSON.stringify(child.id));
               });
               setPassword(passwordInput);
-
-              setUserNameInput("");
-              setPasswordInput("");
-
+              setProfileUsername(userNameInput);
+              localStorage.setItem("profileUserName", userNameInput);
+              if (authorize.token) {
+                setPassword("");
+                setUserNameInput("");
+                setPasswordInput("");
+              }
               setActiveMainComponentInLocalStorage("home");
               setActiveMainComponent("home");
               setActiveHomePageComponentInLocalStorage("feeding");
@@ -175,6 +178,7 @@ export const LandingPage = () => {
                 className="input"
                 type="text"
                 value={userNameInput}
+                autoComplete="username"
                 onChange={(e) => {
                   setUserNameInput(e.target.value);
                 }}
@@ -186,6 +190,7 @@ export const LandingPage = () => {
                 className="input passwordInput"
                 type="password"
                 value={passwordInput}
+                autoComplete="current-password"
                 onChange={(e) => {
                   setPasswordInput(e.target.value);
                 }}

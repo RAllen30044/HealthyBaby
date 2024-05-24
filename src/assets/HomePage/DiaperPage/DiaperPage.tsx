@@ -26,10 +26,11 @@ import {
   futureTimeNotAllowed,
   getChildDOB,
   isDateNotBeforeBirth,
+ 
   timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
-// import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
+
 import {
   HistoryDateAndTimeColumn,
   HistoryInfoColumn,
@@ -69,6 +70,7 @@ export const DiaperPage = () => {
       } else return;
     });
   };
+
 
   return (
     <>

@@ -20,6 +20,9 @@ import {
   futureTimeNotAllowed,
   getChildDOB,
   isDateNotBeforeBirth,
+ 
+  isEntryNotANumber,
+  numberErrorMessage,
   onlyKeyNumbers,
   timeInvalid,
 } from "../../../ErrorHandling";
@@ -33,7 +36,7 @@ import {
 } from "../historyTable";
 
 export const NappingPage = () => {
-  const [LengthOfTime, setLengthOfTime] = useState("");
+  const [lengthOfTime, setLengthOfTime] = useState("");
   const {
     time,
     setTime,
@@ -42,13 +45,18 @@ export const NappingPage = () => {
     loading,
     setLoading,
     setIsSubmitted,
+    isSubmitted,
     shouldShowDateTimeEntryError,
     shouldShowDateBeforeBirthError,
   } = UseTimeInfo();
 
- 
-  const { nappingHistory, setNappingHistory, fetchNappingHistory,profileChildren, childId } =
-    UseHistoryIDComponent();
+  const {
+    nappingHistory,
+    setNappingHistory,
+    fetchNappingHistory,
+    profileChildren,
+    childId,
+  } = UseHistoryIDComponent();
   console.log(nappingHistory);
 
   const removeNappingHistory = (id: number) => {
@@ -61,6 +69,9 @@ export const NappingPage = () => {
       } else return;
     });
   };
+
+  const shouldShowNumberErrorMessage =
+    isSubmitted && isEntryNotANumber(lengthOfTime);
 
   return (
     <>
@@ -82,7 +93,16 @@ export const NappingPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (isDateNotBeforeBirth(getChildDOB(profileChildren, childId), date)||timeInvalid(date, time)) {
+                console.log(isEntryNotANumber(lengthOfTime));
+
+                if (
+                  isDateNotBeforeBirth(
+                    getChildDOB(profileChildren, childId),
+                    date
+                  ) ||
+                  timeInvalid(date, time) ||
+                  isEntryNotANumber(lengthOfTime)
+                ) {
                   setIsSubmitted(true);
                   return;
                 }
@@ -92,7 +112,7 @@ export const NappingPage = () => {
                   {
                     time: convertToStandardTime(time),
                     date: formatDate(createShortHandDate(date)),
-                    lengthOfTime: LengthOfTime,
+                    lengthOfTime: lengthOfTime,
                     childId,
                   },
                   nappingUrl
@@ -121,13 +141,16 @@ export const NappingPage = () => {
                   type="text"
                   name="napLength"
                   id="napLength"
-                  value={LengthOfTime}
+                  value={lengthOfTime}
                   onChange={(e) => {
                     setLengthOfTime(onlyKeyNumbers(e.target.value));
                   }}
                 />
                 <span> min</span>
               </div>
+              {shouldShowNumberErrorMessage && (
+                <ErrorMessage message={numberErrorMessage} show={true} />
+              )}
               <div className="saveContainer">
                 <button
                   type="submit"
