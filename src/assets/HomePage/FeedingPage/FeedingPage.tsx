@@ -385,6 +385,7 @@ export const FeedingPage = () => {
                   <input
                     type="text"
                     id="quantity"
+                    className="homeInput"
                     value={quantity}
                     onChange={(e) => {
                       e.preventDefault();
@@ -403,6 +404,7 @@ export const FeedingPage = () => {
                   <label htmlFor="">Quantity Discarded:</label>
                   <input
                     type="text"
+                    className="homeInput"
                     id="quantityDiscarded"
                     value={quantityLeft}
                     onChange={(e) => {
@@ -428,6 +430,7 @@ export const FeedingPage = () => {
                   <input
                     type="text"
                     id="feedingTime"
+                    className="homeInput"
                     value={feedingTimeLength}
                     onChange={(e) => {
                       e.preventDefault();
@@ -450,6 +453,7 @@ export const FeedingPage = () => {
                   <input
                     type="text"
                     id="DrinkType"
+                    className="homeInput"
                     value={drinkType}
                     onChange={(e) => {
                       e.preventDefault();
@@ -468,6 +472,7 @@ export const FeedingPage = () => {
                   <input
                     type="text"
                     id="foodType"
+                    className="homeInput"
                     value={foodType}
                     onChange={(e) => {
                       e.preventDefault();

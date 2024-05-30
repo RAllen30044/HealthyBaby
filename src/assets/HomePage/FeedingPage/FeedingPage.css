@@ -7,7 +7,7 @@
 
 .feedingSave:hover {
   background-color: #fadd9fb2;
-  /* box-shadow: 1px 1px 2px 2px inset; */
+ 
 }
 
 .categoryName h1 {
@@ -60,24 +60,38 @@ button.breastFeed.pressedButton {
   margin: 0 13px;
 }
 
-
-
-.BreastFeedHistoryTableHeader{
+.BreastFeedHistoryTableHeader {
   display: flex;
   gap: 19.3%;
   width: 100%;
 }
-.quantity{
+.quantity {
   display: flex;
-  
 }
-.unitOfMeasurementText{
+.unitOfMeasurementText {
   margin: 0;
 }
 
-.quantityDiscarded{
+.quantityDiscarded {
   display: flex;
 }
-#feedingTime{
+#feedingTime {
   width: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 100px;
+}
+#DrinkType, #foodType {
+  width: 200px;
+
+}
+#foodType{
+margin-left: 43px;
+}
+#quantity{
+  margin-left: 37px;
+}
+
+#quantity, #quantityDiscarded{
+  margin-right: 10px;
 }

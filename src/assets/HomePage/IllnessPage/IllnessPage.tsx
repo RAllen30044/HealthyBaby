@@ -155,6 +155,7 @@ export const IllnessPage = () => {
                 <input
                   type="text"
                   id="symptoms"
+                  className="homeInput"
                   value={symptoms}
                   onChange={(e) => {
                     setSymptoms(e.target.value);
@@ -171,6 +172,7 @@ export const IllnessPage = () => {
                 <label htmlFor="medicineGiven">Medicine: </label>
                 <input
                   type="text"
+                  className="homeInput"
                   id="medicineGiven"
                   value={medicationType}
                   onChange={(e) => {
@@ -190,6 +192,7 @@ export const IllnessPage = () => {
                   type="text"
                   id="dosage"
                   value={dosage}
+                  className="homeInput"
                   onChange={(e) => {
                     setDosage(e.target.value);
                   }}

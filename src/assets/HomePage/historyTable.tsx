@@ -131,9 +131,9 @@ export const HistoryTableHeader = (
         </div>
       </div>
       <div className="historyTableHeader" key={`${pageName}Header`}>
-        <div className={`historyColumnContainer ${pageName}ColumnContainer`}>
+        {/* <div className={`historyColumnContainer ${pageName}ColumnContainer`}>
           <h3 className="dateTime dateTimeHeader">Date/Time</h3>
-        </div>
+        </div> */}
         {headerValue.map((header, index) => {
           return (
             <div
@@ -165,20 +165,14 @@ export const HistoryDateAndTimeColumn = (
         .map((history) => {
           return (
             <div className="historyContainer" key={history.id}>
-              <div className="historyTableContainer">
-                <div className="dateTime">
-                  <h4>Date: {history.date}</h4>
-                  <h4>Time: {history.time}</h4>
-                </div>
-              </div>
-              <button
-                className="Delete button"
+              <div
+                className="trashCanDelete"
                 onClick={() => {
                   removeHistory(history.id);
                 }}
               >
-                Delete
-              </button>
+                <i className="fa-solid fa-trash-can"></i>
+              </div>
             </div>
           );
         })}

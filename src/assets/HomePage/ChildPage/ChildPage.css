@@ -34,11 +34,15 @@ form.childInfo {
   border-radius: 5px;
   box-shadow: 1px 1px 2px black;
 }
+
+
 .name.childInfoInput {
 margin-right: 20px;
 }
 .ageNumber.childInfoInput {
 margin-right: 20px;
+border: none;
+box-shadow: none;
 }
 .weightNumber.childInfoInput {
 margin-right: 5px;
@@ -62,7 +66,7 @@ margin-right: 10px;
 .male.button {
   background-color: #0000ff;
   border: 1px solid #393955;
-  box-shadow: 1px 1px 0px black;
+  box-shadow: 2px 2px 1px black;
   margin-right: 20px;
   color: #f7fbf0;
 }
@@ -83,7 +87,7 @@ margin-right: 10px;
 }
 .male.button.genderSelected{
 background-color: #404080;
-box-shadow: inset 2px 2px 1px black;
+box-shadow: inset 3px 3px 2px black;
 }
 .female.button.genderSelected{
 background-color: #AA7A82;

@@ -141,6 +141,7 @@ export const NappingPage = () => {
                   type="text"
                   name="napLength"
                   id="napLength"
+                  className="homeInput"
                   value={lengthOfTime}
                   onChange={(e) => {
                     setLengthOfTime(onlyKeyNumbers(e.target.value));
