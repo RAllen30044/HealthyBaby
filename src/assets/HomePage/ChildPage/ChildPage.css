@@ -6,13 +6,16 @@
   flex-direction: column;
   align-items: center;
 }
+form.childInfo {
+  width: 315px;
+}
 
 .childInfo {
   display: flex;
   flex-direction: column;
   padding-left: 15px;
 
-  padding: 0 10%;
+  padding: 0 5%;
   margin: 50px 0;
   gap: 10px;
 }
@@ -27,7 +30,24 @@
 }
 .childInfoInput {
   width: 50%;
-  border: 1px solid transparent;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px black;
+}
+.name.childInfoInput {
+margin-right: 20px;
+}
+.ageNumber.childInfoInput {
+margin-right: 20px;
+}
+.weightNumber.childInfoInput {
+margin-right: 5px;
+}
+.heightNumber.childInfoInput {
+margin-right: 10px;
+}
+.headSizeNumber.childInfoInput {
+margin-right: 10px;
 }
 
 .headSizeInfo {
@@ -40,15 +60,20 @@
   color: #f7fbf0;
 }
 .male.button {
-  background-color: blue;
+  background-color: #0000ff;
+  border: 1px solid #393955;
+  box-shadow: 1px 1px 0px black;
   margin-right: 20px;
   color: #f7fbf0;
 }
 .female.button {
-  background-color: pink;
+  background-color: #ffc0cb;
   color: #f7fbf0;
+  border: 1px solid #8A3F50;
+  box-shadow: 1px 1px 0px black;
   font-size: 16px;
   padding: 0.6em 0.8em;
+  margin-right: 15px;
 }
 .maleText {
   margin: 0;
@@ -56,7 +81,14 @@
 .femaleText {
   margin: 0;
 }
-
+.male.button.genderSelected{
+background-color: #404080;
+box-shadow: inset 2px 2px 1px black;
+}
+.female.button.genderSelected{
+background-color: #AA7A82;
+box-shadow:  inset 2px 2px 1px black;
+}
 @media screen and (max-width: 768px) {
   input {
     font-size: 16px;

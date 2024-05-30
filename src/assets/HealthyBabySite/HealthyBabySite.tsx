@@ -45,6 +45,7 @@ export const HealthyBabySite = () => {
           {activeMainComponent === "about" ? <AboutPage /> : ""}
           {activeMainComponent === "signUp" ? <SignUpPage /> : ""}
         </main>
+        
       </div>
     </>
   );

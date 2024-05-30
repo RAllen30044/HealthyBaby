@@ -25,7 +25,7 @@ export const Header = () => {
   const {
     chevronPosition,
     setChevronPosition,
-    
+
     hiddenPagesLinks,
     setHiddenPagesLinks,
   } = useChildInfo();
@@ -39,6 +39,8 @@ export const Header = () => {
     setToken,
   } = UseHistoryIDComponent();
   const { setUser } = UseAuthProviderContext();
+
+  console.log();
 
   const filterChildInfo = () => {
     return (
@@ -61,7 +63,9 @@ export const Header = () => {
             setChevronPosition("down");
           }}
         >
-          Switch Child
+          {profileChildren
+            .filter((child) => child.id === childId)
+            .map((child) => child.name)}
           <div className="clickPositioning">
             <i className={`fa-solid fa-chevron-${chevronPosition}`}></i>
           </div>
@@ -91,7 +95,7 @@ export const Header = () => {
                     "childId",
                     JSON.stringify(selectedChildId)
                   );
-                
+
                   setChevronPosition("down");
                 }}
               >
@@ -171,6 +175,18 @@ export const Header = () => {
                 About Us
               </div>
               <div
+                className={`pageLink `}
+                onClick={() => {
+                  setIsSubmitted(false);
+                  setActiveMainComponent("addChild");
+                  setActiveMainComponentInLocalStorage("addChild");
+                  setActiveHomePageComponent("");
+                  setActiveHomePageComponentInLocalStorage("");
+                }}
+              >
+                Add Child
+              </div>
+              <div
                 className={` pageLink `}
                 onClick={() => {
                   setActiveMainComponent("editProfile");
@@ -209,7 +225,7 @@ export const Header = () => {
               <div
                 className={` pageLink `}
                 onClick={() => {
-                  setActiveMainComponent("landingPage"); 
+                  setActiveMainComponent("landingPage");
                   setIsSubmitted(false);
                 }}
               >
@@ -375,20 +391,6 @@ export const Header = () => {
                     }}
                   >
                     Illness
-                  </div>
-                  <div
-                    className={`addChildLink link ${
-                      activeMainComponent === "addChild" ? "selected" : ""
-                    }`}
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setActiveMainComponent("addChild");
-                      setActiveMainComponentInLocalStorage("addChild");
-                      setActiveHomePageComponent("");
-                      setActiveHomePageComponentInLocalStorage("");
-                    }}
-                  >
-                    Add Child
                   </div>
                 </div>
               </div>

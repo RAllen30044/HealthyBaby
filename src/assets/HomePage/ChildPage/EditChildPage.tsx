@@ -141,10 +141,10 @@ export const EditChildPage = () => {
               <button
                 type="button"
                 className={`male button ${
-                  gender === "Male" ? "pressedButton" : ""
+                  gender === "male" ? "genderSelected" : ""
                 }`}
                 onClick={() => {
-                  setGender("Male");
+                  setGender("male");
                 }}
               >
                 <i className="fa fa-male" aria-hidden="true"></i>
@@ -153,10 +153,10 @@ export const EditChildPage = () => {
               <button
                 type="button"
                 className={`female button ${
-                  gender === "Female" ? "pressedButton" : ""
+                  gender === "female" ? "genderSelected" : ""
                 }`}
                 onClick={() => {
-                  setGender("Female");
+                  setGender("female");
                 }}
               >
                 <i className="fa fa-female" aria-hidden="true"></i>

@@ -10,8 +10,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-
 }
 
 html {
@@ -71,16 +69,13 @@ body {
   border: solid 1px transparent;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px inset silver;
-  
 }
 
 .fa-baby {
   color: #a0c0fa;
 }
-input{
- 
+input {
   padding: 5px;
 
- 
-  margin-left: 5px ;
+  margin-left: 5px;
 }

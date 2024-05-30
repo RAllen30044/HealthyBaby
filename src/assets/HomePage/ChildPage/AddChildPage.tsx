@@ -177,7 +177,7 @@ export const AddChildPage = () => {
               <button
                 type="button"
                 className={`male button ${
-                  gender === "Male" ? "pressedButton" : ""
+                  gender === "Male" ? "genderSelected" : ""
                 }`}
                 onClick={() => {
                   setGender("Male");
@@ -190,7 +190,7 @@ export const AddChildPage = () => {
               <button
                 type="button"
                 className={`female button ${
-                  gender === "Female" ? "pressedButton" : ""
+                  gender === "Female" ? "genderSelected" : ""
                 }`}
                 onClick={() => {
                   setGender("Female");

@@ -1,10 +1,4 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 
 type ChevronPosition = "up" | "down";
 type UnitOfMeasurement = "mL" | "oz";
@@ -37,17 +31,15 @@ const ChildInfoContext = createContext<TChildInfoProvider>(
 
 export const ChildInfoProvider = ({ children }: { children: ReactNode }) => {
   const [childName, setChildName] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("female");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [headSize, setHeadSize] = useState("");
   const [DOB, setDOB] = useState("");
 
-
   const [hiddenPagesLinks, setHiddenPagesLinks] = useState(false);
   const [chevronPosition, setChevronPosition] =
     useState<ChevronPosition>("down");
-
 
   const [unitOfMeasurement, setUnitOfMeasurement] = useState<UnitOfMeasurement>(
     JSON.parse(JSON.stringify(localStorage.getItem("unitOfMeasurement"))) ||
