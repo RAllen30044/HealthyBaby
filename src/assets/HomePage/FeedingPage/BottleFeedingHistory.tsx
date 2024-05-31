@@ -14,13 +14,24 @@ export const BottleFeedingHistory = ({
     <section className="historyInfoSection">
       <section className="largeScreenHistorySection">
         <div className="historyTable">
-          {HistoryTableHeader(["Ounces", "Ounces Discarded"], "Feeding")}
+          {HistoryTableHeader(["Date","Time","Ounces", "Ounces Discarded","Delete"], "Feeding")}
           <div className="historyTimelineContainer ">
-            {HistoryDateAndTimeColumn(
-              bottleFeedHistory,
-              "Feeding",
-              removeBottleFeedingHistory
-            )}
+            <div>
+              {HistoryInfoColumn(
+                bottleFeedHistory,
+                "date",
+                "",
+                "Feeding"
+              )}
+            </div>
+            <div>
+              {HistoryInfoColumn(
+                bottleFeedHistory,
+                "time",
+                "",
+                "Feeding"
+              )}
+            </div>
             <div>
               {HistoryInfoColumn(
                 bottleFeedHistory,
@@ -37,6 +48,11 @@ export const BottleFeedingHistory = ({
                 "Feeding"
               )}
             </div>
+            {HistoryDateAndTimeColumn(
+              bottleFeedHistory,
+              "Feeding",
+              removeBottleFeedingHistory
+            )}
           </div>
         </div>
       </section>
