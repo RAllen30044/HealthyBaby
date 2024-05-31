@@ -50,7 +50,12 @@ export const authorization = (
       password: password,
     }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to login");
+      }
+      return res.json();
+    })
     .then((data) => data)
     .catch((err) => {
       console.log(err.message);
@@ -62,7 +67,12 @@ export const getProfilesChildren = (
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed get children");
+      }
+      return res.json();
+    })
     .then((data) => data);
 export const getProfilesFirstChild = (
   token: string | null
@@ -71,29 +81,14 @@ export const getProfilesFirstChild = (
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   })
-    .then((res) => res.json())
-    .then((data) => data);
-export const getProfile = async (
-  token: string | null
-): Promise<ProfileInfoTypes> => {
-  if (!token) {
-    return Promise.reject(new Error("Token is required"));
-  }
-
-  const profile = await fetch(`${profileUrl}`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
-  })
     .then((res) => {
       if (!res.ok) {
-        throw new Error("Failed to get profile");
+        throw new Error("Failed to get profiles first child");
       }
-
       return res.json();
     })
     .then((data) => data);
-  return profile;
-};
+
 export const updateChildInfo = async (
   child: object,
   id: number,
@@ -161,33 +156,63 @@ export const getBreastFeedingHistoryInfo = (): Promise<
   breastFeedingInfoType[]
 > =>
   fetch(breastFeedingHistoryUrl)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get breastfeeding history information");
+      }
+      return res.json();
+    })
     .then((data) => data);
 export const getMealHistoryInfo = (): Promise<eatingInfoType[]> =>
   fetch(mealHistoryUrl)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get meal history information");
+      }
+      return res.json();
+    })
     .then((data) => data);
 
 export const getBottleFeedingHistoryInfo = (): Promise<
   bottleFeedingInfoType[]
 > =>
   fetch(bottleFeedingHistoryUrl)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get bottle feeding information");
+      }
+      return res.json();
+    })
     .then((data) => data);
 
 export const getIllnessHistory = (): Promise<IllnessType[]> =>
   fetch(illnessUrl)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get illness history information");
+      }
+      return res.json();
+    })
     .then((data) => data);
 
 export const getDiapersHistory = (): Promise<DiapersHistoryInfoTypes[]> =>
   fetch(diaperUrl)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get diapers history information");
+      }
+      return res.json();
+    })
     .then((data) => data);
 
 export const getNappingHistory = (): Promise<nappingType[]> =>
   fetch(nappingUrl)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to get napping history information");
+      }
+      return res.json();
+    })
     .then((data) => data);
 
 export const getAllProfileUserNames = (): Promise<ProfileUsernameTypes[]> =>

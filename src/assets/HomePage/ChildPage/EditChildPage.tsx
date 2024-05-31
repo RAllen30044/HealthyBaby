@@ -12,7 +12,7 @@ import {
 import { ErrorMessage } from "../../../ErrorMessage";
 import { UseHistoryIDComponent } from "../../../HistoryProvider";
 import { updateChildInfo } from "../../../../callApis";
-// import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
+
 
 import { UseTimeInfo } from "../TimeInfo/TimeInfoProvider";
 import "./ChildPage.css";
@@ -20,8 +20,7 @@ import "./ChildPage.css";
 import { useChildInfo } from "./ChildInfoProvider";
 import { useActiveComponent } from "../../HealthyBabySite/Header/ActiveComponentProvider";
 
-// type Gender = "Male" | "Female";
-// const getCurrentChildInfo = localStorage.getItem("child");
+
 
 export const EditChildPage = () => {
   const {
