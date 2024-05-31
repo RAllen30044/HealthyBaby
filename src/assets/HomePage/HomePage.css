@@ -110,10 +110,9 @@ input {
 }
 .historyTimelineContainer {
   display: flex;
-  flex-wrap: wrap;
 
   width: 100%;
-  max-height: 170px;
+  max-height: 20vh;
   overflow-y: scroll;
   justify-content: center;
 }
@@ -123,10 +122,14 @@ input {
   font-size: 40px;
 }
 .historyColumnContainer {
-  min-width: 200px;
+  min-width: 140px;
+}
+.fa-trash-can:hover {
+  cursor: pointer;
+  color: red;
 }
 .IllnessColumnContainer {
-  min-width: 160px;
+  min-width: 120px;
 }
 .newColumnContainer {
   text-align: center;
@@ -219,9 +222,24 @@ div.trashCanDelete {
   margin-block-end: 1.33em;
   text-align: center;
 }
+
+/* @media screen and (max-width: 1450px) {
+  #illnessPageSection {
+    flex-direction: column;
+    align-items: center;
+ 
+  }
+} */
+.Delete.button {
+  background-color: rgb(230, 61, 23);
+  color: whitesmoke;
+}
 @media screen and (max-width: 1000px) {
   .largeScreenHistorySection {
     display: none;
+  }
+  .fa-trash-can {
+    color: red;
   }
   .smallerScreenHistorySection {
     display: block;
@@ -235,6 +253,18 @@ div.trashCanDelete {
 @media screen and (max-width: 768px) {
   .mobileHistoryInfoSection input {
     width: 75px;
+  }
+  #symptoms {
+    margin-left: 8px;
+  }
+  input#dosage {
+    margin: 12px 0 23px 19px;
+  }
+  #DrinkType {
+    margin-left: 14px;
+  }
+  #quantityDiscarded {
+    margin-left: 14px;
   }
 }
 @media screen and (max-width: 600px) {

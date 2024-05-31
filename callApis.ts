@@ -36,7 +36,6 @@ export const profilesUrl = `${baseUrl}/profiles`;
 export const usernamesUrl = `${baseUrl}/allProfileUsernames`;
 export const emailsUrl = `${baseUrl}/allProfileEmails`;
 
-export const childNapDBUrl = `${baseUrl}/childNapDB`;
 export const childrenUrl = `${baseUrl}/children`;
 
 export const authorization = (
@@ -191,13 +190,6 @@ export const getNappingHistory = (): Promise<nappingType[]> =>
     .then((res) => res.json())
     .then((data) => data);
 
-export const getChildNapHistory = (): Promise<nappingType[]> =>
-  fetch(childNapDBUrl).then((res) => {
-    if (!res.ok) {
-      throw new Error("Failed to get napping history");
-    }
-    return res.json();
-  });
 export const getAllProfileUserNames = (): Promise<ProfileUsernameTypes[]> =>
   fetch(usernamesUrl)
     .then((res) => {

@@ -107,7 +107,7 @@ export const HistoryIDComponentProvider = ({
   );
 
   const [profileUsername, setProfileUsername] = useState<string>("");
- 
+
   const getSortingDirection = localStorage.getItem("sortDirection");
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     JSON.parse(JSON.stringify(getSortingDirection)) || "asc"
@@ -139,6 +139,7 @@ export const HistoryIDComponentProvider = ({
     fetchMealData().catch((err) => console.log(err));
     fetchDiaperHistory().catch((err) => console.log(err));
     fetchIllnessHistory().catch((err) => console.log(err));
+    fetchNappingHistory().catch((err) => console.log(err));
   }, []);
 
   return (

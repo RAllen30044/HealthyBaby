@@ -26,13 +26,12 @@ import {
   futureTimeNotAllowed,
   getChildDOB,
   isDateNotBeforeBirth,
- 
   timeInvalid,
 } from "../../../ErrorHandling";
 import { ErrorMessage } from "../../../ErrorMessage";
 
 import {
-  HistoryDateAndTimeColumn,
+  HistoryDeleteIconColumn,
   HistoryInfoColumn,
   HistoryMobileView,
   HistoryTableHeader,
@@ -56,8 +55,13 @@ export const DiaperPage = () => {
     shouldShowDateTimeEntryError,
     shouldShowDateBeforeBirthError,
   } = UseTimeInfo();
-  const { diapersHistory, setDiapersHistory, fetchDiaperHistory, profileChildren, childId } =
-    UseHistoryIDComponent();
+  const {
+    diapersHistory,
+    setDiapersHistory,
+    fetchDiaperHistory,
+    profileChildren,
+    childId,
+  } = UseHistoryIDComponent();
 
   const removeDiaperHistory = (id: number) => {
     const updateData = diapersHistory.filter((history) => history.id !== id);
@@ -70,7 +74,6 @@ export const DiaperPage = () => {
       } else return;
     });
   };
-
 
   return (
     <>
@@ -93,8 +96,14 @@ export const DiaperPage = () => {
               action="POST"
               onSubmit={(e) => {
                 e.preventDefault();
-        
-                if (isDateNotBeforeBirth(getChildDOB(profileChildren, childId), date)||timeInvalid(date, time)) {
+
+                if (
+                  isDateNotBeforeBirth(
+                    getChildDOB(profileChildren, childId),
+                    date
+                  ) ||
+                  timeInvalid(date, time)
+                ) {
                   setIsSubmitted(true);
                   return;
                 }
@@ -226,13 +235,27 @@ export const DiaperPage = () => {
 
           <section className="largeScreenHistorySection">
             <div className="historyTable">
-              {HistoryTableHeader(["Diaper(Type)", "Consistency"], "Diaper")}
+              {HistoryTableHeader(
+                ["Date", "Time", "Diaper(Type)", "Consistency", "Delete?"],
+                "Diaper"
+              )}
               <div className="historyTimelineContainer ">
-                {HistoryDateAndTimeColumn(
-                  diapersHistory,
-                  "Diaper",
-                  removeDiaperHistory
-                )}
+                <div>
+                  {HistoryInfoColumn(
+                    diapersHistory,
+                    "date",
+                    "",
+                    "Diaper"
+                  )}
+                </div>
+                <div>
+                  {HistoryInfoColumn(
+                    diapersHistory,
+                    "time",
+                    "",
+                    "Diaper"
+                  )}
+                </div>
                 <div>
                   {HistoryInfoColumn(
                     diapersHistory,
@@ -249,6 +272,11 @@ export const DiaperPage = () => {
                     "Diaper"
                   )}
                 </div>
+                {HistoryDeleteIconColumn(
+                  diapersHistory,
+                  "Diaper",
+                  removeDiaperHistory
+                )}
               </div>
             </div>
           </section>

@@ -20,7 +20,6 @@ import {
   futureTimeNotAllowed,
   getChildDOB,
   isDateNotBeforeBirth,
- 
   isEntryNotANumber,
   numberErrorMessage,
   onlyKeyNumbers,
@@ -29,7 +28,7 @@ import {
 import { ErrorMessage } from "../../../ErrorMessage";
 // import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 import {
-  HistoryDateAndTimeColumn,
+  HistoryDeleteIconColumn,
   HistoryInfoColumn,
   HistoryMobileView,
   HistoryTableHeader,
@@ -57,7 +56,6 @@ export const NappingPage = () => {
     profileChildren,
     childId,
   } = UseHistoryIDComponent();
-  console.log(nappingHistory);
 
   const removeNappingHistory = (id: number) => {
     const updateData = nappingHistory.filter((history) => history.id !== id);
@@ -173,21 +171,27 @@ export const NappingPage = () => {
 
           <section className="largeScreenHistorySection">
             <div className="historyTable">
-              {HistoryTableHeader(["Nap Length of time"], "Napping")}
+              {HistoryTableHeader(
+                ["Date", "Time", "Nap Length of time", "Delete"],
+                "Napping"
+              )}
               <div className="historyTimelineContainer ">
-                {HistoryDateAndTimeColumn(
+                {HistoryInfoColumn(nappingHistory, "date", "", "Napping")}
+
+                {HistoryInfoColumn(nappingHistory, "time", "", "Napping")}
+
+                {HistoryInfoColumn(
+                  nappingHistory,
+                  "lengthOfTime",
+                  "min",
+                  "Napping"
+                )}
+
+                {HistoryDeleteIconColumn(
                   nappingHistory,
                   "Napping",
                   removeNappingHistory
                 )}
-                <div>
-                  {HistoryInfoColumn(
-                    nappingHistory,
-                    "lengthOfTime",
-                    "min",
-                    "Napping"
-                  )}
-                </div>
               </div>
             </div>
           </section>

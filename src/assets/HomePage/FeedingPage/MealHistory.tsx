@@ -1,6 +1,6 @@
 import { eatingHistoryT } from "../../../../Types";
 import {
-  HistoryDateAndTimeColumn,
+  HistoryDeleteIconColumn,
   HistoryInfoColumn,
   HistoryMobileView,
   HistoryTableHeader,
@@ -24,19 +24,18 @@ export const EatingHistory = ({
               "Feeding",
               removeEatingHistory
             )} */}
-            <div>{HistoryInfoColumn(eatingHistory, "date", "", "Feeding")}</div>
-            <div>{HistoryInfoColumn(eatingHistory, "time", "", "Feeding")}</div>
-            <div>
-              {HistoryInfoColumn(eatingHistory, "foodType", "", "Feeding")}
-            </div>
-            <div>
-              {HistoryInfoColumn(eatingHistory, "drinkType", "", "Feeding")}
-            </div>          {HistoryDateAndTimeColumn(
+            {HistoryInfoColumn(eatingHistory, "date", "", "Feeding")}
+            {HistoryInfoColumn(eatingHistory, "time", "", "Feeding")}
+
+            {HistoryInfoColumn(eatingHistory, "foodType", "", "Feeding")}
+
+            {HistoryInfoColumn(eatingHistory, "drinkType", "", "Feeding")}
+
+            {HistoryDeleteIconColumn(
               eatingHistory,
               "Feeding",
               removeEatingHistory
             )}
-     
           </div>
         </div>
       </section>

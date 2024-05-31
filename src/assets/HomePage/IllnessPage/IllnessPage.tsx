@@ -29,7 +29,7 @@ import {
 import { ErrorMessage } from "../../../ErrorMessage";
 // import { useAuthProviderContext } from "../../HealthyBabySite/LandingPage/authProvider";
 import {
-  HistoryDateAndTimeColumn,
+  HistoryDeleteIconColumn,
   HistoryInfoColumn,
   HistoryMobileView,
   HistoryTableHeader,
@@ -90,7 +90,7 @@ export const IllnessPage = () => {
         </div>
       </div>
 
-      <section className="historySection">
+      <section className="historySection" id="illnessPageSection">
         <div className="dataInputForm illnessForm">
           <div className="dataInputFormContainer">
             <h2 className="addHistoryText">Add History</h2>
@@ -249,15 +249,23 @@ export const IllnessPage = () => {
           <section className="largeScreenHistorySection">
             <div className="historyTable">
               {HistoryTableHeader(
-                ["Symptoms", "Type of Medicine", "Dosage"],
+                [
+                  "Date",
+                  "Time",
+                  "Symptoms",
+                  "Type of Medicine",
+                  "Dosage",
+                  "Delete?",
+                ],
                 "Illness"
               )}
               <div className="historyTimelineContainer ">
-                {HistoryDateAndTimeColumn(
-                  illnessHistory,
-                  "Illness",
-                  removeIllnessHistory
-                )}
+                <div>
+                  {HistoryInfoColumn(illnessHistory, "date", "", "Illness")}
+                </div>
+                <div>
+                  {HistoryInfoColumn(illnessHistory, "time", "", "Illness")}
+                </div>
                 <div>
                   {HistoryInfoColumn(illnessHistory, "symptoms", "", "Illness")}
                 </div>
@@ -272,6 +280,11 @@ export const IllnessPage = () => {
                 <div>
                   {HistoryInfoColumn(illnessHistory, "dosage", "", "Illness")}
                 </div>
+                {HistoryDeleteIconColumn(
+                  illnessHistory,
+                  "Illness",
+                  removeIllnessHistory
+                )}
               </div>
             </div>
           </section>

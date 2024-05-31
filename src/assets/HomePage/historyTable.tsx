@@ -149,7 +149,7 @@ export const HistoryTableHeader = (
   );
 };
 
-export const HistoryDateAndTimeColumn = (
+export const HistoryDeleteIconColumn = (
   history: historyDataType[],
   historyPage: string,
   removeHistory: (id: number) => void

@@ -1,6 +1,6 @@
 import { breastfeedingHistoryT } from "../../../../Types";
 import {
-  HistoryDateAndTimeColumn,
+  HistoryDeleteIconColumn,
   HistoryInfoColumn,
   HistoryMobileView,
   HistoryTableHeader,
@@ -21,21 +21,18 @@ export const BreastFeedingHistory = ({
             "Feeding"
           )}
           <div className="historyTimelineContainer ">
-            <div>
-              {HistoryInfoColumn(breastFeedHistory, "date", "", "Feeding")}
-            </div>
-            <div>
-              {HistoryInfoColumn(breastFeedHistory, "time", "", "Feeding")}
-            </div>
-            <div>
-              {HistoryInfoColumn(
-                breastFeedHistory,
-                "feedingTimeLength",
-                "min",
-                "Feeding"
-              )}
-            </div>
-            {HistoryDateAndTimeColumn(
+            {HistoryInfoColumn(breastFeedHistory, "date", "", "Feeding")}
+
+            {HistoryInfoColumn(breastFeedHistory, "time", "", "Feeding")}
+
+            {HistoryInfoColumn(
+              breastFeedHistory,
+              "feedingTimeLength",
+              "min",
+              "Feeding"
+            )}
+
+            {HistoryDeleteIconColumn(
               breastFeedHistory,
               "Feeding",
               removeBreastFeedingHistory

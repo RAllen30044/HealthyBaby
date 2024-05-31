@@ -1,6 +1,6 @@
 import { bottlefeedingHistoryT } from "../../../../Types";
 import {
-  HistoryDateAndTimeColumn,
+  HistoryDeleteIconColumn,
   HistoryInfoColumn,
   HistoryMobileView,
   HistoryTableHeader,
@@ -14,41 +14,30 @@ export const BottleFeedingHistory = ({
     <section className="historyInfoSection">
       <section className="largeScreenHistorySection">
         <div className="historyTable">
-          {HistoryTableHeader(["Date","Time","Ounces", "Ounces Discarded","Delete"], "Feeding")}
+          {HistoryTableHeader(
+            ["Date", "Time", "Ounces", "Ounces Discarded", "Delete?"],
+            "Feeding"
+          )}
           <div className="historyTimelineContainer ">
-            <div>
-              {HistoryInfoColumn(
-                bottleFeedHistory,
-                "date",
-                "",
-                "Feeding"
-              )}
-            </div>
-            <div>
-              {HistoryInfoColumn(
-                bottleFeedHistory,
-                "time",
-                "",
-                "Feeding"
-              )}
-            </div>
-            <div>
-              {HistoryInfoColumn(
-                bottleFeedHistory,
-                "bottleQuantity",
-                "",
-                "Feeding"
-              )}
-            </div>
-            <div>
-              {HistoryInfoColumn(
-                bottleFeedHistory,
-                "bottleQuantityLeft",
-                "",
-                "Feeding"
-              )}
-            </div>
-            {HistoryDateAndTimeColumn(
+            {HistoryInfoColumn(bottleFeedHistory, "date", "", "Feeding")}
+
+            {HistoryInfoColumn(bottleFeedHistory, "time", "", "Feeding")}
+
+            {HistoryInfoColumn(
+              bottleFeedHistory,
+              "bottleQuantity",
+              "",
+              "Feeding"
+            )}
+
+            {HistoryInfoColumn(
+              bottleFeedHistory,
+              "bottleQuantityLeft",
+              "",
+              "Feeding"
+            )}
+
+            {HistoryDeleteIconColumn(
               bottleFeedHistory,
               "Feeding",
               removeBottleFeedingHistory
