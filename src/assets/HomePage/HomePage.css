@@ -223,7 +223,13 @@ div.trashCanDelete {
   text-align: center;
 }
 
-
+#childIndicator  {
+  display: flex;
+  gap: 10px;
+}
+#childIndicator p {
+  margin: 0;
+}
 .Delete.button {
   background-color: rgb(230, 61, 23);
   color: whitesmoke;
@@ -259,6 +265,9 @@ div.trashCanDelete {
   }
   #quantityDiscarded {
     margin-left: 14px;
+  }
+  #childIndicator  {
+  flex-direction: column-reverse;
   }
 }
 @media screen and (max-width: 600px) {

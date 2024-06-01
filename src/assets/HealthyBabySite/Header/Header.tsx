@@ -49,60 +49,63 @@ export const Header = () => {
           activeMainComponent !== "home" ? "hidden" : ""
         }`}
       >
-        <div
-          className="switchChild"
-          onClick={() => {
-            if (chevronPosition === "down") {
-              setChevronPosition("up");
+        <div id="childIndicator">
+          <p>Switch to Child</p>
+          <div
+            className="switchChild"
+            onClick={() => {
+              if (chevronPosition === "down") {
+                setChevronPosition("up");
+                setIsSubmitted(false);
+                setIsSubmittedInLocalStorage("false");
+                return;
+              }
               setIsSubmitted(false);
               setIsSubmittedInLocalStorage("false");
-              return;
-            }
-            setIsSubmitted(false);
-            setIsSubmittedInLocalStorage("false");
-            setChevronPosition("down");
-          }}
-        >
-          {profileChildren
-            .filter((child) => child.id === childId)
-            .map((child) => child.name)}
-          <div className="clickPositioning">
-            <i className={`fa-solid fa-chevron-${chevronPosition}`}></i>
+              setChevronPosition("down");
+            }}
+          >
+            {profileChildren
+              .filter((child) => child.id === childId)
+              .map((child) => child.name)}
+            <div className="clickPositioning">
+              <i className={`fa-solid fa-chevron-${chevronPosition}`}></i>
+            </div>
           </div>
-        </div>
-        <div
-          className={`childNameContainer ${
-            chevronPosition === "down" ? "hidden" : ""
-          }`}
-        >
-          {profileChildren.map((childProfile) => {
-            return (
-              <div
-                className={`child ${
-                  childId === childProfile.id ? "selectedChild" : ""
-                }`}
-                style={
-                  childId === childProfile.id
-                    ? { color: `${switchColors(activeHomePageComponent)}` }
-                    : {}
-                }
-                key={childProfile.id}
-                onClick={() => {
-                  const selectedChildId = childProfile.id;
+          <div
+            className={`childNameContainer ${
+              chevronPosition === "down" ? "hidden" : ""
+            }`}
+          >
+            {profileChildren.map((childProfile) => {
+              return (
+                <div
+                  className={`child ${
+                    childId === childProfile.id ? "selectedChild" : ""
+                  }`}
+                  style={
+                    childId === childProfile.id
+                      ? { color: `${switchColors(activeHomePageComponent)}` }
+                      : {}
+                  }
+                  key={childProfile.id}
+                  onClick={() => {
+                    const selectedChildId = childProfile.id;
 
-                  setChildId(selectedChildId);
-                  localStorage.setItem(
-                    "childId",
-                    JSON.stringify(selectedChildId)
-                  );
+                    setChildId(selectedChildId);
+                    localStorage.setItem(
+                      "childId",
+                      JSON.stringify(selectedChildId)
+                    );
 
-                  setChevronPosition("down");
-                }}
-              >
-                {childProfile.name}
-              </div>
-            );
-          })}
+                    setChevronPosition("down");
+                  }}
+                >
+                  {childProfile.name}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
