@@ -169,6 +169,7 @@ export const AddChildPage = () => {
                 onChange={(e) => {
                   setDate(e.target.value);
                 }}
+                required
               />
             </div>
             <div className="genderInfo childInfoContainer">
