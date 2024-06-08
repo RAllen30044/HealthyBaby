@@ -22,7 +22,9 @@ export type authorizationType = {
   authorization: (username: string, password: string) => tokenInfoType;
 };
 
-export const baseUrl = "https://healthybabybackend.fly.dev";
+const deployedUrl = "https://healthybabybackend.fly.dev";
+// const localUrl = "http://localhost:3000";
+export const baseUrl = `${deployedUrl}`;
 export const firstChildUrl = `${baseUrl}/firstChild`;
 export const currentChildUrl = `${baseUrl}/currentChild`;
 export const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
@@ -51,9 +53,6 @@ export const authorization = (
     }),
   })
     .then((res) => {
-      if (!res.ok) {
-        throw new Error("Failed to login");
-      }
       return res.json();
     })
     .then((data) => data)

@@ -36,6 +36,7 @@ import {
 } from "../../../../callApis";
 import toast from "react-hot-toast";
 
+
 const icons = [
   faPoo,
   faChildDress,
@@ -53,11 +54,9 @@ export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
   const {
-    // // loggedIn,
-    // // setLog,
+
     setShowAddChildError,
-    // // showAddChildError,
-    // //   setUsername,
+
     setPassword,
   } = UseAuthProviderContext();
   const { setToken, setChildId, setProfileUsername } = UseHistoryIDComponent();
@@ -128,11 +127,11 @@ export const LandingPage = () => {
               // isUserValid(userNameInput, passwordInput);
 
               const authorize = await authorization(
-                userNameInput.toLowerCase(),
+                userNameInput.toLowerCase().trimEnd(),
                 passwordInput
               );
 
-              if (!authorize.token) {
+              if (!authorize.token ) {
                 toast.error("Username and/or Password Not found");
 
                 setUserNameInput("");
@@ -175,7 +174,7 @@ export const LandingPage = () => {
             <div className="username">
               <label htmlFor="user">Username: </label>
               <input
-                className="input"
+                className="input usernameInput"
                 type="text"
                 value={userNameInput}
                 autoComplete="username"

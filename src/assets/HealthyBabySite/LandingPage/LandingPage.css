@@ -186,6 +186,9 @@ li.healthyBabyIcon.child-dress {
   border: 1px solid black;
   border-radius: 5px;
 }
-.passwordInput{
-  margin-left: 9px;
+input.passwordInput{
+  margin-left: 0;
+}
+input.usernameInput{
+  margin-left: 0;
 }
