@@ -103,7 +103,7 @@ export const LandingPage = () => {
   return (
     <>
       <div className={`landingPage `}>
-        <h1> Healthy Baby</h1>
+        <h1> Health <span id="T">T</span> Baby</h1>
       </div>
       {/* <ScrollingAnimation /> */}
       <div className="healthyBabyIconsContainer" ref={containerRef}>
