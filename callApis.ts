@@ -22,7 +22,7 @@ export type authorizationType = {
   authorization: (username: string, password: string) => tokenInfoType;
 };
 
-export const baseUrl = "https://healthybabybackend.fly.dev/";
+export const baseUrl = "https://healthybabybackend.fly.dev";
 export const firstChildUrl = `${baseUrl}/firstChild`;
 export const currentChildUrl = `${baseUrl}/currentChild`;
 export const breastFeedingHistoryUrl = `${baseUrl}/breastFeedingHistory`;
