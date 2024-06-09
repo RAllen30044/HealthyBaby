@@ -36,7 +36,6 @@ import {
 } from "../../../../callApis";
 import toast from "react-hot-toast";
 
-
 const icons = [
   faPoo,
   faChildDress,
@@ -54,7 +53,6 @@ export const LandingPage = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [userNameInput, setUserNameInput] = useState("");
   const {
-
     setShowAddChildError,
 
     setPassword,
@@ -103,7 +101,7 @@ export const LandingPage = () => {
   return (
     <>
       <div className={`landingPage `}>
-        <h1> Health <span id="T">T</span> Baby</h1>
+        <h1> Kiddo Kronicles</h1>
       </div>
       {/* <ScrollingAnimation /> */}
       <div className="healthyBabyIconsContainer" ref={containerRef}>
@@ -131,7 +129,7 @@ export const LandingPage = () => {
                 passwordInput
               );
 
-              if (!authorize.token ) {
+              if (!authorize.token) {
                 toast.error("Username and/or Password Not found");
 
                 setUserNameInput("");
