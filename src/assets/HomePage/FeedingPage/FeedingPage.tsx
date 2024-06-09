@@ -138,7 +138,7 @@ export const FeedingPage = () => {
           <div className="categoryName">
             <h1>
               {infantMode === "off"
-                ? "Meal"
+                ? "Meals"
                 : `${feed === "bottleFeed" ? "Bottle" : "Breast"} Feeding`}
             </h1>
           </div>
