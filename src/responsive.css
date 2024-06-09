@@ -34,7 +34,7 @@
     max-height: 200px;
   }
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 950px) {
   .linksDropDown {
     display: block;
   }
@@ -76,14 +76,16 @@
 
   .tabs {
     display: flex;
+   
   }
   .tabs p {
     font-size: 12px;
     font-weight: 600;
     margin: 5px;
+    text-align: center;
   }
   .tabContainer {
-    max-width: 100px;
+    width: 25vw;
     background-color: transparent;
   }
   div.category {

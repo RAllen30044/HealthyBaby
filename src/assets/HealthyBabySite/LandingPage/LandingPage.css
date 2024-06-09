@@ -24,13 +24,19 @@ form {
   display: flex;
   flex-direction: column;
   text-align: left;
-  
 }
-.t{
-  font-size: 100px;
-}
+
 form h3 {
   text-align: center;
+}
+
+.babyIconContainer {
+  height: 30px;
+  width: 35px;
+}
+.babyIcon {
+  height: 100%;
+  width: 100%;
 }
 
 h1 {
@@ -149,7 +155,6 @@ li.healthyBabyIcon.child-dress {
   }
 }
 
-
 @media (max-width: 768px) {
   :root {
     --healthyBabyIcons-width: 100%;
@@ -181,20 +186,20 @@ li.healthyBabyIcon.child-dress {
     width: 5rem;
   }
 }
-.landingPage h1{
+.landingPage h1 {
   margin-top: 0px;
 }
-.input{
-  box-shadow: 1px 1px 1px ;
+.input {
+  box-shadow: 1px 1px 1px;
   border: 1px solid black;
   border-radius: 5px;
 }
-input.passwordInput{
+input.passwordInput {
   margin-left: 0;
 }
-input.usernameInput{
+input.usernameInput {
   margin-left: 0;
 }
-#T{
-  font-size: 175px;;
+#T {
+  font-size: 175px;
 }

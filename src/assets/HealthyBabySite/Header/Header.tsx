@@ -131,10 +131,14 @@ export const Header = () => {
                   }
                 }}
               >
-                <i
-                  className={`fa-solid fa-baby `}
-                  style={{ color: "#a0c0fa" }}
-                ></i>
+            
+                <div className="babyIconContainer">
+                  <img
+                    className="babyIcon"
+                    src="https://cdn0.iconfinder.com/data/icons/streamline-emoji-1/48/110-baby-3-1024.png"
+                    alt="Baby Icon"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -420,10 +424,17 @@ export const Header = () => {
                     setTime("");
                   }}
                 >
-                  <i
+                  {/* <i
                     className={`fa-solid fa-baby `}
                     style={{ color: "#a0c0fa" }}
-                  ></i>
+                  ></i> */}
+                  <div className="babyIconContainer">
+                    <img
+                      className="babyIcon"
+                      src="https://cdn0.iconfinder.com/data/icons/streamline-emoji-1/48/110-baby-3-1024.png"
+                      alt="babyIcon"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
