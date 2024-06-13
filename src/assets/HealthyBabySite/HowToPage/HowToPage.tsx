@@ -1,14 +1,14 @@
-import "./AboutPage.css";
+import "./HowToPage.css";
 
-export const AboutPage = () => {
+export const HowToPage = () => {
   return (
     <>
-      <h1>About Us</h1>
+      <h1>How To Use</h1>
       <div className="aboutContainer">
         <div className="AboutTheSite">
           <h3 className="aboutText">
-            Welcome to the Healthy Baby site where parents can have a place to
-            know what care their child(ren) has had throughout each day.
+            Welcome to Kiddo Kronicles where parents can have a place to know
+            what care their child(ren) has had throughout each day.
           </h3>
         </div>
         <div className="purpose">
@@ -75,7 +75,7 @@ export const AboutPage = () => {
             stripes in the top right corner to see the drop down menu. To Add a
             child you can link that is shown with this same drop down menu. In
             mobile use the categories will be tabs that you can select. While
-            the Home, About Us, Edit Profile, and Log Out will be in the
+            the Home, How To, Edit Profile, Add Child and Log Out will be in the
             dropdown menu.
           </p>
         </div>
@@ -86,7 +86,7 @@ export const AboutPage = () => {
             stripes in the top right corner to see the drop down menu. To Add a
             child you can link that is shown with this same drop down menu. In
             mobile use the categories will be tabs that you can select. While
-            the Home, About Us, Edit Profile, and Log Out will be in the
+            the Home, About Us, Edit Profile, Add Child and Log Out will be in the
             dropdown menu.
           </p>
           <ol className="categoriesList">
@@ -153,8 +153,8 @@ export const AboutPage = () => {
           <p>
             The edit a specific child information. Select the child by using the
             the select a child guidelines explained previously, then click the
-            edit button that is below the child information. It will take you
-            to the edit child page where you can change the child's information
+            edit button that is below the child information. It will take you to
+            the edit child page where you can change the child's information
             that you have selected.
           </p>
         </div>
@@ -169,7 +169,7 @@ export const AboutPage = () => {
         </div>
         <div className="closing">
           <p>
-            I hope you enjoy our site and thank you for visiting Healthy Baby 😇
+            I hope you enjoy our site and thank you for visiting Kiddo Kronicles 😇
           </p>
         </div>
       </div>

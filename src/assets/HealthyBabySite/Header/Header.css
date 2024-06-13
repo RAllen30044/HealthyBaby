@@ -34,8 +34,9 @@ header {
   background-color: rgba(208, 206, 209, 0.9);
   border-radius: 10px;
   position: absolute;
-  width: 136px;
-  top: 85px;
+  width: 100%;
+  top: 30px;
+  right: 0px
 }
 
 .filteredChildInfo {

@@ -17,7 +17,7 @@ type TActiveMainComponent =
   | "editChild"
   | "editProfile"
   | "landingPage"
-  | "about"
+  | "howTo"
   | "home"
   | "signUp";
 

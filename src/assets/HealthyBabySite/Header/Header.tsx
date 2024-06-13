@@ -71,40 +71,41 @@ export const Header = () => {
             <div className="clickPositioning">
               <i className={`fa-solid fa-chevron-${chevronPosition}`}></i>
             </div>
-          </div>
-          <div
-            className={`childNameContainer ${
-              chevronPosition === "down" ? "hidden" : ""
-            }`}
-          >
-            {profileChildren.map((childProfile) => {
-              return (
-                <div
-                  className={`child ${
-                    childId === childProfile.id ? "selectedChild" : ""
-                  }`}
-                  style={
-                    childId === childProfile.id
-                      ? { color: `${switchColors(activeHomePageComponent)}` }
-                      : {}
-                  }
-                  key={childProfile.id}
-                  onClick={() => {
-                    const selectedChildId = childProfile.id;
 
-                    setChildId(selectedChildId);
-                    localStorage.setItem(
-                      "childId",
-                      JSON.stringify(selectedChildId)
-                    );
+            <div
+              className={`childNameContainer ${
+                chevronPosition === "down" ? "hidden" : ""
+              }`}
+            >
+              {profileChildren.map((childProfile) => {
+                return (
+                  <div
+                    className={`child ${
+                      childId === childProfile.id ? "selectedChild" : ""
+                    }`}
+                    style={
+                      childId === childProfile.id
+                        ? { color: `${switchColors(activeHomePageComponent)}` }
+                        : {}
+                    }
+                    key={childProfile.id}
+                    onClick={() => {
+                      const selectedChildId = childProfile.id;
 
-                    setChevronPosition("down");
-                  }}
-                >
-                  {childProfile.name}
-                </div>
-              );
-            })}
+                      setChildId(selectedChildId);
+                      localStorage.setItem(
+                        "childId",
+                        JSON.stringify(selectedChildId)
+                      );
+
+                      setChevronPosition("down");
+                    }}
+                  >
+                    {childProfile.name}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -131,7 +132,6 @@ export const Header = () => {
                   }
                 }}
               >
-            
                 <div className="babyIconContainer">
                   <img
                     className="babyIcon"
@@ -172,14 +172,14 @@ export const Header = () => {
               <div
                 className={` pageLink `}
                 onClick={() => {
-                  setActiveMainComponent("about");
-                  setActiveMainComponentInLocalStorage("about");
+                  setActiveMainComponent("howTo");
+                  setActiveMainComponentInLocalStorage("howTo");
                   setIsSubmitted(false);
                   setDate("");
                   setTime("");
                 }}
               >
-                About Us
+                How To
               </div>
               <div
                 className={`pageLink `}
@@ -241,8 +241,8 @@ export const Header = () => {
               <div
                 className={` pageLink `}
                 onClick={() => {
-                  setActiveMainComponent("about");
-                  setActiveMainComponentInLocalStorage("about");
+                  setActiveMainComponent("howTo");
+                  setActiveMainComponentInLocalStorage("howTo");
                   setIsSubmitted(false);
                   setDate("");
                   setTime("");
@@ -280,11 +280,11 @@ export const Header = () => {
                 className={` LandingPageLink `}
                 onClick={() => {
                   setIsSubmitted(false);
-                  setActiveMainComponent("about");
-                  setActiveMainComponentInLocalStorage("about");
+                  setActiveMainComponent("howTo");
+                  setActiveMainComponentInLocalStorage("howTo");
                 }}
               >
-                About Us
+              How To
               </div>
               <div
                 className={` LandingPageLink `}
@@ -424,10 +424,6 @@ export const Header = () => {
                     setTime("");
                   }}
                 >
-                  {/* <i
-                    className={`fa-solid fa-baby `}
-                    style={{ color: "#a0c0fa" }}
-                  ></i> */}
                   <div className="babyIconContainer">
                     <img
                       className="babyIcon"
@@ -457,9 +453,6 @@ export const Header = () => {
                   onClick={() => {
                     setHiddenPagesLinks(!hiddenPagesLinks);
                   }}
-                  // onClick={() => {
-                  //   setHiddenPagesLinks(!hiddenPagesLinks);
-                  // }}
                   style={
                     hiddenPagesLinks === true ? { fontSize: "larger" } : {}
                   }
@@ -493,19 +486,19 @@ export const Header = () => {
                   </div>
                   <div
                     className={` mobileLink  ${
-                      activeMainComponent === "about" ? "selected" : ""
+                      activeMainComponent === "howTo" ? "selected" : ""
                     }`}
                     onClick={() => {
                       setIsSubmitted(false);
-                      setActiveMainComponent("about");
-                      setActiveMainComponentInLocalStorage("about");
+                      setActiveMainComponent("howTo");
+                      setActiveMainComponentInLocalStorage("howTo");
                       setDate("");
                       setTime("");
                       setHiddenPagesLinks(!hiddenPagesLinks);
                     }}
                   >
                     <div className="linkContainer">
-                      <div className="aboutContainer"> About Us</div>
+                      <div className="aboutContainer"> How To</div>
                     </div>
                   </div>
                   <div
@@ -583,15 +576,15 @@ export const Header = () => {
                 className={` about mobileLandingLink  `}
                 onClick={() => {
                   setIsSubmitted(false);
-                  setActiveMainComponent("about");
-                  setActiveMainComponentInLocalStorage("about");
+                  setActiveMainComponent("howTo");
+                  setActiveMainComponentInLocalStorage("howTo");
                   setDate("");
                   setTime("");
                   setHiddenPagesLinks(!hiddenPagesLinks);
                 }}
               >
                 <div className="linkContainer">
-                  <div className="aboutContainerLanding"> About Us</div>
+                  <div className="aboutContainerLanding"> How To</div>
                 </div>
               </div>
               <div
