@@ -248,7 +248,7 @@ export const Header = () => {
                   setTime("");
                 }}
               >
-                About Us
+               How To
               </div>
               <div
                 className={` pageLink `}
