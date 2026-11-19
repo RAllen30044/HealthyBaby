@@ -196,6 +196,9 @@ export const LandingPage = () => {
             <button type="submit" className="logInButton">
               Login
             </button>
+           <button type="button" className="logInButton">
+              Try now
+            </button>
           </form>
         </div>
       </div>
