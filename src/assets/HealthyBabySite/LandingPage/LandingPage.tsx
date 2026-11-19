@@ -196,7 +196,9 @@ export const LandingPage = () => {
             <button type="submit" className="logInButton">
               Login
             </button>
-           <button type="button" className="logInButton">
+           <button type="button" onClick={()=>{
+            setUserNameInput("recruiter")
+            setPasswordInput("HireHim#1")}} className="logInButton">
               Try now
             </button>
           </form>
