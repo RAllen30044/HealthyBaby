@@ -29,15 +29,7 @@ export const HowToPage = () => {
             your experience using the website.
           </p>
           <ol>
-            <p>
-              <li>
-                When you sign up to this site, just remember that the
-                authentication is not a true secured authentication. Therefore,
-                when signing up to the we do not recommend using the full name
-                of people, rather the first names or nicknames to ensure
-                identity concealment.
-              </li>
-            </p>
+      
             <p>
               <li>
                 After you sign up to this site, You must add a child to your
@@ -93,7 +85,7 @@ export const HowToPage = () => {
             <li>
               <h3>Feeding</h3>
               <p>
-                Feeding has 3 sub catagories. Bottle feeding, Breast feeding and
+                Feeding has 3 sub categories. Bottle feeding, Breast feeding and
                 Eating. Eating is a toggle that indicate that the child will now
                 be eating solid foods and will turn of the baby food mode.
               </p>
