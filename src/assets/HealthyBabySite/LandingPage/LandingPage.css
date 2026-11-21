@@ -58,10 +58,10 @@ button {
 .logInButton:hover {
   background-color: lightgray;
 }
-.tryMebutton{
+.tryMeButton{
 background-color: darkred;
 }
-.tryMebutton:hover {
+.tryMeButton:hover {
   background-color: red;
 }
 /* button:focus,
