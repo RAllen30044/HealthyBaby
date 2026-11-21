@@ -59,10 +59,10 @@ button {
   background-color: lightgray;
 }
 .tryMeButton{
-background-color: darkred;
+background-color: red;
 }
 .tryMeButton:hover {
-  background-color: red;
+  background-color: darkred;
 }
 /* button:focus,
 button:focus-visible {
