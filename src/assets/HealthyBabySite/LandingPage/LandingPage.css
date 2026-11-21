@@ -60,6 +60,7 @@ button {
 }
 .tryMeButton{
 background-color: red;
+color: white;
 }
 .tryMeButton:hover {
   background-color: darkred;
