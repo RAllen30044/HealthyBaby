@@ -58,6 +58,12 @@ button {
 .logInButton:hover {
   background-color: lightgray;
 }
+.tryMebutton{
+background-color: darkred;
+}
+.tryMebutton:hover {
+  background-color: red;
+}
 /* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
